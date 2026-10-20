@@ -21,7 +21,7 @@ export interface SessionPayload {
  * Enforces strong production secrets and prevents insecure fallback leaks.
  */
 export function getJwtSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET || process.env.SESSION_SECRET || 'securemax-dev-jwt-secret-minimum-32-chars-long-secure-padding';
+  const secret = process.env.JWT_SECRET || 'securemax-dev-jwt-secret-minimum-32-chars-long-secure-padding';
   return new TextEncoder().encode(secret);
 }
 

@@ -46,6 +46,7 @@ export default function SecurityCenterPage() {
     setScanning(true);
     setErrorMsg(null);
     try {
+      // Real deterministic check execution
       const res = await runSecurityScanAction('admin-dashboard');
       if (res.success) {
         await loadData();
@@ -62,167 +63,133 @@ export default function SecurityCenterPage() {
   const isHealthy = data.incidents.length === 0 && data.findings.filter(f => f.status === 'OPEN').length === 0;
 
   return (
-    <div className="space-y-6 font-sans selection:bg-blue-600/30 pb-12 animate-in fade-in duration-300">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-12">
       {errorMsg && (
-        <div className="bg-red-950/40 border border-red-500/40 text-red-300 px-4 py-3 rounded-xl flex items-center justify-between shadow-sm">
-          <span className="text-xs font-mono">{errorMsg}</span>
-          <Button variant="ghost" size="sm" onClick={() => setErrorMsg(null)} className="h-6 w-6 p-0 text-slate-400 hover:text-white">
-            <span className="sr-only">Close</span>✕
-          </Button>
+        <div className="bg-destructive/10 border border-destructive text-destructive px-4 py-3 rounded-md flex items-center justify-between mb-4">
+          <span className="text-sm font-medium">{errorMsg}</span>
+          <Button variant="ghost" size="sm" onClick={() => setErrorMsg(null)} className="h-6 w-6 p-0"><span className="sr-only">Close</span>✕</Button>
         </div>
       )}
-
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[#0F172A] border border-slate-800 rounded-xl p-6 shadow-sm">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <div>
-          <div className="text-blue-400 font-mono text-xs uppercase tracking-wider mb-1 font-semibold">
-            SENTINEL ATTACK ENGINE
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
-            <ShieldCheck className="h-7 w-7 text-blue-400" />
-            Security Posture
-          </h1>
-          <p className="text-xs text-slate-400 mt-1 font-normal">
-            Automated deterministic sandbox vulnerability scans and continuous policy enforcement.
-          </p>
+          <h2 className="text-3xl font-bold tracking-tight text-foreground">Security Center</h2>
+          <p className="text-muted-foreground mt-1">Continuous Security &amp; Policy Enforcement Engine</p>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <Badge variant="outline" className="border-blue-500/30 text-blue-400 bg-blue-950/40 font-mono text-xs px-3 py-1.5">
-            Role: {sessionRole}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-4 sm:mt-0">
+          <Badge variant="outline" className="border-cyan-500/50 text-cyan-400 px-4 py-1.5 font-mono">
+            ROLE: {sessionRole}
           </Badge>
-          <Button 
-            onClick={handleRunScan} 
-            disabled={scanning} 
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs px-4 py-2 flex items-center gap-2 shadow-sm font-sans"
-          >
-            {scanning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5 fill-current" />}
-            <span>{scanning ? 'Running Sandbox Scan...' : 'Run Security Scan'}</span>
+          <Button onClick={handleRunScan} disabled={scanning} className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono">
+            {scanning ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Play className="mr-2 h-4 w-4 fill-current" />}
+            {scanning ? 'EXECUTING...' : 'RUN SANDBOX SCAN'}
           </Button>
         </div>
       </div>
 
-      {/* Overview Cards */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="p-5 rounded-xl bg-[#0F172A] border border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Posture Status</span>
-            <div className="w-8 h-8 rounded-lg bg-blue-950/40 border border-blue-500/30 flex items-center justify-center text-blue-400">
-              {isHealthy ? <ShieldCheck className="h-4 w-4 text-emerald-400" /> : <ShieldAlert className="h-4 w-4 text-red-400" />}
-            </div>
-          </div>
-          <div className={`text-2xl font-bold font-mono tracking-tight ${isHealthy ? 'text-emerald-400' : 'text-red-400'}`}>
-            {isHealthy ? 'SECURE' : 'ACTION REQ'}
-          </div>
-          <p className="text-[11px] font-mono text-slate-400 mt-2">Deterministic Verification</p>
-        </div>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card className=" ">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Posture Status</CardTitle>
+            {isHealthy ? <ShieldCheck className="h-4 w-4 text-emerald-500" /> : <ShieldAlert className="h-4 w-4 text-destructive" />}
+          </CardHeader>
+          <CardContent>
+            <div className={`text-2xl font-bold font-mono ${isHealthy ? 'text-emerald-500' : 'text-destructive'}`}>{isHealthy ? 'SECURE' : 'ACTION REQ'}</div>
+            <p className="text-xs text-muted-foreground mt-1">Deterministic state</p>
+          </CardContent>
+        </Card>
         
-        <div className="p-5 rounded-xl bg-[#0F172A] border border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Open Incidents</span>
-            <div className="w-8 h-8 rounded-lg bg-blue-950/40 border border-blue-500/30 flex items-center justify-center text-blue-400">
-              <ShieldAlert className="h-4 w-4 text-amber-400" />
-            </div>
-          </div>
-          <div className="text-2xl font-bold font-mono text-amber-400 tracking-tight">
-            {data.incidents.length}
-          </div>
-          <p className="text-[11px] font-mono text-slate-400 mt-2">Active Investigations</p>
-        </div>
+        <Card className=" ">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Open Incidents</CardTitle>
+            <ShieldAlert className="h-4 w-4 text-amber-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold font-mono text-amber-500">{data.incidents.length}</div>
+            <p className="text-xs text-muted-foreground mt-1">Active investigations</p>
+          </CardContent>
+        </Card>
 
-        <div className="p-5 rounded-xl bg-[#0F172A] border border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Scan Checks Passed</span>
-            <div className="w-8 h-8 rounded-lg bg-blue-950/40 border border-blue-500/30 flex items-center justify-center text-blue-400">
-              <Activity className="h-4 w-4 text-emerald-400" />
-            </div>
-          </div>
-          <div className="text-2xl font-bold font-mono text-emerald-400 tracking-tight">
-            {lastScan?.passed_count || 0}
-          </div>
-          <p className="text-[11px] font-mono text-slate-400 mt-2">Verified Invariants</p>
-        </div>
+        <Card className=" ">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Scan Checks Passed</CardTitle>
+            <Activity className="h-4 w-4 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold font-mono text-primary ">{lastScan?.passed_count || 0}</div>
+            <p className="text-xs text-muted-foreground mt-1">Successfully mitigated</p>
+          </CardContent>
+        </Card>
 
-        <div className="p-5 rounded-xl bg-[#0F172A] border border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Scan Checks Failed</span>
-            <div className="w-8 h-8 rounded-lg bg-blue-950/40 border border-blue-500/30 flex items-center justify-center text-blue-400">
-              <ShieldAlert className="h-4 w-4 text-red-400" />
-            </div>
-          </div>
-          <div className="text-2xl font-bold font-mono text-white tracking-tight">
-            {lastScan?.failed_count || 0}
-          </div>
-          <p className="text-[11px] font-mono text-slate-400 mt-2">Zero Critical Exploits</p>
-        </div>
+        <Card className={` ${lastScan?.failed_count > 0 ? 'border-destructive/50' : ''}`}>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Scan Checks Failed</CardTitle>
+            <ShieldAlert className="h-4 w-4 text-destructive" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold font-mono text-destructive">{lastScan?.failed_count || 0}</div>
+            <p className="text-xs text-muted-foreground mt-1">Vulnerabilities detected</p>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Findings & History Grid */}
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="bg-[#0F172A] border border-slate-800 rounded-xl overflow-hidden shadow-sm">
-          <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-            <div>
-              <h2 className="text-sm font-semibold text-white flex items-center gap-2">
-                <ShieldAlert className="w-4 h-4 text-amber-400" />
-                <span>Recent Security Findings</span>
-              </h2>
-              <p className="text-xs text-slate-400 mt-0.5">Sandbox-detected vulnerabilities requiring verification</p>
-            </div>
-          </div>
-          <div className="p-5">
+        <Card className=" border-zinc-800">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <ShieldAlert className="w-5 h-5 text-amber-500" /> Recent Findings
+            </CardTitle>
+            <CardDescription>Sandbox-detected vulnerabilities requiring remediation.</CardDescription>
+          </CardHeader>
+          <CardContent>
             {loading ? (
-              <div className="flex justify-center p-8"><Loader2 className="animate-spin text-blue-400" /></div>
+              <div className="flex justify-center p-8"><Loader2 className="animate-spin text-primary" /></div>
             ) : data.findings.length > 0 ? (
               <div className="space-y-3">
                 {data.findings.map(finding => (
-                  <div key={finding.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-colors gap-3">
+                  <div key={finding.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-md bg-black/40 border border-zinc-800 hover:border-zinc-800 transition-colors gap-3">
                     <div className="space-y-1">
-                      <p className="text-xs font-medium text-slate-200">{finding.description.split('-')[0]}</p>
-                      <p className="text-[10px] font-mono text-slate-400">{new Date(finding.created_at).toLocaleString()}</p>
+                      <p className="text-sm font-medium leading-tight">{finding.description.split('-')[0]}</p>
+                      <p className="text-[10px] font-mono text-muted-foreground">{new Date(finding.created_at).toLocaleString()}</p>
                     </div>
-                    <Badge variant={finding.severity === 'CRITICAL' ? 'destructive' : 'outline'} className={finding.severity !== 'CRITICAL' ? "border-amber-500/40 text-amber-400 bg-amber-950/30 font-mono text-[10px] shrink-0" : "font-mono text-[10px] shrink-0"}>
+                    <Badge variant={finding.severity === 'CRITICAL' ? 'destructive' : 'outline'} className={finding.severity !== 'CRITICAL' ? "border-amber-500/50 text-amber-500 font-mono text-[10px] shrink-0" : "font-mono text-[10px] shrink-0"}>
                       {finding.severity}
                     </Badge>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-12 text-center text-slate-400">
-                 <ShieldCheck className="w-10 h-10 text-emerald-400/60 mb-2" />
-                 <p className="text-xs font-medium text-emerald-400">Zero Active Findings</p>
-                 <p className="text-[11px] text-slate-500 mt-1">All fail-closed security properties intact.</p>
+              <div className="flex flex-col items-center justify-center py-12 text-center opacity-70">
+                 <ShieldCheck className="w-12 h-12 text-emerald-500/50 mb-4" />
+                 <p className="text-sm text-emerald-400">Zero active findings.</p>
               </div>
             )}
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
-        <div className="bg-[#0F172A] border border-slate-800 rounded-xl overflow-hidden shadow-sm">
-          <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-            <div>
-              <h2 className="text-sm font-semibold text-white flex items-center gap-2">
-                <Activity className="w-4 h-4 text-blue-400" />
-                <span>Scan History</span>
-              </h2>
-              <p className="text-xs text-slate-400 mt-0.5">Execution telemetry of the Sentinel engine</p>
-            </div>
-          </div>
-          <div className="p-5">
+        <Card className=" border-zinc-800">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+               <Activity className="w-5 h-5 text-primary" /> Scan History
+            </CardTitle>
+            <CardDescription>Execution telemetry of the Security engine.</CardDescription>
+          </CardHeader>
+          <CardContent>
              {loading ? (
-              <div className="flex justify-center p-8"><Loader2 className="animate-spin text-blue-400" /></div>
+              <div className="flex justify-center p-8"><Loader2 className="animate-spin text-primary" /></div>
             ) : data.scans.length > 0 ? (
               <div className="space-y-3">
                 {data.scans.map(scan => (
-                  <div key={scan.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-colors gap-3">
+                  <div key={scan.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-md bg-black/40 border border-zinc-800 hover:border-zinc-800 transition-colors gap-3">
                     <div className="space-y-1">
-                      <p className="text-xs font-medium text-slate-200">Automated Sandbox Scan</p>
-                      <p className="text-[10px] font-mono text-slate-400">{new Date(scan.started_at).toLocaleString()}</p>
+                      <p className="text-sm font-medium">Automated Sandbox Scan</p>
+                      <p className="text-[10px] font-mono text-muted-foreground">{new Date(scan.started_at).toLocaleString()}</p>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="text-[11px] font-mono flex items-center gap-2">
-                        <span className="text-emerald-400 font-medium">Passed: {scan.passed_count}</span>
-                        <span className="text-slate-400">|</span>
-                        <span className="text-red-400 font-medium">Failed: {scan.failed_count}</span>
+                    <div className="flex items-center gap-4">
+                      <div className="text-[10px] font-mono flex items-center gap-3">
+                        <span className="text-emerald-400">P:{scan.passed_count}</span>
+                        <span className="text-destructive">F:{scan.failed_count}</span>
                       </div>
-                      <Badge variant="outline" className="border-blue-500/30 text-blue-400 bg-blue-950/40 font-mono text-[10px]">
+                      <Badge variant="outline" className={scan.status === 'COMPLETED' ? 'border-primary/30 text-primary font-mono text-[10px]' : 'font-mono text-[10px]'}>
                         {scan.status}
                       </Badge>
                     </div>
@@ -230,10 +197,10 @@ export default function SecurityCenterPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-slate-500 text-center py-12">No scan history recorded.</p>
+              <p className="text-sm text-muted-foreground text-center py-12">No scan history available.</p>
             )}
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

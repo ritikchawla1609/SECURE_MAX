@@ -4,7 +4,7 @@ test.describe('Dashboard navigation', () => {
   test('User can see login options', async ({ page }) => {
     await page.goto('/');
     
-    await expect(page.locator('text=Sign In').first()).toBeVisible();
+    await expect(page.locator('text=Team Member Login').first()).toBeVisible();
   });
 });
 

@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Key, CheckCircle2, ShieldCheck, Sparkles, Loader2, Clock, ShieldAlert, FileText, UserCheck, Shield, Ban, XCircle, AlertCircle } from 'lucide-react';
+import { Key, CheckCircle2, ShieldCheck, Sparkles, Loader2, Clock, ShieldAlert, FileText, UserCheck, Shield, Ban, XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
 import { fetchAllAccessRequestsAction, approveAccessRequestAction, rejectAccessRequestAction } from '@/app/actions/accessRequests';
 import { StoredAccessRequest } from '@/lib/auth/deviceStore';
 import { useRealtimeSync } from '@/lib/hooks/useRealtimeSync';
@@ -16,11 +14,6 @@ export function AdminAccessApprovalsCard() {
   const [approvingId, setApprovingId] = useState<string | null>(null);
   const [rejectingId, setRejectingId] = useState<string | null>(null);
   const [successBanner, setSuccessBanner] = useState<string | null>(null);
-  const [errorBanner, setErrorBanner] = useState<string | null>(null);
-
-  // Accessible Rejection Dialog State
-  const [rejectTarget, setRejectTarget] = useState<{ id: string; name: string } | null>(null);
-  const [rejectReason, setRejectReason] = useState<string>('Clearance denied by administrator');
 
   const loadRequests = useCallback(async (isBackground = false) => {
     try {
@@ -46,7 +39,6 @@ export function AdminAccessApprovalsCard() {
   const handleApprove = async (reqId: string) => {
     setApprovingId(reqId);
     setSuccessBanner(null);
-    setErrorBanner(null);
     try {
       const res = await approveAccessRequestAction({ requestId: reqId });
       if (res.success && res.request) {
@@ -54,39 +46,30 @@ export function AdminAccessApprovalsCard() {
         setSuccessBanner(`Access Permit approved & minted! NFT Token: ${res.request.nft_token_id}`);
         setTimeout(() => setSuccessBanner(null), 6000);
       } else {
-        setErrorBanner(res.error || 'Failed to approve request');
+        alert(res.error || 'Failed to approve request');
       }
     } catch (err: any) {
-      setErrorBanner(err.message || 'Approval error');
+      alert(err.message || 'Approval error');
     } finally {
       setApprovingId(null);
     }
   };
 
-  const handleOpenReject = (req: StoredAccessRequest) => {
-    setRejectTarget({ id: req.id, name: req.asset_name || req.asset_id || 'System Asset' });
-    setRejectReason('Clearance denied by administrator');
-  };
-
-  const handleConfirmReject = async () => {
-    if (!rejectTarget) return;
-    const reqId = rejectTarget.id;
-    const reason = rejectReason.trim() || 'Clearance denied by administrator';
+  const handleReject = async (reqId: string) => {
+    const reason = prompt('Please enter rejection justification / reason:') || 'Clearance denied by administrator';
     setRejectingId(reqId);
     setSuccessBanner(null);
-    setErrorBanner(null);
     try {
       const res = await rejectAccessRequestAction({ requestId: reqId, reason });
       if (res.success && res.request) {
         setRequests(prev => prev.map(r => r.id === reqId ? res.request! : r));
         setSuccessBanner(`Access request rejected for ${res.request.user_name || res.request.user_email}`);
         setTimeout(() => setSuccessBanner(null), 6000);
-        setRejectTarget(null);
       } else {
-        setErrorBanner(res.error || 'Failed to reject clearance');
+        alert(res.error || 'Failed to reject clearance');
       }
     } catch (err: any) {
-      setErrorBanner(err.message || 'Error rejecting request');
+      alert(err.message || 'Error rejecting request');
     } finally {
       setRejectingId(null);
     }
@@ -97,15 +80,15 @@ export function AdminAccessApprovalsCard() {
   const rejectedRequests = requests.filter(r => r.status === 'REJECTED');
 
   return (
-    <div className="bg-[#0F172A] border border-slate-800 rounded-xl p-6 shadow-sm space-y-5">
+    <div className="bg-[#0a0f18] border border-cyan-500/30 rounded-2xl p-6 shadow-[0_0_30px_rgba(6,182,212,0.1)] space-y-5">
       {/* Header with simple language */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-zinc-800 gap-2">
         <div>
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
             <Key className="w-5 h-5 text-amber-400" />
             File Access &amp; Audit Approvals (NFT Permits)
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-zinc-400 mt-1">
             Review team member requests to unlock high-risk files and grant auditor update clearance with on-chain NFT permits.
           </p>
         </div>
@@ -115,19 +98,6 @@ export function AdminAccessApprovalsCard() {
           </Badge>
         </div>
       </div>
-
-      {/* Error Banner */}
-      {errorBanner && (
-        <div className="bg-red-950/40 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg text-xs font-mono flex items-center justify-between shadow-sm animate-in fade-in">
-          <div className="flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-            <span>{errorBanner}</span>
-          </div>
-          <button onClick={() => setErrorBanner(null)} className="text-red-400 hover:text-red-200">
-            &times;
-          </button>
-        </div>
-      )}
 
       {/* Success Notification Banner */}
       {successBanner && (
@@ -184,12 +154,12 @@ export function AdminAccessApprovalsCard() {
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-slate-800 flex items-center gap-2">
+                <div className="pt-2 border-t border-zinc-800/80 flex items-center gap-2">
                   <Button
                     size="sm"
                     disabled={approvingId === req.id || rejectingId === req.id}
                     onClick={() => handleApprove(req.id)}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs py-2 shadow-sm"
+                    className="flex-1 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs py-2 shadow-[0_0_15px_rgba(245,158,11,0.2)]"
                   >
                     {approvingId === req.id ? (
                       <>
@@ -208,7 +178,7 @@ export function AdminAccessApprovalsCard() {
                     size="sm"
                     variant="outline"
                     disabled={approvingId === req.id || rejectingId === req.id}
-                    onClick={() => handleOpenReject(req)}
+                    onClick={() => handleReject(req.id)}
                     className="border-red-500/40 text-red-400 hover:bg-red-950/40 text-xs py-2"
                   >
                     {rejectingId === req.id ? (
@@ -293,53 +263,6 @@ export function AdminAccessApprovalsCard() {
             ))}
           </div>
         </div>
-      )}
-
-      {/* Accessible Rejection Dialog */}
-      {rejectTarget && (
-        <Dialog open={Boolean(rejectTarget)} onOpenChange={(open) => !open && setRejectTarget(null)}>
-          <DialogContent onClose={() => setRejectTarget(null)}>
-            <DialogHeader>
-              <DialogTitle>Reject Access Request</DialogTitle>
-              <DialogDescription>
-                Provide a justification for denying clearance to access <strong className="text-white">{rejectTarget.name}</strong>.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-medium text-slate-300">Justification / Reason</label>
-                <Input
-                  value={rejectReason}
-                  onChange={(e) => setRejectReason(e.target.value)}
-                  placeholder="e.g., Insufficient security clearance, mission scope expired"
-                  className="bg-slate-900 border-slate-800 text-white text-xs"
-                  autoFocus
-                />
-              </div>
-              <DialogFooter>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setRejectTarget(null)}
-                  className="border-slate-800 text-slate-300 hover:bg-slate-800 text-xs"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  disabled={Boolean(rejectingId)}
-                  onClick={handleConfirmReject}
-                  className="bg-red-600 hover:bg-red-700 text-white text-xs font-medium"
-                >
-                  {rejectingId ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" /> : null}
-                  Confirm Denial
-                </Button>
-              </DialogFooter>
-            </div>
-          </DialogContent>
-        </Dialog>
       )}
     </div>
   );

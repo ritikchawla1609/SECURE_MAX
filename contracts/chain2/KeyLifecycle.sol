@@ -77,6 +77,6 @@ contract KeyLifecycle is Ownable, ReentrancyGuard {
     }
 
     function isKeyActive(bytes32 keyId) external view returns (bool) {
-        return keys[keyId].createdAt != 0 && keys[keyId].status == ISecureMax.KeyState.Active;
+        return keys[keyId].status == ISecureMax.KeyState.Active;
     }
 }

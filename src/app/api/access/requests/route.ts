@@ -10,14 +10,16 @@ export async function GET() {
     await deviceStore.loadFromCloud();
   }
   try {
-    const session = await getVerifiedSession();
-    const isAdmin = session.role === UserRole.ADMIN;
+    const session = await getVerifiedSession().catch(() => null);
     const allRequests = deviceStore.getAccessRequests();
-    const allLiveGrants = deviceStore.getLiveGrants();
+    const liveGrants = deviceStore.getLiveGrants();
 
-    const requests = isAdmin ? allRequests : allRequests.filter(r => r.user_id === session.userId);
-    const liveGrants = isAdmin ? allLiveGrants : allLiveGrants.filter(g => (g.userId || g.user_id) === session.userId);
+    let requests = allRequests;
+    if (session && session.role !== UserRole.ADMIN) {
+      requests = allRequests.filter(r => r.user_id === session.userId);
+    }
 
+    
     if (deviceStore?.lastSyncPromise) {
       await deviceStore.lastSyncPromise;
     }
@@ -27,10 +29,11 @@ export async function GET() {
       liveGrants,
     });
   } catch (error: any) {
+    
     if (deviceStore?.lastSyncPromise) {
       await deviceStore.lastSyncPromise;
     }
-    return NextResponse.json({ error: error.message || 'Unauthorized: Active session required' }, { status: 401 });
+    return NextResponse.json({ error: error.message || 'Failed to fetch access data' }, { status: 500 });
   }
 }
 

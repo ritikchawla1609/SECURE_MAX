@@ -1,8 +1,7 @@
 'use client';
 
-import LandingPage from '@/components/landing/LandingPage';
+import SecureMaxHeroLogin from '@/components/auth/SecureMaxHeroLogin';
 
 export default function HomePage() {
-  return <LandingPage />;
+  return <SecureMaxHeroLogin />;
 }
-

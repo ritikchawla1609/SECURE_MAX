@@ -19,31 +19,32 @@ export async function POST(req: Request) {
     await deviceStore.loadFromCloud();
   }
   try {
-    const session = await getVerifiedSession();
-    if (session.role !== UserRole.ADMIN) {
+    const session = await getVerifiedSession().catch(() => null);
+    if (!session || session.role !== UserRole.ADMIN) {
       if (deviceStore?.lastSyncPromise) {
         await deviceStore.lastSyncPromise;
       }
       return NextResponse.json(
-        { error: 'Forbidden: Only root administrator accounts can activate panic lockout' },
+        { error: 'Unauthorized: Only authenticated root administrator accounts can activate panic lockout' },
         { status: 403 }
       );
     }
 
     const body = await req.json().catch(() => ({}));
-    const targetAdminId = body.adminId || session.userId;
+    const adminId = session.userId || body.adminId;
 
-    if (targetAdminId !== session.userId) {
+    if (!adminId) {
       if (deviceStore?.lastSyncPromise) {
         await deviceStore.lastSyncPromise;
       }
       return NextResponse.json(
-        { error: 'Forbidden: Cannot trigger panic lockout for a different administrator identity' },
-        { status: 403 }
+        { error: 'Missing administrator ID for panic lock' },
+        { status: 400 }
       );
     }
 
-    const targetAdmin = await deviceStore.getUserByEmailOrId(targetAdminId);
+    // Verify target is admin
+    const targetAdmin = await deviceStore.getUserByEmailOrId(adminId);
     if (!targetAdmin || targetAdmin.role !== UserRole.ADMIN) {
       if (deviceStore?.lastSyncPromise) {
         await deviceStore.lastSyncPromise;
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
       );
     }
 
-    deviceStore.lockAdministrator(targetAdmin.id, session.userId);
+    deviceStore.lockAdministrator(targetAdmin.id, session?.userId || 'PANIC_TRIGGER');
 
     // Clear session cookie immediately
     cookies().delete('securemesh_session');

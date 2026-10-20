@@ -31,11 +31,7 @@ import {
   FolderLock,
   RefreshCw,
   FileCode2,
-  HardDrive,
-  Users,
-  Folder,
-  Download,
-  UserX
+  HardDrive
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -91,8 +87,6 @@ interface VaultAsset {
   blockchainTokenId?: string;
   blockchainContract?: string;
   did?: string;
-  isOwner?: boolean;
-  shares?: Array<{ user_id: string; user_name: string; permissions: string; expires_at: string | null }>;
 }
 
 interface UserDevice {
@@ -162,19 +156,6 @@ export function MyAccessView() {
   const [requestTtl, setRequestTtl] = React.useState<number>(30);
   const [requestSubmitted, setRequestSubmitted] = React.useState(false);
   const [submittingRequest, setSubmittingRequest] = React.useState(false);
-
-  // Tab State
-  const [activeTab, setActiveTab] = React.useState<'permissions' | 'requests'>('permissions');
-
-  // Revoke Access Modal state
-  const [revokeTarget, setRevokeTarget] = React.useState<{
-    assetId: string;
-    assetName: string;
-    userId: string;
-    userName: string;
-  } | null>(null);
-  const [revoking, setRevoking] = React.useState(false);
-  const [revokeNotice, setRevokeNotice] = React.useState<string | null>(null);
 
   // Other Modals
   const [showQrModal, setShowQrModal] = React.useState(false);
@@ -553,69 +534,6 @@ export function MyAccessView() {
     ? `${displayUser.admin_wallet.slice(0, 8)}…${displayUser.admin_wallet.slice(-6)}`
     : 'Hardware P-256 Key Bound (W3C WebAuthn Enclave)';
 
-  const handleConfirmRevoke = async () => {
-    if (!revokeTarget) return;
-    setRevoking(true);
-    try {
-      const res = await fetch('/api/assets/share', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'revoke',
-          assetId: revokeTarget.assetId,
-          targetUserId: revokeTarget.userId,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to revoke access');
-      setRevokeNotice(`Access successfully revoked for ${revokeTarget.userName}.`);
-      setTimeout(() => setRevokeNotice(null), 4000);
-      setRevokeTarget(null);
-      await fetchAssetsData(true);
-    } catch (err: any) {
-      alert(err.message || 'Failed to revoke access');
-    } finally {
-      setRevoking(false);
-    }
-  };
-
-  const ownedAssetsWithShares = React.useMemo(() => {
-    const owned = assets.filter(a => a.isOwner !== false);
-    const rows: Array<{
-      assetId: string;
-      assetCode: string;
-      assetName: string;
-      classification: string;
-      folder: string;
-      recipientId: string;
-      recipientName: string;
-      permissions: string;
-      expiresAt: string | null;
-    }> = [];
-
-    owned.forEach(asset => {
-      if (asset.shares && asset.shares.length > 0) {
-        asset.shares.forEach(share => {
-          if (share.user_id !== (currentUser?.id || currentSession?.userId)) {
-            rows.push({
-              assetId: asset.id,
-              assetCode: asset.code,
-              assetName: asset.name,
-              classification: asset.classification,
-              folder: asset.folder,
-              recipientId: share.user_id,
-              recipientName: share.user_name || (share.user_id === 'ALL' ? 'All Organization Members' : share.user_id),
-              permissions: share.permissions || 'Read, Decrypt',
-              expiresAt: share.expires_at,
-            });
-          }
-        });
-      }
-    });
-
-    return rows;
-  }, [assets, currentUser, currentSession]);
-
   // Check if any device is suspicious/untrusted
   const untrustedDevices = devices.filter(d => d.riskState && d.riskState !== 'TRUSTED');
   const showUntrustedBanner = untrustedDevices.length > 0;
@@ -624,246 +542,166 @@ export function MyAccessView() {
   const latestRequest = requests.length > 0 ? requests[0] : null;
 
   return (
-    <div className="space-y-6 font-sans pb-16">
+    <div className="flex min-h-screen bg-[#070709] text-zinc-100 font-sans selection:bg-emerald-500/30">
       
-      {/* 1. Top Header Bar */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
-        <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
-            <Key className="w-6 h-6 text-blue-400" />
-            Access Management
-          </h1>
-          <p className="text-xs text-slate-400 mt-1">
-            Understand and control who can access your documents, manage permissions, and review cryptographic access requests.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-slate-300 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-xs font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>
-              {currentSession?.assuranceLevel === 'LEVEL_3' 
-                ? 'Assurance Level 3 · MetaMask Admin Validated' 
-                : 'Assurance Level 2 · Hardware P-256 Key Bound'}
-            </span>
+      {/* ---------------------------------------------------- */}
+      {/* LEFT SIDEBAR (DYNAMIC)                               */}
+      {/* ---------------------------------------------------- */}
+      <aside className="w-64 shrink-0 border-r border-zinc-800/80 bg-[#0a0a0d] flex flex-col justify-between hidden lg:flex">
+        <div className="p-5 space-y-6">
+          {/* Brand */}
+          <div className="flex items-center gap-2.5">
+            <Hexagon className="w-6 h-6 text-emerald-400" />
+            <span className="text-sm font-bold tracking-widest uppercase text-white">SECUREMAX</span>
           </div>
 
-          <Button
+          {/* Nav Items */}
+          <nav className="space-y-1 font-mono text-xs">
+            <Link 
+              href="/access"
+              className="flex items-center justify-between px-3 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 font-semibold border-l-2 border-emerald-400"
+            >
+              <span>My Access</span>
+            </Link>
+
+            <Link 
+              href="/assets"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <span>Asset Registry</span>
+            </Link>
+
+            <div 
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors cursor-pointer" 
+              onClick={() => handleOpenRequestModal()}
+            >
+              <span>My Requests</span>
+              {pendingRequestsCount > 0 && (
+                <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded-full border border-amber-500/40 font-bold">
+                  {pendingRequestsCount}
+                </span>
+              )}
+            </div>
+
+            <Link 
+              href="/devices"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <span>My Devices</span>
+            </Link>
+
+            <Link 
+              href="/audit"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <span>My Activity</span>
+            </Link>
+
+            <div 
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors cursor-pointer" 
+              onClick={() => setShowQrModal(true)}
+            >
+              <span>My Identity</span>
+            </div>
+          </nav>
+        </div>
+
+        {/* Bottom User Card (DYNAMIC) */}
+        <div className="p-4 border-t border-zinc-800/80 bg-black/40 font-mono text-xs space-y-2">
+          <div>
+            <div className="font-bold text-zinc-200 truncate">{displayUser.name}</div>
+            <div className="text-[10px] text-cyan-400 font-bold uppercase truncate">
+              {displayUser.position} · {displayUser.role}
+            </div>
+            <div className="text-[10px] text-zinc-500 truncate mt-0.5" title={displayUser.did}>
+              {truncatedDid}
+            </div>
+          </div>
+          <Button 
             size="sm"
-            onClick={() => handleOpenRequestModal()}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs h-9 px-4 shadow-sm flex items-center gap-1.5"
+            variant="outline"
+            onClick={handleLogoutEverywhere}
+            className="w-full border-zinc-800 text-[11px] text-zinc-400 hover:text-red-400 hover:bg-red-950/20 h-7"
           >
-            <Send className="w-3.5 h-3.5" />
-            <span>Request Access</span>
+            <LogOut className="w-3 h-3 mr-1.5" /> Log out everywhere
           </Button>
         </div>
-      </div>
+      </aside>
 
-      {/* 2. Educational Banner: Authorization ≠ Decryption */}
-      <div className="p-4 rounded-xl border border-blue-500/30 bg-blue-950/20 text-xs flex items-start gap-3">
-        <ShieldCheck className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
-        <div className="space-y-1">
-          <div className="font-semibold text-white">
-            Authorization ≠ Decryption
+      {/* ---------------------------------------------------- */}
+      {/* MAIN VIEWPORT                                        */}
+      {/* ---------------------------------------------------- */}
+      <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6 pb-24 lg:pb-8">
+        
+        {/* Mobile Header (DYNAMIC) */}
+        <div className="flex lg:hidden items-center justify-between border-b border-zinc-800/80 pb-3 font-mono text-xs">
+          <div className="flex items-center gap-2">
+            <Hexagon className="w-5 h-5 text-emerald-400" />
+            <span className="font-bold tracking-widest text-white">SECUREMAX</span>
           </div>
-          <div className="text-slate-300 leading-relaxed font-light">
-            Viewing a permission record in the interface confirms identity authorization, but cryptographic decryption is separately enforced by server-side KMS and enclave verification. Revoking access immediately invalidates decryption clearance.
+          <div className="text-zinc-400 text-[11px] bg-zinc-900/80 px-2 py-0.5 rounded border border-zinc-800 truncate max-w-[140px]">
+            {truncatedDid}
           </div>
         </div>
-      </div>
 
-      {/* Revocation Success Notice Banner */}
-      {revokeNotice && (
-        <div className="bg-emerald-950/40 border border-emerald-500/50 text-emerald-300 px-4 py-3 rounded-xl text-xs font-mono flex items-center gap-2 shadow-sm animate-in fade-in">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span>{revokeNotice}</span>
-        </div>
-      )}
-
-      {/* Untrusted Device Warning Banner */}
-      {showUntrustedBanner && (
-        <div className="p-4 rounded-xl border border-amber-500/50 bg-[#161208] space-y-2.5 font-mono text-xs animate-in fade-in">
-          <div className="flex items-center justify-between text-amber-400 font-bold">
-            <span className="text-xs uppercase">Unverified Device Detected</span>
-            <span className="text-[10px] text-amber-500 font-normal">
-              {untrustedDevices[0]?.deviceName || 'Unknown Device'} · {untrustedDevices[0]?.browser} · {untrustedDevices[0]?.os}
-            </span>
+        {/* Top Header Bar */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-zinc-800/80 pb-4">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">My Access</h1>
+            <p className="text-xs text-zinc-400 font-sans mt-0.5">
+              Assets you currently hold cryptographic clearance for
+            </p>
           </div>
-          <p className="text-[11px] text-zinc-300 font-sans">
-            A workstation registered to your account requires risk elevation or re-authentication.
-          </p>
-          <div className="flex gap-2">
+
+          <div className="flex items-center gap-3 font-mono text-xs">
+            <div className="flex items-center gap-1.5 text-zinc-300 bg-zinc-900/60 border border-zinc-800 px-3 py-1.5 rounded-lg text-[11px]">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>
+                {currentSession?.assuranceLevel === 'LEVEL_3' 
+                  ? 'Assurance Level 3 · MetaMask Admin Validated' 
+                  : 'Assurance Level 2 · Hardware P-256 Key Bound'}
+              </span>
+            </div>
+
             <Button
               size="sm"
-              onClick={() => handleRevokeDevice(untrustedDevices[0].deviceId)}
-              className="bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/40 font-bold text-xs h-8"
+              onClick={() => handleOpenRequestModal()}
+              className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs h-8 px-4"
             >
-              Revoke Device
+              Request access
             </Button>
           </div>
         </div>
-      )}
 
-      {/* 3. Tab Switcher */}
-      <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
-        <button
-          type="button"
-          onClick={() => setActiveTab('permissions')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium transition-colors ${
-            activeTab === 'permissions'
-              ? 'bg-blue-600/20 text-blue-300 border border-blue-500/40 font-semibold'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent'
-          }`}
-        >
-          <Users className="w-4 h-4 text-blue-400" />
-          <span>Document Permissions</span>
-          <Badge variant="outline" className="ml-1 px-1.5 py-0 text-[10px] border-slate-700 text-slate-400 bg-slate-900/60 font-mono">
-            {ownedAssetsWithShares.length}
-          </Badge>
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('requests')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium transition-colors ${
-            activeTab === 'requests'
-              ? 'bg-blue-600/20 text-blue-300 border border-blue-500/40 font-semibold'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent'
-          }`}
-        >
-          <Key className="w-4 h-4 text-blue-400" />
-          <span>Access Requests &amp; Active Clearance</span>
-          {pendingRequestsCount > 0 && (
-            <Badge variant="outline" className="ml-1 px-1.5 py-0 text-[10px] border-amber-500/40 text-amber-300 bg-amber-950/40 font-mono">
-              {pendingRequestsCount}
-            </Badge>
-          )}
-        </button>
-      </div>
-
-      {/* 4. Tab 1: Document Permissions */}
-      {activeTab === 'permissions' && (
-        <div className="space-y-5">
-          {/* Summary Strip */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-[#0F172A] border border-slate-800">
-              <div className="text-xs text-slate-400 font-mono">Owned Documents</div>
-              <div className="text-2xl font-bold text-white mt-1">
-                {assets.filter(a => a.isOwner !== false).length}
-              </div>
-              <div className="text-[11px] text-slate-500 mt-1">Files in your encrypted compartment</div>
+        {/* ---------------------------------------------------- */}
+        {/* NOTICE: UNTRUSTED / NEW DEVICE DETECTED (DYNAMIC)    */}
+        {/* ---------------------------------------------------- */}
+        {showUntrustedBanner && (
+          <div className="p-4 rounded-xl border border-amber-500/50 bg-[#161208] space-y-2.5 font-mono text-xs animate-in fade-in">
+            <div className="flex items-center justify-between text-amber-400 font-bold">
+              <span className="text-xs uppercase">Unverified Device Detected</span>
+              <span className="text-[10px] text-amber-500 font-normal">
+                {untrustedDevices[0]?.deviceName || 'Unknown Device'} · {untrustedDevices[0]?.browser} · {untrustedDevices[0]?.os}
+              </span>
             </div>
-            <div className="p-4 rounded-xl bg-[#0F172A] border border-slate-800">
-              <div className="text-xs text-slate-400 font-mono">Delegated Access Grants</div>
-              <div className="text-2xl font-bold text-blue-400 mt-1">
-                {ownedAssetsWithShares.length}
-              </div>
-              <div className="text-[11px] text-slate-500 mt-1">Active recipients with cryptographic keys</div>
-            </div>
-            <div className="p-4 rounded-xl bg-[#0F172A] border border-slate-800">
-              <div className="text-xs text-slate-400 font-mono">Revocation Guarantee</div>
-              <div className="text-sm font-semibold text-emerald-400 mt-2 flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Instant Invalidation</span>
-              </div>
-              <div className="text-[11px] text-slate-500 mt-1">Keys destroyed across KMS &amp; memory cache</div>
+            <p className="text-[11px] text-zinc-300 font-sans">
+              A workstation registered to your account requires risk elevation or re-authentication.
+            </p>
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                onClick={() => handleRevokeDevice(untrustedDevices[0].deviceId)}
+                className="bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/40 font-bold text-xs h-8"
+              >
+                Revoke this device
+              </Button>
             </div>
           </div>
+        )}
 
-          {/* Table of active permissions */}
-          <div className="rounded-xl border border-slate-800 bg-[#0F172A] overflow-hidden">
-            <div className="p-4 border-b border-slate-800 flex items-center justify-between">
-              <div>
-                <h3 className="text-sm font-semibold text-white">Who Can Access Your Documents</h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Manage active recipient clearance. Removing access immediately revokes their cryptographic keys.
-                </p>
-              </div>
-            </div>
-
-            {ownedAssetsWithShares.length === 0 ? (
-              <div className="p-12 text-center space-y-3 font-mono">
-                <Users className="w-10 h-10 text-slate-600 mx-auto" />
-                <div className="text-sm text-slate-300">No active recipient grants on your documents.</div>
-                <p className="text-xs text-slate-500 max-w-md mx-auto">
-                  When you share documents from My Files, recipients will appear here with granted permissions and one-click revocation.
-                </p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs font-mono">
-                  <thead className="bg-[#0B0F19] text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
-                    <tr>
-                      <th className="px-5 py-3.5 font-bold">Document</th>
-                      <th className="px-4 py-3.5 font-bold">Classification</th>
-                      <th className="px-5 py-3.5 font-bold">Recipient</th>
-                      <th className="px-4 py-3.5 font-bold">Permissions</th>
-                      <th className="px-4 py-3.5 font-bold">Status</th>
-                      <th className="px-5 py-3.5 font-bold text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-800/60">
-                    {ownedAssetsWithShares.map((row, idx) => (
-                      <tr key={`${row.assetId}-${row.recipientId}-${idx}`} className="hover:bg-slate-800/30 transition-colors">
-                        <td className="px-5 py-4">
-                          <div className="font-semibold text-white">{row.assetName}</div>
-                          <div className="text-[11px] text-slate-500">{row.assetCode} • {row.folder}</div>
-                        </td>
-                        <td className="px-4 py-4">
-                          <Badge className="border-amber-500/30 text-amber-400 bg-amber-950/20 text-[10px]">
-                            {row.classification}
-                          </Badge>
-                        </td>
-                        <td className="px-5 py-4">
-                          <div className="font-semibold text-slate-200 flex items-center gap-1.5">
-                            <Users className="w-3.5 h-3.5 text-blue-400" />
-                            <span>{row.recipientName}</span>
-                          </div>
-                          <div className="text-[10px] text-slate-500">{row.recipientId}</div>
-                        </td>
-                        <td className="px-4 py-4">
-                          <span className="px-2 py-0.5 rounded border border-blue-500/30 text-blue-300 bg-blue-950/20 text-[10px]">
-                            {row.permissions}
-                          </span>
-                        </td>
-                        <td className="px-4 py-4">
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-emerald-500/30 text-emerald-400 bg-emerald-950/20 text-[10px]">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                            Active
-                          </span>
-                          {row.expiresAt && (
-                            <div className="text-[9px] text-slate-500 mt-0.5">
-                              Exp: {new Date(row.expiresAt).toLocaleDateString()}
-                            </div>
-                          )}
-                        </td>
-                        <td className="px-5 py-4 text-right">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => setRevokeTarget({
-                              assetId: row.assetId,
-                              assetName: row.assetName,
-                              userId: row.recipientId,
-                              userName: row.recipientName,
-                            })}
-                            className="border-red-500/40 text-red-400 hover:bg-red-950/30 text-xs font-mono h-7 px-2.5"
-                          >
-                            <UserX className="w-3 h-3 mr-1" />
-                            Remove Access
-                          </Button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* 5. Tab 2: Access Requests & Active Clearance */}
-      {activeTab === 'requests' && (
+        {/* ---------------------------------------------------- */}
+        {/* TWO-COLUMN LAYOUT                                    */}
+        {/* ---------------------------------------------------- */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           
           {/* ================================================= */}
@@ -872,21 +710,21 @@ export function MyAccessView() {
           <div className="xl:col-span-2 space-y-6">
             
             {/* ACTIVE DECRYPTED CARD (DYNAMIC) */}
-            <div className="rounded-xl border border-slate-800 bg-[#0F172A] overflow-hidden shadow-sm space-y-4">
+            <div className="rounded-2xl border border-emerald-500/40 bg-[#0a0a0d] overflow-hidden shadow-2xl space-y-4">
               
               {/* Top Banner */}
-              <div className="p-3 sm:p-4 bg-slate-900/60 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs">
-                <div className="flex items-center gap-2 text-slate-300 text-[11px]">
-                  <Eye className="w-4 h-4 text-blue-400 shrink-0" />
+              <div className="p-3 sm:p-4 bg-emerald-950/20 border-b border-emerald-500/20 flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+                <div className="flex items-center gap-2 text-zinc-300 text-[11px]">
+                  <Eye className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>
                     {activeGrant 
-                      ? 'Live decrypted session in memory with verified audit record'
-                      : 'Zero-Trust Session Active · Controlled Decryption'}
+                      ? 'This live view is decrypted in memory and verified against the audit ledger'
+                      : 'Zero-Trust Session Active · Controlled Decryption Engine'}
                   </span>
                 </div>
                 {activeGrant && (
                   <div className="flex items-center gap-3">
-                    <span className="text-blue-400 font-mono font-medium text-xs">
+                    <span className="text-emerald-400 font-bold text-xs">
                       {isLocked ? 'LOCKED' : `re-locks in ${formatCountdown(secondsRemaining)}`}
                     </span>
                     <Button
@@ -894,7 +732,7 @@ export function MyAccessView() {
                       variant="outline"
                       disabled={actionInProgress !== null}
                       onClick={() => isLocked ? handleExtendGrant() : handleLockGrant()}
-                      className="border-slate-700 hover:bg-slate-800 text-slate-300 text-[11px] h-6 px-2.5"
+                      className="border-zinc-700 hover:bg-zinc-800 text-zinc-300 text-[11px] h-6 px-2.5"
                     >
                       {actionInProgress === 'extend' || actionInProgress === 'lock' ? (
                         <Loader2 className="w-3 h-3 animate-spin" />
@@ -912,25 +750,25 @@ export function MyAccessView() {
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="text-base font-bold text-white">{activeGrant.assetCode}</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-blue-950/60 border border-blue-500/40 text-blue-300 font-semibold uppercase">
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-bold uppercase">
                         ACTIVE PERMIT
                       </span>
                     </div>
-                    <div className="text-xs text-slate-400 font-sans mt-0.5">
+                    <div className="text-xs text-zinc-400 font-sans mt-0.5">
                       {activeGrant.assetName || 'Cryptographically Bound Document'}
                     </div>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-4 text-xs">
                     <div>
-                      <div className="text-[10px] text-slate-400 uppercase">PURPOSE ON RECORD</div>
-                      <div className="text-slate-300 text-[11px]">
+                      <div className="text-[10px] text-zinc-500 uppercase">PURPOSE ON RECORD</div>
+                      <div className="text-zinc-300 text-[11px]">
                         {activeGrant.note || 'Authorized duty requirement'}
                       </div>
                     </div>
                     <div>
-                      <div className="text-[10px] text-slate-400 uppercase">SESSION IDENTIFIER</div>
-                      <div className="text-blue-400 text-[11px] truncate max-w-[140px]">
+                      <div className="text-[10px] text-zinc-500 uppercase">SESSION IDENTIFIER</div>
+                      <div className="text-emerald-400 text-[11px] truncate max-w-[140px]">
                         Session #{activeGrant.sessionId}
                       </div>
                     </div>
@@ -939,25 +777,25 @@ export function MyAccessView() {
                       variant="outline"
                       disabled={actionInProgress !== null}
                       onClick={handleExtendGrant}
-                      className="border-slate-700 hover:bg-slate-800 text-[11px] text-slate-300 h-7"
+                      className="border-zinc-800 hover:bg-zinc-800 text-[11px] text-zinc-300 h-7"
                     >
                       Extend by 15 min
                     </Button>
                   </div>
                 </div>
               ) : (
-                <div className="px-5 pt-2 pb-1 flex items-center justify-between font-sans text-xs">
+                <div className="px-5 pt-2 pb-1 flex items-center justify-between font-mono text-xs">
                   <div>
-                    <div className="font-semibold text-slate-200">No Active Live Grant In Progress</div>
-                    <p className="text-slate-400 text-[11px] mt-0.5">
-                      Select an authorized document below to decrypt, or submit an access request to obtain an on-chain permit.
+                    <div className="font-bold text-zinc-200">No Active Live Grant In Progress</div>
+                    <p className="text-zinc-400 text-[11px] font-sans mt-0.5">
+                      Select an authorized asset below to decrypt, or submit an access request to obtain an on-chain permit.
                     </p>
                   </div>
                   {clearedAssets.length > 0 && (
                     <Button
                       size="sm"
                       onClick={() => handleOpenDecryptModal(clearedAssets[0])}
-                      className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs h-7 shadow-sm"
+                      className="bg-emerald-600 hover:bg-emerald-500 text-black font-bold text-xs h-7"
                     >
                       Decrypt {clearedAssets[0].code}
                     </Button>
@@ -969,56 +807,56 @@ export function MyAccessView() {
               <div className="px-5 pb-5">
                 {activeGrant ? (
                   isLocked ? (
-                    <div className="p-8 rounded-xl bg-slate-900/60 border border-slate-800 text-center text-slate-400 text-xs space-y-2">
-                      <Lock className="w-6 h-6 text-slate-400 mx-auto" />
+                    <div className="p-8 rounded-xl bg-black/60 border border-zinc-800 text-center text-zinc-500 font-mono text-xs space-y-2">
+                      <Lock className="w-6 h-6 text-zinc-500 mx-auto" />
                       <div>Session clearance expired or manually locked.</div>
                       <Button 
                         size="sm" 
                         onClick={handleExtendGrant} 
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs mt-2"
+                        className="bg-emerald-600 hover:bg-emerald-500 text-black font-bold text-xs mt-2"
                       >
-                        Unlock Clearance
+                        Unlock clearance
                       </Button>
                     </div>
                   ) : loadingActiveGrantDecrypt ? (
-                    <div className="p-8 rounded-xl bg-[#0B0F19] border border-slate-800 text-center font-mono text-xs text-slate-400 flex items-center justify-center gap-2">
-                      <Loader2 className="w-4 h-4 animate-spin text-blue-400" />
+                    <div className="p-8 rounded-xl bg-black border border-zinc-800 text-center font-mono text-xs text-zinc-400 flex items-center justify-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin text-emerald-400" />
                       <span>Deriving session AES-256-GCM key and decrypting...</span>
                     </div>
                   ) : activeGrantDecrypted ? (
-                    <div className="p-4 rounded-xl bg-[#0B0F19] border border-slate-800 font-mono text-xs text-slate-200 leading-relaxed overflow-x-auto shadow-inner">
-                      <div className="text-slate-400 text-[11px] pb-2 mb-2 border-b border-slate-800 flex justify-between items-center">
+                    <div className="p-4 rounded-xl bg-black border border-zinc-800 font-mono text-xs text-emerald-300/90 leading-relaxed overflow-x-auto shadow-inner">
+                      <div className="text-zinc-400 text-[11px] pb-2 mb-2 border-b border-zinc-800 flex justify-between items-center">
                         <span>LIVE DECRYPTED VIEW // {activeGrant.assetCode}</span>
-                        <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/40 text-[9px]">
+                        <Badge className="bg-emerald-500/20 text-emerald-400 text-[9px]">
                           AES-256-GCM
                         </Badge>
                       </div>
-                      <pre className="whitespace-pre-wrap font-mono text-xs text-slate-200">
+                      <pre className="whitespace-pre-wrap font-mono text-xs text-emerald-200">
                         {activeGrantDecrypted}
                       </pre>
                     </div>
                   ) : (
-                    <div className="p-6 rounded-xl bg-[#0B0F19] border border-slate-800 font-mono text-xs text-slate-400 space-y-2">
-                      <div className="text-slate-300 font-bold">Clearance active for {activeGrant.assetCode}</div>
-                      <p className="text-[11px] text-slate-400">
+                    <div className="p-6 rounded-xl bg-black border border-zinc-800 font-mono text-xs text-zinc-400 space-y-2">
+                      <div className="text-zinc-300 font-bold">Clearance active for {activeGrant.assetCode}</div>
+                      <p className="text-[11px] text-zinc-500">
                         Click Decrypt below or select the asset from the list to view its contents.
                       </p>
                     </div>
                   )
                 ) : (
-                  <div className="p-6 rounded-xl bg-slate-900/40 border border-slate-800 text-xs text-slate-400 flex items-center justify-between font-sans">
+                  <div className="p-6 rounded-xl bg-black/40 border border-zinc-800/80 font-mono text-xs text-zinc-400 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <FolderLock className="w-5 h-5 text-blue-400 shrink-0" />
+                      <FolderLock className="w-5 h-5 text-emerald-400 shrink-0" />
                       <div>
-                        <span className="text-slate-200 font-semibold">Vault Status: </span>
-                        <span>{clearedAssets.length} documents cleared for instant decryption · {requestableAssets.length} requestable</span>
+                        <span className="text-zinc-200 font-bold">Vault Status: </span>
+                        <span>{clearedAssets.length} assets cleared for instant decryption · {requestableAssets.length} requestable</span>
                       </div>
                     </div>
                     <Button 
                       size="sm" 
                       variant="outline" 
                       onClick={() => handleOpenRequestModal()} 
-                      className="border-slate-700 text-slate-300 hover:bg-slate-800 text-xs h-7"
+                      className="border-zinc-700 text-zinc-300 text-xs h-7"
                     >
                       Request New Clearance
                     </Button>
@@ -1030,22 +868,22 @@ export function MyAccessView() {
             {/* MY ASSETS LIST (DYNAMIC) */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-white tracking-wider uppercase font-mono">
-                  My Files
+                <h2 className="text-sm font-bold text-white tracking-wider uppercase font-mono">
+                  My assets
                 </h2>
-                <span className="text-xs text-slate-400 font-mono">
-                  {clearedAssets.length} with clearance · {requestableAssets.length} requestable
+                <span className="text-xs text-zinc-400 font-mono">
+                  {clearedAssets.length} with clearance · {requestableAssets.length} you could request
                 </span>
               </div>
 
               {loadingAssets && assets.length === 0 ? (
-                <div className="p-8 rounded-xl border border-slate-800 bg-[#0F172A] text-center font-mono text-xs text-slate-400 flex items-center justify-center gap-2">
-                  <Loader2 className="w-4 h-4 animate-spin text-blue-400" />
-                  <span>Loading vault documents...</span>
+                <div className="p-8 rounded-xl border border-zinc-800 bg-[#0a0a0d] text-center font-mono text-xs text-zinc-500 flex items-center justify-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin text-emerald-400" />
+                  <span>Loading vault assets...</span>
                 </div>
               ) : assets.length === 0 ? (
-                <div className="p-8 rounded-xl border border-slate-800 bg-[#0F172A] text-center font-mono text-xs text-slate-400">
-                  No documents currently found in the vault ledger.
+                <div className="p-8 rounded-xl border border-zinc-800 bg-[#0a0a0d] text-center font-mono text-xs text-zinc-500">
+                  No assets currently found in the vault ledger.
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -1056,16 +894,16 @@ export function MyAccessView() {
                     return (
                       <div 
                         key={asset.id} 
-                        className="p-4 rounded-xl border border-slate-800 bg-[#0F172A] hover:border-slate-700 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                        className="p-4 rounded-xl border border-zinc-800 bg-[#0a0a0d] hover:border-zinc-700/80 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-xs"
                       >
                         <div className="space-y-1">
-                          <div className="font-semibold text-white flex items-center gap-2">
+                          <div className="font-bold text-zinc-100 flex items-center gap-2">
                             <span>{asset.code}</span>
                             <span>·</span>
-                            <span>{asset.name}</span>
+                            <span className="text-zinc-300">{asset.name}</span>
                           </div>
-                          <div className="text-[11px] text-slate-400 flex items-center gap-2 font-mono">
-                            <span className="uppercase text-amber-400 font-semibold">{asset.classification}</span>
+                          <div className="text-[11px] text-zinc-500 flex items-center gap-2">
+                            <span className="uppercase text-amber-400/90 font-bold">{asset.classification}</span>
                             <span>·</span>
                             <span>{asset.fileType || 'DATA'}</span>
                             <span>·</span>
@@ -1078,39 +916,39 @@ export function MyAccessView() {
                         <div className="flex items-center gap-3">
                           {asset.canDecrypt || isAdmin ? (
                             <>
-                              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/40 text-[10px] font-mono">
-                                {isAdmin ? 'ADMIN' : 'CLEARED'}
+                              <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[10px]">
+                                {isAdmin ? 'admin' : 'cleared'}
                               </Badge>
                               <Button
                                 size="sm"
                                 onClick={() => handleOpenDecryptModal(asset)}
-                                className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium h-8 px-3 shadow-sm"
+                                className="bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/40 text-xs font-bold h-8 px-3"
                               >
                                 Decrypt
                               </Button>
                             </>
                           ) : isPending ? (
                             <>
-                              <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/40 text-[10px] font-mono animate-pulse">
+                              <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/40 text-[10px] animate-pulse">
                                 Awaiting Approval
                               </Badge>
                               <Button
                                 size="sm"
                                 variant="outline"
                                 onClick={() => handleOpenRequestModal(asset)}
-                                className="border-slate-700 text-slate-300 hover:bg-slate-800 text-xs h-8 px-3"
+                                className="border-zinc-800 text-zinc-400 text-xs h-8 px-3"
                               >
                                 View Request
                               </Button>
                             </>
                           ) : (
                             <>
-                              <span className="text-[10px] text-slate-400 font-mono">restricted</span>
+                              <span className="text-[10px] text-zinc-500 font-mono">restricted</span>
                               <Button
                                 size="sm"
                                 variant="outline"
                                 onClick={() => handleOpenRequestModal(asset)}
-                                className="border-slate-700 hover:bg-slate-800 text-slate-300 text-xs h-8 px-3"
+                                className="border-zinc-800 hover:bg-zinc-800 text-zinc-300 text-xs h-8 px-3"
                               >
                                 Request Access
                               </Button>
@@ -1135,7 +973,7 @@ export function MyAccessView() {
             <div className="p-5 rounded-2xl border border-zinc-800 bg-[#0a0a0d] space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-white">
-                  Request Timeline
+                  Request timeline
                 </h3>
                 {latestRequest && (
                   <span className="text-[10px] text-zinc-500">
@@ -1321,83 +1159,60 @@ export function MyAccessView() {
           </div>
 
         </div>
-      )}
 
-      {/* 6. Confirmation Modal for Removing Access */}
-      {revokeTarget && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#0F172A] border border-slate-800 rounded-2xl p-6 text-xs space-y-4 shadow-2xl animate-in zoom-in-95 font-mono">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-red-400" />
-                Remove Access
-              </h3>
-              <Button variant="ghost" size="sm" onClick={() => setRevokeTarget(null)} className="text-slate-400 hover:text-white">
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
+      </main>
 
-            <div className="space-y-3">
-              <p className="text-slate-300 text-xs leading-relaxed font-sans">
-                Are you sure you want to remove access for <strong className="text-white">{revokeTarget.userName}</strong> to <strong className="text-white">{revokeTarget.assetName}</strong>?
-              </p>
-              <p className="text-slate-400 text-[11px] leading-relaxed p-3 rounded-lg bg-red-950/20 border border-red-500/30 text-red-300 font-sans">
-                This will immediately revoke their cryptographic clearance and prevent further decryption or downloads.
-              </p>
-            </div>
-
-            <div className="flex items-center justify-end gap-2 pt-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setRevokeTarget(null)}
-                className="border-slate-800 text-slate-300 hover:bg-slate-800 text-xs font-mono"
-              >
-                Cancel
-              </Button>
-              <Button
-                size="sm"
-                disabled={revoking}
-                onClick={handleConfirmRevoke}
-                className="bg-red-600 hover:bg-red-700 text-white font-medium text-xs font-mono flex items-center gap-1.5"
-              >
-                {revoking ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" /> : null}
-                Remove access
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* ---------------------------------------------------- */}
+      {/* MOBILE STICKY BOTTOM NAV                             */}
+      {/* ---------------------------------------------------- */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 h-14 bg-[#0a0a0d] border-t border-zinc-800 px-6 flex items-center justify-around font-mono text-xs z-40">
+        <Link href="/access" className="flex flex-col items-center gap-1 text-emerald-400 font-bold">
+          <Key className="w-4 h-4" />
+          <span className="text-[10px]">Access</span>
+        </Link>
+        <button onClick={() => handleOpenRequestModal()} className="flex flex-col items-center gap-1 text-zinc-400 hover:text-zinc-200">
+          <Send className="w-4 h-4" />
+          <span className="text-[10px]">Requests</span>
+        </button>
+        <Link href="/audit" className="flex flex-col items-center gap-1 text-zinc-400 hover:text-zinc-200">
+          <Activity className="w-4 h-4" />
+          <span className="text-[10px]">Activity</span>
+        </Link>
+        <button onClick={() => setShowQrModal(true)} className="flex flex-col items-center gap-1 text-zinc-400 hover:text-zinc-200">
+          <QrCode className="w-4 h-4" />
+          <span className="text-[10px]">Identity</span>
+        </button>
+      </div>
 
       {/* ---------------------------------------------------- */}
       {/* REQUEST ACCESS MODAL (DYNAMIC)                       */}
       {/* ---------------------------------------------------- */}
       {showRequestModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#0F172A] border border-slate-800 rounded-2xl p-6 font-sans text-xs space-y-4 shadow-xl animate-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-sm font-semibold text-white">Request Access</h3>
-              <Button variant="ghost" size="sm" onClick={() => setShowRequestModal(false)} className="text-slate-400 hover:text-white hover:bg-slate-800">
+          <div className="w-full max-w-md bg-[#0a0a0d] border border-zinc-800 rounded-2xl p-6 font-mono text-xs space-y-4 shadow-2xl animate-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+              <h3 className="text-sm font-bold text-white uppercase">Request access</h3>
+              <Button variant="ghost" size="sm" onClick={() => setShowRequestModal(false)} className="text-zinc-400 hover:text-white">
                 <X className="w-4 h-4" />
               </Button>
             </div>
 
             {requestSubmitted ? (
-              <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-emerald-300 text-center space-y-1">
+              <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 text-center space-y-1">
                 <CheckCircle2 className="w-6 h-6 text-emerald-400 mx-auto" />
-                <div className="font-semibold text-sm">Access Request Submitted</div>
-                <div className="text-[11px] text-slate-400 font-sans">
-                  Sent to Organization Administrator for identity clearance verification.
+                <div className="font-bold">Access Request Submitted!</div>
+                <div className="text-[10px] text-zinc-400 font-sans">
+                  Sent to Organization Administrator for on-chain NFT clearance permit.
                 </div>
               </div>
             ) : (
               <form onSubmit={handleSubmitAccessRequest} className="space-y-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] text-slate-400 font-medium">Select File / Asset</label>
+                  <label className="text-[10px] text-zinc-400 uppercase">Select Asset</label>
                   <select
                     value={requestAssetId}
                     onChange={e => setRequestAssetId(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-lg text-slate-200 text-xs h-9 px-3 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-black/60 border border-zinc-800 rounded-md text-zinc-200 text-xs font-mono h-9 px-3 focus:outline-none focus:border-emerald-500"
                   >
                     {assets.map(a => (
                       <option key={a.id} value={a.id}>
@@ -1408,18 +1223,18 @@ export function MyAccessView() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] text-slate-400 font-medium">Business Justification</label>
+                  <label className="text-[10px] text-zinc-400 uppercase">Purpose (recorded on audit chain)</label>
                   <Input 
                     value={requestPurpose} 
                     onChange={e => setRequestPurpose(e.target.value)} 
-                    className="bg-slate-900 border-slate-800 text-slate-200 text-xs h-9 focus:border-blue-500"
-                    placeholder="Enter business purpose for clearance..."
+                    className="bg-black/60 border-zinc-800 text-zinc-200 text-xs font-mono h-9"
+                    placeholder="Enter business justification..."
                     required
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] text-slate-400 font-medium">Clearance Duration</label>
+                  <label className="text-[10px] text-zinc-400 uppercase">Requested Duration (TTL)</label>
                   <div className="grid grid-cols-3 gap-2">
                     {[15, 30, 60].map(mins => (
                       <Button
@@ -1429,8 +1244,8 @@ export function MyAccessView() {
                         onClick={() => setRequestTtl(mins)}
                         className={`text-xs h-8 ${
                           requestTtl === mins 
-                            ? 'bg-blue-600 hover:bg-blue-700 text-white font-medium' 
-                            : 'border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                            ? 'bg-emerald-600 text-black font-bold' 
+                            : 'border-zinc-800 text-zinc-400'
                         }`}
                       >
                         {mins} Minutes
@@ -1442,9 +1257,9 @@ export function MyAccessView() {
                 <Button 
                   type="submit" 
                   disabled={submittingRequest || !requestAssetId}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs h-9 mt-3 shadow-sm cursor-pointer disabled:opacity-50"
+                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs h-9 mt-3"
                 >
-                  {submittingRequest ? 'Submitting request...' : 'Submit Request'}
+                  {submittingRequest ? 'Submitting to Blockchain...' : 'Submit request'}
                 </Button>
               </form>
             )}
@@ -1457,38 +1272,38 @@ export function MyAccessView() {
       {/* ---------------------------------------------------- */}
       {decryptModalAsset && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-xl bg-[#0F172A] border border-slate-800 rounded-2xl p-6 font-sans text-xs space-y-4 shadow-xl animate-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="w-full max-w-xl bg-[#0a0a0d] border border-emerald-500/40 rounded-2xl p-6 font-mono text-xs space-y-4 shadow-2xl animate-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <div>
-                <h3 className="text-sm font-semibold text-white">
+                <h3 className="text-sm font-bold text-white uppercase">
                   {decryptModalAsset.code} · {decryptModalAsset.name}
                 </h3>
-                <p className="text-[11px] text-blue-400 font-sans mt-0.5">
-                  {decryptModalAsset.classification} · Cryptographic Decryption
+                <p className="text-[10px] text-emerald-400 font-sans">
+                  {decryptModalAsset.classification} · In-Memory AES-256-GCM Decryption
                 </p>
               </div>
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={() => { setDecryptModalAsset(null); setDecryptModalData(null); }} 
-                className="text-slate-400 hover:text-white hover:bg-slate-800"
+                className="text-zinc-400 hover:text-white"
               >
                 <X className="w-4 h-4" />
               </Button>
             </div>
 
             {decryptModalLoading ? (
-              <div className="p-8 text-center text-slate-400 flex flex-col items-center justify-center gap-2">
-                <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
-                <span>Verifying identity clearance and decrypting payload...</span>
+              <div className="p-8 text-center text-zinc-400 flex flex-col items-center justify-center gap-2">
+                <Loader2 className="w-6 h-6 animate-spin text-emerald-400" />
+                <span>Authorizing access against blockchain IdentityRegistry and decrypting...</span>
               </div>
             ) : decryptModalError ? (
-              <div className="p-4 rounded-xl bg-red-950/30 border border-red-500/30 text-red-300 space-y-2">
-                <div className="font-semibold flex items-center gap-2">
+              <div className="p-4 rounded-xl bg-red-950/40 border border-red-500/40 text-red-300 space-y-2">
+                <div className="font-bold flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-red-400" />
                   <span>Access Authorization Denied</span>
                 </div>
-                <p className="text-[11px] font-sans text-slate-300">
+                <p className="text-[11px] font-sans text-zinc-300">
                   {decryptModalError}
                 </p>
                 <Button
@@ -1498,30 +1313,30 @@ export function MyAccessView() {
                     setDecryptModalAsset(null);
                     handleOpenRequestModal(a);
                   }}
-                  className="bg-amber-600 hover:bg-amber-700 text-white font-medium text-xs h-7 mt-2"
+                  className="bg-amber-600 hover:bg-amber-500 text-black font-bold text-xs h-7 mt-2"
                 >
                   Request Clearance for {decryptModalAsset.code}
                 </Button>
               </div>
             ) : decryptModalData ? (
               <div className="space-y-3">
-                <div className="p-3 rounded-lg bg-emerald-950/30 border border-emerald-500/30 flex items-center justify-between text-[11px]">
-                  <div className="flex items-center gap-2 text-emerald-400 font-medium">
+                <div className="p-3 rounded-lg bg-emerald-950/20 border border-emerald-500/30 flex items-center justify-between text-[11px]">
+                  <div className="flex items-center gap-2 text-emerald-400">
                     <CheckCircle2 className="w-4 h-4 shrink-0" />
-                    <span>Cryptographic Clearance Verified</span>
+                    <span>CRYPTOGRAPHIC CLEARANCE VERIFIED</span>
                   </div>
-                  <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-[10px] font-mono">
+                  <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[9px]">
                     {decryptModalData.encryptionStandard || 'AES-256-GCM'}
                   </Badge>
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-200 text-xs leading-relaxed max-h-64 overflow-y-auto font-mono whitespace-pre-wrap shadow-inner">
+                <div className="p-4 rounded-xl bg-black border border-zinc-800 text-zinc-200 text-xs leading-relaxed max-h-64 overflow-y-auto font-mono whitespace-pre-wrap shadow-inner">
                   {decryptModalData.decryptedData}
                 </div>
 
-                <div className="text-[11px] text-slate-400 space-y-0.5 font-sans">
-                  <div>Decrypted at: {new Date(decryptModalData.decryptedAt).toLocaleString()}</div>
-                  <div>Authorized by: {decryptModalData.authorizedBy || 'SecureMAX KMS'}</div>
+                <div className="text-[10px] text-zinc-500 space-y-0.5">
+                  <div>Decrypted At: {new Date(decryptModalData.decryptedAt).toLocaleString()}</div>
+                  <div>Authorized By: {decryptModalData.authorizedBy || 'SecureMAX KMS'}</div>
                 </div>
 
                 <div className="flex justify-between items-center pt-2">
@@ -1533,7 +1348,7 @@ export function MyAccessView() {
                       setCopiedDecrypted(true);
                       setTimeout(() => setCopiedDecrypted(false), 2000);
                     }}
-                    className="border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 text-xs h-8"
+                    className="border-zinc-800 text-zinc-300 hover:text-white text-xs h-7"
                   >
                     {copiedDecrypted ? (
                       <><Check className="w-3.5 h-3.5 mr-1 text-emerald-400" /> Copied</>
@@ -1544,7 +1359,7 @@ export function MyAccessView() {
                   <Button 
                     size="sm" 
                     onClick={() => { setDecryptModalAsset(null); setDecryptModalData(null); }} 
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs h-8 px-4"
+                    className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs h-7 px-4"
                   >
                     Close Viewer
                   </Button>
@@ -1560,15 +1375,15 @@ export function MyAccessView() {
       {/* ---------------------------------------------------- */}
       {showQrModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-sm bg-[#0F172A] border border-slate-800 rounded-2xl p-6 text-center space-y-4 font-sans text-xs shadow-xl">
-            <div className="font-semibold text-white text-sm">Cryptographic Credential</div>
-            <div className="p-4 rounded-xl bg-white text-black inline-block mx-auto shadow-md">
+          <div className="w-full max-w-sm bg-[#0a0a0d] border border-zinc-800 rounded-2xl p-6 text-center space-y-4 font-mono text-xs shadow-2xl">
+            <div className="font-bold text-white uppercase">Cryptographic Credential</div>
+            <div className="p-6 rounded-xl bg-white text-black inline-block mx-auto shadow-lg">
               <QrCode className="w-32 h-32" />
             </div>
             <div className="space-y-1">
-              <div className="text-white font-semibold text-sm">{displayUser.name}</div>
-              <div className="text-[11px] text-blue-400 font-medium">{displayUser.position} · {displayUser.role}</div>
-              <div className="text-[10px] text-slate-400 font-mono break-all p-2 rounded-lg bg-slate-900 border border-slate-800 mt-2">
+              <div className="text-zinc-200 font-bold">{displayUser.name}</div>
+              <div className="text-[10px] text-cyan-400 uppercase">{displayUser.position} · {displayUser.role}</div>
+              <div className="text-[10px] text-zinc-400 break-all p-2 rounded bg-black border border-zinc-800 mt-2">
                 {displayUser.did}
               </div>
             </div>
@@ -1581,7 +1396,7 @@ export function MyAccessView() {
                   setCopiedDid(true);
                   setTimeout(() => setCopiedDid(false), 2000);
                 }}
-                className="border-slate-800 text-slate-300 hover:bg-slate-800 text-xs flex-1 h-8"
+                className="border-zinc-800 text-zinc-300 text-xs flex-1"
               >
                 {copiedDid ? <Check className="w-3.5 h-3.5 mr-1 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 mr-1" />}
                 {copiedDid ? 'Copied' : 'Copy DID'}
@@ -1589,7 +1404,7 @@ export function MyAccessView() {
               <Button 
                 size="sm" 
                 onClick={() => setShowQrModal(false)} 
-                className="bg-slate-800 hover:bg-slate-700 text-white text-xs flex-1 h-8"
+                className="bg-zinc-800 text-zinc-200 text-xs flex-1"
               >
                 Done
               </Button>
@@ -1603,12 +1418,12 @@ export function MyAccessView() {
       {/* ---------------------------------------------------- */}
       {showGuardiansModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#0F172A] border border-slate-800 rounded-2xl p-6 space-y-4 font-sans text-xs shadow-xl">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-sm font-semibold text-white">
+          <div className="w-full max-w-md bg-[#0a0a0d] border border-zinc-800 rounded-2xl p-6 space-y-4 font-mono text-xs shadow-2xl">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+              <h3 className="text-sm font-bold text-white uppercase">
                 Social Recovery Guardians
               </h3>
-              <Button variant="ghost" size="sm" onClick={() => setShowGuardiansModal(false)} className="text-slate-400 hover:text-white hover:bg-slate-800">
+              <Button variant="ghost" size="sm" onClick={() => setShowGuardiansModal(false)} className="text-zinc-400 hover:text-white">
                 <X className="w-4 h-4" />
               </Button>
             </div>
@@ -1616,35 +1431,35 @@ export function MyAccessView() {
             <div className="space-y-2">
               {personnel.filter(p => p.role === 'ADMIN' || p.role === 'SECURITY_OFFICER').length > 0 ? (
                 personnel.filter(p => p.role === 'ADMIN' || p.role === 'SECURITY_OFFICER').map((admin, idx) => (
-                  <div key={admin.id || idx} className="p-3 rounded-lg bg-slate-900/60 border border-slate-800 flex justify-between items-center">
+                  <div key={admin.id || idx} className="p-3 rounded-lg bg-black border border-zinc-800 flex justify-between items-center">
                     <div>
-                      <div className="font-semibold text-slate-200">{admin.name}</div>
-                      <div className="text-[10px] text-slate-400 font-mono">{admin.position || admin.role}</div>
+                      <div className="font-bold text-zinc-200">{admin.name}</div>
+                      <div className="text-[10px] text-zinc-500">{admin.position || admin.role}</div>
                     </div>
-                    <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-[10px]">
+                    <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/40 text-[10px]">
                       {admin.status || 'ACTIVE'}
                     </Badge>
                   </div>
                 ))
               ) : (
-                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-800 flex justify-between items-center">
+                <div className="p-3 rounded-lg bg-black border border-zinc-800 flex justify-between items-center">
                   <div>
-                    <div className="font-semibold text-slate-200">Organization Security Root</div>
-                    <div className="text-[10px] text-slate-400 font-mono">ADMINISTRATOR · SENTINEL</div>
+                    <div className="font-bold text-zinc-200">Organization Security Root</div>
+                    <div className="text-[10px] text-zinc-500">ADMINISTRATOR · SENTINEL</div>
                   </div>
-                  <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-[10px]">
+                  <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/40 text-[10px]">
                     ACTIVE
                   </Badge>
                 </div>
               )}
             </div>
 
-            <div className="text-[11px] text-slate-400 font-sans">
+            <div className="text-[10px] text-zinc-500 font-sans">
               Cryptographic quorum of guardian signatures is required to execute lost device recovery and re-enroll a new workstation.
             </div>
 
             <div className="flex justify-end pt-2">
-              <Button size="sm" onClick={() => setShowGuardiansModal(false)} className="bg-slate-800 hover:bg-slate-700 text-white text-xs h-8">
+              <Button size="sm" onClick={() => setShowGuardiansModal(false)} className="bg-zinc-800 text-zinc-200 text-xs">
                 Close
               </Button>
             </div>

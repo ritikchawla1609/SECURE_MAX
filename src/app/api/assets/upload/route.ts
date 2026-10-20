@@ -2,9 +2,8 @@ import { NextResponse } from 'next/server';
 import { getVerifiedSession } from '@/lib/auth/session';
 import { deviceStore } from '@/lib/auth/deviceStore';
 
-export const dynamic = 'force-dynamic';
-
 export async function POST(req: Request) {
+  
   
   if (typeof deviceStore !== 'undefined') {
     await deviceStore.loadFromCloud();
@@ -84,34 +83,26 @@ export async function POST(req: Request) {
     }
 
     try {
-      const { supabaseAdmin } = require('@/lib/db/client');
-      if (supabaseAdmin) {
+      const { supabaseAdmin, isSupabaseConfigured } = require('@/lib/db/client');
+      if (supabaseAdmin && typeof isSupabaseConfigured === 'function' && isSupabaseConfigured()) {
         const encryptedBuffer = Buffer.from(newAsset.encrypted_content, 'base64');
         const { error } = await supabaseAdmin.storage
           .from('securemax-vault')
           .upload(`assets/${newAsset.id}`, encryptedBuffer, { upsert: true, contentType: 'application/octet-stream' });
         if (error) {
-          console.error('[Storage] Failed to upload asset binary:', error.message);
-          deviceStore.assets.delete(newAsset.id);
-          deviceStore.wrappedDEKs.delete(newAsset.id);
-          deviceStore.assignments = deviceStore.assignments.filter(a => a.asset_id !== newAsset.id);
-          deviceStore.saveToDisk();
-          return NextResponse.json(
-            { error: 'Failed to persist encrypted asset to storage: ' + error.message },
-            { status: 502 }
-          );
+          console.warn('[Storage] Failed to upload asset binary:', error.message);
+          try {
+            deviceStore.deleteAsset(newAsset.id, session.userId);
+          } catch {}
+          return NextResponse.json({ error: `Storage failure: ${error.message}. Upload rolled back.` }, { status: 502 });
         }
       }
     } catch (e: any) {
-      console.error('[Storage] Exception uploading to Supabase:', e);
-      deviceStore.assets.delete(newAsset.id);
-      deviceStore.wrappedDEKs.delete(newAsset.id);
-      deviceStore.assignments = deviceStore.assignments.filter(a => a.asset_id !== newAsset.id);
-      deviceStore.saveToDisk();
-      return NextResponse.json(
-        { error: 'Storage operation threw an exception: ' + (e?.message || 'Unknown error') },
-        { status: 502 }
-      );
+      console.warn('[Storage] Exception uploading to Supabase:', e);
+      try {
+        deviceStore.deleteAsset(newAsset.id, session.userId);
+      } catch {}
+      return NextResponse.json({ error: `Storage upload exception: ${e.message}. Upload rolled back.` }, { status: 502 });
     }
     
     // Critical for Vercel: Wait for the ledger cloud sync to complete before Lambda freezes

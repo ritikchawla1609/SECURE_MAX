@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
     if (session) {
       if (session.role === 'ADMIN') return NextResponse.redirect(new URL('/dashboard/admin', request.url));
       if (session.role === 'AUDITOR') return NextResponse.redirect(new URL('/dashboard/auditor', request.url));
-      return NextResponse.redirect(new URL('/dashboard', request.url));
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
     }
     return NextResponse.next();
   }
@@ -57,8 +57,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Protect dashboard and api routes (except public APIs)
-  if (pathname.startsWith('/dashboard') || (pathname.startsWith('/api/') && !isPublicApi)) {
+  // Protect dashboard, breachlab, and api routes (except public APIs)
+  if (pathname.startsWith('/dashboard') || pathname.startsWith('/breachlab') || (pathname.startsWith('/api/') && !isPublicApi)) {
     const session = await validateSession(request);
     
     if (!session) {
@@ -78,5 +78,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/api/:path*', '/login', '/'],
+  matcher: ['/dashboard/:path*', '/breachlab', '/breachlab/:path*', '/api/:path*', '/login', '/'],
 };

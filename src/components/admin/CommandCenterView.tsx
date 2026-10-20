@@ -228,9 +228,106 @@ export function CommandCenterView() {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300 pb-12 font-sans">
+    <div className="flex min-h-screen bg-[#070709] text-zinc-100 font-sans selection:bg-emerald-500/30">
       
-      {/* Top Command Bar */}
+      {/* ---------------------------------------------------- */}
+      {/* LEFT SIDEBAR (PAGE 1 EXACT LAYOUT)                   */}
+      {/* ---------------------------------------------------- */}
+      <aside className="w-64 shrink-0 border-r border-zinc-800/80 bg-[#0a0a0d] flex flex-col justify-between hidden md:flex">
+        <div className="p-5 space-y-6">
+          {/* Brand */}
+          <div className="flex items-center gap-2.5">
+            <Hexagon className="w-6 h-6 text-emerald-400" />
+            <span className="text-sm font-bold tracking-widest uppercase text-white">SECUREMAX</span>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="space-y-1 font-mono text-xs">
+            <Link 
+              href="/dashboard/admin"
+              className="flex items-center justify-between px-3 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 font-semibold border-l-2 border-emerald-400"
+            >
+              <span>Command Center</span>
+            </Link>
+
+            <Link 
+              href="/identity"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <span>Identities</span>
+              <span className="text-[10px] text-zinc-500 font-bold">{realtimeData?.stats.identitiesCount || 1}</span>
+            </Link>
+
+            <Link 
+              href="/assets"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <span>Assets</span>
+              <span className="text-[10px] text-zinc-500 font-bold">{realtimeData?.stats.activeAssetsCount || 0}</span>
+            </Link>
+
+            <Link 
+              href="/access"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <span>Access Requests</span>
+              <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded-full border border-amber-500/40 font-bold">
+                {pendingRequests.length}
+              </span>
+            </Link>
+
+            <Link 
+              href="/infrastructure"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <span>Keys &amp; Policies</span>
+            </Link>
+
+            <Link 
+              href="/security/sentinel"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <span>Sentinel</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              </div>
+            </Link>
+
+            <Link 
+              href="/audit"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <span>Audit &amp; Forensics</span>
+            </Link>
+
+            <div className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-500 cursor-not-allowed">
+              <span>Break-glass Queue</span>
+            </div>
+
+            <Link 
+              href="/infrastructure"
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
+            >
+              <span>Infrastructure</span>
+            </Link>
+          </nav>
+        </div>
+
+        {/* Bottom Profile Card */}
+        <div className="p-4 border-t border-zinc-800/80 bg-black/40 font-mono text-xs space-y-1">
+          <div className="font-bold text-zinc-200">Vasu (Administrator)</div>
+          <div className="text-[10px] text-purple-400 font-bold tracking-wider uppercase">ROOT ADMIN</div>
+          <div className="text-[10px] text-zinc-500 truncate">admin@securemax.mil</div>
+          <div className="text-[9px] text-zinc-600 truncate">did:securemax:admin:001</div>
+        </div>
+      </aside>
+
+      {/* ---------------------------------------------------- */}
+      {/* MAIN VIEWPORT                                        */}
+      {/* ---------------------------------------------------- */}
+      <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6">
+        
+        {/* Top Command Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-4">
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Command Center</h1>
@@ -331,12 +428,12 @@ export function CommandCenterView() {
           <div className="space-y-6">
             
             {/* Card: Access Requests & Live Grants */}
-            <div className="p-5 rounded-xl border border-slate-800 bg-[#0F172A] space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h2 className="text-sm font-semibold text-white tracking-wide">
-                  Access Requests &amp; Live Grants
+            <div className="p-5 rounded-2xl border border-zinc-800 bg-[#0a0a0d] space-y-4">
+              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+                <h2 className="text-sm font-bold text-white uppercase tracking-wider">
+                  Access requests &amp; live grants
                 </h2>
-                <span className="text-[10px] font-mono text-slate-400">Clearance signs on Chain-1</span>
+                <span className="text-[10px] font-mono text-zinc-400">Approve signs on Chain-1</span>
               </div>
 
               {/* Action Feedback Notice */}
@@ -454,10 +551,10 @@ export function CommandCenterView() {
             </div>
 
             {/* Card: Audit Chain */}
-            <div className="p-5 rounded-xl border border-slate-800 bg-[#0F172A] space-y-4 font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h2 className="text-sm font-semibold text-white tracking-wide">
-                  Audit Chain
+            <div className="p-5 rounded-2xl border border-zinc-800 bg-[#0a0a0d] space-y-4 font-mono text-xs">
+              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+                <h2 className="text-sm font-bold text-white uppercase tracking-wider">
+                  Audit chain
                 </h2>
                 <Button 
                   size="sm" 
@@ -545,29 +642,29 @@ export function CommandCenterView() {
           <div className="space-y-6">
             
             {/* Card: Sentinel Security Checks & Alerts */}
-            <div className="p-5 rounded-xl border border-slate-800 bg-[#0F172A] space-y-4 font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h2 className="text-sm font-semibold text-white tracking-wide">
-                  Sentinel Security Posture
+            <div className="p-5 rounded-2xl border border-zinc-800 bg-[#0a0a0d] space-y-4 font-mono text-xs">
+              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+                <h2 className="text-sm font-bold text-white uppercase tracking-wider">
+                  Sentinel
                 </h2>
                 <span className="text-[10px] text-emerald-400 font-bold">{scanStatus}</span>
               </div>
 
               {/* 5 Passed Check items */}
-              <div className="space-y-1.5 text-slate-300 text-[11px]">
-                <div className="flex justify-between py-1 border-b border-slate-800/40">
+              <div className="space-y-1.5 text-zinc-300 text-[11px]">
+                <div className="flex justify-between py-1 border-b border-zinc-800/40">
                   <span>Unauthorized asset access</span>
                   <span className="text-emerald-400 font-bold">blocked</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800/40">
+                <div className="flex justify-between py-1 border-b border-zinc-800/40">
                   <span>Expired temporary key</span>
                   <span className="text-emerald-400 font-bold">blocked</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800/40">
+                <div className="flex justify-between py-1 border-b border-zinc-800/40">
                   <span>Revoked permission access</span>
                   <span className="text-emerald-400 font-bold">blocked</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-slate-800/40">
+                <div className="flex justify-between py-1 border-b border-zinc-800/40">
                   <span>Privilege escalation</span>
                   <span className="text-emerald-400 font-bold">blocked</span>
                 </div>
@@ -583,17 +680,17 @@ export function CommandCenterView() {
                   <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>SENTINEL POSTURE NOMINAL</span>
                 </div>
-                <p className="text-[11px] text-slate-400 font-sans leading-relaxed">
+                <p className="text-[11px] text-zinc-400 font-sans leading-relaxed">
                   Real-time threat detection active. Zero active unauthorized access attempts or policy violations.
                 </p>
               </div>
             </div>
 
             {/* Card: Key Lifecycle */}
-            <div className="p-5 rounded-xl border border-slate-800 bg-[#0F172A] space-y-4 font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h2 className="text-sm font-semibold text-white tracking-wide">
-                  Key Lifecycle
+            <div className="p-5 rounded-2xl border border-zinc-800 bg-[#0a0a0d] space-y-4 font-mono text-xs">
+              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+                <h2 className="text-sm font-bold text-white uppercase tracking-wider">
+                  Key lifecycle
                 </h2>
               </div>
 
@@ -611,6 +708,8 @@ export function CommandCenterView() {
           </div>
 
         </div>
+
+      </main>
 
     </div>
   );

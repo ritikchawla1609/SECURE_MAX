@@ -13,5 +13,5 @@ test('has title and login buttons', async ({ page }) => {
 test('navigate to login page', async ({ page }) => {
   await page.goto('/login');
 
-  await expect(page.locator('text=Sign In').first()).toBeVisible();
+  await expect(page.locator('text=Team Member Login')).toBeVisible();
 });

@@ -8,8 +8,6 @@ import { sepolia } from 'viem/chains';
 import { AuditAnchorABI } from '@/lib/blockchain/abis';
 import deployedAddresses from '../../../../../deployed-addresses.json';
 
-export const dynamic = 'force-dynamic';
-
 export async function GET(req: Request) {
   if (typeof deviceStore !== 'undefined') {
     await deviceStore.loadFromCloud();
@@ -39,15 +37,8 @@ export async function GET(req: Request) {
         .order('id', { ascending: true })
         .limit(1000);
         
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         logs = data;
-      }
-    }
-
-    if (logs.length === 0 && deviceStore) {
-      const localEvents = deviceStore.getAuditEvents();
-      if (localEvents && localEvents.length > 0) {
-        logs = localEvents.map(e => ({ event_hash: e.event_hash || e.id }));
       }
     }
 
@@ -65,9 +56,9 @@ export async function GET(req: Request) {
     const localRoot = tree.getRoot();
 
     // 3. Query AuditAnchor on Chain-1
-    let onChainRoot: string | null = null;
+    let onChainRoot = null;
     let verified = false;
-    const rpcUrl = process.env.NEXT_PUBLIC_CHAIN_RPC_URL || 'http://127.0.0.1:8545';
+    const rpcUrl = process.env.NEXT_PUBLIC_CHAIN_RPC_URL || 'https://eth-sepolia.g.alchemy.com/v2/alch_0qnxXuC1AluDumPOynCns';
     const contractAddress = (process.env.NEXT_PUBLIC_AUDIT_ANCHOR_ADDRESS || (deployedAddresses.contracts as any).AuditAnchor) as `0x${string}`;
 
     if (contractAddress) {
@@ -77,16 +68,16 @@ export async function GET(req: Request) {
           transport: http(rpcUrl, { timeout: 3000 }),
         });
 
-        const anchorResult: any = await publicClient.readContract({
+        const root = await publicClient.readContract({
           address: contractAddress,
           abi: AuditAnchorABI,
-          functionName: 'getLatestAnchor',
+          functionName: 'getLatestRoot',
           blockTag: 'latest',
         });
         
-        onChainRoot = anchorResult ? (anchorResult.merkleRoot || anchorResult[2] || anchorResult) : null;
+        onChainRoot = root;
         // Compare roots
-        verified = Boolean(onChainRoot && localRoot && localRoot.toLowerCase() === onChainRoot.toLowerCase());
+        verified = (localRoot === onChainRoot);
       } catch (err: any) {
         console.warn('Blockchain verification skipped or failed:', err.message);
       }

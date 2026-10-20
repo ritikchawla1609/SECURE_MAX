@@ -14,32 +14,27 @@ export async function POST(req: Request) {
   if (typeof deviceStore !== 'undefined') {
     await deviceStore.loadFromCloud();
   }
-  // CRITICAL PRODUCTION GUARD (Permitted when DEMO_MODE is set or in dev)
-  if (process.env.NODE_ENV === 'production' && process.env.DEMO_MODE !== 'true') {
+  // CRITICAL PRODUCTION GUARD
+  if (process.env.NODE_ENV === 'production') {
+    
     if (deviceStore?.lastSyncPromise) {
       await deviceStore.lastSyncPromise;
     }
     return NextResponse.json(
-      { error: 'ACCESS DENIED: Demo bypass authentication is strictly disabled in production environments without DEMO_MODE=true.' },
+      { error: 'ACCESS DENIED: Demo bypass authentication is strictly disabled in production environments.' },
       { status: 403 }
     );
   }
 
   try {
     const body = await req.json().catch(() => ({}));
-    let user = null;
+    const requestedRole = (body.role as UserRole) || UserRole.ADMIN;
 
-    if (body.email) {
-      user = await deviceStore.getUserByEmail(body.email.trim().toLowerCase());
-    }
+    let targetEmail = 'admin@securemax.mil';
+    if (requestedRole === UserRole.USER) targetEmail = 'vasu@securemax.mil';
+    if (requestedRole === UserRole.AUDITOR) targetEmail = 'auditor@securemax.mil';
 
-    if (!user) {
-      const requestedRole = (body.role as UserRole) || UserRole.ADMIN;
-      let targetEmail = 'admin@securemax.mil';
-      if (requestedRole === UserRole.USER) targetEmail = 'vasu@securemax.mil';
-      if (requestedRole === UserRole.AUDITOR) targetEmail = 'auditor@securemax.mil';
-      user = await deviceStore.getUserByEmail(targetEmail);
-    }
+    const user = await deviceStore.getUserByEmail(targetEmail);
     if (!user) {
       
     if (deviceStore?.lastSyncPromise) {

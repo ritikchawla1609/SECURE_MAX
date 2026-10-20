@@ -19,8 +19,7 @@ import {
   Edit3, 
   FolderInput, 
   Share2,
-  ChevronRight,
-  Download
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -86,25 +85,7 @@ export function VaultAssetDetailsDrawer({
   onMove,
   onDelete,
 }: AssetDetailProps) {
-  const [activeTab, setActiveTab] = React.useState<'overview' | 'permissions' | 'encryption' | 'activity' | 'technical'>('overview');
-
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
-    };
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, onClose]);
+  const [activeTab, setActiveTab] = React.useState<'overview' | 'permissions' | 'versions' | 'history' | 'blockchain'>('overview');
 
   if (!isOpen || !asset) return null;
 
@@ -119,64 +100,53 @@ export function VaultAssetDetailsDrawer({
     'border-emerald-500/40 text-emerald-400 bg-emerald-950/20';
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/75 backdrop-blur-sm animate-in fade-in duration-150">
-      <div 
-        className="fixed inset-0" 
-        onClick={onClose} 
-        aria-hidden="true" 
-      />
-      <div 
-        role="dialog" 
-        aria-modal="true" 
-        aria-labelledby="drawer-asset-title"
-        className="relative z-10 w-full max-w-xl h-full bg-[#0F172A] border-l border-slate-800 shadow-2xl flex flex-col font-sans text-xs"
-      >
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-xl h-full bg-[#0a0a0c] border-l border-zinc-800 shadow-2xl flex flex-col font-mono text-xs">
         
         {/* Drawer Header */}
-        <div className="p-6 border-b border-slate-800 flex items-start justify-between bg-slate-900/40">
+        <div className="p-6 border-b border-zinc-800 flex items-start justify-between bg-zinc-950/50">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <Badge className={`text-[10px] uppercase font-mono ${classificationColor}`}>
                 {asset.classification}
               </Badge>
-              <Badge variant="outline" className="border-blue-500/30 text-blue-400 text-[10px] font-mono">
+              <Badge variant="outline" className="border-cyan-500/30 text-cyan-400 text-[10px]">
                 KEY: {asset.keyVersion || 'v1'}
               </Badge>
-              <span className="text-slate-400 font-mono text-[11px]">{asset.code}</span>
+              <span className="text-zinc-500 text-[11px]">{asset.code}</span>
             </div>
-            <h2 id="drawer-asset-title" className="text-lg font-bold text-white mt-1 truncate max-w-md">
+            <h2 className="text-lg font-bold text-zinc-100 mt-1 truncate max-w-md">
               {asset.name}
             </h2>
-            <p className="text-[11px] text-slate-400 line-clamp-1">
+            <p className="text-[11px] text-zinc-400 line-clamp-1">
               {asset.description}
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors"
-            aria-label="Close drawer"
+            className="text-zinc-500 hover:text-zinc-200 p-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Drawer Tabs */}
-        <div className="flex items-center border-b border-slate-800 px-6 bg-slate-900/30 overflow-x-auto scrollbar-none">
+        <div className="flex items-center border-b border-zinc-800 px-6 bg-zinc-900/30 overflow-x-auto scrollbar-none">
           {[
             { id: 'overview', label: 'Overview' },
-            { id: 'permissions', label: 'Access & Permissions' },
-            { id: 'encryption', label: 'Encryption & Integrity' },
-            { id: 'activity', label: 'Activity' },
-            { id: 'technical', label: 'Technical Details' },
+            { id: 'permissions', label: 'Permissions' },
+            { id: 'versions', label: `Versions (${asset.versions?.length || 1})` },
+            { id: 'history', label: 'Access History' },
+            { id: 'blockchain', label: 'Blockchain' },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`py-3 px-3 border-b-2 font-medium transition-colors whitespace-nowrap text-xs ${
+              className={`py-3 px-3 border-b-2 font-medium transition-colors whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'border-blue-500 text-blue-400 font-semibold'
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'border-cyan-400 text-cyan-300 font-bold'
+                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
               }`}
             >
               {tab.label}
@@ -251,44 +221,37 @@ export function VaultAssetDetailsDrawer({
             </div>
           )}
 
-          {/* TAB 2: ACCESS & PERMISSIONS */}
+          {/* TAB 2: PERMISSIONS MATRIX */}
           {activeTab === 'permissions' && (
             <div className="space-y-4">
-              <div className="p-3 rounded-lg bg-blue-950/30 border border-blue-500/20 text-slate-300 text-xs">
-                <div className="font-semibold text-blue-400 mb-1">Authorization ≠ Decryption</div>
-                <div className="text-[11px] text-slate-400 leading-relaxed">
-                  Viewing permissions in the interface confirms identity authorization. Decryption keys are decoupled and protected by Server-Side KMS and cryptographic attestation.
-                </div>
+              <div className="text-zinc-400 text-xs">
+                Active permissions granted to your hardware-attested session:
               </div>
 
-              <div className="text-slate-400 text-xs font-medium">
-                Active permissions for your authenticated session:
-              </div>
-
-              <div className="divide-y divide-slate-800 border border-slate-800 rounded-lg overflow-hidden bg-slate-900/30">
+              <div className="divide-y divide-zinc-800 border border-zinc-800 rounded-lg overflow-hidden bg-zinc-900/20">
                 {[
-                  { label: 'Read Metadata', granted: asset.canRead, desc: 'Query file information, attributes, and on-chain DID.' },
-                  { label: 'Decrypt File', granted: asset.canDecrypt, desc: 'Request server-side DEK unwrap and view payload plaintext.' },
-                  { label: 'Download File', granted: asset.canDownload, desc: 'Export and save decrypted payload locally.' },
-                  { label: 'Edit Metadata', granted: asset.canEdit, desc: 'Modify metadata, rename asset, or move between folders.' },
-                  { label: 'Delete Asset', granted: asset.canDelete, desc: 'Permanently remove ciphertext blob and zeroize wrapped DEK.' },
+                  { label: 'READ METADATA', granted: asset.canRead, desc: 'Query file information, attributes, and on-chain DID.' },
+                  { label: 'DECRYPT (KMS)', granted: asset.canDecrypt, desc: 'Request server-side DEK unwrap and view payload plaintext.' },
+                  { label: 'DOWNLOAD FILE', granted: asset.canDownload, desc: 'Export and save decrypted payload locally.' },
+                  { label: 'EDIT / RENAME', granted: asset.canEdit, desc: 'Modify metadata, rename asset, or move between folders.' },
+                  { label: 'DELETE ASSET', granted: asset.canDelete, desc: 'Permanently remove ciphertext blob and zeroize wrapped DEK.' },
                 ].map((perm) => (
                   <div key={perm.label} className="p-3 flex items-center justify-between">
                     <div>
-                      <div className="font-semibold text-slate-200 text-xs flex items-center gap-2">
+                      <div className="font-bold text-zinc-200 text-xs flex items-center gap-2">
                         {perm.granted ? (
                           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-slate-600" />
+                          <XCircle className="w-4 h-4 text-zinc-600" />
                         )}
                         <span>{perm.label}</span>
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-0.5">{perm.desc}</div>
+                      <div className="text-[10px] text-zinc-500 mt-0.5">{perm.desc}</div>
                     </div>
                     <Badge className={`text-[10px] font-mono ${
                       perm.granted 
                         ? 'border-emerald-500/30 text-emerald-400 bg-emerald-950/20' 
-                        : 'border-slate-800 text-slate-500 bg-slate-900'
+                        : 'border-zinc-800 text-zinc-500 bg-zinc-900'
                     }`}>
                       {perm.granted ? 'AUTHORIZED' : 'RESTRICTED'}
                     </Badge>
@@ -298,54 +261,49 @@ export function VaultAssetDetailsDrawer({
             </div>
           )}
 
-          {/* TAB 3: ENCRYPTION & INTEGRITY */}
-          {activeTab === 'encryption' && (
-            <div className="space-y-4">
-              <div className="p-4 rounded-lg bg-slate-900/60 border border-slate-800 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-200 text-xs font-semibold flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                    Cryptographic Specifications
-                  </span>
-                  <Badge variant="outline" className="border-emerald-500/30 text-emerald-400 text-[10px] font-mono">
-                    VERIFIED ENCLAVE
-                  </Badge>
-                </div>
+          {/* TAB 3: VERSION HISTORY */}
+          {activeTab === 'versions' && (
+            <div className="space-y-3">
+              <div className="text-zinc-400 text-xs">
+                Immutable version history and audit increments:
+              </div>
 
-                <div className="grid grid-cols-2 gap-3 text-xs pt-1">
-                  <div className="p-2.5 rounded bg-slate-950/50 border border-slate-800">
-                    <span className="text-slate-500 block text-[10px] uppercase font-mono">Algorithm</span>
-                    <span className="font-mono text-slate-200 font-bold">AES-256-GCM</span>
+              <div className="space-y-2">
+                {asset.versions && asset.versions.length > 0 ? (
+                  asset.versions.map((ver, idx) => (
+                    <div 
+                      key={idx} 
+                      className="p-3.5 rounded-lg bg-zinc-900/40 border border-zinc-800 space-y-1.5"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-cyan-400 text-xs">{ver.version}</span>
+                        <span className="text-zinc-500 text-[10px]">
+                          {new Date(ver.created_at).toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-zinc-300">
+                        {ver.notes || 'Routine revision update'}
+                      </div>
+                      <div className="text-[10px] text-zinc-500 flex items-center justify-between pt-1 border-t border-zinc-800/60">
+                        <span>Committed by: {ver.uploaded_by}</span>
+                        <span>Size: {ver.size}</span>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-zinc-500 text-xs py-4 text-center">
+                    No version history recorded.
                   </div>
-
-                  <div className="p-2.5 rounded bg-slate-950/50 border border-slate-800">
-                    <span className="text-slate-500 block text-[10px] uppercase font-mono">Key Version</span>
-                    <span className="font-mono text-blue-400 font-bold">{asset.keyVersion || 'v1'}</span>
-                  </div>
-
-                  <div className="p-2.5 rounded bg-slate-950/50 border border-slate-800">
-                    <span className="text-slate-500 block text-[10px] uppercase font-mono">Integrity Standard</span>
-                    <span className="font-mono text-slate-200">SHA-256 Hash Chained</span>
-                  </div>
-
-                  <div className="p-2.5 rounded bg-slate-950/50 border border-slate-800">
-                    <span className="text-slate-500 block text-[10px] uppercase font-mono">Key Wrap Protection</span>
-                    <span className="font-mono text-slate-200">Server-Side KMS</span>
-                  </div>
-                </div>
-
-                <div className="text-[11px] text-slate-400 leading-relaxed pt-2 border-t border-slate-800">
-                  Data encryption key (DEK) is generated client-side and sealed under the KMS master key. Payload decryption requires hardware device attestation and verifiable access policy clearance.
-                </div>
+                )}
               </div>
             </div>
           )}
 
-          {/* TAB 4: ACTIVITY */}
-          {activeTab === 'activity' && (
+          {/* TAB 4: ACCESS HISTORY */}
+          {activeTab === 'history' && (
             <div className="space-y-3">
-              <div className="text-slate-400 text-xs">
-                Verified audit trail for this document:
+              <div className="text-zinc-400 text-xs">
+                Cryptographic audit trail of access attempts:
               </div>
 
               <div className="space-y-2">
@@ -353,71 +311,71 @@ export function VaultAssetDetailsDrawer({
                   asset.accessHistory.map((log) => (
                     <div 
                       key={log.id} 
-                      className="p-3 rounded-lg bg-slate-900/40 border border-slate-800 flex items-center justify-between"
+                      className="p-3 rounded-lg bg-zinc-900/40 border border-zinc-800 flex items-center justify-between"
                     >
                       <div>
-                        <div className="font-semibold text-slate-200 text-xs flex items-center gap-2">
+                        <div className="font-bold text-zinc-200 text-xs flex items-center gap-2">
                           <span className={`w-2 h-2 rounded-full ${
                             log.status === 'SUCCESS' ? 'bg-emerald-400' : 'bg-rose-400'
                           }`} />
                           <span>{log.action}</span>
-                          <span className="text-slate-400 text-[10px]">by {log.user_name}</span>
+                          <span className="text-zinc-500 text-[10px]">by {log.user_name}</span>
                         </div>
                         {log.details && (
-                          <div className="text-[10px] text-slate-400 mt-0.5">{log.details}</div>
+                          <div className="text-[10px] text-zinc-400 mt-0.5">{log.details}</div>
                         )}
                       </div>
-                      <span className="text-[10px] text-slate-400 font-mono shrink-0">
-                        {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      <span className="text-[10px] text-zinc-500 shrink-0">
+                        {new Date(log.timestamp).toLocaleTimeString()}
                       </span>
                     </div>
                   ))
                 ) : (
-                  <div className="text-slate-500 text-xs py-6 text-center">
-                    No recent activity records found for this document.
+                  <div className="text-zinc-500 text-xs py-4 text-center">
+                    No access history records found.
                   </div>
                 )}
               </div>
             </div>
           )}
 
-          {/* TAB 5: TECHNICAL DETAILS */}
-          {activeTab === 'technical' && (
+          {/* TAB 5: BLOCKCHAIN ANCHOR */}
+          {activeTab === 'blockchain' && (
             <div className="space-y-4">
-              <div className="p-4 rounded-lg bg-slate-900/60 border border-slate-800 space-y-3">
+              <div className="p-4 rounded-lg bg-zinc-900/60 border border-zinc-800 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-300 text-xs font-semibold flex items-center gap-1.5">
-                    <Cpu className="w-4 h-4 text-blue-400" />
+                  <span className="text-zinc-400 text-xs font-bold flex items-center gap-1.5">
+                    <Cpu className="w-4 h-4 text-cyan-400" />
                     Sepolia Ethereum On-Chain Registry
                   </span>
-                  <Badge variant="outline" className="border-emerald-500/30 text-emerald-400 text-[10px] font-mono">
+                  <Badge variant="outline" className="border-emerald-500/30 text-emerald-400 text-[10px]">
                     ANCHORED
                   </Badge>
                 </div>
 
                 <div className="space-y-2 text-[11px]">
                   <div>
-                    <span className="text-slate-500 block text-[10px] uppercase font-mono">Token ID</span>
-                    <span className="font-mono text-blue-300 font-bold">{asset.blockchainTokenId}</span>
+                    <span className="text-zinc-500 block text-[10px] uppercase">Token ID</span>
+                    <span className="font-mono text-cyan-300 font-bold">{asset.blockchainTokenId}</span>
                   </div>
 
                   <div>
-                    <span className="text-slate-500 block text-[10px] uppercase font-mono">Smart Contract</span>
-                    <span className="font-mono text-slate-300 break-all">{asset.blockchainContract}</span>
+                    <span className="text-zinc-500 block text-[10px] uppercase">Smart Contract</span>
+                    <span className="font-mono text-zinc-300 break-all">{asset.blockchainContract}</span>
                   </div>
 
                   <div>
-                    <span className="text-slate-500 block text-[10px] uppercase font-mono">Decentralized Identifier (DID)</span>
-                    <span className="font-mono text-slate-300 break-all">{asset.did}</span>
+                    <span className="text-zinc-500 block text-[10px] uppercase">Decentralized Identifier (DID)</span>
+                    <span className="font-mono text-zinc-300 break-all">{asset.did}</span>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-slate-800 flex justify-end">
+                <div className="pt-2 border-t border-zinc-800 flex justify-end">
                   <a
                     href={`https://sepolia.etherscan.io/address/${asset.blockchainContract}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 font-medium"
+                    className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-bold"
                   >
                     <span>View on Sepolia Etherscan</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -430,7 +388,7 @@ export function VaultAssetDetailsDrawer({
         </div>
 
         {/* Drawer Action Bar */}
-        <div className="p-4 border-t border-slate-800 bg-slate-900/70 flex items-center justify-between gap-2">
+        <div className="p-4 border-t border-zinc-800 bg-zinc-950/80 flex items-center justify-between gap-2">
           
           <div className="flex items-center gap-2">
             {asset.canEdit && (
@@ -439,7 +397,7 @@ export function VaultAssetDetailsDrawer({
                   variant="outline"
                   size="sm"
                   onClick={() => onRename(asset.id, asset.name)}
-                  className="border-slate-700 text-slate-300 hover:text-white text-xs"
+                  className="border-zinc-800 text-zinc-300 hover:text-zinc-100 text-xs font-mono"
                   title="Rename File"
                 >
                   <Edit3 className="w-3.5 h-3.5 mr-1" /> Rename
@@ -449,7 +407,7 @@ export function VaultAssetDetailsDrawer({
                   variant="outline"
                   size="sm"
                   onClick={() => onMove(asset.id, asset.folder)}
-                  className="border-slate-700 text-slate-300 hover:text-white text-xs"
+                  className="border-zinc-800 text-zinc-300 hover:text-zinc-100 text-xs font-mono"
                   title="Move Folder"
                 >
                   <FolderInput className="w-3.5 h-3.5 mr-1" /> Move
@@ -461,8 +419,8 @@ export function VaultAssetDetailsDrawer({
               variant="outline"
               size="sm"
               onClick={() => onShare(asset.id)}
-              className="border-slate-700 text-slate-300 hover:text-white text-xs"
-              title="Share File"
+              className="border-zinc-800 text-zinc-300 hover:text-cyan-300 text-xs font-mono"
+              title="Share with Team"
             >
               <Share2 className="w-3.5 h-3.5 mr-1" /> Share
             </Button>
@@ -474,36 +432,27 @@ export function VaultAssetDetailsDrawer({
                 variant="ghost"
                 size="sm"
                 onClick={() => onDelete(asset.id)}
-                className="text-rose-400 hover:text-rose-300 hover:bg-rose-950/20 text-xs"
-                title="Delete File"
+                className="text-rose-400 hover:text-rose-300 hover:bg-rose-950/20 text-xs font-mono"
+                title="Delete Asset"
               >
                 <Trash2 className="w-3.5 h-3.5" />
               </Button>
             )}
 
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onClose}
-              className="border-slate-700 text-slate-300 hover:bg-slate-800 text-xs"
-            >
-              Close
-            </Button>
-
             {asset.canDecrypt ? (
               <Button
                 size="sm"
                 onClick={() => onDecrypt(asset.id)}
-                className="bg-blue-600 text-white hover:bg-blue-700 font-medium text-xs shadow-sm flex items-center gap-1.5"
+                className="bg-cyan-500 text-zinc-950 hover:bg-cyan-400 font-mono font-bold text-xs"
               >
-                <Download className="w-3.5 h-3.5" />
-                <span>Download</span>
+                <Unlock className="w-3.5 h-3.5 mr-1.5" />
+                Decrypt &amp; View
               </Button>
             ) : (
               <Button
                 size="sm"
                 disabled
-                className="bg-slate-800 text-slate-500 text-xs"
+                className="bg-zinc-800 text-zinc-500 font-mono text-xs"
               >
                 <Lock className="w-3.5 h-3.5 mr-1.5" />
                 Restricted

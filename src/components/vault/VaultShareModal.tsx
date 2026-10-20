@@ -10,18 +10,12 @@ import {
   Users, 
   User, 
   Loader2, 
-  AlertCircle, 
-  Trash2, 
-  Globe, 
-  FileText, 
-  Plus, 
-  Check, 
-  ChevronDown,
-  Lock
+  AlertCircle,
+  Trash2,
+  Globe
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 
 interface UserOption {
   id: string;
@@ -63,13 +57,10 @@ export function VaultShareModal({
 }: VaultShareModalProps) {
   const [shareTargetType, setShareTargetType] = React.useState<'SPECIFIC' | 'ALL'>('SPECIFIC');
   const [targetUserId, setTargetUserId] = React.useState('');
-  const [permissionLevel, setPermissionLevel] = React.useState<'VIEW' | 'DOWNLOAD' | 'EDIT'>('DOWNLOAD');
-  
   const [canRead, setCanRead] = React.useState(true);
   const [canDecrypt, setCanDecrypt] = React.useState(true);
   const [canDownload, setCanDownload] = React.useState(true);
   const [canEdit, setCanEdit] = React.useState(false);
-  
   const [expiry, setExpiry] = React.useState<'24h' | '7d' | '30d' | 'never'>('7d');
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -102,53 +93,6 @@ export function VaultShareModal({
       }
     }
   }, [isOpen, fetchActiveShares, availableUsers, targetUserId]);
-
-  // Sync permission level presets
-  const handlePermissionPresetChange = (preset: 'VIEW' | 'DOWNLOAD' | 'EDIT') => {
-    setPermissionLevel(preset);
-    if (preset === 'VIEW') {
-      setCanRead(true);
-      setCanDecrypt(true);
-      setCanDownload(false);
-      setCanEdit(false);
-    } else if (preset === 'DOWNLOAD') {
-      setCanRead(true);
-      setCanDecrypt(true);
-      setCanDownload(true);
-      setCanEdit(false);
-    } else if (preset === 'EDIT') {
-      setCanRead(true);
-      setCanDecrypt(true);
-      setCanDownload(true);
-      setCanEdit(true);
-    }
-  };
-
-  // Revoke modal state
-  const [revokeTarget, setRevokeTarget] = React.useState<{ userId: string; userName: string } | null>(null);
-  const [revoking, setRevoking] = React.useState(false);
-
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        if (revokeTarget) {
-          setRevokeTarget(null);
-        } else {
-          onClose();
-        }
-      }
-    };
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, onClose, revokeTarget]);
 
   if (!isOpen) return null;
 
@@ -193,14 +137,7 @@ export function VaultShareModal({
     }
   };
 
-  const handleOpenRevoke = (share: ActiveShare) => {
-    setRevokeTarget({ userId: share.userId, userName: share.userName });
-  };
-
-  const handleConfirmRevoke = async () => {
-    if (!revokeTarget) return;
-    setRevoking(true);
-    setError(null);
+  const handleRevokeShare = async (targetId: string) => {
     try {
       const res = await fetch('/api/assets/share', {
         method: 'POST',
@@ -208,116 +145,95 @@ export function VaultShareModal({
         body: JSON.stringify({
           action: 'revoke',
           assetId,
-          targetUserId: revokeTarget.userId,
+          targetUserId: targetId,
         }),
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to revoke access');
+      if (!res.ok) throw new Error(data.error);
       await fetchActiveShares();
       onShareSuccess();
-      setRevokeTarget(null);
     } catch (err: any) {
-      setError(err.message || 'Failed to revoke share');
-    } finally {
-      setRevoking(false);
+      alert(err.message || 'Failed to revoke share');
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
-      <div 
-        className="fixed inset-0" 
-        onClick={onClose} 
-        aria-hidden="true" 
-      />
-      <div 
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="share-modal-title"
-        className="relative z-10 w-full max-w-lg bg-[#0F172A] border border-slate-800 rounded-2xl shadow-xl p-6 sm:p-7 space-y-6 font-sans text-xs max-h-[92vh] overflow-y-auto"
-      >
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg bg-[#0a0a0c] border border-zinc-800 rounded-xl shadow-2xl p-6 space-y-6 font-mono text-xs max-h-[90vh] overflow-y-auto">
         
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-950/40 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
+            <div className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
               <Share2 className="w-5 h-5" />
             </div>
             <div>
-              <h3 id="share-modal-title" className="text-base font-bold text-white tracking-tight">
-                Share File
+              <h3 className="text-base font-bold text-zinc-100 uppercase">
+                Controlled Asset Sharing
               </h3>
-              <p className="text-xs text-slate-400 font-mono mt-0.5 truncate max-w-[260px]">
+              <p className="text-[11px] text-zinc-500 mt-0.5 truncate max-w-[280px]">
                 {assetName}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors"
-            aria-label="Close modal"
+            className="text-zinc-500 hover:text-zinc-200 p-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {error && (
-          <div className="p-3 bg-red-950/30 border border-red-500/40 rounded-xl text-red-300 flex items-center gap-2 font-mono">
-            <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+          <div className="p-3 bg-rose-950/30 border border-rose-500/40 rounded-lg text-rose-300 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
             <span>{error}</span>
           </div>
         )}
 
-        {/* 1. Permissions Preset Selector */}
+        {/* 1. Share Target Scope Switcher */}
         <div className="space-y-1.5">
-          <label className="text-slate-300 text-xs font-medium block">Permissions</label>
-          <div className="grid grid-cols-3 gap-2">
+          <label className="text-zinc-400 text-[11px] uppercase tracking-wider block">Choose Who Can Access</label>
+          <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
-              onClick={() => handlePermissionPresetChange('VIEW')}
-              className={`py-2 px-3 rounded-lg border text-xs font-mono transition-all cursor-pointer ${
-                permissionLevel === 'VIEW'
-                  ? 'border-blue-500 bg-blue-950/40 text-blue-300 font-semibold'
-                  : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200'
+              onClick={() => setShareTargetType('SPECIFIC')}
+              className={`flex items-center justify-center gap-2 p-3 rounded-lg border text-xs font-bold transition-all ${
+                shareTargetType === 'SPECIFIC'
+                  ? 'border-cyan-500/60 bg-cyan-500/15 text-cyan-300 shadow-sm'
+                  : 'border-zinc-800 bg-zinc-900/40 text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              View Only
+              <User className="w-4 h-4" />
+              <span>Specific Person</span>
             </button>
+
             <button
               type="button"
-              onClick={() => handlePermissionPresetChange('DOWNLOAD')}
-              className={`py-2 px-3 rounded-lg border text-xs font-mono transition-all cursor-pointer ${
-                permissionLevel === 'DOWNLOAD'
-                  ? 'border-blue-500 bg-blue-950/40 text-blue-300 font-semibold'
-                  : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200'
+              onClick={() => setShareTargetType('ALL')}
+              className={`flex items-center justify-center gap-2 p-3 rounded-lg border text-xs font-bold transition-all ${
+                shareTargetType === 'ALL'
+                  ? 'border-cyan-500/60 bg-cyan-500/15 text-cyan-300 shadow-sm'
+                  : 'border-zinc-800 bg-zinc-900/40 text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              Download
-            </button>
-            <button
-              type="button"
-              onClick={() => handlePermissionPresetChange('EDIT')}
-              className={`py-2 px-3 rounded-lg border text-xs font-mono transition-all cursor-pointer ${
-                permissionLevel === 'EDIT'
-                  ? 'border-blue-500 bg-blue-950/40 text-blue-300 font-semibold'
-                  : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              Can Edit
+              <Globe className="w-4 h-4" />
+              <span>All People (Org-Wide)</span>
             </button>
           </div>
         </div>
 
-        {/* 2. Share with Input */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1.5">
-            <label className="text-slate-300 text-xs font-medium block">Share with</label>
-            <div className="flex gap-2">
+          
+          {/* Specific Person Picker */}
+          {shareTargetType === 'SPECIFIC' ? (
+            <div className="space-y-1.5">
+              <label className="text-zinc-400 text-[11px] uppercase tracking-wider">Select Recipient Person</label>
               <select
                 value={targetUserId}
                 onChange={(e) => setTargetUserId(e.target.value)}
-                className="flex-1 h-9 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs px-3 focus:outline-none focus:border-blue-500"
+                className="w-full h-9 rounded-md bg-black/60 border border-zinc-800 text-zinc-200 text-xs px-3 py-1 focus:outline-none focus:border-cyan-500"
               >
                 {availableUsers.map((u) => (
                   <option key={u.id} value={u.id}>
@@ -325,130 +241,186 @@ export function VaultShareModal({
                   </option>
                 ))}
               </select>
+            </div>
+          ) : (
+            <div className="p-3 bg-zinc-900/40 border border-cyan-500/20 rounded-lg text-[11px] text-cyan-300 flex items-center gap-2">
+              <Globe className="w-4 h-4 shrink-0 text-cyan-400" />
+              <span>
+                Organization-Wide: All authenticated personnel in the organization will be granted access to this data.
+              </span>
+            </div>
+          )}
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="px-4 h-9 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs flex items-center gap-1.5 shadow-sm cursor-pointer disabled:opacity-50"
-              >
-                {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plus className="w-3.5 h-3.5" />}
-                <span>Share</span>
-              </button>
+          {/* Granular Permissions Matrix */}
+          <div className="space-y-2">
+            <label className="text-zinc-400 text-[11px] uppercase tracking-wider">Grant Permissions</label>
+            <div className="grid grid-cols-2 gap-2 p-3 bg-zinc-900/40 border border-zinc-800 rounded-lg">
+              
+              <label className="flex items-center gap-2 text-zinc-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={canRead}
+                  onChange={(e) => setCanRead(e.target.checked)}
+                  className="rounded border-zinc-700 bg-black/50 text-cyan-500 focus:ring-0"
+                />
+                <span>Read Metadata</span>
+              </label>
+
+              <label className="flex items-center gap-2 text-zinc-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={canDecrypt}
+                  onChange={(e) => setCanDecrypt(e.target.checked)}
+                  className="rounded border-zinc-700 bg-black/50 text-cyan-500 focus:ring-0"
+                />
+                <span className="text-cyan-400 font-bold">Decrypt (KMS)</span>
+              </label>
+
+              <label className="flex items-center gap-2 text-zinc-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={canDownload}
+                  onChange={(e) => setCanDownload(e.target.checked)}
+                  className="rounded border-zinc-700 bg-black/50 text-cyan-500 focus:ring-0"
+                />
+                <span>Download File</span>
+              </label>
+
+              <label className="flex items-center gap-2 text-zinc-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={canEdit}
+                  onChange={(e) => setCanEdit(e.target.checked)}
+                  className="rounded border-zinc-700 bg-black/50 text-cyan-500 focus:ring-0"
+                />
+                <span>Edit / Manage</span>
+              </label>
+
             </div>
           </div>
-        </form>
 
-        {/* 3. Existing Access List */}
-        <div className="space-y-3 pt-2">
-          <div className="flex items-center justify-between text-xs text-slate-400">
-            <span className="font-medium text-slate-300">People with access</span>
-            <span className="font-mono text-[10px] text-blue-400">
-              {activeShares.length} granted
-            </span>
+          {/* Expiring Access Selection */}
+          <div className="space-y-1.5">
+            <label className="text-zinc-400 text-[11px] uppercase tracking-wider flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
+              Access Duration (Auto-Expiring)
+            </label>
+            <div className="grid grid-cols-4 gap-2">
+              {[
+                { id: '24h', label: '24 Hours' },
+                { id: '7d', label: '7 Days' },
+                { id: '30d', label: '30 Days' },
+                { id: 'never', label: 'Permanent' },
+              ].map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => setExpiry(opt.id as any)}
+                  className={`py-2 px-1 rounded border text-center text-[10px] transition-all ${
+                    expiry === opt.id
+                      ? 'border-cyan-500/50 bg-cyan-500/15 text-cyan-300 font-bold'
+                      : 'border-zinc-800 bg-black/40 text-zinc-400 hover:text-zinc-200'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            <p className="text-[10px] text-zinc-500 mt-1">
+              Cryptographic KMS clearance will automatically revoke when expiration timestamp is reached.
+            </p>
           </div>
 
-          <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+          {/* Action Button */}
+          <div className="flex items-center justify-end gap-3 pt-2">
+            <Button
+              type="submit"
+              disabled={loading}
+              className="bg-cyan-500 text-zinc-950 hover:bg-cyan-400 font-mono font-bold text-xs w-full sm:w-auto"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 mr-2 animate-spin" />
+                  Granting Access...
+                </>
+              ) : (
+                <>
+                  <UserCheck className="w-3.5 h-3.5 mr-1.5" />
+                  {shareTargetType === 'ALL' ? 'Share with All People' : 'Grant Person Access'}
+                </>
+              )}
+            </Button>
+          </div>
+
+        </form>
+
+        {/* 2. Active Access & Who Can Access List */}
+        <div className="pt-4 border-t border-zinc-800 space-y-2">
+          <div className="flex items-center justify-between text-[11px] font-bold text-zinc-300">
+            <span className="flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-cyan-400" />
+              Who Currently Has Access:
+            </span>
+            <span className="text-zinc-500">{activeShares.length} Active Permission(s)</span>
+          </div>
+
+          <div className="space-y-1.5">
             {loadingShares ? (
-              <div className="p-4 text-center text-slate-500 font-mono text-xs">
-                Loading access list...
+              <div className="py-4 text-center text-zinc-500 flex items-center justify-center gap-2">
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-cyan-400" />
+                <span>Loading access matrix...</span>
               </div>
-            ) : activeShares.length === 0 ? (
-              <div className="p-4 text-center text-slate-500 font-mono text-xs rounded-lg bg-slate-900/50 border border-slate-800">
-                Only file owner currently has clearance.
-              </div>
-            ) : (
+            ) : activeShares.length > 0 ? (
               activeShares.map((share) => (
                 <div
                   key={share.userId}
-                  className="flex items-center justify-between p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-xs"
+                  className="flex items-center justify-between p-2.5 rounded bg-zinc-900/60 border border-zinc-800 text-[11px]"
                 >
-                  <div className="flex items-center gap-3 min-w-0 pr-2">
-                    <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs uppercase shrink-0">
-                      {share.userName.charAt(0)}
+                  <div>
+                    <div className="font-bold text-zinc-200 flex items-center gap-1.5">
+                      {share.isAll ? (
+                        <Globe className="w-3.5 h-3.5 text-cyan-400" />
+                      ) : (
+                        <User className="w-3.5 h-3.5 text-zinc-400" />
+                      )}
+                      <span>{share.userName}</span>
+                      {share.isAll && (
+                        <Badge variant="outline" className="border-cyan-500/30 text-cyan-400 text-[9px]">
+                          ORG-WIDE
+                        </Badge>
+                      )}
                     </div>
-                    <div className="min-w-0">
-                      <div className="font-medium text-slate-200 truncate">{share.userName}</div>
-                      <div className="text-[10px] font-mono text-slate-400 truncate">{share.userEmail || 'Active user'}</div>
+                    <div className="text-[10px] text-zinc-500 mt-0.5">
+                      Perms: {[
+                        share.canRead && 'Read',
+                        share.canDecrypt && 'Decrypt',
+                        share.canDownload && 'Download',
+                        share.canEdit && 'Edit',
+                      ].filter(Boolean).join(', ')}
+                      {share.expiresAt && ` • Expires ${new Date(share.expiresAt).toLocaleDateString()}`}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-950/60 text-blue-300 border border-blue-500/30">
-                      {share.canEdit ? 'Can edit' : share.canDownload ? 'Can view & DL' : 'Can view'}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => handleOpenRevoke(share)}
-                      className="p-1 text-slate-500 hover:text-red-400 transition-colors"
-                      title="Remove access"
-                      aria-label={`Remove access for ${share.userName}`}
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleRevokeShare(share.userId)}
+                    className="text-rose-400 hover:text-rose-300 hover:bg-rose-950/20 text-[10px] p-1.5 h-auto font-mono"
+                    title="Revoke access for this user"
+                  >
+                    <Trash2 className="w-3 h-3 mr-1" /> Revoke
+                  </Button>
                 </div>
               ))
+            ) : (
+              <div className="text-zinc-500 text-[11px] py-2 text-center">
+                Private to owner. No external users currently have access.
+              </div>
             )}
           </div>
         </div>
 
-        {/* Central Invariant Notice */}
-        <div className="p-3 rounded-lg bg-blue-950/30 border border-blue-500/20 text-[11px] text-slate-400 flex items-center gap-2">
-          <Lock className="w-4 h-4 text-blue-400 shrink-0" />
-          <span>Authorization ≠ Decryption: Sharing grants clearance. Cryptographic keys are protected by KMS.</span>
-        </div>
-
-        {/* Action Button */}
-        <div className="pt-2">
-          <Button
-            type="button"
-            onClick={onClose}
-            className="w-full py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs"
-          >
-            Close
-          </Button>
-        </div>
-
       </div>
-
-      {/* Accessible Revoke Confirmation Dialog */}
-      {revokeTarget && (
-        <Dialog open={Boolean(revokeTarget)} onOpenChange={(open) => !open && setRevokeTarget(null)}>
-          <DialogContent onClose={() => setRevokeTarget(null)}>
-            <DialogHeader>
-              <DialogTitle>Revoke Access Clearance</DialogTitle>
-              <DialogDescription>
-                Are you sure you want to revoke access for <strong className="text-white">{revokeTarget.userName}</strong>?
-              </DialogDescription>
-            </DialogHeader>
-            <div className="p-3 rounded-lg bg-red-950/20 border border-red-500/30 text-red-300 text-xs leading-relaxed font-sans">
-              This will immediately invalidate their cryptographic access rights across the server KMS and prevent future decryption requests.
-            </div>
-            <DialogFooter>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => setRevokeTarget(null)}
-                className="border-slate-800 text-slate-300 hover:bg-slate-800 text-xs"
-              >
-                Cancel
-              </Button>
-              <Button
-                type="button"
-                size="sm"
-                disabled={revoking}
-                onClick={handleConfirmRevoke}
-                className="bg-red-600 hover:bg-red-700 text-white text-xs font-medium"
-              >
-                {revoking ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" /> : null}
-                Confirm Revocation
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      )}
-
     </div>
   );
 }

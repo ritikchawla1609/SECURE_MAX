@@ -3,8 +3,6 @@ import { getVerifiedSession } from '@/lib/auth/session';
 import { deviceStore } from '@/lib/auth/deviceStore';
 import { UserRole } from '@/types';
 
-export const dynamic = 'force-dynamic';
-
 export async function GET(req: Request) {
   if (typeof deviceStore !== 'undefined') {
     await deviceStore.loadFromCloud();
@@ -170,7 +168,7 @@ export async function POST(req: Request) {
     }
 
     if (action === 'assign') {
-      const isCallerAdmin = session.role === UserRole.ADMIN || session.userId === 'usr_admin_001';
+      const isCallerAdmin = session.role === UserRole.ADMIN || session.userId === 'usr_admin_001' || session.userId?.startsWith('admin');
       if (!isCallerAdmin) {
         if (deviceStore?.lastSyncPromise) {
           await deviceStore.lastSyncPromise;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Fingerprint, ShieldCheck, Key, Lock, Activity, User, ChevronDown } from 'lucide-react';
 import { supabaseAdmin } from '@/lib/db/client';
 import { Badge } from '@/components/ui/badge';
+
 import { deviceStore } from '@/lib/auth/deviceStore';
 
 export const dynamic = 'force-dynamic';
@@ -33,94 +34,71 @@ export default async function IdentityPage() {
   const activeIdentities = users.length > 0 ? users : storeUsers;
 
   return (
-    <div className="space-y-6 font-sans selection:bg-blue-600/30 pb-12">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[#0F172A] border border-slate-800 rounded-xl p-6 shadow-sm">
+    <div className="space-y-8 font-sans selection:bg-cyan-500/30 pb-12">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <div>
-          <div className="text-blue-400 font-mono text-xs uppercase tracking-wider mb-1 font-semibold">
-            CHAIN-1 DECENTRALIZED DIRECTORY
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
-            <Fingerprint className="h-7 w-7 text-blue-400" />
-            Identity Registry
-          </h1>
-          <p className="text-xs text-slate-400 mt-1 font-normal">
-            Decentralized Identifiers (DIDs) & cryptographic wallet attestations registered on Chain-1.
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="border-blue-500/30 text-blue-400 bg-blue-950/40 font-mono text-xs px-3 py-1">
-            {activeIdentities.length} Active {activeIdentities.length === 1 ? 'DID' : 'DIDs'}
-          </Badge>
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 uppercase flex items-center gap-3">
+            <Fingerprint className="h-6 w-6 text-cyan-400" />
+            Identity Management
+          </h2>
+          <p className="text-sm text-zinc-500 font-mono tracking-widest mt-1 uppercase">Cryptographic Wallet-Backed Identities</p>
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         {activeIdentities.length > 0 ? activeIdentities.map((user: any) => (
-          <div key={user.id} className="bg-[#0F172A] border border-slate-800 rounded-xl overflow-hidden shadow-sm hover:border-slate-700 transition-colors">
-            <div className="p-4 bg-slate-900/60 border-b border-slate-800 flex justify-between items-center">
-              <div className="flex items-center gap-4">
-                <div className="w-9 h-9 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
-                  <User className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-white">{user.name || 'Unknown User'}</div>
-                  <div className="text-[11px] font-mono text-slate-400">{user.wallet_address || 'No DID Bound'}</div>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <Badge variant="outline" className="text-xs font-mono px-2.5 py-0.5 border-blue-500/30 text-blue-400 bg-blue-950/40">
+          <div key={user.id} className="bg-[#0a0a0c] border border-zinc-800 rounded-lg overflow-hidden">
+            <div className="bg-zinc-900/50 p-4 border-b border-zinc-800 flex justify-between items-center cursor-pointer hover:bg-zinc-900/80 transition-colors">
+              <div className="flex items-center gap-6">
+                <div className="w-8 flex justify-center"><User className="w-4 h-4 text-zinc-500" /></div>
+                <div className="text-xs font-bold tracking-widest text-zinc-100 uppercase w-[150px] truncate">{user.name || 'UNKNOWN USER'}</div>
+                <div className="text-[10px] font-mono tracking-widest px-3 py-1 rounded bg-cyan-500/10 text-cyan-400 w-[100px] text-center">
                   {user.role}
-                </Badge>
-                <Badge variant="outline" className="text-xs font-mono px-2.5 py-0.5 border-emerald-500/30 text-emerald-400 bg-emerald-950/40 hidden sm:inline-flex">
-                  Active
-                </Badge>
+                </div>
+                <div className="text-[10px] font-mono tracking-widest px-3 py-1 rounded bg-emerald-500/10 text-emerald-400 hidden md:block">
+                  ACTIVE
+                </div>
               </div>
+              <ChevronDown className="w-4 h-4 text-zinc-500" />
             </div>
 
-            <div className="p-5 grid grid-cols-1 md:grid-cols-3 gap-6 bg-[#0F172A]">
+            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
                {/* IDENTITY PROFILE */}
-               <div className="space-y-3">
-                 <h4 className="text-[11px] font-mono tracking-wider text-slate-400 uppercase pb-1.5 border-b border-slate-800 font-semibold">
-                   Identity Profile
-                 </h4>
-                 <div className="space-y-1.5 text-xs font-mono">
-                   <div className="flex justify-between"><span className="text-slate-400">Name</span><span className="text-slate-200">{user.name || 'N/A'}</span></div>
-                   <div className="flex justify-between"><span className="text-slate-400">DID</span><span className="text-blue-400 truncate max-w-[140px]" title={user.wallet_address}>{user.wallet_address ? `${user.wallet_address.substring(0, 10)}...` : 'N/A'}</span></div>
-                   <div className="flex justify-between"><span className="text-slate-400">Role</span><span className="text-slate-200">{user.role}</span></div>
-                   <div className="flex justify-between"><span className="text-slate-400">Status</span><span className="text-emerald-400">Active</span></div>
+               <div className="space-y-4">
+                 <h4 className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase pb-2 border-b border-zinc-800">Identity Profile</h4>
+                 <div className="space-y-2 text-xs font-mono">
+                   <div className="flex justify-between"><span className="text-zinc-600">NAME</span><span className="text-zinc-300">{user.name || 'N/A'}</span></div>
+                   <div className="flex justify-between"><span className="text-zinc-600">WALLET</span><span className="text-cyan-400 truncate max-w-[120px]" title={user.wallet_address}>{user.wallet_address ? `${user.wallet_address.substring(0,6)}...${user.wallet_address.substring(user.wallet_address.length - 4)}` : 'N/A'}</span></div>
+                   <div className="flex justify-between"><span className="text-zinc-600">ROLE</span><span className="text-zinc-300">{user.role}</span></div>
+                   <div className="flex justify-between"><span className="text-zinc-600">STATUS</span><span className="text-emerald-500">ACTIVE</span></div>
                  </div>
                </div>
 
                {/* AUTHENTICATION */}
-               <div className="space-y-3">
-                 <h4 className="text-[11px] font-mono tracking-wider text-slate-400 uppercase pb-1.5 border-b border-slate-800 font-semibold">
-                   Authentication
-                 </h4>
-                 <div className="space-y-1.5 text-xs font-mono">
-                   <div className="flex justify-between"><span className="text-slate-400">Challenge</span><span className="text-slate-300">Verified</span></div>
-                   <div className="flex justify-between"><span className="text-slate-400">Signature</span><span className="text-slate-400 truncate max-w-[140px]">EIP-712 / P-256</span></div>
-                   <div className="flex justify-between"><span className="text-slate-400">Session</span><span className="text-emerald-400">Verified</span></div>
+               <div className="space-y-4">
+                 <h4 className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase pb-2 border-b border-zinc-800">Authentication</h4>
+                 <div className="space-y-2 text-xs font-mono">
+                   <div className="flex justify-between"><span className="text-zinc-600">CHALLENGE</span><span className="text-zinc-400 truncate max-w-[120px]">Verified</span></div>
+                   <div className="flex justify-between"><span className="text-zinc-600">EIP-191 SIG</span><span className="text-zinc-600 truncate max-w-[120px]">0x...{user.wallet_address ? user.wallet_address.slice(-4) : 'abcd'}</span></div>
+                   <div className="flex justify-between"><span className="text-zinc-600">SESSION</span><span className="text-emerald-500">CRYPTOGRAPHICALLY VERIFIED</span></div>
                  </div>
                </div>
 
                {/* AUTHORIZATION */}
-               <div className="space-y-3">
-                 <h4 className="text-[11px] font-mono tracking-wider text-slate-400 uppercase pb-1.5 border-b border-slate-800 font-semibold">
-                   Authorization
-                 </h4>
-                 <div className="space-y-1.5 text-xs font-mono">
-                   <div className="flex justify-between"><span className="text-slate-400">Boundaries</span><span className="text-blue-400">Domain 1 / Domain 2</span></div>
-                   <div className="flex justify-between"><span className="text-slate-400">Clearance</span><span className="text-slate-200">{user.role === 'ADMIN' ? 'Global Admin' : 'RBAC Policy'}</span></div>
-                   <div className="flex justify-between"><span className="text-slate-400">Posture</span><span className="text-emerald-400">Compliant</span></div>
+               <div className="space-y-4">
+                 <h4 className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase pb-2 border-b border-zinc-800">Authorization</h4>
+                 <div className="space-y-2 text-xs font-mono">
+                   <div className="flex justify-between"><span className="text-zinc-600">PERMISSIONS</span><span className="text-cyan-400">DOMAIN 1 / DOMAIN 2</span></div>
+                   <div className="flex justify-between"><span className="text-zinc-600">ASSET ACCESS</span><span className="text-zinc-300">{user.role === 'ADMIN' ? 'GLOBAL' : 'RESTRICTED'}</span></div>
+                   <div className="flex justify-between"><span className="text-zinc-600">STATE</span><span className="text-emerald-500">SECURE SESSION</span></div>
                  </div>
                </div>
             </div>
           </div>
         )) : (
-          <div className="flex flex-col items-center justify-center py-20 text-slate-500 border border-slate-800 rounded-xl bg-[#0F172A]">
-            <Fingerprint className="h-12 w-12 mb-4 opacity-40 text-blue-400" />
-            <p className="text-xs font-mono tracking-wider uppercase text-slate-400">No Registered Identities Found</p>
+          <div className="flex flex-col items-center justify-center py-20 text-zinc-600 border border-zinc-800/50 rounded-lg bg-[#0a0a0c]">
+            <Fingerprint className="h-12 w-12 mb-6 opacity-50 text-cyan-400" />
+            <p className="text-sm font-mono tracking-widest uppercase text-zinc-400">NO IDENTITIES FOUND</p>
           </div>
         )}
       </div>

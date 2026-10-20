@@ -62,13 +62,6 @@ export function decryptData(ciphertextBase64: string, key: Buffer, ivBase64: str
   const authTag = Buffer.from(authTagBase64, 'base64');
   const ciphertext = Buffer.from(ciphertextBase64, 'base64');
 
-  if (iv.length !== IV_LENGTH) {
-    throw new Error('Invalid initialization vector length for AES-256-GCM (must be 12 bytes).');
-  }
-  if (authTag.length !== AUTH_TAG_LENGTH) {
-    throw new Error('Invalid authentication tag length for AES-256-GCM (must be 16 bytes).');
-  }
-
   const decipher = crypto.createDecipheriv(ALGORITHM, key, iv);
   
   // Bind the AAD

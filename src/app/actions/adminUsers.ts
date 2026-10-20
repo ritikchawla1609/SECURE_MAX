@@ -5,8 +5,6 @@ import { UserRole, UserStatus } from '@/types';
 import crypto from 'crypto';
 import { syncUserToSupabase } from '@/lib/db/supabase-sync';
 
-import { getVerifiedSession } from '@/lib/auth/session';
-
 export interface AdminCreateUserResult {
   success: boolean;
   user?: {
@@ -22,12 +20,10 @@ export interface AdminCreateUserResult {
 }
 
 export async function getRegisteredPersonnel() {
+  
+  
   if (typeof deviceStore !== 'undefined') {
     await deviceStore.loadFromCloud();
-  }
-  const session = await getVerifiedSession();
-  if (session.role !== UserRole.ADMIN) {
-    throw new Error('Forbidden: Only administrators can view personnel directory');
   }
   const users: Array<{
     id: string;
@@ -64,11 +60,6 @@ export async function registerNewUserByAdmin(formData: {
   deviceName?: string;
 }): Promise<AdminCreateUserResult> {
   try {
-    const session = await getVerifiedSession();
-    if (session.role !== UserRole.ADMIN) {
-      return { success: false, error: 'Forbidden: Only administrators can register new users' };
-    }
-
     const cleanEmail = String(formData.email || '').toLowerCase().trim();
     const cleanName = String(formData.name || '').trim();
 

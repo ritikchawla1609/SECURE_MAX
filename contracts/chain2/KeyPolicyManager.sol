@@ -58,6 +58,6 @@ contract KeyPolicyManager is Ownable, ReentrancyGuard {
     }
 
     function isPolicyActive(bytes32 policyId) external view returns (bool) {
-        return policies[policyId].createdAt != 0 && policies[policyId].isActive;
+        return policies[policyId].isActive;
     }
 }
