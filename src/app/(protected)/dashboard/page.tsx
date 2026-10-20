@@ -1,11 +1,22 @@
 import { redirect } from 'next/navigation';
-// import { getSession } from '@/lib/auth/session'; // TODO: wire up server-side auth
+import { getVerifiedSession } from '@/lib/auth/session';
+import { UserRole } from '@/types';
+
+export const dynamic = 'force-dynamic';
 
 export default async function DashboardRedirect() {
-  // Simulate auth check for now
-  // const session = await getSession();
-  // if (!session) redirect('/');
-  // redirect(`/dashboard/${session.role.toLowerCase()}`);
-  
-  redirect('/dashboard/soc');
+  try {
+    const session = await getVerifiedSession();
+    if (session.role === UserRole.ADMIN) {
+      redirect('/dashboard/admin');
+    } else if (session.role === UserRole.AUDITOR) {
+      redirect('/dashboard/auditor');
+    } else if (session.role === UserRole.SECURITY_ANALYST) {
+      redirect('/dashboard/soc');
+    } else {
+      redirect('/dashboard/user');
+    }
+  } catch {
+    redirect('/login');
+  }
 }

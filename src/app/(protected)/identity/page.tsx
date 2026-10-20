@@ -5,9 +5,21 @@ import { Badge } from '@/components/ui/badge';
 
 import { deviceStore } from '@/lib/auth/deviceStore';
 
+import { getVerifiedSession } from '@/lib/auth/session';
+import { redirect } from 'next/navigation';
+import { UserRole } from '@/types';
+
 export const dynamic = 'force-dynamic';
 
 export default async function IdentityPage() {
+  try {
+    const session = await getVerifiedSession();
+    if (session.role !== UserRole.ADMIN) {
+      redirect('/dashboard/user');
+    }
+  } catch {
+    redirect('/login');
+  }
   let users: any[] = [];
   try {
     const res = await supabaseAdmin

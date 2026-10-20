@@ -200,6 +200,7 @@ export function VaultSecurePreviewModal({
 
                 <div className="p-4 bg-black/90 rounded-lg border border-cyan-500/30 text-xs text-cyan-200 leading-relaxed font-mono whitespace-pre-wrap select-all max-h-64 overflow-y-auto">
                   {result.mimeType?.startsWith('image/') ? (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img 
                       src={`data:${result.mimeType};base64,${result.decryptedData}`} 
                       alt={result.assetName} 

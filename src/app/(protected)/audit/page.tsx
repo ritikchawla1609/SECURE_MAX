@@ -3,10 +3,22 @@ import { Database, ShieldCheck, FileText, ChevronDown } from 'lucide-react';
 import { supabaseAdmin } from '@/lib/db/client';
 import { deviceStore } from '@/lib/auth/deviceStore';
 
+import { getVerifiedSession } from '@/lib/auth/session';
+import { redirect } from 'next/navigation';
+import { UserRole } from '@/types';
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function AuditTrailPage() {
+  try {
+    const session = await getVerifiedSession();
+    if (session.role !== UserRole.AUDITOR && session.role !== UserRole.ADMIN) {
+      redirect('/dashboard/user');
+    }
+  } catch {
+    redirect('/login');
+  }
   if (typeof deviceStore !== 'undefined') { await deviceStore.loadFromCloud(); }
   const { data: auditEvents } = await supabaseAdmin
     .from('audit_events')

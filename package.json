@@ -9,6 +9,7 @@
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:smoke": "vitest run test/security/smoke.test.ts && playwright test e2e/smoke.spec.ts --reporter=list",
     "test:e2e": "playwright test",
     "test:coverage": "vitest run --coverage",
     "contracts:compile": "hardhat compile",

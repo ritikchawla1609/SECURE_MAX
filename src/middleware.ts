@@ -32,6 +32,7 @@ export async function middleware(request: NextRequest) {
     if (session) {
       if (session.role === 'ADMIN') return NextResponse.redirect(new URL('/dashboard/admin', request.url));
       if (session.role === 'AUDITOR') return NextResponse.redirect(new URL('/dashboard/auditor', request.url));
+      if (session.role === 'SECURITY_ANALYST') return NextResponse.redirect(new URL('/dashboard/soc', request.url));
       return NextResponse.redirect(new URL('/dashboard/user', request.url));
     }
     return NextResponse.next();
@@ -57,8 +58,21 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Protect dashboard, breachlab, and api routes (except public APIs)
-  if (pathname.startsWith('/dashboard') || pathname.startsWith('/breachlab') || (pathname.startsWith('/api/') && !isPublicApi)) {
+  // Protected route checking
+  const isProtectedPath = 
+    pathname.startsWith('/dashboard') ||
+    pathname.startsWith('/breachlab') ||
+    pathname.startsWith('/assets') ||
+    pathname.startsWith('/access') ||
+    pathname.startsWith('/devices') ||
+    pathname.startsWith('/identity') ||
+    pathname.startsWith('/infrastructure') ||
+    pathname.startsWith('/positions') ||
+    pathname.startsWith('/audit') ||
+    pathname.startsWith('/security');
+
+  // Protect dashboard, breachlab, all app sections, and api routes (except public APIs)
+  if (isProtectedPath || (pathname.startsWith('/api/') && !isPublicApi)) {
     const session = await validateSession(request);
     
     if (!session) {
@@ -70,7 +84,39 @@ export async function middleware(request: NextRequest) {
 
     // Role-based routing checks
     if (pathname.startsWith('/dashboard/admin') && session.role !== 'ADMIN') {
-      return NextResponse.redirect(new URL('/dashboard', request.url));
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/dashboard/auditor') && session.role !== 'AUDITOR' && session.role !== 'ADMIN') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/dashboard/soc') && session.role !== 'ADMIN' && session.role !== 'SECURITY_ANALYST') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/positions') && session.role !== 'ADMIN') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/identity') && session.role !== 'ADMIN') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/devices') && session.role !== 'ADMIN') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/audit') && session.role !== 'ADMIN' && session.role !== 'AUDITOR') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/infrastructure') && session.role !== 'ADMIN' && session.role !== 'AUDITOR') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/breachlab') && session.role !== 'ADMIN' && session.role !== 'SECURITY_ANALYST' && session.role !== 'MANAGER') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
     }
   }
 
@@ -78,5 +124,27 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/breachlab', '/breachlab/:path*', '/api/:path*', '/login', '/'],
+  matcher: [
+    '/dashboard/:path*',
+    '/breachlab',
+    '/breachlab/:path*',
+    '/assets',
+    '/assets/:path*',
+    '/access',
+    '/access/:path*',
+    '/devices',
+    '/devices/:path*',
+    '/identity',
+    '/identity/:path*',
+    '/infrastructure',
+    '/infrastructure/:path*',
+    '/positions',
+    '/positions/:path*',
+    '/audit',
+    '/audit/:path*',
+    '/security/:path*',
+    '/api/:path*',
+    '/login',
+    '/',
+  ],
 };

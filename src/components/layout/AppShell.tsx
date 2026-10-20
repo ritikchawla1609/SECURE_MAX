@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LogOut, Hexagon, Smartphone } from 'lucide-react';
+import { LogOut, Hexagon, Smartphone, Menu, X } from 'lucide-react';
 import { UserRole } from '@/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -36,6 +36,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [role, setRole] = React.useState<UserRole | null>(null);
   const [userName, setUserName] = React.useState<string>('');
   const [deviceName, setDeviceName] = React.useState<string>('');
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   React.useEffect(() => {
     fetch('/api/auth/session')
@@ -136,8 +141,44 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <LogOut className="h-3.5 w-3.5 mr-1.5" />
             DISCONNECT
           </Button>
+
+          {/* Mobile menu hamburger toggle */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 h-8 w-8 p-0 ml-1"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </Button>
         </div>
       </header>
+
+      {/* Mobile Navigation Dropdown */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden border-b border-zinc-800 bg-[#0a0a0c]/98 backdrop-blur-md px-6 py-4 flex flex-col gap-2 z-50">
+          {filteredNav.map((item) => {
+            const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href + '/'));
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={cn(
+                  'px-3.5 py-2 text-xs font-mono tracking-wider transition-colors rounded-sm flex items-center justify-between',
+                  isActive 
+                    ? 'bg-zinc-900 text-cyan-400 border border-cyan-500/30' 
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
+                )}
+              >
+                <span>{item.name}</span>
+                {isActive && <span className="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>}
+              </Link>
+            );
+          })}
+        </div>
+      )}
       
       {/* Main Content Area */}
       <main className="flex-1 bg-zinc-950 relative">
