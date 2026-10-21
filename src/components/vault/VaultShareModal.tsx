@@ -154,7 +154,7 @@ export function VaultShareModal({
       await fetchActiveShares();
       onShareSuccess();
     } catch (err: any) {
-      alert(err.message || 'Failed to revoke share');
+      setError(err.message || 'Failed to revoke share');
     }
   };
 

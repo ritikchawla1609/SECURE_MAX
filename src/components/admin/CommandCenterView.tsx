@@ -32,6 +32,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { verifyChainIntegrityAction } from '@/app/actions/audit';
+import { runSecurityScanAction } from '@/app/actions/sentinel';
 import { 
   approveAccessRequestAction, 
   rejectAccessRequestAction, 
@@ -64,6 +65,7 @@ interface LiveGrant {
 
 export function CommandCenterView() {
   const { data: realtimeData, broadcastUpdate, refetch } = useSecureMaxRealtime(true);
+  const [adminSession, setAdminSession] = React.useState<any>(null);
 
   // Pending Access Requests (Dynamic from Realtime Ledger)
   const [pendingRequests, setPendingRequests] = React.useState<PendingRequest[]>([]);
@@ -83,6 +85,11 @@ export function CommandCenterView() {
 
   // Ticking countdown timer
   React.useEffect(() => {
+    fetch('/api/auth/session')
+      .then(res => res.json())
+      .then(d => { if (d?.session) setAdminSession(d.session); })
+      .catch(() => {});
+
     const timer = setInterval(() => {
       setLiveGrants(prev => prev.map(g => {
         if (g.status === 'ACTIVE' && g.remainingSeconds > 0) {
@@ -211,12 +218,23 @@ export function CommandCenterView() {
     }
   };
 
-  const handleRunSentinelScan = () => {
+  const handleRunSentinelScan = async () => {
     setScanRunning(true);
-    setTimeout(() => {
+    try {
+      const res = await runSecurityScanAction('admin-command-center');
+      if (res?.success) {
+        setScanStatus('5 / 5 PASSED · Just now');
+        showNotice('success', 'Sentinel adversarial security scan completed successfully.');
+      } else {
+        setScanStatus('ALERT · Findings Detected');
+        showNotice('error', res?.error || 'Scan detected active security findings.');
+      }
+    } catch (err: any) {
+      setScanStatus('ERROR');
+      showNotice('error', err?.message || 'Failed to execute Sentinel scan');
+    } finally {
       setScanRunning(false);
-      setScanStatus('5 / 5 PASSED · Just now');
-    }, 1200);
+    }
   };
 
   const handleVerifyChain = async () => {
@@ -315,10 +333,10 @@ export function CommandCenterView() {
 
         {/* Bottom Profile Card */}
         <div className="p-4 border-t border-zinc-800/80 bg-black/40 font-mono text-xs space-y-1">
-          <div className="font-bold text-zinc-200">Vasu (Administrator)</div>
-          <div className="text-[10px] text-purple-400 font-bold tracking-wider uppercase">ROOT ADMIN</div>
-          <div className="text-[10px] text-zinc-500 truncate">admin@securemax.mil</div>
-          <div className="text-[9px] text-zinc-600 truncate">did:securemax:admin:001</div>
+          <div className="font-bold text-zinc-200">{adminSession?.name || 'Administrator'}</div>
+          <div className="text-[10px] text-purple-400 font-bold tracking-wider uppercase">{adminSession?.role || 'ROOT ADMIN'}</div>
+          <div className="text-[10px] text-zinc-500 truncate">{adminSession?.email || 'admin@securemax.mil'}</div>
+          <div className="text-[9px] text-zinc-600 truncate">{adminSession?.did || 'did:securemax:admin:001'}</div>
         </div>
       </aside>
 

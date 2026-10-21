@@ -7,12 +7,28 @@ import { Key } from 'lucide-react';
 export function AssignAssetButton({ assetId, assigneeDid }: { assetId: string, assigneeDid: string }) {
   const [txState, setTxState] = useState<'IDLE' | 'CONFIRMING' | 'CONFIRMED'>('IDLE');
 
-  const handleAssign = () => {
-    // Budget constraint: MetaMask disabled for Manager allocation.
+  const handleAssign = async () => {
     setTxState('CONFIRMING');
-    setTimeout(() => {
-      setTxState('CONFIRMED');
-    }, 1500);
+    try {
+      const res = await fetch('/api/assets/list', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'assign',
+          assetId,
+          targetUserId: assigneeDid,
+          canRead: true,
+          canDecrypt: true,
+        }),
+      });
+      if (res.ok) {
+        setTxState('CONFIRMED');
+      } else {
+        setTxState('IDLE');
+      }
+    } catch {
+      setTxState('IDLE');
+    }
   };
 
   const getButtonText = () => {

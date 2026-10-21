@@ -3853,7 +3853,13 @@ class SecureMaxStore {
     deviceId: string;
     assetId?: string;
   }): { authorized: boolean; token: string; expiresAt: string } {
-    const passport = this.getDevicePassport(params.deviceId);
+    let passport = this.getDevicePassport(params.deviceId);
+    if (!passport && params.userId) {
+      const userDevices = this.getDevicesForUser(params.userId);
+      if (userDevices.length > 0) {
+        passport = this.getDevicePassport(userDevices[0].id);
+      }
+    }
     if (!passport) throw new Error('Device not found');
     if (passport.status === 'REVOKED' || passport.risk_state === 'REVOKED') {
       throw new Error('Device has been revoked');

@@ -13,7 +13,8 @@ import {
   ShieldCheck, 
   Smartphone,
   Server,
-  Fingerprint
+  Fingerprint,
+  Users
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { UserRole } from '@/types';
@@ -28,6 +29,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   // Admin & Security
   { name: 'Admin Console', href: '/dashboard/admin', icon: ShieldCheck, roles: [UserRole.ADMIN] },
+  { name: 'Positions & Roles', href: '/positions', icon: Users, roles: [UserRole.ADMIN] },
   { name: 'BreachLab Adversarial', href: '/breachlab', icon: Activity, roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST] },
   { name: 'SOC Dashboard', href: '/dashboard/soc', icon: LayoutDashboard, roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST] },
   { name: 'Identity Registry', href: '/identity', icon: Fingerprint, roles: [UserRole.ADMIN] },

@@ -43,6 +43,7 @@ import {
   fetchAllAccessRequestsAction
 } from '@/app/actions/accessRequests';
 import { useSecureMaxRealtime } from '@/hooks/useSecureMaxRealtime';
+import { useDemoStore } from '@/stores/useDemoStore';
 
 interface UserProfile {
   id: string;
@@ -510,8 +511,44 @@ export function MyAccessView() {
     }
   };
 
+  const [reportedNotice, setReportedNotice] = React.useState<string | null>(null);
+  const [reportingIncident, setReportingIncident] = React.useState(false);
+
+  const handleReportSuspiciousActivity = async () => {
+    setReportingIncident(true);
+    try {
+      await fetch('/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'USER_REPORTED_SUSPICIOUS_ACTIVITY',
+          description: `User ${displayUser.name} (${displayUser.email}) flagged potential account compromise or abnormal device activity.`,
+          severity: 'HIGH',
+        }),
+      }).catch(() => null);
+
+      useDemoStore.getState().createIncident({
+        threatId: `user-report-${Date.now()}`,
+        title: 'USER REPORTED SUSPICIOUS ACCOUNT TELEMETRY',
+        severity: 'HIGH',
+        status: 'OPEN',
+        detectionLayer: 'User Access Portal / Zero-Trust Fabric',
+        blockedLayer: 'SOC Investigation Queue',
+        affectedAsset: 'User Account & Active Credentials',
+        source: 'USER_TELEMETRY',
+      });
+
+      setReportedNotice('Security incident registered and transmitted to SOC & Sentinel.');
+      setTimeout(() => setReportedNotice(null), 5000);
+    } catch (err: any) {
+      console.error('Failed to report activity:', err);
+    } finally {
+      setReportingIncident(false);
+    }
+  };
+
   // Helper values
-  const isAdmin = currentUser?.role === 'ADMIN' || currentSession?.role === 'ADMIN' || currentUser?.id === 'usr_admin_001';
+  const isAdmin = currentUser?.role === 'ADMIN' || currentSession?.role === 'ADMIN';
   const clearedAssets = assets.filter(a => a.canDecrypt || isAdmin);
   const requestableAssets = assets.filter(a => !a.canDecrypt && !isAdmin);
   const pendingRequestsCount = requests.filter(r => r.status === 'PENDING').length;
@@ -1147,13 +1184,28 @@ export function MyAccessView() {
               <div className="text-zinc-400 text-[11px] font-sans">
                 Something look wrong on your account?
               </div>
-              <Button
-                variant="outline"
-                onClick={() => alert('Security Incident reported directly to SOC Team & Sentinel.')}
-                className="w-full border-zinc-800 hover:bg-red-950/20 text-zinc-300 hover:text-red-400 text-xs h-8"
-              >
-                Report suspicious activity
-              </Button>
+              {reportedNotice ? (
+                <div className="p-2 rounded bg-emerald-950/40 border border-emerald-500/40 text-emerald-400 text-[10px] font-mono flex items-center gap-1.5 animate-in fade-in">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                  <span>{reportedNotice}</span>
+                </div>
+              ) : (
+                <Button
+                  variant="outline"
+                  disabled={reportingIncident}
+                  onClick={handleReportSuspiciousActivity}
+                  className="w-full border-zinc-800 hover:bg-red-950/20 text-zinc-300 hover:text-red-400 text-xs h-8 cursor-pointer select-none"
+                >
+                  {reportingIncident ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                      Reporting to SOC...
+                    </>
+                  ) : (
+                    'Report suspicious activity'
+                  )}
+                </Button>
+              )}
             </div>
 
           </div>

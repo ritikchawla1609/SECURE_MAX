@@ -417,6 +417,16 @@ export function VaultUploadModal({
             )}
             
             <div className="flex items-center justify-end gap-2.5 mt-1">
+              {(txState === 'FAILED' || txState === 'REJECTED') && (
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={finishUpload}
+                  className="bg-zinc-800 text-zinc-300 hover:text-white text-xs font-mono mr-auto"
+                >
+                  Save Encrypted (Local Only)
+                </Button>
+              )}
               <Button
                 type="button"
                 variant="ghost"

@@ -14,6 +14,7 @@ export function AdminAccessApprovalsCard() {
   const [approvingId, setApprovingId] = useState<string | null>(null);
   const [rejectingId, setRejectingId] = useState<string | null>(null);
   const [successBanner, setSuccessBanner] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const loadRequests = useCallback(async (isBackground = false) => {
     try {
@@ -39,6 +40,7 @@ export function AdminAccessApprovalsCard() {
   const handleApprove = async (reqId: string) => {
     setApprovingId(reqId);
     setSuccessBanner(null);
+    setErrorMessage(null);
     try {
       const res = await approveAccessRequestAction({ requestId: reqId });
       if (res.success && res.request) {
@@ -46,10 +48,12 @@ export function AdminAccessApprovalsCard() {
         setSuccessBanner(`Access Permit approved & minted! NFT Token: ${res.request.nft_token_id}`);
         setTimeout(() => setSuccessBanner(null), 6000);
       } else {
-        alert(res.error || 'Failed to approve request');
+        setErrorMessage(res.error || 'Failed to approve request');
+        setTimeout(() => setErrorMessage(null), 6000);
       }
     } catch (err: any) {
-      alert(err.message || 'Approval error');
+      setErrorMessage(err.message || 'Approval error');
+      setTimeout(() => setErrorMessage(null), 6000);
     } finally {
       setApprovingId(null);
     }
@@ -59,6 +63,7 @@ export function AdminAccessApprovalsCard() {
     const reason = prompt('Please enter rejection justification / reason:') || 'Clearance denied by administrator';
     setRejectingId(reqId);
     setSuccessBanner(null);
+    setErrorMessage(null);
     try {
       const res = await rejectAccessRequestAction({ requestId: reqId, reason });
       if (res.success && res.request) {
@@ -66,10 +71,12 @@ export function AdminAccessApprovalsCard() {
         setSuccessBanner(`Access request rejected for ${res.request.user_name || res.request.user_email}`);
         setTimeout(() => setSuccessBanner(null), 6000);
       } else {
-        alert(res.error || 'Failed to reject clearance');
+        setErrorMessage(res.error || 'Failed to reject clearance');
+        setTimeout(() => setErrorMessage(null), 6000);
       }
     } catch (err: any) {
-      alert(err.message || 'Error rejecting request');
+      setErrorMessage(err.message || 'Error rejecting request');
+      setTimeout(() => setErrorMessage(null), 6000);
     } finally {
       setRejectingId(null);
     }
@@ -104,6 +111,14 @@ export function AdminAccessApprovalsCard() {
         <div className="bg-emerald-950/40 border border-emerald-500/50 text-emerald-300 px-4 py-3 rounded-xl text-xs font-mono flex items-center gap-2 shadow-lg animate-in fade-in">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <span className="font-semibold">{successBanner}</span>
+        </div>
+      )}
+
+      {/* Error Notification Banner */}
+      {errorMessage && (
+        <div className="bg-red-950/40 border border-red-500/50 text-red-300 px-4 py-3 rounded-xl text-xs font-mono flex items-center gap-2 shadow-lg animate-in fade-in">
+          <ShieldAlert className="w-4 h-4 text-red-400 shrink-0" />
+          <span className="font-semibold">{errorMessage}</span>
         </div>
       )}
 

@@ -12,7 +12,7 @@ export async function GET(req: Request) {
     const url = new URL(req.url);
     const targetUserId = session.userId;
     const scope = (url.searchParams.get('scope') as 'MY_DATA' | 'ALL_DATA') || 'MY_DATA';
-    const isAdminCaller = session.role === UserRole.ADMIN || session.userId === 'usr_admin_001';
+    const isAdminCaller = session.role === UserRole.ADMIN;
     const targetUser = deviceStore.getUserById(targetUserId);
 
     const assetsWithPermissions = deviceStore.getAssetsForUser(targetUserId, { scope });
@@ -168,7 +168,7 @@ export async function POST(req: Request) {
     }
 
     if (action === 'assign') {
-      const isCallerAdmin = session.role === UserRole.ADMIN || session.userId === 'usr_admin_001' || session.userId?.startsWith('admin');
+      const isCallerAdmin = session.role === UserRole.ADMIN;
       if (!isCallerAdmin) {
         if (deviceStore?.lastSyncPromise) {
           await deviceStore.lastSyncPromise;

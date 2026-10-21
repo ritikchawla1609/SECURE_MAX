@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export default async function AdminDashboard() {
   try {
     const session = await getVerifiedSession();
-    if (session.role !== 'ADMIN' && session.userId !== 'usr_admin_001') {
+    if (session.role !== 'ADMIN') {
       redirect('/dashboard/user');
     }
   } catch {

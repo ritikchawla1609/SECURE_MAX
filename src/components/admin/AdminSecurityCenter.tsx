@@ -19,7 +19,7 @@ import {
   X,
   Key
 } from 'lucide-react';
-import { signChallengeWithLocalKey } from '@/lib/crypto/clientP256';
+import { signChallengeWithLocalKey, hasLocalDeviceKey, getOrCreateLocalDeviceKey } from '@/lib/crypto/clientP256';
 import { useRealtimeSync } from '@/lib/hooks/useRealtimeSync';
 
 interface SecurityStatusData {
@@ -117,6 +117,9 @@ export function AdminSecurityCenter() {
   const handleExecuteStepUp = async () => {
     setStepUpLoading(true);
     try {
+      if (!hasLocalDeviceKey()) {
+        await getOrCreateLocalDeviceKey('Admin Primary Workstation', data?.rootAdmin.email);
+      }
       // 1. Request challenge
       const chalRes = await fetch('/api/auth/challenge', {
         method: 'POST',
