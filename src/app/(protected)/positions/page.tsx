@@ -77,8 +77,10 @@ export default function PositionsPage() {
   const isHighPrivilege = privilegeLevel === 'ADMINISTRATIVE' || privilegeLevel === 'ELEVATED' ||
     permissions.identity.revoke || permissions.users.create || permissions.access.approve || permissions.security.manage_devices;
 
-  const handleCreatePosition = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleCreatePosition = async (e?: React.FormEvent | React.MouseEvent) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
     setErrorMessage(null);
     setSuccessMessage(null);
 
@@ -598,7 +600,9 @@ export default function PositionsPage() {
               )}
 
               <Button
-                type="submit"
+                data-testid="submit-create-position"
+                type="button"
+                onClick={handleCreatePosition}
                 disabled={submitLoading}
                 className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-white font-bold text-xs tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.4)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >

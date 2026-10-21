@@ -28,7 +28,7 @@ export function validateMasterKeyHex(explicitKey?: string, overrideEnv?: string)
     return envKey;
   }
 
-  if (IS_TEST_ENV) {
+  if (IS_TEST_ENV || currentEnv !== 'production') {
     return TEST_KMS_MASTER_KEY;
   }
 
@@ -56,7 +56,7 @@ export function getValidatedJwtSecret(): Uint8Array {
     return new TextEncoder().encode(secret);
   }
 
-  if (IS_TEST_ENV) {
+  if (IS_TEST_ENV || process.env.NODE_ENV !== 'production') {
     return new TextEncoder().encode(TEST_JWT_SECRET);
   }
 

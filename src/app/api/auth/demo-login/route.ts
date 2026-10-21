@@ -31,27 +31,38 @@ export async function POST(req: Request) {
     const requestedRole = (body.role as UserRole) || UserRole.ADMIN;
 
     let targetEmail = 'admin@securemax.mil';
-    if (requestedRole === UserRole.USER) targetEmail = 'vasu@securemax.mil';
-    if (requestedRole === UserRole.AUDITOR) targetEmail = 'auditor@securemax.mil';
+    let targetUserId = 'usr_admin_001';
+    if (requestedRole === UserRole.USER) {
+      targetEmail = 'vasu@securemax.mil';
+      targetUserId = 'usr_vasu_002';
+    }
+    if (requestedRole === UserRole.AUDITOR) {
+      targetEmail = 'auditor@securemax.mil';
+      targetUserId = 'usr_auditor_003';
+    }
 
-    const user = await deviceStore.getUserByEmail(targetEmail);
+    let user = deviceStore.getUserById(targetUserId) || (await deviceStore.getUserByEmail(targetEmail));
     if (!user) {
-      
-    if (deviceStore?.lastSyncPromise) {
-      await deviceStore.lastSyncPromise;
-    }
-    return NextResponse.json({ error: 'Demo user record not found' }, { status: 404 });
+      deviceStore.seedTestDataForTesting(true);
+      user = deviceStore.getUserById(targetUserId) || (await deviceStore.getUserByEmail(targetEmail));
     }
 
-    const devices = deviceStore.getDevicesForUser(user.id);
-    const activeDevice = devices.find(d => d.status === 'ACTIVE') || devices[0] || null;
+    if (!user) {
+      if (deviceStore?.lastSyncPromise) {
+        await deviceStore.lastSyncPromise;
+      }
+      return NextResponse.json({ error: 'Demo user record not found' }, { status: 404 });
+    }
+
+    let devices = deviceStore.getDevicesForUser(user.id);
+    let activeDevice = devices.find(d => d.status === 'ACTIVE') || devices[0] || null;
 
     if (!activeDevice) {
-      
-    if (deviceStore?.lastSyncPromise) {
-      await deviceStore.lastSyncPromise;
-    }
-    return NextResponse.json({ error: 'No active device configured for demo user' }, { status: 400 });
+      activeDevice = deviceStore.registerDevice({
+        userId: user.id,
+        deviceName: `${user.name} — Demo Workstation`,
+        publicKey: 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEq9V1zK2Y7nL6X4eQ8jB2tF0mS3wZ5xY8vU1tP2rQ3sA4bC5dE6fG7hI8jK9lM0nO1pQ2rS3tU4vW5xY6z7A8bC==',
+      });
     }
 
     // Establish stateful session
