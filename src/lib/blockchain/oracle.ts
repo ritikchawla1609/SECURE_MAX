@@ -14,7 +14,7 @@ export type OracleResult = {
 };
 
 const targetChain = sepolia;
-const rpcUrl = process.env.NEXT_PUBLIC_CHAIN_RPC_URL || 'https://eth-sepolia.g.alchemy.com/v2/alch_0qnxXuC1AluDumPOynCns';
+const rpcUrl = process.env.NEXT_PUBLIC_CHAIN_RPC_URL || 'https://ethereum-sepolia-rpc.publicnode.com';
 
 const publicClient = createPublicClient({
   chain: targetChain,

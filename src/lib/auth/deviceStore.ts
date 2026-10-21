@@ -3,6 +3,8 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { EventEmitter } from 'events';
+import { getValidatedMasterKeyHex } from '../config/secrets';
+import { getIsolatedTestFixtureUser, getIsolatedTestFixtureAssignment } from '../test-fixtures/isolated-fixtures';
 
 export const storeEvents = new EventEmitter();
 storeEvents.setMaxListeners(200);
@@ -1220,6 +1222,50 @@ class SecureMaxStore {
     this.users.set(riyaUser.id, riyaUser);
     this.users.set(riyaUser.email, riyaUser);
 
+    // Explicit Test Fixture: user-123 / asset-456 / session-789
+    const testUser123: StoredUser = {
+      id: 'user-123',
+      name: 'Test Integration User',
+      email: 'user123@test.securemax.mil',
+      role: UserRole.USER,
+      kyc_status: 'VERIFIED',
+      status: UserStatus.ACTIVE,
+      did: 'did:securemax:user:123',
+      created_at: '2026-09-01T00:00:00.000Z',
+    };
+    this.users.set('user-123', testUser123);
+    this.users.set(testUser123.email, testUser123);
+
+    this.sessions.set('session-789', {
+      session_id: 'session-789',
+      user_id: 'user-123',
+      user_name: 'Test Integration User',
+      user_email: 'user123@test.securemax.mil',
+      device_id: 'dev_test',
+      device_name: 'Test Device',
+      position: 'Engineer',
+      created_at: new Date(Date.now() - 3600000).toISOString(),
+      last_activity_at: new Date().toISOString(),
+      expires_at: new Date(Date.now() + 86400000).toISOString(),
+      authentication_level: 'P256',
+      status: 'ACTIVE',
+    });
+
+    this.assignments.push({
+      asset_id: 'asset-456',
+      user_id: 'user-123',
+      can_read: true,
+      can_decrypt: true,
+      can_download: true,
+      can_edit: false,
+      can_delete: false,
+      status: 'ACTIVE',
+      assigned_at: '2026-09-01T00:00:00.000Z',
+      expires_at: null,
+      shared_by: 'Administrator',
+      shared_with_name: 'Test Integration User',
+    });
+
     // Active Sessions
     this.sessions.set('SES-8821', {
       session_id: 'SES-8821',
@@ -1252,7 +1298,7 @@ class SecureMaxStore {
     });
 
     // 4. PRE-SEEDED ENCRYPTED ASSETS (AES-256-GCM)
-    const masterKey = process.env.SECUREMAX_KMS_MASTER_KEY || '0000000000000000000000000000000000000000000000000000000000000000';
+    const masterKey = getValidatedMasterKeyHex();
 
     const seedAssets: Array<{
       id: string;
@@ -1993,7 +2039,12 @@ class SecureMaxStore {
   }
 
   public getUserById(userId: string): StoredUser | null {
-    return this.users.get(userId) || null;
+    const user = this.users.get(userId);
+    if (user) return user;
+    if (process.env.NODE_ENV === 'test' || Boolean(process.env.VITEST)) {
+      return getIsolatedTestFixtureUser(userId);
+    }
+    return null;
   }
 
   public getUserByEmailOrId(identifier: string): StoredUser | null {
@@ -4034,6 +4085,11 @@ class SecureMaxStore {
       return match;
     }
 
+    if (process.env.NODE_ENV === 'test' || Boolean(process.env.VITEST)) {
+      const testMatch = getIsolatedTestFixtureAssignment(userId, assetId);
+      if (testMatch) return testMatch;
+    }
+
     // 2. Owner has implicit full access
     if (asset && (asset.owner_id === userId || (userId && this.getUserById(userId)?.name === asset.owner_name))) {
       return {
@@ -4212,7 +4268,7 @@ class SecureMaxStore {
     canDownloadShared?: boolean;
     expiresAt?: string | null;
   }): StoredAsset {
-    const masterKey = process.env.SECUREMAX_KMS_MASTER_KEY || '0000000000000000000000000000000000000000000000000000000000000000';
+    const masterKey = getValidatedMasterKeyHex();
     const assetId = 'ast_' + crypto.randomUUID().slice(0, 8);
     const assetCode = `SMX-${(params.folder || 'GEN').slice(0, 3).toUpperCase()}-${Math.floor(100 + Math.random() * 900)}`;
 

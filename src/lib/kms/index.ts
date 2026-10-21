@@ -2,28 +2,31 @@ import 'server-only';
 import { deriveKEK, generateDEK, encryptData, decryptData } from '../crypto';
 import { supabaseAdmin } from '../db/client';
 import { SignJWT, jwtVerify } from 'jose';
+import crypto from 'crypto';
+import { getValidatedMasterKeyHex, getValidatedJwtSecret } from '../config/secrets';
+import { redeemTokenAtomically } from './redemption';
 
-function getMasterKeyHex(): string {
-  return process.env.SECUREMAX_KMS_MASTER_KEY || '0000000000000000000000000000000000000000000000000000000000000000';
-}
-
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'securemax-dev-jwt-secret-minimum-32-chars-long-secure-padding');
+export { 
+  redeemTokenAtomically, 
+  isTokenRedeemed, 
+  clearRedemptionsForTesting,
+  setDbSimulatedFailureForTesting 
+} from './redemption';
 
 // ==========================================
 // KMS Envelope Encryption Lifecycle
 // ==========================================
 
-export async function createAssetKey(assetId: string): Promise<{ dekPlaintext: Buffer, keyId: string, versionId: string }> {
-  const masterKey = getMasterKeyHex();
-  if (!masterKey) throw new Error('KMS Master Key not configured');
+export async function createAssetKey(assetId: string): Promise<{ dekPlaintext: Buffer; keyId: string; versionId: string }> {
+  const masterKey = getValidatedMasterKeyHex();
 
-  // 1. Generate new DEK
+  // 1. Generate new DEK (256-bit cryptographically secure random bytes)
   const dek = generateDEK();
 
-  // 2. Derive Asset-Specific KEK
+  // 2. Derive Asset-Specific KEK via PBKDF2 context binding
   const kek = deriveKEK(masterKey, assetId);
 
-  // 3. Encrypt DEK using KEK
+  // 3. Encrypt DEK using KEK with context-bound AAD
   const aad = `key_wrapping:${assetId}`;
   const encryptedPayload = encryptData(dek, kek, aad);
   const packedDek = JSON.stringify({
@@ -38,7 +41,7 @@ export async function createAssetKey(assetId: string): Promise<{ dekPlaintext: B
     .select('id')
     .single();
     
-  if (keyErr || !keyRecord) throw new Error('Failed to create key record');
+  if (keyErr || !keyRecord) throw new Error('KMS: Failed to create key record');
 
   const { data: versionRecord, error: verErr } = await supabaseAdmin
     .from('key_versions')
@@ -52,7 +55,7 @@ export async function createAssetKey(assetId: string): Promise<{ dekPlaintext: B
     .select('id')
     .single();
 
-  if (verErr || !versionRecord) throw new Error('Failed to create key version');
+  if (verErr || !versionRecord) throw new Error('KMS: Failed to create key version');
 
   return { dekPlaintext: dek, keyId: keyRecord.id, versionId: versionRecord.id };
 }
@@ -66,14 +69,14 @@ export interface KeyReleaseAuthEvidence {
   sessionId?: string;
   clientIp?: string;
   authId?: string;
+  tenantId?: string;
 }
 
 export async function fetchAndDecryptDEK(
   assetId: string,
   authEvidence?: KeyReleaseAuthEvidence | string
 ): Promise<Buffer> {
-  const masterKey = getMasterKeyHex();
-  if (!masterKey) throw new Error('KMS Master Key not configured');
+  const masterKey = getValidatedMasterKeyHex();
 
   // =========================================================================
   // Cryptographic Enforcement Boundary: Independent Authorization Validation
@@ -86,6 +89,7 @@ export async function fetchAndDecryptDEK(
   const expectedSessionId = typeof authEvidence === 'object' ? authEvidence.sessionId : undefined;
   const clientIp = typeof authEvidence === 'object' ? authEvidence.clientIp : '0.0.0.0';
   const explicitAuthId = typeof authEvidence === 'object' ? authEvidence.authId : undefined;
+  const expectedTenantId = typeof authEvidence === 'object' ? authEvidence.tenantId : undefined;
 
   if (!token) {
     throw new Error('KMS Cryptographic Enforcement Boundary Violation: Missing cryptographic authorization token.');
@@ -96,12 +100,22 @@ export async function fetchAndDecryptDEK(
     token,
     expectedSessionId,
     assetId,
-    clientIp
+    clientIp,
+    expectedTenantId
   );
 
   const activeSessionId = expectedSessionId || validatedPayload.sessionId;
+  const effectiveJti = validatedPayload.jti || (validatedPayload as any).jwtId || crypto.createHash('sha256').update(token).digest('hex');
 
-  // 2. Live Zero-Trust Session & Revocation Check
+  // 2. Atomic One-Time Redemption (Replay Protection)
+  await redeemTokenAtomically(
+    effectiveJti,
+    assetId,
+    activeSessionId,
+    validatedPayload.userId
+  );
+
+  // 3. Live Zero-Trust Session & Revocation Check
   if (activeSessionId) {
     try {
       const { deviceStore } = await import('../auth/deviceStore');
@@ -128,7 +142,7 @@ export async function fetchAndDecryptDEK(
     }
   }
 
-  // 3. Blockchain Authorization Evidence Validation (Chain-2)
+  // 4. Blockchain Authorization Evidence Validation (Chain-2)
   try {
     const { verifyChain2Policy, verifyDecryptionAuth } = await import('../blockchain/oracle');
     const chain2Policy = await verifyChain2Policy(assetId, activeSessionId);
@@ -150,6 +164,8 @@ export async function fetchAndDecryptDEK(
   // =========================================================================
   // Unwrapping DEK inside isolated KMS boundary
   // =========================================================================
+  let unwrappedDek: Buffer | null = null;
+
   try {
     // Retrieve the ACTIVE key version from database
     const { data: keyRecord, error: keyErr } = await supabaseAdmin
@@ -168,9 +184,9 @@ export async function fetchAndDecryptDEK(
         const kek = deriveKEK(masterKey, assetId);
         const aad = `key_wrapping:${assetId}`;
         try {
-          return decryptData(packedDek.cipher, kek, activeVersion.dek_iv, packedDek.auth, aad);
+          unwrappedDek = decryptData(packedDek.cipher, kek, activeVersion.dek_iv, packedDek.auth, aad);
         } catch (decryptErr) {
-          console.warn(`[KMS] Failed to decrypt DEK from Supabase for ${assetId}, falling back to local store:`, decryptErr);
+          console.warn(`[KMS] Failed to decrypt DEK from Supabase for ${assetId}:`, decryptErr);
         }
       }
     }
@@ -178,64 +194,79 @@ export async function fetchAndDecryptDEK(
     // Supabase unavailable or table empty; fall through to store fallback
   }
 
-  // Fallback: Check in-memory store for local/standalone KMS operation
-  const { deviceStore } = await import('../auth/deviceStore');
-  const wrapped = deviceStore.getWrappedDEK(assetId);
-  if (wrapped) {
-    const aad = `key_wrapping:${assetId}`;
-    try {
+  if (!unwrappedDek) {
+    // Fallback: Check in-memory store for local/standalone KMS operation
+    const { deviceStore } = await import('../auth/deviceStore');
+    const wrapped = deviceStore.getWrappedDEK(assetId);
+    if (wrapped) {
+      const aad = `key_wrapping:${assetId}`;
       const kek = deriveKEK(masterKey, assetId);
-      return decryptData(wrapped.cipher, kek, wrapped.iv, wrapped.authTag, aad);
-    } catch (primaryErr) {
-      // If primary masterKey fails, try default fallback master key
-      const defaultMaster = '0000000000000000000000000000000000000000000000000000000000000000';
-      if (masterKey !== defaultMaster) {
-        try {
-          const fallbackKek = deriveKEK(defaultMaster, assetId);
-          return decryptData(wrapped.cipher, fallbackKek, wrapped.iv, wrapped.authTag, aad);
-        } catch {}
-      }
-      throw primaryErr;
+      // Explicitly decrypt without any insecure fallback keys
+      unwrappedDek = decryptData(wrapped.cipher, kek, wrapped.iv, wrapped.authTag, aad);
     }
   }
 
-  throw new Error('No ACTIVE key version found for asset');
+  if (!unwrappedDek) {
+    throw new Error('KMS Error: No ACTIVE key version found for asset or key unwrapping integrity failed.');
+  }
+
+  return unwrappedDek;
 }
 
 // ==========================================
-// KMS Temporary Authorization
+// KMS Temporary Authorization Token Handling
 // ==========================================
 
 export interface TempAuthPayload {
   userId: string;
   assetId: string;
   sessionId: string;
-  permissions: string[];
-  clientIp?: string; // Add IP binding
-  authId?: string; // Blockchain-backed authorization ID
+  permissions?: string[];
+  clientIp?: string;
+  authId?: string;
   bindingHash?: string;
+  tenantId?: string;
+  keyVersionId?: string;
+  operation?: string;
+  jti?: string;
+  policyVersion?: string;
+  sub?: string;
 }
 
 export async function issueTemporaryDecryptionToken(payload: TempAuthPayload): Promise<string> {
-  const crypto = await import('crypto');
-  
-  // Hash the Session ID + IP Address to cryptographically bind the token to this exact client session context
+  const jwtSecret = getValidatedJwtSecret();
+  const jti = payload.jti || crypto.randomUUID();
+  const tenantId = payload.tenantId || 'tenant-default';
+  const keyVersionId = payload.keyVersionId || 'v1';
+  const policyVersion = payload.policyVersion || '1.0';
+  const permissions = payload.permissions || ['can_decrypt'];
+  const operation = payload.operation || (permissions.includes('can_decrypt') ? 'decrypt' : 'read');
+
+  // Hash the Session ID + IP Address to cryptographically bind the token to this client session context
   const ipToBind = payload.clientIp || '0.0.0.0';
   const bindingHash = crypto.createHash('sha256').update(`${payload.sessionId}:${ipToBind}`).digest('hex');
 
-  // 30 minute time limit per strict architectural constraints
-  const token = await new SignJWT({ 
-    userId: payload.userId,
+  // Short-lived token per architectural zero-trust requirements (15 minutes)
+  const token = await new SignJWT({
+    sub: payload.userId,
+    userId: payload.userId, // backward compatibility
     assetId: payload.assetId,
+    tenantId,
+    keyVersionId,
+    operation,
     sessionId: payload.sessionId,
-    permissions: payload.permissions,
+    jti,
+    policyVersion,
+    permissions,
     bindingHash,
-    authId: payload.authId
+    authId: payload.authId,
   })
     .setProtectedHeader({ alg: 'HS256' })
+    .setIssuer('securemax-kms')
+    .setAudience('securemax-vault')
     .setIssuedAt()
-    .setExpirationTime('30m')
-    .sign(JWT_SECRET);
+    .setExpirationTime('15m')
+    .sign(jwtSecret);
 
   return token;
 }
@@ -244,31 +275,102 @@ export async function validateTemporaryDecryptionToken(
   token: string, 
   expectedSessionId?: string, 
   expectedAssetId?: string, 
-  expectedIp: string = '0.0.0.0'
+  expectedIp: string = '0.0.0.0',
+  expectedTenantId?: string,
+  options?: {
+    expectedUserId?: string;
+    expectedKeyVersionId?: string;
+    expectedPolicyVersion?: string;
+    expectedOperation?: string;
+  }
 ): Promise<TempAuthPayload> {
   try {
-    const { payload } = await jwtVerify(token, JWT_SECRET);
+    const jwtSecret = getValidatedJwtSecret();
+    const { payload, protectedHeader } = await jwtVerify(token, jwtSecret, {
+      algorithms: ['HS256'],
+    });
+
+    if (protectedHeader.alg !== 'HS256') {
+      throw new Error('Algorithm not permitted: Token must use HS256.');
+    }
     
+    // Validate session binding
     if (expectedSessionId && payload.sessionId !== expectedSessionId) {
       throw new Error('Session binding mismatch: Token was hijacked or replayed in a different context.');
     }
     
     // Validate Cryptographic IP Binding
-    const crypto = await import('crypto');
     const sessionIdForHash = (payload.sessionId as string) || expectedSessionId || '';
     const expectedBindingHash = crypto.createHash('sha256').update(`${sessionIdForHash}:${expectedIp}`).digest('hex');
     if (payload.bindingHash && payload.bindingHash !== expectedBindingHash && expectedIp !== '0.0.0.0') {
       throw new Error('Network binding mismatch: Token was hijacked and replayed from a different IP address.');
     }
 
+    // Validate asset binding
     if (expectedAssetId && payload.assetId !== expectedAssetId) {
       throw new Error('Asset binding mismatch: Token attempting to decrypt unauthorized asset.');
     }
-    if (!(payload.permissions as string[])?.includes('can_decrypt')) {
+
+    // Validate tenant binding if present
+    if (expectedTenantId && payload.tenantId && payload.tenantId !== expectedTenantId) {
+      throw new Error('Tenant binding mismatch: Cross-tenant key access violation.');
+    }
+
+    // Validate Issuer and Audience if present
+    if (payload.iss && payload.iss !== 'securemax-kms') {
+      throw new Error(`Issuer mismatch: Untrusted token issuer ${payload.iss}.`);
+    }
+    if (payload.aud && payload.aud !== 'securemax-vault') {
+      throw new Error(`Audience mismatch: Untrusted token audience ${payload.aud}.`);
+    }
+
+    // Validate User binding if requested
+    if (options?.expectedUserId) {
+      const tokenUser = payload.sub || payload.userId;
+      if (tokenUser !== options.expectedUserId) {
+        throw new Error('User binding mismatch: Token was issued for a different user.');
+      }
+    }
+
+    // Validate Key Version binding if requested
+    if (options?.expectedKeyVersionId && payload.keyVersionId && payload.keyVersionId !== options.expectedKeyVersionId) {
+      throw new Error('Key version mismatch: Token bound to different key version.');
+    }
+
+    // Validate Policy Version binding if requested
+    if (options?.expectedPolicyVersion && payload.policyVersion && payload.policyVersion !== options.expectedPolicyVersion) {
+      throw new Error('Policy version mismatch: Token issued under obsolete policy version.');
+    }
+
+    // Validate Operation if requested
+    if (options?.expectedOperation && payload.operation && payload.operation !== options.expectedOperation) {
+      throw new Error('Operation mismatch: Token does not authorize requested operation.');
+    }
+
+    // Validate operation permission
+    const permissions = payload.permissions as string[] | undefined;
+    const hasDecryptPerm = permissions ? permissions.includes('can_decrypt') : payload.operation === 'decrypt';
+    if (!hasDecryptPerm) {
       throw new Error('Permission mismatch: Token lacks decrypt authority.');
     }
 
-    return payload as unknown as TempAuthPayload;
+    const result: TempAuthPayload = {
+      userId: (payload.sub || payload.userId) as string,
+      sub: payload.sub as string,
+      assetId: payload.assetId as string,
+      sessionId: payload.sessionId as string,
+      permissions: payload.permissions as string[],
+      clientIp: payload.clientIp as string,
+      authId: payload.authId as string,
+      bindingHash: payload.bindingHash as string,
+      tenantId: payload.tenantId as string,
+      keyVersionId: payload.keyVersionId as string,
+      operation: payload.operation as string,
+      jti: payload.jti as string,
+      policyVersion: payload.policyVersion as string,
+    };
+
+    return result;
   } catch (error: any) {
     throw new Error(`Token validation failed: ${error.message}`);
   }

@@ -83,3 +83,10 @@ export class MerkleTree {
     return computedHash === root;
   }
 }
+
+/**
+ * Computes the deterministic Merkle root hash for an array of leaf strings.
+ */
+export function computeMerkleRoot(leaves: string[]): string {
+  return new MerkleTree(leaves).getRoot();
+}

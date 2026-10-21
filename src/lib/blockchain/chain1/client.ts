@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
 export function getChain1Provider(): ethers.JsonRpcProvider {
-  const rpcUrl = process.env.NEXT_PUBLIC_CHAIN_RPC_URL || 'https://eth-sepolia.g.alchemy.com/v2/alch_0qnxXuC1AluDumPOynCns';
+  const rpcUrl = process.env.NEXT_PUBLIC_CHAIN_RPC_URL || 'https://ethereum-sepolia-rpc.publicnode.com';
   return new ethers.JsonRpcProvider(rpcUrl);
 }
 

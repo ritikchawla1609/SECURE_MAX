@@ -46,16 +46,25 @@ export async function authorizeAssetAccess(
     deviceId = arg4;
   }
   // 1. Resolve User
-  const user = await deviceStore.getUserById(userId) || (
-    (userId?.includes('test') || userId?.includes('user-123') || userId === 'usr_admin_001' || userId?.startsWith('admin'))
-      ? { id: userId, status: UserStatus.ACTIVE, role: (userId === 'usr_admin_001' || userId?.startsWith('admin')) ? UserRole.ADMIN : UserRole.USER, did: userId }
-      : null
-  );
+  const user = await deviceStore.getUserById(userId);
   if (!user) {
     throw new Error('Access Denied: User identity not found in SecureMAX.');
   }
 
-  const isAdmin = user.role === UserRole.ADMIN || userId === 'usr_admin_001' || userId?.startsWith('admin');
+  const isAdmin = user.role === UserRole.ADMIN;
+
+  // 1b. Check Session Status
+  if (sessionId) {
+    const session = deviceStore.getSession(sessionId);
+    if (session) {
+      if (session.status !== 'ACTIVE') {
+        throw new Error(`Access Denied: User session is ${session.status}.`);
+      }
+      if (new Date(session.expires_at).getTime() < Date.now()) {
+        throw new Error('Access Denied: User session has expired.');
+      }
+    }
+  }
 
   // 2. Check User Status
   if (user.status !== UserStatus.ACTIVE) {
@@ -85,11 +94,7 @@ export async function authorizeAssetAccess(
   }
 
   // 4. Asset Assignment Check & Permission Validation
-  const assignment = deviceStore.getAssignment(userId, assetId) || (
-    (userId?.includes('test') || userId?.includes('user-123') || isAdmin)
-      ? { asset_id: assetId, user_id: userId, can_read: true, can_decrypt: true, status: 'ACTIVE' as const, assigned_at: new Date().toISOString() }
-      : null
-  );
+  const assignment = deviceStore.getAssignment(userId, assetId);
 
   if (!isAdmin) {
     if (!assignment || assignment.status !== 'ACTIVE') {

@@ -16,13 +16,14 @@ export interface SessionPayload {
   assuranceLevel?: string;
 }
 
+import { getValidatedJwtSecret } from '../config/secrets';
+
 /**
  * Returns the cryptographically validated JWT secret.
  * Enforces strong production secrets and prevents insecure fallback leaks.
  */
 export function getJwtSecret(): Uint8Array {
-  const secret = process.env.JWT_SECRET || 'securemax-dev-jwt-secret-minimum-32-chars-long-secure-padding';
-  return new TextEncoder().encode(secret);
+  return getValidatedJwtSecret();
 }
 
 /**

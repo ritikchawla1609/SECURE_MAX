@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     // Strict Access Control:
     // Only the Administrator can decrypt directly without prior access request.
     // All other users require an approved access request and active assignment.
-    const isAdmin = session.role === UserRole.ADMIN || session.userId === 'usr_admin_001' || session.userId?.startsWith('admin');
+    const isAdmin = session.role === UserRole.ADMIN;
     if (!isAdmin) {
       const assignment = deviceStore.getAssignment(session.userId, assetId);
       if (!assignment || assignment.status !== 'ACTIVE' || !assignment.can_decrypt) {

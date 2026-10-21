@@ -7,6 +7,7 @@ import { createPublicClient, http } from 'viem';
 import { sepolia } from 'viem/chains';
 import { AuditAnchorABI } from '@/lib/blockchain/abis';
 import deployedAddresses from '../../../../../deployed-addresses.json';
+import { getValidatedChainRpcUrl } from '@/lib/config/secrets';
 
 export async function GET(req: Request) {
   if (typeof deviceStore !== 'undefined') {
@@ -58,7 +59,7 @@ export async function GET(req: Request) {
     // 3. Query AuditAnchor on Chain-1
     let onChainRoot = null;
     let verified = false;
-    const rpcUrl = process.env.NEXT_PUBLIC_CHAIN_RPC_URL || 'https://eth-sepolia.g.alchemy.com/v2/alch_0qnxXuC1AluDumPOynCns';
+    const rpcUrl = getValidatedChainRpcUrl();
     const contractAddress = (process.env.NEXT_PUBLIC_AUDIT_ANCHOR_ADDRESS || (deployedAddresses.contracts as any).AuditAnchor) as `0x${string}`;
 
     if (contractAddress) {
