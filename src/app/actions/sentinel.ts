@@ -51,13 +51,17 @@ export async function fetchSecurityPosture() {
     ]);
 
     
+    const scansList = (scans.data && scans.data.length > 0) ? scans.data : (deviceStore ? deviceStore.getSentinelScans().slice(0, 5) : []);
+    const findingsList = (findings.data && findings.data.length > 0) ? findings.data : (deviceStore ? deviceStore.getSentinelFindings().slice(0, 10) : []);
+    const incidentsList = incidents.data || [];
+
     if (deviceStore?.lastSyncPromise) {
       await deviceStore.lastSyncPromise;
     }
     return {
-      scans: scans.data || [],
-      findings: findings.data || [],
-      incidents: incidents.data || []
+      scans: scansList,
+      findings: findingsList,
+      incidents: incidentsList
     };
   } catch (error) {
     

@@ -301,6 +301,17 @@ class SecureMaxStore {
   public liveGrants: LiveGrant[] = [];
   public auditEvents: StoredAuditEvent[] = [];
   public wrappedDEKs: Map<string, { cipher: string; iv: string; authTag: string }> = new Map();
+  public decryptionAuths: Map<string, {
+    authId: string;
+    userDid: string;
+    assetId: string;
+    keyId: string;
+    status: 'ACTIVE' | 'DENIED' | 'COMPLETED';
+    expiresAt: string;
+    createdAt: string;
+  }> = new Map();
+  public sentinelScans: any[] = [];
+  public sentinelFindings: any[] = [];
   public challengeCache: Map<string, { challengeId: string; identifier: string; nonce: string; message: string; expiresAt: string }> = new Map();
   public challenges: Map<string, StoredChallenge> = new Map();
   public adminWallet: string = (process.env.ADMIN_WALLET || '0x7FfdbB7868C127152F2007a6025FF15A5723CE08').toLowerCase();
@@ -472,6 +483,21 @@ class SecureMaxStore {
       this.adminWallet = parsed.adminWallet.toLowerCase();
     }
 
+    if (Array.isArray(parsed.decryptionAuths)) {
+      this.decryptionAuths.clear();
+      for (const [authId, auth] of parsed.decryptionAuths) {
+        this.decryptionAuths.set(authId, auth);
+      }
+    }
+
+    if (Array.isArray(parsed.sentinelScans)) {
+      this.sentinelScans = parsed.sentinelScans;
+    }
+
+    if (Array.isArray(parsed.sentinelFindings)) {
+      this.sentinelFindings = parsed.sentinelFindings;
+    }
+
     if (Array.isArray(parsed.challenges)) {
       this.challenges.clear();
       for (const c of parsed.challenges) {
@@ -635,6 +661,9 @@ class SecureMaxStore {
         recoveryVault: this.recoveryVault,
         adminWallet: this.adminWallet,
         sessions: Array.from(this.sessions.values()),
+        decryptionAuths: Array.from(this.decryptionAuths.entries()),
+        sentinelScans: this.sentinelScans,
+        sentinelFindings: this.sentinelFindings,
         challenges: Array.from(this.challenges.values()).filter(c => !c.consumed && new Date(c.expiresAt).getTime() > Date.now()),
         updatedAt: new Date().toISOString(),
       };
@@ -690,6 +719,9 @@ class SecureMaxStore {
     this.accessRequests = [];
     this.auditEvents = [];
     this.wrappedDEKs.clear();
+    this.decryptionAuths.clear();
+    this.sentinelScans = [];
+    this.sentinelFindings = [];
     this.challengeCache.clear();
     this.systemSettings = {
       admin_initialized: false,
@@ -733,6 +765,56 @@ class SecureMaxStore {
 
   public getWrappedDEK(assetId: string) {
     return this.wrappedDEKs.get(assetId);
+  }
+
+  public recordDecryptionAuth(auth: {
+    authId: string;
+    userDid: string;
+    assetId: string;
+    keyId: string;
+    status?: 'ACTIVE' | 'DENIED' | 'COMPLETED';
+    expiresAt?: string;
+  }) {
+    const record = {
+      authId: auth.authId,
+      userDid: auth.userDid,
+      assetId: auth.assetId,
+      keyId: auth.keyId,
+      status: auth.status || ('ACTIVE' as const),
+      expiresAt: auth.expiresAt || new Date(Date.now() + 1800 * 1000).toISOString(),
+      createdAt: new Date().toISOString(),
+    };
+    this.decryptionAuths.set(auth.authId, record);
+    storeEvents.emit('change', { type: 'DECRYPTION_AUTH_RECORDED', data: record, timestamp: Date.now() });
+    return record;
+  }
+
+  public getDecryptionAuth(authId: string) {
+    return this.decryptionAuths.get(authId);
+  }
+
+  public hasDecryptionAuth(authId: string): boolean {
+    return this.decryptionAuths.has(authId);
+  }
+
+  public recordSentinelScan(scan: any) {
+    this.sentinelScans.unshift(scan);
+    if (this.sentinelScans.length > 50) this.sentinelScans.pop();
+    storeEvents.emit('change', { type: 'SENTINEL_SCAN_RECORDED', data: scan, timestamp: Date.now() });
+  }
+
+  public recordSentinelFinding(finding: any) {
+    this.sentinelFindings.unshift(finding);
+    if (this.sentinelFindings.length > 100) this.sentinelFindings.pop();
+    storeEvents.emit('change', { type: 'SENTINEL_FINDING_RECORDED', data: finding, timestamp: Date.now() });
+  }
+
+  public getSentinelScans(): any[] {
+    return [...this.sentinelScans];
+  }
+
+  public getSentinelFindings(): any[] {
+    return [...this.sentinelFindings];
   }
 
   public seedInitialData(): void {

@@ -152,4 +152,79 @@ describe('KMS & Temporary Authorization Security Tests', () => {
     await expect(validateTemporaryDecryptionToken(expiredToken, VALID_SESSION_ID, VALID_ASSET_ID))
       .rejects.toThrow('Token validation failed');
   });
+
+  it('CRYPTOGRAPHIC BOUNDARY: fetchAndDecryptDEK rejects direct invocation without authorization evidence', async () => {
+    await expect(fetchAndDecryptDEK(VALID_ASSET_ID))
+      .rejects.toThrow('KMS Cryptographic Enforcement Boundary Violation: Controlled key release requires verified authorization evidence.');
+  });
+
+  it('CRYPTOGRAPHIC BOUNDARY: fetchAndDecryptDEK rejects cross-asset token substitution', async () => {
+    const tokenAssetA = await issueTemporaryDecryptionToken({
+      userId: VALID_USER_ID,
+      assetId: VALID_ASSET_ID,
+      sessionId: VALID_SESSION_ID,
+      permissions: ['can_decrypt']
+    });
+
+    // Attacker tries using Token A to unwrap DEK B
+    await expect(fetchAndDecryptDEK('unauthorized-asset-B', {
+      token: tokenAssetA,
+      sessionId: VALID_SESSION_ID
+    })).rejects.toThrow('Asset binding mismatch');
+  });
+
+  it('CRYPTOGRAPHIC BOUNDARY: fetchAndDecryptDEK rejects revoked session in device store', async () => {
+    const revokedSessionId = 'session-revoked-kms-test';
+    const token = await issueTemporaryDecryptionToken({
+      userId: VALID_USER_ID,
+      assetId: VALID_ASSET_ID,
+      sessionId: revokedSessionId,
+      permissions: ['can_decrypt']
+    });
+
+    const { deviceStore } = await import('../../src/lib/auth/deviceStore');
+    deviceStore.sessions.set(revokedSessionId, {
+      session_id: revokedSessionId,
+      user_id: VALID_USER_ID,
+      status: 'REVOKED',
+      device_id: 'dev_mock',
+      created_at: new Date().toISOString(),
+      expires_at: new Date(Date.now() + 3600000).toISOString(),
+    });
+
+    await expect(fetchAndDecryptDEK(VALID_ASSET_ID, {
+      token,
+      sessionId: revokedSessionId
+    })).rejects.toThrow('Session has been revoked');
+  });
+
+  it('CONTROLLED KEY RELEASE: fetchAndDecryptDEK releases key when valid authorization evidence is presented', async () => {
+    // Setup wrapped DEK in deviceStore for local decryption test
+    const { deviceStore } = await import('../../src/lib/auth/deviceStore');
+    const { deriveKEK, encryptData } = await import('../../src/lib/crypto');
+    const testDek = Buffer.from('01234567890123456789012345678901', 'utf8');
+    const kek = deriveKEK(MASTER_KEY_HEX, VALID_ASSET_ID);
+    const aad = `key_wrapping:${VALID_ASSET_ID}`;
+    const encrypted = encryptData(testDek, kek, aad);
+    deviceStore.wrappedDEKs.set(VALID_ASSET_ID, {
+      cipher: encrypted.ciphertext,
+      iv: encrypted.iv,
+      authTag: encrypted.authTag
+    });
+
+    const validToken = await issueTemporaryDecryptionToken({
+      userId: VALID_USER_ID,
+      assetId: VALID_ASSET_ID,
+      sessionId: VALID_SESSION_ID,
+      permissions: ['can_decrypt']
+    });
+
+    const releasedDek = await fetchAndDecryptDEK(VALID_ASSET_ID, {
+      token: validToken,
+      sessionId: VALID_SESSION_ID
+    });
+
+    expect(releasedDek).toBeDefined();
+    expect(releasedDek.toString('utf8')).toBe('01234567890123456789012345678901');
+  });
 });

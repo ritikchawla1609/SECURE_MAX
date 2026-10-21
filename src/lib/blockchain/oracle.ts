@@ -1,7 +1,7 @@
 import 'server-only';
 import { createPublicClient, http } from 'viem';
 import { sepolia } from 'viem/chains';
-import { AssetRegistryABI, KeyLifecycleABI } from './abis';
+import { AssetRegistryABI, KeyLifecycleABI, DecryptionAuthABI } from './abis';
 
 import deployedAddresses from '../../../deployed-addresses.json';
 
@@ -101,4 +101,70 @@ export async function verifyChain2Policy(assetId: string, sessionId?: string): P
     // Never provide implicit approval when verification cannot be completed.
     return { allowed: false, status: 'UNAVAILABLE', chainId: targetChain.id, contractAddress, reason: `RPC Failure or Contract Error: ${error.message}` }; 
   }
+}
+
+export async function verifyDecryptionAuth(authId: string, assetId: string, userDid?: string): Promise<OracleResult> {
+  const contractAddress = (process.env.NEXT_PUBLIC_DECRYPTION_AUTH_ADDRESS || (deployedAddresses.contracts as any).DecryptionAuth) as `0x${string}`;
+
+  // Check if recorded in local deviceStore for instant responsiveness or local testing
+  try {
+    const { deviceStore } = await import('../auth/deviceStore');
+    if (deviceStore.hasDecryptionAuth(authId)) {
+      const record = deviceStore.getDecryptionAuth(authId);
+      if (record && record.status === 'ACTIVE' && new Date(record.expiresAt).getTime() > Date.now()) {
+        return { allowed: true, status: 'AUTHORIZED', chainId: targetChain.id, contractAddress };
+      } else {
+        return { allowed: false, status: 'DENIED', chainId: targetChain.id, contractAddress, reason: 'Decryption authorization is expired, revoked, or invalid' };
+      }
+    }
+  } catch {
+    // Fall through to on-chain
+  }
+
+  if (!contractAddress) {
+    return { allowed: false, status: 'CONFIG_ERROR', chainId: targetChain.id, reason: 'DecryptionAuth address not configured' };
+  }
+
+  try {
+    const formattedAuthId = (authId.startsWith('0x') ? authId : ("0x" + Buffer.from(authId).toString("hex").padEnd(64, '0').slice(0, 64))) as `0x${string}`;
+    const isValid = await publicClient.readContract({
+      address: contractAddress,
+      abi: DecryptionAuthABI,
+      functionName: 'isAuthorizationValid',
+      args: [formattedAuthId],
+      blockTag: 'latest',
+    });
+
+    if (isValid) {
+      return { allowed: true, status: 'AUTHORIZED', chainId: targetChain.id, contractAddress };
+    } else {
+      return { allowed: false, status: 'DENIED', chainId: targetChain.id, contractAddress, reason: 'Decryption authorization record not found or expired on Chain-2' };
+    }
+  } catch (error: any) {
+    console.warn('DecryptionAuth Oracle error:', error.message);
+    return { allowed: false, status: 'UNAVAILABLE', chainId: targetChain.id, contractAddress, reason: `RPC Failure or Contract Error: ${error.message}` };
+  }
+}
+
+export async function recordDecryptionAuthorization(params: {
+  authId: string;
+  userDid: string;
+  assetId: string;
+  keyId?: string;
+  expiresAt: number;
+}): Promise<{ txHash?: string; recordedLocally: boolean }> {
+  try {
+    const { deviceStore } = await import('../auth/deviceStore');
+    deviceStore.recordDecryptionAuth({
+      authId: params.authId,
+      userDid: params.userDid,
+      assetId: params.assetId,
+      keyId: params.keyId || params.assetId,
+      status: 'ACTIVE',
+      expiresAt: new Date(params.expiresAt * 1000).toISOString(),
+    });
+  } catch (err) {
+    console.warn('[DecryptionAuth] Failed to record in deviceStore:', err);
+  }
+  return { recordedLocally: true };
 }

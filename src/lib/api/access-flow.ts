@@ -143,12 +143,30 @@ export async function authorizeAssetAccess(
     }
   }
 
+  // 5c. Generate Blockchain Authorization Record on Chain-2 DecryptionAuth
+  let authId: string | undefined;
+  try {
+    const crypto = await import('crypto');
+    authId = '0x' + crypto.createHash('sha256').update(`${userId}:${assetId}:${sessionId}:${Date.now()}`).digest('hex');
+    const { recordDecryptionAuthorization } = await import('../blockchain/oracle');
+    await recordDecryptionAuthorization({
+      authId,
+      userDid: user.did || userId,
+      assetId,
+      keyId: assetId,
+      expiresAt: Math.floor(Date.now() / 1000) + 1800 // 30 minutes
+    });
+  } catch (authRecErr) {
+    console.warn('[AccessFlow] Non-fatal warning recording DecryptionAuth:', authRecErr);
+  }
+
   // 6. Issue Cryptographically Bound Temporary Token (30 min)
   const tempToken = await issueTemporaryDecryptionToken({
     userId,
     assetId,
     sessionId,
-    permissions: ['can_decrypt']
+    permissions: ['can_decrypt'],
+    authId
   });
 
   // 7. Record Audit Event
@@ -157,10 +175,10 @@ export async function authorizeAssetAccess(
     actorId: userId,
     targetType: 'ASSET',
     targetId: assetId,
-    details: { sessionId, expires: '30m' }
+    details: { sessionId, expires: '30m', authId }
   });
 
-  return { tempToken, authorized: true, permissions: ['can_decrypt'] };
+  return { tempToken, authorized: true, permissions: ['can_decrypt'], authId };
 }
 
 export async function executeDecryption(
@@ -189,8 +207,8 @@ export async function executeDecryption(
     if (err.message === 'Session Revoked') throw err;
   }
 
-  // 2. Fetch DEK securely inside the KMS boundary
-  const dekPlaintext = await fetchAndDecryptDEK(assetId);
+  // 2. Fetch DEK securely inside the KMS boundary with cryptographic authorization evidence
+  const dekPlaintext = await fetchAndDecryptDEK(assetId, { token: tempToken, sessionId });
 
   // 3. Bind the AAD string
   const aadString = `asset_data:${assetId}`;
@@ -239,8 +257,8 @@ export async function prepareDecryptionStream(
     if (err.message === 'Session Revoked') throw err;
   }
 
-  // 2. Fetch DEK securely inside the KMS boundary
-  const dekPlaintext = await fetchAndDecryptDEK(assetId);
+  // 2. Fetch DEK securely inside the KMS boundary with cryptographic authorization evidence
+  const dekPlaintext = await fetchAndDecryptDEK(assetId, { token: tempToken, sessionId });
 
   // 3. Bind the AAD string
   const aadString = `asset_data:${assetId}`;

@@ -1,5 +1,5 @@
 import { authorizeAssetAccess, revokeAssetAccess, executeDecryption } from '@/lib/api/access-flow';
-import { issueTemporaryDecryptionToken, validateTemporaryDecryptionToken } from '@/lib/kms';
+import { issueTemporaryDecryptionToken, validateTemporaryDecryptionToken, fetchAndDecryptDEK } from '@/lib/kms';
 import { encryptData, decryptData, generateDEK, deriveKEK } from '@/lib/crypto';
 import { MerkleTree } from '@/lib/audit/merkle';
 import { deviceStore } from '@/lib/auth/deviceStore';
@@ -16,12 +16,20 @@ export async function exerciseUnauthorizedAccess(params: {
   assetId: string;
   sessionId: string;
   deviceId?: string;
-}): Promise<{ blocked: boolean; error: string; tokenIssued: boolean }> {
+}): Promise<{ blocked: boolean; error: string; tokenIssued: boolean; kmsDirectBlocked?: boolean }> {
+  let kmsDirectBlocked = false;
+  try {
+    // Verify cryptographic enforcement boundary independently blocks direct access without token
+    await fetchAndDecryptDEK(params.assetId);
+  } catch {
+    kmsDirectBlocked = true;
+  }
+
   try {
     const res = await authorizeAssetAccess(params.userId, params.assetId, params.sessionId, params.deviceId);
-    return { blocked: false, error: '', tokenIssued: Boolean(res?.tempToken) };
+    return { blocked: false, error: '', tokenIssued: Boolean(res?.tempToken), kmsDirectBlocked };
   } catch (err: any) {
-    return { blocked: true, error: err.message || 'Access Denied', tokenIssued: false };
+    return { blocked: true, error: err.message || 'Access Denied', tokenIssued: false, kmsDirectBlocked };
   }
 }
 
@@ -180,6 +188,7 @@ export async function exerciseCrossAssetKeySubstitution(params: {
   crossUnwrapError: string;
   tokenSubstitutionBlocked: boolean;
   tokenSubstitutionError: string;
+  kmsBoundarySubstitutionBlocked?: boolean;
 }> {
   const masterKeyHex = process.env.SECUREMAX_KMS_MASTER_KEY || '0000000000000000000000000000000000000000000000000000000000000000';
   
@@ -222,6 +231,17 @@ export async function exerciseCrossAssetKeySubstitution(params: {
     tokenSubstitutionError = err.message || 'Asset binding mismatch';
   }
 
+  // KMS Enforcement Boundary cross-asset check
+  let kmsBoundarySubstitutionBlocked = false;
+  try {
+    await fetchAndDecryptDEK(params.assetBetaId, {
+      token: tokenAlpha,
+      sessionId: 'session-alpha',
+    });
+  } catch {
+    kmsBoundarySubstitutionBlocked = true;
+  }
+
   dekAlpha.fill(0);
 
   return {
@@ -229,6 +249,7 @@ export async function exerciseCrossAssetKeySubstitution(params: {
     crossUnwrapError,
     tokenSubstitutionBlocked,
     tokenSubstitutionError,
+    kmsBoundarySubstitutionBlocked,
   };
 }
 

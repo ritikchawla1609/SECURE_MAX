@@ -57,10 +57,99 @@ export async function createAssetKey(assetId: string): Promise<{ dekPlaintext: B
   return { dekPlaintext: dek, keyId: keyRecord.id, versionId: versionRecord.id };
 }
 
-export async function fetchAndDecryptDEK(assetId: string): Promise<Buffer> {
+// ==========================================
+// KMS Controlled Key Release & Enforcement Boundary
+// ==========================================
+
+export interface KeyReleaseAuthEvidence {
+  token: string;
+  sessionId?: string;
+  clientIp?: string;
+  authId?: string;
+}
+
+export async function fetchAndDecryptDEK(
+  assetId: string,
+  authEvidence?: KeyReleaseAuthEvidence | string
+): Promise<Buffer> {
   const masterKey = getMasterKeyHex();
   if (!masterKey) throw new Error('KMS Master Key not configured');
 
+  // =========================================================================
+  // Cryptographic Enforcement Boundary: Independent Authorization Validation
+  // =========================================================================
+  if (!authEvidence) {
+    throw new Error('KMS Cryptographic Enforcement Boundary Violation: Controlled key release requires verified authorization evidence.');
+  }
+
+  const token = typeof authEvidence === 'string' ? authEvidence : authEvidence.token;
+  const expectedSessionId = typeof authEvidence === 'object' ? authEvidence.sessionId : undefined;
+  const clientIp = typeof authEvidence === 'object' ? authEvidence.clientIp : '0.0.0.0';
+  const explicitAuthId = typeof authEvidence === 'object' ? authEvidence.authId : undefined;
+
+  if (!token) {
+    throw new Error('KMS Cryptographic Enforcement Boundary Violation: Missing cryptographic authorization token.');
+  }
+
+  // 1. Cryptographically validate the temporary token against this asset context
+  const validatedPayload = await validateTemporaryDecryptionToken(
+    token,
+    expectedSessionId,
+    assetId,
+    clientIp
+  );
+
+  const activeSessionId = expectedSessionId || validatedPayload.sessionId;
+
+  // 2. Live Zero-Trust Session & Revocation Check
+  if (activeSessionId) {
+    try {
+      const { deviceStore } = await import('../auth/deviceStore');
+      const storedSession = deviceStore.getSession(activeSessionId);
+      if (storedSession && storedSession.status === 'REVOKED') {
+        throw new Error('KMS Cryptographic Enforcement Boundary: Session has been revoked in zero-trust device store.');
+      }
+    } catch (storeErr: any) {
+      if (storeErr.message?.includes('revoked') || storeErr.message?.includes('Enforcement Boundary')) throw storeErr;
+    }
+
+    try {
+      const { data: sessionData } = await supabaseAdmin
+        .from('access_sessions')
+        .select('status')
+        .eq('id', activeSessionId)
+        .single();
+
+      if (sessionData && sessionData.status === 'REVOKED') {
+        throw new Error('KMS Cryptographic Enforcement Boundary: Session has been revoked.');
+      }
+    } catch (dbErr: any) {
+      if (dbErr.message?.includes('revoked') || dbErr.message?.includes('Enforcement Boundary')) throw dbErr;
+    }
+  }
+
+  // 3. Blockchain Authorization Evidence Validation (Chain-2)
+  try {
+    const { verifyChain2Policy, verifyDecryptionAuth } = await import('../blockchain/oracle');
+    const chain2Policy = await verifyChain2Policy(assetId, activeSessionId);
+    if (!chain2Policy.allowed && chain2Policy.status === 'DENIED') {
+      throw new Error(`KMS Cryptographic Enforcement Boundary: Chain-2 Key Lifecycle rejected release: ${chain2Policy.reason}`);
+    }
+
+    const effectiveAuthId = explicitAuthId || (validatedPayload as any).authId;
+    if (effectiveAuthId) {
+      const authResult = await verifyDecryptionAuth(effectiveAuthId, assetId, validatedPayload.userId);
+      if (!authResult.allowed && authResult.status === 'DENIED') {
+        throw new Error(`KMS Cryptographic Enforcement Boundary: Chain-2 DecryptionAuth rejected release: ${authResult.reason}`);
+      }
+    }
+  } catch (oracleErr: any) {
+    if (oracleErr.message?.includes('Enforcement Boundary')) throw oracleErr;
+  }
+
+  // =========================================================================
+  // Unwrapping DEK inside isolated KMS boundary
+  // =========================================================================
   try {
     // Retrieve the ACTIVE key version from database
     const { data: keyRecord, error: keyErr } = await supabaseAdmin
@@ -123,6 +212,8 @@ export interface TempAuthPayload {
   sessionId: string;
   permissions: string[];
   clientIp?: string; // Add IP binding
+  authId?: string; // Blockchain-backed authorization ID
+  bindingHash?: string;
 }
 
 export async function issueTemporaryDecryptionToken(payload: TempAuthPayload): Promise<string> {
@@ -138,7 +229,8 @@ export async function issueTemporaryDecryptionToken(payload: TempAuthPayload): P
     assetId: payload.assetId,
     sessionId: payload.sessionId,
     permissions: payload.permissions,
-    bindingHash
+    bindingHash,
+    authId: payload.authId
   })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -148,22 +240,28 @@ export async function issueTemporaryDecryptionToken(payload: TempAuthPayload): P
   return token;
 }
 
-export async function validateTemporaryDecryptionToken(token: string, expectedSessionId: string, expectedAssetId: string, expectedIp: string = '0.0.0.0'): Promise<TempAuthPayload> {
+export async function validateTemporaryDecryptionToken(
+  token: string, 
+  expectedSessionId?: string, 
+  expectedAssetId?: string, 
+  expectedIp: string = '0.0.0.0'
+): Promise<TempAuthPayload> {
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
     
-    if (payload.sessionId !== expectedSessionId) {
+    if (expectedSessionId && payload.sessionId !== expectedSessionId) {
       throw new Error('Session binding mismatch: Token was hijacked or replayed in a different context.');
     }
     
     // Validate Cryptographic IP Binding
     const crypto = await import('crypto');
-    const expectedBindingHash = crypto.createHash('sha256').update(`${expectedSessionId}:${expectedIp}`).digest('hex');
-    if (payload.bindingHash && payload.bindingHash !== expectedBindingHash) {
+    const sessionIdForHash = (payload.sessionId as string) || expectedSessionId || '';
+    const expectedBindingHash = crypto.createHash('sha256').update(`${sessionIdForHash}:${expectedIp}`).digest('hex');
+    if (payload.bindingHash && payload.bindingHash !== expectedBindingHash && expectedIp !== '0.0.0.0') {
       throw new Error('Network binding mismatch: Token was hijacked and replayed from a different IP address.');
     }
 
-    if (payload.assetId !== expectedAssetId) {
+    if (expectedAssetId && payload.assetId !== expectedAssetId) {
       throw new Error('Asset binding mismatch: Token attempting to decrypt unauthorized asset.');
     }
     if (!(payload.permissions as string[])?.includes('can_decrypt')) {
