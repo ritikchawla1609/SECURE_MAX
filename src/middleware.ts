@@ -95,15 +95,15 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/dashboard/user', request.url));
     }
 
+    if (pathname.startsWith('/dashboard/security') && session.role !== 'ADMIN' && session.role !== 'SECURITY_ANALYST') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
     if (pathname.startsWith('/positions') && session.role !== 'ADMIN') {
       return NextResponse.redirect(new URL('/dashboard/user', request.url));
     }
 
     if (pathname.startsWith('/identity') && session.role !== 'ADMIN') {
-      return NextResponse.redirect(new URL('/dashboard/user', request.url));
-    }
-
-    if (pathname.startsWith('/devices') && session.role !== 'ADMIN') {
       return NextResponse.redirect(new URL('/dashboard/user', request.url));
     }
 
@@ -117,6 +117,19 @@ export async function middleware(request: NextRequest) {
 
     if (pathname.startsWith('/breachlab') && session.role !== 'ADMIN' && session.role !== 'SECURITY_ANALYST' && session.role !== 'MANAGER') {
       return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/security/incidents') && session.role !== 'ADMIN' && session.role !== 'SECURITY_ANALYST' && session.role !== 'AUDITOR') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    if (pathname.startsWith('/security/sentinel') && session.role !== 'ADMIN' && session.role !== 'SECURITY_ANALYST') {
+      return NextResponse.redirect(new URL('/dashboard/user', request.url));
+    }
+
+    // Role-based API checks: protected /api/admin/* endpoints strictly require ADMIN role
+    if (pathname.startsWith('/api/admin/') && session.role !== 'ADMIN') {
+      return NextResponse.json({ success: false, error: { code: 'FORBIDDEN', message: 'Admin role required' } }, { status: 403 });
     }
   }
 

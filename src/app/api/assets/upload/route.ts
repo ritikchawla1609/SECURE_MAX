@@ -49,6 +49,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'File or content payload is required for encryption' }, { status: 400 });
     }
 
+    if (sizeBytes > 5 * 1024 * 1024) {
+      if (deviceStore?.lastSyncPromise) {
+        await deviceStore.lastSyncPromise;
+      }
+      return NextResponse.json(
+        { error: 'Payload exceeds 5MB limit', code: 'PAYLOAD_TOO_LARGE' },
+        { status: 413 }
+      );
+    }
+
     const validFolders = ['Projects', 'Finance', 'HR', 'Engineering', 'Legal'];
     const assignedFolder = validFolders.includes(folder) ? folder : 'Projects';
 
