@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Fingerprint, ShieldCheck, Key, Lock, Activity, User, ChevronDown } from 'lucide-react';
 import { supabaseAdmin } from '@/lib/db/client';
 import { Badge } from '@/components/ui/badge';
+import { SectionSubNav } from '@/components/layout/SectionSubNav';
 
 import { deviceStore } from '@/lib/auth/deviceStore';
 
@@ -46,7 +47,14 @@ export default async function IdentityPage() {
   const activeIdentities = users.length > 0 ? users : storeUsers;
 
   return (
-    <div className="space-y-8 font-sans selection:bg-cyan-500/30 pb-12">
+    <div className="space-y-6 font-sans selection:bg-cyan-500/30 pb-12">
+      <SectionSubNav
+        tabs={[
+          { label: 'Device Passports', href: '/devices' },
+          { label: 'Positions & RBAC', href: '/positions' },
+          { label: 'User Directory', href: '/identity' },
+        ]}
+      />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-zinc-100 uppercase flex items-center gap-3">

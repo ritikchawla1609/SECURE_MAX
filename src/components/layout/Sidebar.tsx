@@ -27,22 +27,13 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  // Admin & Security
-  { name: 'Admin Console', href: '/dashboard/admin', icon: ShieldCheck, roles: [UserRole.ADMIN] },
-  { name: 'Positions & Roles', href: '/positions', icon: Users, roles: [UserRole.ADMIN] },
-  { name: 'BreachLab Adversarial', href: '/breachlab', icon: Activity, roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST] },
-  { name: 'SOC Dashboard', href: '/dashboard/soc', icon: LayoutDashboard, roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST] },
-  { name: 'Identity Registry', href: '/identity', icon: Fingerprint, roles: [UserRole.ADMIN] },
-  { name: 'Sepolia Infra', href: '/infrastructure', icon: Server, roles: [UserRole.ADMIN, UserRole.AUDITOR] },
-  { name: 'Incident Center', href: '/security/incidents', icon: Shield, roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST, UserRole.AUDITOR] },
-  
-  // Auditor
+  // 5 Clean Primary Navigation Tabs
+  { name: 'Command Center', href: '/dashboard/admin', icon: ShieldCheck, roles: [UserRole.ADMIN] },
+  { name: 'Data Vault', href: '/assets', icon: HardDrive, roles: [UserRole.ADMIN, UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER] },
+  { name: 'Devices & Identity', href: '/devices', icon: Smartphone, roles: [UserRole.ADMIN, UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER] },
+  { name: 'Security Center', href: '/dashboard/soc', icon: Activity, roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST] },
   { name: 'Audit Trail', href: '/audit', icon: List, roles: [UserRole.ADMIN, UserRole.AUDITOR] },
-  
-  // User & Assets
-  { name: 'My Secure Data', href: '/assets', icon: HardDrive, roles: [UserRole.ADMIN, UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER] },
-  { name: 'Enrolled Devices', href: '/devices', icon: Smartphone, roles: [UserRole.ADMIN, UserRole.USER] },
-  { name: 'Access Requests', href: '/access', icon: Key, roles: [UserRole.ADMIN, UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER] },
+  { name: 'My Access', href: '/access', icon: Key, roles: [UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER] },
 ];
 
 interface SidebarProps {

@@ -9,6 +9,7 @@ import { InfrastructureHealth } from '@/components/blockchain/InfrastructureHeal
 import { KMSHealth } from '@/components/security/KMSHealth';
 import { AttackPathVisualization } from '@/components/security/AttackPathVisualization';
 import { SecurityEventTimeline } from '@/components/dashboard/SecurityEventTimeline';
+import { SectionSubNav } from '@/components/layout/SectionSubNav';
 
 export default function SOCDashboard() {
   const { systemState, postureScore, incidents, activeThreat } = useDemoStore();
@@ -31,7 +32,14 @@ export default function SOCDashboard() {
   const openIncidentsCount = incidents.filter(i => i.status !== 'THREAT CONTAINED').length;
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-12">
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-12">
+      <SectionSubNav
+        tabs={[
+          { label: 'Threat Radar (SOC)', href: '/dashboard/soc' },
+          { label: 'Incident Center', href: '/security/incidents', badge: openIncidentsCount > 0 ? openIncidentsCount : undefined },
+          { label: 'BreachLab Simulations', href: '/breachlab' },
+        ]}
+      />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-foreground uppercase">SECUREMAX</h2>

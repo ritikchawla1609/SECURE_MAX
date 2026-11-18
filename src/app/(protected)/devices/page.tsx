@@ -38,6 +38,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { StoredPosition } from '@/types';
 import { useRealtimeSync } from '@/lib/hooks/useRealtimeSync';
+import { SectionSubNav } from '@/components/layout/SectionSubNav';
 
 interface EnrolledDevicePassport {
   id: string;
@@ -310,7 +311,14 @@ export default function DevicesPage() {
   const isAdmin = userRole === 'ADMIN';
 
   return (
-    <div className="space-y-8 font-sans selection:bg-cyan-500/30 pb-20">
+    <div className="space-y-6 font-sans selection:bg-cyan-500/30 pb-20">
+      <SectionSubNav
+        tabs={[
+          { label: 'Device Passports', href: '/devices' },
+          { label: 'Positions & RBAC', href: '/positions' },
+          { label: 'User Directory', href: '/identity' },
+        ]}
+      />
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

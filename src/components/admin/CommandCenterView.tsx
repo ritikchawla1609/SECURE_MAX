@@ -246,133 +246,36 @@ export function CommandCenterView() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#070709] text-zinc-100 font-sans selection:bg-emerald-500/30">
+    <div className="space-y-6 text-zinc-100 font-sans selection:bg-emerald-500/30">
       
-      {/* ---------------------------------------------------- */}
-      {/* LEFT SIDEBAR (PAGE 1 EXACT LAYOUT)                   */}
-      {/* ---------------------------------------------------- */}
-      <aside className="w-64 shrink-0 border-r border-zinc-800/80 bg-[#0a0a0d] flex flex-col justify-between hidden md:flex">
-        <div className="p-5 space-y-6">
-          {/* Brand */}
-          <div className="flex items-center gap-2.5">
-            <Hexagon className="w-6 h-6 text-emerald-400" />
-            <span className="text-sm font-bold tracking-widest uppercase text-white">SECUREMAX</span>
-          </div>
-
-          {/* Navigation Links */}
-          <nav className="space-y-1 font-mono text-xs">
-            <Link 
-              href="/dashboard/admin"
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 font-semibold border-l-2 border-emerald-400"
-            >
-              <span>Command Center</span>
-            </Link>
-
-            <Link 
-              href="/identity"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <span>Identities</span>
-              <span className="text-[10px] text-zinc-500 font-bold">{realtimeData?.stats.identitiesCount || 1}</span>
-            </Link>
-
-            <Link 
-              href="/assets"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <span>Assets</span>
-              <span className="text-[10px] text-zinc-500 font-bold">{realtimeData?.stats.activeAssetsCount || 0}</span>
-            </Link>
-
-            <Link 
-              href="/access"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <span>Access Requests</span>
-              <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded-full border border-amber-500/40 font-bold">
-                {pendingRequests.length}
-              </span>
-            </Link>
-
-            <Link 
-              href="/infrastructure"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <span>Keys &amp; Policies</span>
-            </Link>
-
-            <Link 
-              href="/security/sentinel"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <div className="flex items-center gap-2">
-                <span>Sentinel</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              </div>
-            </Link>
-
-            <Link 
-              href="/audit"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <span>Audit &amp; Forensics</span>
-            </Link>
-
-            <div className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-500 cursor-not-allowed">
-              <span>Break-glass Queue</span>
-            </div>
-
-            <Link 
-              href="/infrastructure"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <span>Infrastructure</span>
-            </Link>
-          </nav>
+      {/* Top Command Bar */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-4">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Command Center</h1>
+          <p className="text-xs text-zinc-400 font-mono mt-0.5">Zero-Trust Security Posture · Realtime Cryptographic State</p>
         </div>
 
-        {/* Bottom Profile Card */}
-        <div className="p-4 border-t border-zinc-800/80 bg-black/40 font-mono text-xs space-y-1">
-          <div className="font-bold text-zinc-200">{adminSession?.name || 'Administrator'}</div>
-          <div className="text-[10px] text-purple-400 font-bold tracking-wider uppercase">{adminSession?.role || 'ROOT ADMIN'}</div>
-          <div className="text-[10px] text-zinc-500 truncate">{adminSession?.email || 'admin@securemax.mil'}</div>
-          <div className="text-[9px] text-zinc-600 truncate">{adminSession?.did || 'did:securemax:admin:001'}</div>
-        </div>
-      </aside>
-
-      {/* ---------------------------------------------------- */}
-      {/* MAIN VIEWPORT                                        */}
-      {/* ---------------------------------------------------- */}
-      <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6">
-        
-        {/* Top Command Bar */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-4">
-          <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Command Center</h1>
-            <p className="text-xs text-zinc-500 font-mono mt-0.5">Global security posture · Realtime ledger sync</p>
+        <div className="flex flex-wrap items-center gap-2.5 font-mono text-xs">
+          <div className="flex items-center gap-1.5 text-zinc-300 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1.5 rounded-lg">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>POLYGON / ARB · live</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
-            <div className="flex items-center gap-1.5 text-zinc-400 bg-zinc-900/60 border border-zinc-800 px-2.5 py-1 rounded">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span>CHAIN-1 · live</span>
-            </div>
-
-            <div className="flex items-center gap-1.5 text-zinc-400 bg-zinc-900/60 border border-zinc-800 px-2.5 py-1 rounded">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-              <span>CHAIN-2 · dual anchor</span>
-            </div>
-
-            <Button
-              size="sm"
-              onClick={handleRunSentinelScan}
-              disabled={scanRunning}
-              className="bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/40 text-xs font-mono font-bold"
-            >
-              {scanRunning ? 'Running Scan...' : 'Run Sentinel scan'}
-            </Button>
+          <div className="flex items-center gap-1.5 text-zinc-300 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1.5 rounded-lg">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>SEPOLIA · anchored</span>
           </div>
+
+          <Button
+            size="sm"
+            onClick={handleRunSentinelScan}
+            disabled={scanRunning}
+            className="bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/40 text-xs font-mono font-bold px-3 py-1.5 rounded-lg"
+          >
+            {scanRunning ? 'Running Scan...' : 'Run Sentinel Scan'}
+          </Button>
         </div>
+      </div>
 
         {/* ---------------------------------------------------- */}
         {/* 4 TOP METRIC CARDS (PAGE 1)                          */}
@@ -726,9 +629,6 @@ export function CommandCenterView() {
           </div>
 
         </div>
-
-      </main>
-
     </div>
   );
 }

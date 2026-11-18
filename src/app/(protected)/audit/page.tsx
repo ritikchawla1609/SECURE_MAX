@@ -6,6 +6,7 @@ import { deviceStore } from '@/lib/auth/deviceStore';
 import { getVerifiedSession } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { UserRole } from '@/types';
+import { SectionSubNav } from '@/components/layout/SectionSubNav';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -50,6 +51,12 @@ export default async function AuditTrailPage() {
 
   return (
     <div className="space-y-6 font-sans selection:bg-cyan-500/30 pb-12">
+      <SectionSubNav
+        tabs={[
+          { label: 'Audit Trail & Proofs', href: '/audit' },
+          { label: 'Blockchain Infrastructure', href: '/infrastructure' },
+        ]}
+      />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-zinc-100 uppercase flex items-center gap-3">

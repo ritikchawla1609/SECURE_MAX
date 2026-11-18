@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Server, Activity, Clock, Box, ShieldCheck, ChevronDown } from 'lucide-react';
 import { useBlockNumber, usePublicClient } from 'wagmi';
+import { SectionSubNav } from '@/components/layout/SectionSubNav';
 
 import deployedAddresses from '../../../../deployed-addresses.json';
 
@@ -43,7 +44,13 @@ export default function InfrastructurePage() {
   }, [client, chainId]);
 
   return (
-    <div className="space-y-8 font-sans selection:bg-cyan-500/30 pb-12">
+    <div className="space-y-6 font-sans selection:bg-cyan-500/30 pb-12">
+      <SectionSubNav
+        tabs={[
+          { label: 'Audit Trail & Proofs', href: '/audit' },
+          { label: 'Blockchain Infrastructure', href: '/infrastructure' },
+        ]}
+      />
       <div>
         <h2 className="text-3xl font-bold tracking-tight text-zinc-100 uppercase flex items-center gap-3">
           <Server className="h-6 w-6 text-cyan-400" />

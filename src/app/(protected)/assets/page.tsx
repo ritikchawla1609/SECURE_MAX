@@ -38,6 +38,7 @@ import { VaultOverviewCard } from '@/components/vault/VaultOverviewCard';
 import { VaultFolderNavigation } from '@/components/vault/VaultFolderNavigation';
 import { VaultUploadModal } from '@/components/vault/VaultUploadModal';
 import { VaultShareModal } from '@/components/vault/VaultShareModal';
+import { SectionSubNav } from '@/components/layout/SectionSubNav';
 import { VaultAssetDetailsDrawer } from '@/components/vault/VaultAssetDetailsDrawer';
 import { VaultSecurePreviewModal } from '@/components/vault/VaultSecurePreviewModal';
 import { useRealtimeSync } from '@/lib/hooks/useRealtimeSync';
@@ -428,6 +429,12 @@ export default function AssetsPage() {
 
   return (
     <div className="space-y-6 font-sans selection:bg-cyan-500/30 pb-16">
+      <SectionSubNav
+        tabs={[
+          { label: 'Secure Files (Vault)', href: '/assets' },
+          { label: 'Access Requests', href: '/access' },
+        ]}
+      />
       
       {/* 1. Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

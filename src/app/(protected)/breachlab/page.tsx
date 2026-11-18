@@ -18,6 +18,7 @@ import { ExecutionMonitor } from '@/components/breachlab/ExecutionMonitor';
 import { ResultsEvidenceView } from '@/components/breachlab/ResultsEvidenceView';
 import { SentinelInvestigationView } from '@/components/breachlab/SentinelInvestigationView';
 import { RunHistoryComparisonView } from '@/components/breachlab/RunHistoryComparisonView';
+import { SectionSubNav } from '@/components/layout/SectionSubNav';
 
 function BreachLabContent() {
   const router = useRouter();
@@ -180,7 +181,14 @@ function BreachLabContent() {
   const activeRun = runs.find((r) => r.id === activeRunId) || null;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 sm:p-6 lg:p-8 space-y-6">
+    <div className="space-y-6 pb-16">
+      <SectionSubNav
+        tabs={[
+          { label: 'Threat Radar (SOC)', href: '/dashboard/soc' },
+          { label: 'Incident Center', href: '/security/incidents' },
+          { label: 'BreachLab Simulations', href: '/breachlab' },
+        ]}
+      />
       {/* Sub-Navigation Tabs */}
       <div className="flex items-center gap-1.5 border-b border-slate-800 pb-3 overflow-x-auto scrollbar-none">
         <button

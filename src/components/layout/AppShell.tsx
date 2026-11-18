@@ -13,23 +13,47 @@ interface TopNavItem {
   name: string;
   href: string;
   roles: UserRole[];
+  matchPrefixes?: string[];
 }
 
 const navItems: TopNavItem[] = [
-  // Admin Command Center & Operations
-  { name: 'COMMAND CENTER', href: '/dashboard/admin', roles: [UserRole.ADMIN] },
-  { name: 'MY ACCESS', href: '/access', roles: [UserRole.ADMIN, UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER, UserRole.AUDITOR] },
-  { name: 'POSITIONS', href: '/positions', roles: [UserRole.ADMIN] },
-  { name: 'SOC', href: '/dashboard/soc', roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST] },
-  { name: 'BREACHLAB', href: '/breachlab', roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST, UserRole.MANAGER] },
-  { name: 'IDENTITY', href: '/identity', roles: [UserRole.ADMIN] },
-  { name: 'INFRASTRUCTURE', href: '/infrastructure', roles: [UserRole.ADMIN, UserRole.AUDITOR] },
-  
-  // Shared / User / Auditor tabs
-  { name: 'MY DATA', href: '/assets', roles: [UserRole.ADMIN, UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER] },
-  { name: 'DEVICES', href: '/devices', roles: [UserRole.ADMIN, UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER] },
-  { name: 'INCIDENTS', href: '/security/incidents', roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST, UserRole.AUDITOR] },
-  { name: 'AUDIT', href: '/audit', roles: [UserRole.ADMIN, UserRole.AUDITOR] },
+  // 5 Clean, Meaningful Primary Navigation Tabs
+  { 
+    name: 'COMMAND CENTER', 
+    href: '/dashboard/admin', 
+    roles: [UserRole.ADMIN],
+    matchPrefixes: ['/dashboard/admin']
+  },
+  { 
+    name: 'DATA VAULT', 
+    href: '/assets', 
+    roles: [UserRole.ADMIN, UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER],
+    matchPrefixes: ['/assets']
+  },
+  { 
+    name: 'DEVICES & IDENTITY', 
+    href: '/devices', 
+    roles: [UserRole.ADMIN, UserRole.USER, UserRole.MANAGER, UserRole.ENGINEER],
+    matchPrefixes: ['/devices', '/positions', '/identity', '/register-device']
+  },
+  { 
+    name: 'SECURITY CENTER', 
+    href: '/dashboard/soc', 
+    roles: [UserRole.ADMIN, UserRole.SECURITY_ANALYST],
+    matchPrefixes: ['/dashboard/soc', '/security', '/breachlab']
+  },
+  { 
+    name: 'AUDIT TRAIL', 
+    href: '/audit', 
+    roles: [UserRole.ADMIN, UserRole.AUDITOR],
+    matchPrefixes: ['/audit', '/infrastructure']
+  },
+  { 
+    name: 'MY ACCESS', 
+    href: '/access', 
+    roles: [UserRole.USER, UserRole.ENGINEER, UserRole.MANAGER],
+    matchPrefixes: ['/access', '/dashboard/user']
+  },
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -74,6 +98,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const activeRole = role || UserRole.USER;
   const filteredNav = navItems.filter((item) => item.roles.includes(activeRole));
 
+  const isItemActive = (item: TopNavItem) => {
+    if (pathname === item.href) return true;
+    if (item.matchPrefixes && item.matchPrefixes.some(p => pathname === p || pathname?.startsWith(p + '/'))) return true;
+    return item.href !== '/' && Boolean(pathname?.startsWith(item.href + '/'));
+  };
+
   const { disconnect } = useDisconnect();
 
   const handleDisconnect = async () => {
@@ -102,18 +132,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
         
         {/* CENTER: Role-filtered Navigation */}
-        <nav className="hidden lg:flex flex-1 items-center justify-center gap-1 px-6">
+        <nav className="hidden lg:flex flex-1 items-center justify-center gap-1.5 px-6">
           {filteredNav.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href + '/'));
+            const isActive = isItemActive(item);
             return (
               <Link
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  'px-3.5 py-1 text-xs font-mono tracking-wider transition-colors rounded-sm',
+                  'px-3.5 py-1.5 text-xs font-mono font-medium tracking-wider transition-all rounded-lg',
                   isActive 
-                    ? 'bg-zinc-900 text-cyan-400 border border-cyan-500/30' 
-                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
+                    ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.15)]' 
+                    : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/80'
                 )}
               >
                 {item.name}
@@ -182,21 +212,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             className="fixed top-14 left-0 right-0 border-b border-zinc-800 bg-[#0a0a0c]/98 backdrop-blur-md px-6 py-4 flex flex-col gap-2 z-50 lg:hidden shadow-2xl"
           >
             {filteredNav.map((item) => {
-              const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href + '/'));
+              const isActive = isItemActive(item);
               return (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
-                    'px-3.5 py-2 text-xs font-mono tracking-wider transition-colors rounded-sm flex items-center justify-between',
+                    'px-4 py-2.5 text-xs font-mono tracking-wider transition-colors rounded-lg flex items-center justify-between',
                     isActive 
-                      ? 'bg-zinc-900 text-cyan-400 border border-cyan-500/30' 
-                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
+                      ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30' 
+                      : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/80'
                   )}
                 >
                   <span>{item.name}</span>
-                  {isActive && <span className="h-1.5 w-1.5 rounded-full bg-cyan-400"></span>}
+                  {isActive && <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span>}
                 </Link>
               );
             })}
@@ -205,9 +235,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       )}
       
       {/* Main Content Area */}
-      <main className="flex-1 bg-zinc-950 relative">
+      <main className="flex-1 bg-zinc-950 relative overflow-x-hidden">
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-zinc-900/50 via-transparent to-transparent"></div>
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 relative z-10">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 relative z-10 w-full">
           {children}
         </div>
       </main>

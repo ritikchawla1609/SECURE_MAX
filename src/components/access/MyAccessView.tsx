@@ -44,6 +44,7 @@ import {
 } from '@/app/actions/accessRequests';
 import { useSecureMaxRealtime } from '@/hooks/useSecureMaxRealtime';
 import { useDemoStore } from '@/stores/useDemoStore';
+import { SectionSubNav } from '@/components/layout/SectionSubNav';
 
 interface UserProfile {
   id: string;
@@ -579,108 +580,16 @@ export function MyAccessView() {
   const latestRequest = requests.length > 0 ? requests[0] : null;
 
   return (
-    <div className="flex min-h-screen bg-[#070709] text-zinc-100 font-sans selection:bg-emerald-500/30">
-      
-      {/* ---------------------------------------------------- */}
-      {/* LEFT SIDEBAR (DYNAMIC)                               */}
-      {/* ---------------------------------------------------- */}
-      <aside className="w-64 shrink-0 border-r border-zinc-800/80 bg-[#0a0a0d] flex flex-col justify-between hidden lg:flex">
-        <div className="p-5 space-y-6">
-          {/* Brand */}
-          <div className="flex items-center gap-2.5">
-            <Hexagon className="w-6 h-6 text-emerald-400" />
-            <span className="text-sm font-bold tracking-widest uppercase text-white">SECUREMAX</span>
-          </div>
+    <div className="space-y-6 font-sans selection:bg-emerald-500/30 pb-16">
+      <SectionSubNav
+        tabs={[
+          { label: 'Secure Files (Vault)', href: '/assets' },
+          { label: 'Access Requests', href: '/access', badge: pendingRequestsCount > 0 ? pendingRequestsCount : undefined },
+        ]}
+      />
 
-          {/* Nav Items */}
-          <nav className="space-y-1 font-mono text-xs">
-            <Link 
-              href="/access"
-              className="flex items-center justify-between px-3 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 font-semibold border-l-2 border-emerald-400"
-            >
-              <span>My Access</span>
-            </Link>
-
-            <Link 
-              href="/assets"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <span>Asset Registry</span>
-            </Link>
-
-            <div 
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors cursor-pointer" 
-              onClick={() => handleOpenRequestModal()}
-            >
-              <span>My Requests</span>
-              {pendingRequestsCount > 0 && (
-                <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded-full border border-amber-500/40 font-bold">
-                  {pendingRequestsCount}
-                </span>
-              )}
-            </div>
-
-            <Link 
-              href="/devices"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <span>My Devices</span>
-            </Link>
-
-            <Link 
-              href="/audit"
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors"
-            >
-              <span>My Activity</span>
-            </Link>
-
-            <div 
-              className="flex items-center justify-between px-3 py-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60 transition-colors cursor-pointer" 
-              onClick={() => setShowQrModal(true)}
-            >
-              <span>My Identity</span>
-            </div>
-          </nav>
-        </div>
-
-        {/* Bottom User Card (DYNAMIC) */}
-        <div className="p-4 border-t border-zinc-800/80 bg-black/40 font-mono text-xs space-y-2">
-          <div>
-            <div className="font-bold text-zinc-200 truncate">{displayUser.name}</div>
-            <div className="text-[10px] text-cyan-400 font-bold uppercase truncate">
-              {displayUser.position} · {displayUser.role}
-            </div>
-            <div className="text-[10px] text-zinc-500 truncate mt-0.5" title={displayUser.did}>
-              {truncatedDid}
-            </div>
-          </div>
-          <Button 
-            size="sm"
-            variant="outline"
-            onClick={handleLogoutEverywhere}
-            className="w-full border-zinc-800 text-[11px] text-zinc-400 hover:text-red-400 hover:bg-red-950/20 h-7"
-          >
-            <LogOut className="w-3 h-3 mr-1.5" /> Log out everywhere
-          </Button>
-        </div>
-      </aside>
-
-      {/* ---------------------------------------------------- */}
-      {/* MAIN VIEWPORT                                        */}
-      {/* ---------------------------------------------------- */}
-      <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6 pb-24 lg:pb-8">
+      <div className="space-y-6">
         
-        {/* Mobile Header (DYNAMIC) */}
-        <div className="flex lg:hidden items-center justify-between border-b border-zinc-800/80 pb-3 font-mono text-xs">
-          <div className="flex items-center gap-2">
-            <Hexagon className="w-5 h-5 text-emerald-400" />
-            <span className="font-bold tracking-widest text-white">SECUREMAX</span>
-          </div>
-          <div className="text-zinc-400 text-[11px] bg-zinc-900/80 px-2 py-0.5 rounded border border-zinc-800 truncate max-w-[140px]">
-            {truncatedDid}
-          </div>
-        </div>
-
         {/* Top Header Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-zinc-800/80 pb-4">
           <div>
@@ -1212,28 +1121,6 @@ export function MyAccessView() {
 
         </div>
 
-      </main>
-
-      {/* ---------------------------------------------------- */}
-      {/* MOBILE STICKY BOTTOM NAV                             */}
-      {/* ---------------------------------------------------- */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 h-14 bg-[#0a0a0d] border-t border-zinc-800 px-6 flex items-center justify-around font-mono text-xs z-40">
-        <Link href="/access" className="flex flex-col items-center gap-1 text-emerald-400 font-bold">
-          <Key className="w-4 h-4" />
-          <span className="text-[10px]">Access</span>
-        </Link>
-        <button onClick={() => handleOpenRequestModal()} className="flex flex-col items-center gap-1 text-zinc-400 hover:text-zinc-200">
-          <Send className="w-4 h-4" />
-          <span className="text-[10px]">Requests</span>
-        </button>
-        <Link href="/audit" className="flex flex-col items-center gap-1 text-zinc-400 hover:text-zinc-200">
-          <Activity className="w-4 h-4" />
-          <span className="text-[10px]">Activity</span>
-        </Link>
-        <button onClick={() => setShowQrModal(true)} className="flex flex-col items-center gap-1 text-zinc-400 hover:text-zinc-200">
-          <QrCode className="w-4 h-4" />
-          <span className="text-[10px]">Identity</span>
-        </button>
       </div>
 
       {/* ---------------------------------------------------- */}

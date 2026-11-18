@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { ShieldAlert, Fingerprint, Server, Users, FileLock2, ShieldCheck, Clock, ShieldX } from 'lucide-react';
 import { useDemoStore } from '@/stores/useDemoStore';
+import { SectionSubNav } from '@/components/layout/SectionSubNav';
 
 export default function IncidentsPage() {
   const { incidents, resolveIncident } = useDemoStore();
@@ -14,8 +15,17 @@ export default function IncidentsPage() {
     setResolving(null);
   };
 
+  const openIncidentsCount = incidents.filter(i => i.status !== 'THREAT CONTAINED').length;
+
   return (
-    <div className="space-y-8 font-sans selection:bg-cyan-500/30 pb-12">
+    <div className="space-y-6 font-sans selection:bg-cyan-500/30 pb-12">
+      <SectionSubNav
+        tabs={[
+          { label: 'Threat Radar (SOC)', href: '/dashboard/soc' },
+          { label: 'Incident Center', href: '/security/incidents', badge: openIncidentsCount > 0 ? openIncidentsCount : undefined },
+          { label: 'BreachLab Simulations', href: '/breachlab' },
+        ]}
+      />
       <div>
         <h2 className="text-3xl font-bold tracking-tight text-zinc-100 uppercase flex items-center gap-3">
           <ShieldAlert className="h-6 w-6 text-red-500" />
