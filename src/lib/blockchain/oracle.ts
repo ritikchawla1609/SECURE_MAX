@@ -55,7 +55,9 @@ export async function verifyChain1Access(userId: string, assetId: string): Promi
       return { allowed: false, status: 'DENIED', chainId: targetChain.id, contractAddress, reason: 'No active assignment found on Chain-1' };
     }
   } catch (error: any) {
-    console.error('Chain 1 Oracle Error:', error.message);
+    if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+      console.warn('Chain 1 Oracle warning:', error?.message || error);
+    }
     return { allowed: false, status: 'UNAVAILABLE', chainId: targetChain.id, contractAddress, reason: 'RPC Failure or Contract Revert' };
   }
 }
@@ -96,10 +98,12 @@ export async function verifyChain2Policy(assetId: string, sessionId?: string): P
       return { allowed: false, status: 'DENIED', chainId: targetChain.id, contractAddress, reason: 'Key is revoked or suspended on Chain-2' };
     }
   } catch (error: any) {
-    console.warn('Chain 2 Oracle error:', error.message);
+    if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+      console.warn('Chain 2 Oracle error:', error?.message || error);
+    }
     // Security architecture: Fail-closed on RPC failure or contract revert.
     // Never provide implicit approval when verification cannot be completed.
-    return { allowed: false, status: 'UNAVAILABLE', chainId: targetChain.id, contractAddress, reason: `RPC Failure or Contract Error: ${error.message}` }; 
+    return { allowed: false, status: 'UNAVAILABLE', chainId: targetChain.id, contractAddress, reason: `RPC Failure or Contract Error: ${error?.message || error}` }; 
   }
 }
 
@@ -141,8 +145,10 @@ export async function verifyDecryptionAuth(authId: string, assetId: string, user
       return { allowed: false, status: 'DENIED', chainId: targetChain.id, contractAddress, reason: 'Decryption authorization record not found or expired on Chain-2' };
     }
   } catch (error: any) {
-    console.warn('DecryptionAuth Oracle error:', error.message);
-    return { allowed: false, status: 'UNAVAILABLE', chainId: targetChain.id, contractAddress, reason: `RPC Failure or Contract Error: ${error.message}` };
+    if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+      console.warn('DecryptionAuth Oracle error:', error?.message || error);
+    }
+    return { allowed: false, status: 'UNAVAILABLE', chainId: targetChain.id, contractAddress, reason: `RPC Failure or Contract Error: ${error?.message || error}` };
   }
 }
 
