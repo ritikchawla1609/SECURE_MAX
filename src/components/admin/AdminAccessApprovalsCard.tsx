@@ -21,7 +21,16 @@ export function AdminAccessApprovalsCard() {
       if (!isBackground) setLoading(true);
       const res = await fetchAllAccessRequestsAction();
       if (res.success && res.requests) {
-        setRequests(res.requests);
+        setRequests(prev => {
+          const localMap = new Map(prev.map(r => [r.id, r]));
+          return res.requests.map((r: StoredAccessRequest) => {
+            const local = localMap.get(r.id);
+            if (local && (local.status === 'APPROVED' || local.status === 'REJECTED') && r.status === 'PENDING') {
+              return local;
+            }
+            return r;
+          });
+        });
       }
     } catch (err) {
       console.error('Failed to load access requests:', err);

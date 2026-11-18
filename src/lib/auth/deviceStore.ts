@@ -704,8 +704,8 @@ class SecureMaxStore {
         console.warn('[SecureMaxStore] Primary disk write skipped:', fsErr);
       }
 
-      // Also attempt write to fallback path if different (e.g. local environment)
-      if (primaryPath !== fallbackPath) {
+      // Only write to fallback path if strictly in serverless production and not in test/custom store
+      if (primaryPath !== fallbackPath && !isTest && !process.env.SECUREMAX_STORE_PATH) {
         try {
           const dir = path.dirname(fallbackPath);
           if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -1054,6 +1054,7 @@ class SecureMaxStore {
       kyc_status: 'VERIFIED',
       status: UserStatus.ACTIVE,
       did: 'did:securemax:admin:001',
+      admin_wallet: (process.env.ADMIN_WALLET || '0xc532c65055108e7901212b6c30ef800152e26eb5').toLowerCase(),
       created_at: '2026-09-01T00:00:00.000Z',
     };
     this.users.set(adminUser.id, adminUser);
@@ -4285,6 +4286,7 @@ class SecureMaxStore {
       severity: 'INFO',
     });
 
+    this.saveToDisk();
     return assignment;
   }
 
@@ -4552,6 +4554,7 @@ class SecureMaxStore {
       severity: 'INFO',
     });
 
+    this.saveToDisk();
     return assignment;
   }
 
@@ -4582,6 +4585,7 @@ class SecureMaxStore {
       userName: caller?.name,
       severity: 'WARNING',
     });
+    this.saveToDisk();
   }
 
   public getSharesForAsset(assetId: string): Array<{

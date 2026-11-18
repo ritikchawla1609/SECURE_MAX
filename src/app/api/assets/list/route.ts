@@ -17,39 +17,49 @@ export async function GET(req: Request) {
 
     const assetsWithPermissions = deviceStore.getAssetsForUser(targetUserId, { scope });
 
-    const safeList = assetsWithPermissions.map(item => ({
-      id: item.asset.id,
-      code: item.asset.asset_code,
-      name: item.asset.name,
-      classification: item.asset.classification,
-      status: item.status,
-      description: item.asset.description,
-      canRead: isAdminCaller ? true : item.can_read,
-      canDecrypt: isAdminCaller ? true : item.can_decrypt,
-      canDownload: isAdminCaller ? true : item.can_download,
-      canEdit: isAdminCaller ? true : item.can_edit,
-      canDelete: isAdminCaller ? true : item.can_delete,
-      expiresAt: item.expires_at,
-      sharedBy: item.shared_by,
-      folder: item.asset.folder,
-      fileType: item.asset.file_type,
-      mimeType: item.asset.mime_type,
-      fileSizeBytes: item.asset.file_size_bytes,
-      ownerId: item.asset.owner_id,
-      ownerName: item.asset.owner_name,
-      createdAt: item.asset.created_at,
-      lastAccessedAt: item.asset.last_accessed_at,
-      keyVersion: item.asset.key_version,
-      versions: item.asset.versions || [],
-      accessHistory: item.asset.access_history || [],
-      blockchainTokenId: item.asset.blockchain_token_id,
-      blockchainContract: item.asset.blockchain_contract,
-      did: item.asset.did,
-      isOwner: item.is_owner,
-      sharingScope: item.sharing_scope,
-      assignedUsersCount: item.assigned_users_count,
-      shares: item.shares || [],
-    }));
+    const safeList = assetsWithPermissions.map(item => {
+      const isOwner = Boolean(
+        item.is_owner || 
+        item.asset.owner_id === targetUserId || 
+        (targetUser && item.asset.owner_name === targetUser.name) ||
+        (session.name && item.asset.owner_name === session.name)
+      );
+      const isPrivileged = isAdminCaller || isOwner;
+
+      return {
+        id: item.asset.id,
+        code: item.asset.asset_code,
+        name: item.asset.name,
+        classification: item.asset.classification,
+        status: item.status,
+        description: item.asset.description,
+        canRead: isPrivileged ? true : item.can_read,
+        canDecrypt: isPrivileged ? true : item.can_decrypt,
+        canDownload: isPrivileged ? true : item.can_download,
+        canEdit: isPrivileged ? true : item.can_edit,
+        canDelete: isPrivileged ? true : item.can_delete,
+        expiresAt: item.expires_at,
+        sharedBy: item.shared_by,
+        folder: item.asset.folder,
+        fileType: item.asset.file_type,
+        mimeType: item.asset.mime_type,
+        fileSizeBytes: item.asset.file_size_bytes,
+        ownerId: item.asset.owner_id,
+        ownerName: item.asset.owner_name,
+        createdAt: item.asset.created_at,
+        lastAccessedAt: item.asset.last_accessed_at,
+        keyVersion: item.asset.key_version,
+        versions: item.asset.versions || [],
+        accessHistory: item.asset.access_history || [],
+        blockchainTokenId: item.asset.blockchain_token_id,
+        blockchainContract: item.asset.blockchain_contract,
+        did: item.asset.did,
+        isOwner: isOwner,
+        sharingScope: item.sharing_scope,
+        assignedUsersCount: item.assigned_users_count,
+        shares: item.shares || [],
+      };
+    });
 
     // Calculate total vault storage used
     let totalStorageBytes = 0;

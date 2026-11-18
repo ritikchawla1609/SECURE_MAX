@@ -34,10 +34,15 @@ export async function POST(req: Request) {
     }
 
     // Strict Access Control:
-    // Only the Administrator can decrypt directly without prior access request.
-    // All other users require an approved access request and active assignment.
+    // Administrator and Asset Owner can decrypt directly without prior access request.
+    // Non-owner team members require an approved access request and active assignment.
     const isAdmin = session.role === UserRole.ADMIN;
-    if (!isAdmin) {
+    const isOwner = Boolean(
+      asset.owner_id === session.userId || 
+      asset.owner_name === session.name ||
+      (asset.owner_id && session.userId && asset.owner_id === session.userId)
+    );
+    if (!isAdmin && !isOwner) {
       const assignment = deviceStore.getAssignment(session.userId, assetId);
       if (!assignment || assignment.status !== 'ACTIVE' || !assignment.can_decrypt) {
         if (deviceStore?.lastSyncPromise) {

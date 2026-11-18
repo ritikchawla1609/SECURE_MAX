@@ -73,14 +73,18 @@ export async function POST(req: Request) {
     const body = await req.json().catch(() => ({}));
     const { action, requestId, grantId, ttlMinutes, reason, assetCode, user } = body;
 
+    let resultReq: any = null;
+    let resultGrant: any = null;
+
     if (action === 'APPROVE' && requestId) {
-      deviceStore.approveAccessRequest(requestId, 'usr_admin_001', ttlMinutes || 30);
+      resultReq = deviceStore.approveAccessRequest(requestId, 'usr_admin_001', ttlMinutes || 30);
+      resultGrant = (resultReq as any)?.liveGrant;
     } else if (action === 'REJECT' && requestId) {
-      deviceStore.rejectAccessRequest(requestId, 'usr_admin_001', reason);
+      resultReq = deviceStore.rejectAccessRequest(requestId, 'usr_admin_001', reason);
     } else if (action === 'REVOKE' && grantId) {
-      deviceStore.revokeLiveGrant(grantId, 'Administrator');
+      resultGrant = deviceStore.revokeLiveGrant(grantId, 'Administrator');
     } else if (action === 'EXTEND' && grantId) {
-      deviceStore.extendLiveGrant(grantId, ttlMinutes || 15);
+      resultGrant = deviceStore.extendLiveGrant(grantId, ttlMinutes || 15);
     } else if (action === 'REQUEST' && assetCode) {
       const vasu = await deviceStore.getUserByEmail('vasu@securemax.mil');
       const userId = vasu?.id || 'usr_vasu_002';
@@ -91,19 +95,53 @@ export async function POST(req: Request) {
           break;
         }
       }
-      const newReq = deviceStore.createAccessRequest({
+      resultReq = deviceStore.createAccessRequest({
         userId,
         requestType: 'ASSET_ACCESS',
         assetId,
         reason: reason || 'Vendor invoice reconciliation',
       });
       if (ttlMinutes) {
-        newReq.ttl_minutes = ttlMinutes;
+        resultReq.ttl_minutes = ttlMinutes;
         deviceStore.saveToDisk();
       }
     }
 
-    return GET();
+    const pending = deviceStore.getAccessRequests().filter(r => r.status === 'PENDING');
+    const liveGrants = deviceStore.getLiveGrants();
+    const notifications = deviceStore.getNotifications();
+    const auditEvents = deviceStore.getAuditEvents();
+
+    const formattedPending = pending.map(r => ({
+      id: r.id,
+      actor: r.user_name,
+      assetCode: r.asset_code || 'SMX-AST-000',
+      purpose: r.reason,
+      role: r.role || 'USER',
+      classification: (r.asset_id && deviceStore.assets.get(r.asset_id)?.classification) || 'RESTRICTED',
+      requestedAt: 'requested ' + formatRelative(r.created_at),
+      ttlMinutes: r.ttl_minutes || 30,
+    }));
+
+    if (deviceStore?.lastSyncPromise) {
+      await deviceStore.lastSyncPromise;
+    }
+    return NextResponse.json({
+      success: true,
+      request: resultReq,
+      grant: resultGrant,
+      pendingRequests: formattedPending,
+      liveGrants,
+      notifications: notifications.slice(0, 10),
+      auditEvents: auditEvents.slice(0, 15),
+      stats: {
+        identitiesCount: new Set(Array.from(deviceStore.users.values()).map(u => u.id)).size,
+        activeAssetsCount: deviceStore.assets.size,
+        pendingCount: pending.length,
+        openIncidentsCount: auditEvents.filter(a => a.severity === 'CRITICAL').length,
+      },
+      timestamp: Date.now(),
+    });
   } catch (error: any) {
     
     if (deviceStore?.lastSyncPromise) {

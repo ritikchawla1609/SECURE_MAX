@@ -73,9 +73,55 @@ export function CommandCenterView() {
   // Live Grants with active ticking countdown (Dynamic from Realtime Ledger)
   const [liveGrants, setLiveGrants] = React.useState<LiveGrant[]>([]);
 
-  // Local optimistic locks to prevent background polling or stale in-flight fetches from reverting UI actions
-  const processedRequestIds = React.useRef<Set<string>>(new Set());
-  const revokedGrantIds = React.useRef<Set<string>>(new Set());
+  // Local optimistic locks with sessionStorage persistence to prevent background polling or stale in-flight fetches from reverting UI actions
+  const getStoredLockSet = (key: string): Set<string> => {
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        const item = sessionStorage.getItem(key);
+        if (item) return new Set(JSON.parse(item));
+      }
+    } catch {}
+    return new Set<string>();
+  };
+
+  const processedRequestIds = React.useRef<Set<string>>(getStoredLockSet('securemax_locked_request_ids'));
+  const revokedGrantIds = React.useRef<Set<string>>(getStoredLockSet('securemax_locked_grant_ids'));
+
+  const lockRequestId = (id: string) => {
+    processedRequestIds.current.add(id);
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        sessionStorage.setItem('securemax_locked_request_ids', JSON.stringify(Array.from(processedRequestIds.current)));
+      }
+    } catch {}
+  };
+
+  const unlockRequestId = (id: string) => {
+    processedRequestIds.current.delete(id);
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        sessionStorage.setItem('securemax_locked_request_ids', JSON.stringify(Array.from(processedRequestIds.current)));
+      }
+    } catch {}
+  };
+
+  const lockGrantId = (id: string) => {
+    revokedGrantIds.current.add(id);
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        sessionStorage.setItem('securemax_locked_grant_ids', JSON.stringify(Array.from(revokedGrantIds.current)));
+      }
+    } catch {}
+  };
+
+  const unlockGrantId = (id: string) => {
+    revokedGrantIds.current.delete(id);
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        sessionStorage.setItem('securemax_locked_grant_ids', JSON.stringify(Array.from(revokedGrantIds.current)));
+      }
+    } catch {}
+  };
 
   // Synchronize state from database whenever realtime data arrives
   React.useEffect(() => {
@@ -138,8 +184,8 @@ export function CommandCenterView() {
       const req = pendingRequests.find(r => r.id === id);
       const ttlMinutes = req?.ttlMinutes || 30;
 
-      // Lock ID optimistically so background polling doesn't revert it
-      processedRequestIds.current.add(id);
+      // Lock ID optimistically and persist so background polling or page reload never reverts it
+      lockRequestId(id);
       // 0ms Optimistic UI update: remove pending request immediately
       setPendingRequests(prev => (prev || []).filter(r => r.id !== id));
 
@@ -163,7 +209,7 @@ export function CommandCenterView() {
           if (syncRes.ok) {
             const syncJson = await syncRes.json();
             if (syncJson.success) {
-              res = { success: true, grant: syncJson.liveGrants?.[0] };
+              res = { success: true, grant: syncJson.grant || syncJson.liveGrants?.[0] };
             }
           }
         } catch (syncErr) {
@@ -183,13 +229,13 @@ export function CommandCenterView() {
           broadcastUpdate('REQUEST_APPROVED', { requestId: id, ttlMinutes, grant: res.grant });
         }
       } else {
-        processedRequestIds.current.delete(id);
+        unlockRequestId(id);
         console.error('Failed to approve request:', res?.error);
         showNotice('error', res?.error || 'Failed to approve request');
         refetch();
       }
     } catch (err: any) {
-      processedRequestIds.current.delete(id);
+      unlockRequestId(id);
       console.error('Crash in handleApprove:', err);
       showNotice('error', err?.message || 'Unexpected error approving request');
       refetch();
@@ -197,8 +243,8 @@ export function CommandCenterView() {
   };
 
   const handleDeny = async (id: string) => {
-    // Lock ID optimistically so background polling doesn't revert it
-    processedRequestIds.current.add(id);
+    // Lock ID optimistically and persist so background polling or page reload never reverts it
+    lockRequestId(id);
     // 0ms Optimistic UI update
     setPendingRequests(prev => prev.filter(r => r.id !== id));
 
@@ -235,7 +281,7 @@ export function CommandCenterView() {
         broadcastUpdate('REQUEST_REJECTED', { requestId: id });
       }
     } else {
-      processedRequestIds.current.delete(id);
+      unlockRequestId(id);
       console.error('Failed to deny request:', res?.error);
       showNotice('error', res?.error || 'Failed to deny request');
       refetch();
@@ -244,8 +290,8 @@ export function CommandCenterView() {
 
   const handleRevokeGrant = async (id: string) => {
     const grantToRevoke = liveGrants.find(g => g.id === id);
-    // Lock ID optimistically so background polling doesn't revert it
-    revokedGrantIds.current.add(id);
+    // Lock ID optimistically and persist so background polling or page reload never reverts it
+    lockGrantId(id);
     // 0ms Optimistic UI update: remove from active live grants immediately
     setLiveGrants(prev => prev.filter(g => g.id !== id));
 
@@ -282,7 +328,7 @@ export function CommandCenterView() {
         broadcastUpdate('GRANT_REVOKED', { grantId: id, assetCode: grantToRevoke?.assetCode });
       }
     } else {
-      revokedGrantIds.current.delete(id);
+      unlockGrantId(id);
       console.error('Failed to revoke grant:', res?.error);
       showNotice('error', res?.error || 'Failed to revoke live grant');
       refetch();

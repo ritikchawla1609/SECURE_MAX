@@ -268,9 +268,8 @@ export async function fetchAuditLedgerAction() {
 }
 
 export async function fetchCommandCenterStateAction() {
-  
-  
   if (typeof deviceStore !== 'undefined') {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   try {

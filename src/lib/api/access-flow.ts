@@ -93,35 +93,56 @@ export async function authorizeAssetAccess(
     }
   }
 
-  // 4. Asset Assignment Check & Permission Validation
+  // 4. Asset Assignment Check & Permission Validation (Admin & Asset Owner have direct sovereign clearance)
+  const asset = deviceStore.assets.get(assetId);
+  const isOwner = Boolean(
+    asset && (
+      asset.owner_id === userId ||
+      asset.owner_name === user.name ||
+      (asset.owner_id && user.id && asset.owner_id === user.id)
+    )
+  );
   const assignment = deviceStore.getAssignment(userId, assetId);
 
   if (!isAdmin) {
-    if (!assignment || assignment.status !== 'ACTIVE') {
+    if (assignment && (assignment.status === 'REVOKED' || !assignment.can_decrypt)) {
       await logAuditEvent({
         eventType: AuditEventType.ACCESS_DENIED,
         actorId: userId,
         targetType: 'ASSET',
         targetId: assetId,
-        details: { reason: 'No active asset assignment found' }
+        details: { reason: 'Asset permission is revoked or read-only' }
       });
-      throw new Error('Access Denied: You must request access from an administrator and receive approval before opening or downloading this asset.');
+      throw new Error('Access Denied: Your access clearance to this asset has been revoked or restricted.');
     }
 
-    if (!assignment.can_decrypt) {
-      await logAuditEvent({
-        eventType: AuditEventType.ACCESS_DENIED,
-        actorId: userId,
-        targetType: 'ASSET',
-        targetId: assetId,
-        details: { reason: 'Asset permission is READ-ONLY (no decrypt permission)' }
-      });
-      throw new Error('Access Denied: You must request access from an administrator and receive approval before opening or downloading this asset.');
+    if (!isOwner) {
+      if (!assignment || assignment.status !== 'ACTIVE') {
+        await logAuditEvent({
+          eventType: AuditEventType.ACCESS_DENIED,
+          actorId: userId,
+          targetType: 'ASSET',
+          targetId: assetId,
+          details: { reason: 'No active asset assignment found' }
+        });
+        throw new Error('Access Denied: You must request access from an administrator and receive approval before opening or downloading this asset.');
+      }
+
+      if (!assignment.can_decrypt) {
+        await logAuditEvent({
+          eventType: AuditEventType.ACCESS_DENIED,
+          actorId: userId,
+          targetType: 'ASSET',
+          targetId: assetId,
+          details: { reason: 'Asset permission is READ-ONLY (no decrypt permission)' }
+        });
+        throw new Error('Access Denied: Your permission for this asset is READ-ONLY. Decryption is prohibited.');
+      }
     }
   }
 
   // 5. Blockchain IdentityRegistry & AssetNFT Verification (Chain 1)
-  if (!isAdmin) {
+  if (!isAdmin && !isOwner) {
     const chain1Result = await verifyChain1Access(userId, assetId);
     if (!chain1Result.allowed) {
       await logAuditEvent({
