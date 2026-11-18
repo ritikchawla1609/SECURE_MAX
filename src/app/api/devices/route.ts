@@ -5,6 +5,7 @@ import { UserRole, UserStatus } from '@/types';
 
 export async function GET() {
   if (typeof deviceStore !== 'undefined') {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   try {

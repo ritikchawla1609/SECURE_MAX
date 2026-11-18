@@ -27,7 +27,10 @@ import {
   Sparkles,
   Server,
   Zap,
-  Check
+  Check,
+  UserPlus,
+  Copy,
+  X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -38,6 +41,7 @@ import {
   rejectAccessRequestAction, 
   revokeLiveGrantAction 
 } from '@/app/actions/accessRequests';
+import { registerNewUserByAdmin } from '@/app/actions/adminUsers';
 import { useSecureMaxRealtime } from '@/hooks/useSecureMaxRealtime';
 
 interface PendingRequest {
@@ -175,6 +179,75 @@ export function CommandCenterView() {
     setTimeout(() => {
       setActionNotice(prev => (prev?.message === message ? null : prev));
     }, 4000);
+  };
+
+  // Add User Modal State & Actions
+  const [showAddUserModal, setShowAddUserModal] = React.useState(false);
+  const [newUserName, setNewUserName] = React.useState('');
+  const [newUserEmail, setNewUserEmail] = React.useState('');
+  const [newUserRole, setNewUserRole] = React.useState<'USER' | 'ENGINEER' | 'MANAGER' | 'AUDITOR'>('USER');
+  const [newUserDepartment, setNewUserDepartment] = React.useState('Engineering');
+  const [addUserLoading, setAddUserLoading] = React.useState(false);
+  const [addUserError, setAddUserError] = React.useState<string | null>(null);
+  const [createdUserResult, setCreatedUserResult] = React.useState<{
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    enrollmentCode?: string;
+  } | null>(null);
+  const [copiedEnrollmentCode, setCopiedEnrollmentCode] = React.useState(false);
+
+  const handleAddUserSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newUserName.trim() || !newUserEmail.trim()) {
+      setAddUserError('Please provide both Full Name and Email Address.');
+      return;
+    }
+    setAddUserLoading(true);
+    setAddUserError(null);
+
+    try {
+      const res = await registerNewUserByAdmin({
+        name: newUserName.trim(),
+        email: newUserEmail.trim(),
+        role: newUserRole as any,
+        department: newUserDepartment,
+      });
+
+      if (!res.success || !res.user) {
+        throw new Error(res.error || 'Failed to register new identity.');
+      }
+
+      setCreatedUserResult(res.user);
+      showNotice('success', `Identity created for ${res.user.name}. Enrollment code: ${res.user.enrollmentCode}`);
+
+      if (typeof broadcastUpdate === 'function') {
+        broadcastUpdate('USER_REGISTERED', { user: res.user });
+      }
+      try {
+        const bc = new BroadcastChannel('securemax_realtime');
+        bc.postMessage({ type: 'USER_REGISTERED', user: res.user });
+        bc.close();
+      } catch {}
+
+      refetch();
+    } catch (err: any) {
+      setAddUserError(err.message || 'Error registering identity');
+    } finally {
+      setAddUserLoading(false);
+    }
+  };
+
+  const resetAddUserForm = () => {
+    setNewUserName('');
+    setNewUserEmail('');
+    setNewUserRole('USER');
+    setNewUserDepartment('Engineering');
+    setAddUserError(null);
+    setCreatedUserResult(null);
+    setCopiedEnrollmentCode(false);
+    setShowAddUserModal(false);
   };
 
   // Action Handlers with 0ms Instant Optimistic Feedback + Broadcast
@@ -385,6 +458,15 @@ export function CommandCenterView() {
 
           <Button
             size="sm"
+            onClick={() => { resetAddUserForm(); setShowAddUserModal(true); }}
+            className="bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 border border-cyan-500/40 text-xs font-mono font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm"
+          >
+            <UserPlus className="w-3.5 h-3.5 text-cyan-400" />
+            <span>+ Add User</span>
+          </Button>
+
+          <Button
+            size="sm"
             onClick={handleRunSentinelScan}
             disabled={scanRunning}
             className="bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/40 text-xs font-mono font-bold px-3 py-1.5 rounded-lg"
@@ -399,9 +481,20 @@ export function CommandCenterView() {
         {/* ---------------------------------------------------- */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
           <div className="p-4 rounded-xl border border-purple-500/30 bg-[#0d0a14] space-y-1">
-            <div className="text-[10px] text-zinc-400 uppercase tracking-wider">IDENTITIES</div>
+            <div className="flex items-center justify-between">
+              <div className="text-[10px] text-zinc-400 uppercase tracking-wider">IDENTITIES</div>
+              <button
+                type="button"
+                onClick={() => { resetAddUserForm(); setShowAddUserModal(true); }}
+                className="text-[10px] text-cyan-400 hover:text-cyan-300 font-mono flex items-center gap-1 transition-colors cursor-pointer"
+                title="Register New User Identity"
+              >
+                <UserPlus className="w-3 h-3" />
+                <span>+ Add</span>
+              </button>
+            </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-bold text-white">{realtimeData?.stats.identitiesCount || 1}</span>
+              <span className="text-3xl font-bold text-white">{(realtimeData?.stats.identitiesCount || 1) + (createdUserResult ? 1 : 0)}</span>
               <span className="text-[11px] text-emerald-400">active</span>
             </div>
           </div>
@@ -752,6 +845,202 @@ export function CommandCenterView() {
           </div>
 
         </div>
+
+        {/* ---------------------------------------------------- */}
+        {/* ADD USER IDENTITY & ENROLLMENT ISSUANCE MODAL        */}
+        {/* ---------------------------------------------------- */}
+        {showAddUserModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="relative w-full max-w-md bg-[#0a0f18] border border-cyan-500/40 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.2)] p-6 space-y-5 font-mono text-xs text-zinc-200 max-h-[92vh] overflow-y-auto">
+              
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+                    <UserPlus className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-bold text-white uppercase tracking-tight">
+                      Register User Identity
+                    </h3>
+                    <p className="text-[10px] text-zinc-400 font-sans mt-0.5">
+                      Issue cryptographic identity and generate enrollment capability
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={resetAddUserForm}
+                  className="text-zinc-500 hover:text-zinc-200 p-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {createdUserResult ? (
+                /* Success View with Generated Enrollment Code */
+                <div className="space-y-4 animate-in fade-in">
+                  <div className="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/40 text-emerald-300 space-y-1.5">
+                    <div className="flex items-center gap-2 font-bold text-xs uppercase">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>Identity Successfully Registered</span>
+                    </div>
+                    <div className="text-[11px] text-zinc-300 font-sans">
+                      <span className="font-semibold text-white">{createdUserResult.name}</span> ({createdUserResult.email}) has been provisioned as <span className="text-cyan-300 font-mono">{createdUserResult.role}</span>.
+                    </div>
+                  </div>
+
+                  {/* Generated Pairing Code Display */}
+                  <div className="p-4 rounded-xl bg-zinc-950 border border-cyan-500/40 space-y-2 text-center">
+                    <div className="text-[10px] text-zinc-400 uppercase tracking-wider">
+                      15-Minute / 24-Hour Device Pairing Code
+                    </div>
+                    <div className="text-xl sm:text-2xl font-black text-cyan-300 font-mono tracking-widest py-1 selection:bg-cyan-500/40">
+                      {createdUserResult.enrollmentCode || 'PENDING'}
+                    </div>
+                    <div className="flex items-center justify-center gap-2 pt-1">
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          if (createdUserResult.enrollmentCode) {
+                            navigator.clipboard.writeText(createdUserResult.enrollmentCode);
+                            setCopiedEnrollmentCode(true);
+                            setTimeout(() => setCopiedEnrollmentCode(false), 3000);
+                          }
+                        }}
+                        className="bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/50 text-cyan-300 text-xs font-mono h-8 px-3"
+                      >
+                        {copiedEnrollmentCode ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+                            <span>Copied to Clipboard!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5 mr-1.5" />
+                            <span>Copy Pairing Code</span>
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                    <p className="text-[10px] text-zinc-500 font-sans leading-relaxed pt-1">
+                      Give this code to the user. They can enter it on the login page under &quot;Enroll Device&quot; or directly navigate to <span className="text-zinc-400 font-mono">/register-device?code={createdUserResult.enrollmentCode}</span> to establish zero-trust hardware binding.
+                    </p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="grid grid-cols-2 gap-2 pt-2">
+                    <Link
+                      href="/devices?tab=ENROLLMENT"
+                      onClick={resetAddUserForm}
+                      className="w-full py-2.5 px-3 rounded-xl bg-cyan-950/60 hover:bg-cyan-900/60 border border-cyan-500/40 text-cyan-300 text-center text-xs font-mono font-semibold flex items-center justify-center gap-1.5 transition-all"
+                    >
+                      <span>Enrollment Tab →</span>
+                    </Link>
+                    <Button
+                      onClick={resetAddUserForm}
+                      className="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs font-mono rounded-xl"
+                    >
+                      Done
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                /* Registration Input Form */
+                <form onSubmit={handleAddUserSubmit} className="space-y-4">
+                  {addUserError && (
+                    <div className="p-2.5 rounded-lg bg-rose-950/40 border border-rose-500/40 text-rose-300 text-[11px] flex items-center gap-2">
+                      <AlertTriangle className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                      <span>{addUserError}</span>
+                    </div>
+                  )}
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] text-zinc-400 uppercase tracking-wider block">Full Name *</label>
+                    <input
+                      type="text"
+                      value={newUserName}
+                      onChange={(e) => setNewUserName(e.target.value)}
+                      placeholder="e.g. Vikram Singh"
+                      required
+                      className="w-full h-9 rounded-lg bg-black/60 border border-zinc-800 text-zinc-100 text-xs px-3 focus:outline-none focus:border-cyan-400 transition-colors"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] text-zinc-400 uppercase tracking-wider block">Official Email Address *</label>
+                    <input
+                      type="email"
+                      value={newUserEmail}
+                      onChange={(e) => setNewUserEmail(e.target.value)}
+                      placeholder="e.g. vikram@securemax.mil"
+                      required
+                      className="w-full h-9 rounded-lg bg-black/60 border border-zinc-800 text-zinc-100 text-xs px-3 focus:outline-none focus:border-cyan-400 transition-colors"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-zinc-400 uppercase tracking-wider block">Role</label>
+                      <select
+                        value={newUserRole}
+                        onChange={(e) => setNewUserRole(e.target.value as any)}
+                        className="w-full h-9 rounded-lg bg-black/60 border border-zinc-800 text-zinc-200 text-xs px-2.5 focus:outline-none focus:border-cyan-400"
+                      >
+                        <option value="USER">USER (Standard Member)</option>
+                        <option value="ENGINEER">ENGINEER (Lead Engineer)</option>
+                        <option value="MANAGER">MANAGER (Security Manager)</option>
+                        <option value="AUDITOR">AUDITOR (Compliance Auditor)</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[10px] text-zinc-400 uppercase tracking-wider block">Department</label>
+                      <input
+                        type="text"
+                        value={newUserDepartment}
+                        onChange={(e) => setNewUserDepartment(e.target.value)}
+                        placeholder="e.g. Tactical Ops"
+                        className="w-full h-9 rounded-lg bg-black/60 border border-zinc-800 text-zinc-100 text-xs px-3 focus:outline-none focus:border-cyan-400"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-cyan-950/20 border border-cyan-500/20 text-[10px] text-zinc-400 leading-relaxed font-sans">
+                    ℹ Registering this identity creates a cryptographic DID and generates a single-use pairing capability for device binding.
+                  </div>
+
+                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-zinc-800/80">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={resetAddUserForm}
+                      disabled={addUserLoading}
+                      className="border-zinc-800 text-zinc-400 hover:text-white text-xs h-9"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      disabled={addUserLoading}
+                      className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs h-9 px-4 rounded-lg flex items-center gap-1.5"
+                    >
+                      {addUserLoading ? (
+                        <span>Registering...</span>
+                      ) : (
+                        <>
+                          <UserPlus className="w-3.5 h-3.5" />
+                          <span>Register Identity &amp; Issue Code</span>
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              )}
+
+            </div>
+          </div>
+        )}
     </div>
   );
 }

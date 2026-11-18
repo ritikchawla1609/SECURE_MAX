@@ -5,9 +5,8 @@ import { deviceStore } from '@/lib/auth/deviceStore';
 import { UserRole, UserStatus } from '@/types';
 
 export async function POST(req: Request) {
-  
-  
   if (typeof deviceStore !== 'undefined') {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   try {
@@ -106,12 +105,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Target user record not found' }, { status: 404 });
     }
 
-    if (targetUser.role === UserRole.ADMIN) {
-      
-    if (deviceStore?.lastSyncPromise) {
-      await deviceStore.lastSyncPromise;
-    }
-    return NextResponse.json(
+    if (targetUser.id === 'usr_admin_001' || targetUser.id === 'ADM-0001' || (targetUser.role === UserRole.ADMIN && targetUser.id === session.userId)) {
+      if (deviceStore?.lastSyncPromise) {
+        await deviceStore.lastSyncPromise;
+      }
+      return NextResponse.json(
         { error: 'Root administrator accounts are strictly single-device hardware-bound. To onboard a team member, choose "Onboard New User". To authorize a new admin terminal, initiate an Administrator Recovery Ceremony.' },
         { status: 403 }
       );

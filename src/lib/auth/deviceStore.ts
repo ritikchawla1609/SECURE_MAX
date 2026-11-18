@@ -2115,8 +2115,34 @@ class SecureMaxStore {
   }
 
   public getUserById(userId: string): StoredUser | null {
-    const user = this.users.get(userId);
+    if (!userId) return null;
+    let user = this.users.get(userId);
     if (user) return user;
+
+    // Check case-insensitive
+    const lowerId = userId.toLowerCase();
+    for (const u of this.users.values()) {
+      if (u.id.toLowerCase() === lowerId) return u;
+    }
+
+    // Admin ID alias (ADM-0001 <-> usr_admin_001)
+    if (userId === 'ADM-0001' || userId === 'usr_admin_001') {
+      user = this.users.get('usr_admin_001') || this.users.get('ADM-0001');
+      if (user) return user;
+      for (const u of this.users.values()) {
+        if (u.role === UserRole.ADMIN || u.email === 'admin@securemax.mil') return u;
+      }
+    }
+
+    // Disk read if users map is empty in non-test
+    if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+      if (this.users.size === 0) {
+        this.loadFromDisk(true);
+        user = this.users.get(userId);
+        if (user) return user;
+      }
+    }
+
     if (process.env.NODE_ENV === 'test' || Boolean(process.env.VITEST)) {
       return getIsolatedTestFixtureUser(userId);
     }
@@ -3057,8 +3083,8 @@ class SecureMaxStore {
       }
     }
 
-    if (targetUser.role === UserRole.ADMIN) {
-      throw new Error('Admin account is strictly device-bound. Multi-device enrollment is disabled for root administrative security.');
+    if (targetUser.id === 'usr_admin_001' || targetUser.id === 'ADM-0001') {
+      throw new Error('Root admin account is strictly device-bound. Multi-device enrollment is disabled for root administrative security.');
     }
 
     // Resolve position
@@ -3168,14 +3194,42 @@ class SecureMaxStore {
       return { valid: false, error: 'Enrollment code is required' };
     }
 
+    if (this.enrollmentCapabilities.size === 0 && this.enrollments.size === 0) {
+      try { this.loadFromDisk(true); } catch {}
+    }
+
     const cleanCode = code.toUpperCase().replace(/^SMX-?/, '').replace(/[^A-Z0-9]/g, '').trim();
     const hash = crypto.createHash('sha256').update(cleanCode).digest('hex');
+    const fullHash = crypto.createHash('sha256').update(code.toUpperCase().trim()).digest('hex');
 
-    let capability = this.enrollmentCapabilities.get(hash);
+    let capability = this.enrollmentCapabilities.get(hash) || this.enrollmentCapabilities.get(fullHash);
 
-    // Fallback: check legacy enrollments
+    // Also search across enrollmentCapabilities values if hashed differently
     if (!capability) {
-      const legacy = this.enrollments.get(code.toUpperCase().trim());
+      for (const cap of this.enrollmentCapabilities.values()) {
+        if (cap.code_hash === hash || cap.code_hash === fullHash) {
+          capability = cap;
+          break;
+        }
+      }
+    }
+
+    // Fallback: check legacy / directly stored enrollments
+    if (!capability) {
+      let legacy = this.enrollments.get(code.toUpperCase().trim()) 
+        || this.enrollments.get(cleanCode)
+        || this.enrollments.get(`SMX-${cleanCode}`);
+
+      if (!legacy) {
+        for (const enr of this.enrollments.values()) {
+          const enrClean = enr.code.toUpperCase().replace(/^SMX-?/, '').replace(/[^A-Z0-9]/g, '').trim();
+          if (enrClean === cleanCode || enr.code.toUpperCase().trim() === code.toUpperCase().trim()) {
+            legacy = enr;
+            break;
+          }
+        }
+      }
+
       if (legacy) {
         capability = {
           id: 'enr_legacy_' + legacy.code,

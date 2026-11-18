@@ -2,9 +2,8 @@ import { NextResponse } from 'next/server';
 import { deviceStore } from '@/lib/auth/deviceStore';
 
 export async function POST(req: Request) {
-  
-  
   if (typeof deviceStore !== 'undefined') {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   try {

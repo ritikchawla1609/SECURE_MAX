@@ -12,6 +12,7 @@ export interface SessionPayload {
   did?: string;
   deviceId?: string;
   deviceName?: string;
+  walletAddress?: string;
   sessionId: string;
   assuranceLevel?: string;
 }
@@ -64,7 +65,32 @@ export async function getVerifiedSession(): Promise<SessionPayload> {
 
   // Zero-Trust Live User Account Verification & Authoritative Role Freshness
   if (payload.userId) {
-    const user = await deviceStore.getUserById(payload.userId);
+    if (deviceStore.users.size === 0 && process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+      deviceStore.loadFromDisk(true);
+    }
+
+    let user = deviceStore.getUserById(payload.userId);
+
+    // Fallback 1: Admin ID alias (ADM-0001 <-> usr_admin_001)
+    if (!user && (payload.userId === 'ADM-0001' || payload.userId === 'usr_admin_001')) {
+      user = deviceStore.getUserById('usr_admin_001') || deviceStore.getUserById('ADM-0001') || null;
+    }
+
+    // Fallback 2: Resolve by verified email if an existing user with this email exists in DB
+    if (!user && payload.email) {
+      const emailUser = await deviceStore.getUserByEmail(payload.email);
+      if (emailUser) user = emailUser;
+    }
+
+    // Fallback 3: Resolve by verified wallet address if matching registered admin wallet
+    if (!user && payload.walletAddress) {
+      const cleanWallet = payload.walletAddress.toLowerCase();
+      user = Array.from(deviceStore.users.values()).find(u => 
+        u.admin_wallet?.toLowerCase() === cleanWallet
+      ) || null;
+    }
+
+    // Zero-Trust Enforcement: If no matching user record exists in the store/database, reject immediately
     if (!user) {
       throw new Error('Unauthorized: User identity record not found in system database');
     }
@@ -74,6 +100,7 @@ export async function getVerifiedSession(): Promise<SessionPayload> {
     }
     // Authoritative live role from server-side state (never trust stale JWT role alone)
     payload.role = user.role;
+    payload.userId = user.id;
   }
 
   // Zero-Trust Live Device Verification

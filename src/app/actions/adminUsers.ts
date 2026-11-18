@@ -55,8 +55,9 @@ export async function getRegisteredPersonnel() {
 export async function registerNewUserByAdmin(formData: {
   name: string;
   email: string;
-  role: 'USER' | 'MANAGER' | 'AUDITOR';
+  role?: 'USER' | 'MANAGER' | 'AUDITOR' | 'ENGINEER' | 'ADMIN' | string;
   deviceName?: string;
+  department?: string;
 }): Promise<AdminCreateUserResult> {
   if (typeof deviceStore !== 'undefined') {
     deviceStore.loadFromDisk(true);
@@ -67,39 +68,47 @@ export async function registerNewUserByAdmin(formData: {
     const cleanName = String(formData.name || '').trim();
 
     if (!cleanEmail || !cleanName) {
-      
-    if (deviceStore?.lastSyncPromise) {
-      await deviceStore.lastSyncPromise;
-    }
-    return { success: false, error: 'Please enter both a name and an email address.' };
+      if (deviceStore?.lastSyncPromise) {
+        await deviceStore.lastSyncPromise;
+      }
+      return { success: false, error: 'Please enter both a name and an email address.' };
     }
 
     const existing = await deviceStore.getUserByEmail(cleanEmail);
     if (existing) {
-      
-    if (deviceStore?.lastSyncPromise) {
-      await deviceStore.lastSyncPromise;
-    }
-    return { success: false, error: `A team member with email ${cleanEmail} is already registered.` };
+      if (deviceStore?.lastSyncPromise) {
+        await deviceStore.lastSyncPromise;
+      }
+      return { success: false, error: `A team member with email ${cleanEmail} is already registered.` };
     }
 
     const userId = 'usr_' + crypto.randomUUID().slice(0, 8);
     const did = `did:securemax:user:${userId.slice(-6)}`;
-    const role = formData.role === 'AUDITOR' 
-      ? UserRole.AUDITOR 
-      : formData.role === 'MANAGER' 
-      ? UserRole.MANAGER 
-      : UserRole.USER;
-    const positionId = formData.role === 'AUDITOR' 
-      ? 'pos_auditor' 
-      : formData.role === 'MANAGER' 
-      ? 'pos_manager' 
-      : 'pos_user';
-    const positionName = formData.role === 'AUDITOR' 
-      ? 'Auditor' 
-      : formData.role === 'MANAGER' 
-      ? 'Manager' 
-      : 'User';
+    const roleInput = String(formData.role || 'USER').toUpperCase();
+    
+    let role: UserRole = UserRole.USER;
+    let positionId = 'pos_user';
+    let positionName = 'Standard User';
+
+    if (roleInput === 'ADMIN') {
+      role = UserRole.ADMIN;
+      positionId = 'pos_admin';
+      positionName = 'Administrator';
+    } else if (roleInput === 'AUDITOR') {
+      role = UserRole.AUDITOR;
+      positionId = 'pos_auditor';
+      positionName = 'Auditor';
+    } else if (roleInput === 'MANAGER') {
+      role = UserRole.MANAGER;
+      positionId = 'pos_manager';
+      positionName = 'Manager';
+    } else if (roleInput === 'ENGINEER') {
+      role = UserRole.ENGINEER;
+      positionId = 'pos_engineer';
+      positionName = 'Lead Engineer';
+    } else if (formData.department) {
+      positionName = formData.department;
+    }
 
     const newUser: StoredUser = {
       id: userId,
@@ -127,21 +136,46 @@ export async function registerNewUserByAdmin(formData: {
       severity: 'INFO',
     });
 
-    // Generate a starter enrollment code for device pairing
-    const randomHex = crypto.randomBytes(4).toString('hex').toUpperCase();
-    const code = `SMX-${randomHex.slice(0, 4)}-${randomHex.slice(4)}`;
-    
-    deviceStore.enrollments.set(code, {
-      code,
-      user_id: newUser.id,
-      expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-      created_at: new Date().toISOString(),
-    });
+    // Generate enrollment capability for device pairing
+    let enrollmentCode = '';
+    try {
+      const { enrollment, plaintextCode } = deviceStore.createEnrollmentCapability({
+        userId: newUser.id,
+        positionId,
+        durationMinutes: 1440, // 24 hours validity
+        maxDevices: 1,
+        callerUserId: 'ADM-0001',
+        callerRole: UserRole.ADMIN,
+      });
+      enrollmentCode = plaintextCode;
+
+      deviceStore.enrollments.set(plaintextCode, {
+        code: plaintextCode,
+        user_id: newUser.id,
+        expires_at: enrollment.expires_at,
+        created_at: enrollment.created_at,
+      });
+      const prefixed = plaintextCode.startsWith('SMX-') ? plaintextCode : `SMX-${plaintextCode}`;
+      deviceStore.enrollments.set(prefixed, {
+        code: prefixed,
+        user_id: newUser.id,
+        expires_at: enrollment.expires_at,
+        created_at: enrollment.created_at,
+      });
+    } catch {
+      const randomHex = crypto.randomBytes(4).toString('hex').toUpperCase();
+      enrollmentCode = `SMX-${randomHex.slice(0, 4)}-${randomHex.slice(4)}`;
+      deviceStore.enrollments.set(enrollmentCode, {
+        code: enrollmentCode,
+        user_id: newUser.id,
+        expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+        created_at: new Date().toISOString(),
+      });
+    }
 
     deviceStore.saveToDisk();
     syncUserToSupabase(newUser).catch(() => {});
 
-    
     if (deviceStore?.lastSyncPromise) {
       await deviceStore.lastSyncPromise;
     }
@@ -151,14 +185,13 @@ export async function registerNewUserByAdmin(formData: {
         id: newUser.id,
         name: newUser.name,
         email: newUser.email,
-        role: newUser.role === UserRole.AUDITOR ? 'Auditor' : 'Team Member',
+        role: newUser.position || (newUser.role === UserRole.AUDITOR ? 'Auditor' : 'Team Member'),
         did: newUser.did,
         status: 'Active',
-        enrollmentCode: code,
+        enrollmentCode,
       },
     };
   } catch (err: any) {
-    
     if (deviceStore?.lastSyncPromise) {
       await deviceStore.lastSyncPromise;
     }

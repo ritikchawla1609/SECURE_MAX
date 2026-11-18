@@ -159,9 +159,9 @@ export default function DevicesPage() {
         if (data.positions) setPositions(data.positions);
         if (data.personnel) {
           setPersonnel(data.personnel);
-          const nonAdmins = data.personnel.filter((p: any) => p.role !== 'ADMIN');
-          if (nonAdmins.length > 0 && !selectedPersonnelId) {
-            setSelectedPersonnelId(nonAdmins[0].id);
+          const selectable = data.personnel.filter((p: any) => p.id !== 'usr_admin_001' && p.id !== 'ADM-0001');
+          if (selectable.length > 0 && !selectedPersonnelId) {
+            setSelectedPersonnelId(selectable[0].id);
           }
         }
         if (data.sessions) setSessions(data.sessions);
@@ -177,6 +177,37 @@ export default function DevicesPage() {
 
   React.useEffect(() => {
     fetchDevicesData();
+  }, [fetchDevicesData]);
+
+  // Handle URL query parameters and real-time user registrations
+  React.useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get('tab');
+      if (tabParam === 'ENROLLMENT') {
+        setActiveTab('ENROLLMENT');
+        setEnrollmentMode('EXISTING_USER');
+      }
+      const userParam = params.get('user');
+      if (userParam) {
+        setSelectedPersonnelId(userParam);
+        setEnrollmentMode('EXISTING_USER');
+      }
+    } catch {}
+
+    try {
+      const bc = new BroadcastChannel('securemax_realtime');
+      bc.onmessage = (e) => {
+        if (e.data?.type === 'USER_REGISTERED') {
+          fetchDevicesData(true);
+          if (e.data.user?.id) {
+            setSelectedPersonnelId(e.data.user.id);
+            setEnrollmentMode('EXISTING_USER');
+          }
+        }
+      };
+      return () => bc.close();
+    } catch {}
   }, [fetchDevicesData]);
 
   // Real-time SSE (<100ms) + 2.5s polling fallback
@@ -608,9 +639,9 @@ export default function DevicesPage() {
                       <label className="text-[11px] text-zinc-300 block font-semibold">
                         Select Registered Team Member
                       </label>
-                      {personnel.filter(p => p.role !== 'ADMIN').length === 0 ? (
+                      {personnel.filter(p => p.id !== 'usr_admin_001' && p.id !== 'ADM-0001').length === 0 ? (
                         <div className="p-3 rounded-xl bg-zinc-950 border border-zinc-800 text-[11px] text-amber-400">
-                          No non-admin personnel enrolled yet. Switch to &quot;Onboard New User&quot; above to add your first team member.
+                          No team personnel registered yet. Switch to &quot;Onboard New User&quot; above or click &quot;+ Add User&quot; in Command Center.
                         </div>
                       ) : (
                         <select
@@ -619,7 +650,7 @@ export default function DevicesPage() {
                           className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-cyan-400"
                         >
                           <option value="">-- Choose Team Member --</option>
-                          {personnel.filter(p => p.role !== 'ADMIN').map(p => (
+                          {personnel.filter(p => p.id !== 'usr_admin_001' && p.id !== 'ADM-0001').map(p => (
                             <option key={p.id} value={p.id}>
                               {p.name} ({p.email}) — {p.position || p.role}
                             </option>

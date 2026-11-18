@@ -105,8 +105,8 @@
       "credential_id": "cred_admin_hw_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-01T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T19:48:35.669Z",
-      "last_active_at": "2026-11-18T19:48:35.669Z",
+      "last_authenticated_at": "2026-11-18T20:37:36.679Z",
+      "last_active_at": "2026-11-18T20:37:36.679Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2Z37UoHq3y1V4XwH5K7oF9P9k3sZ0s7uVvWxX0y1A2bC3dE4fG5hI6jK7lM8nO9pQ0rS1tU2vW3xY4z5A6bC7w==",
@@ -114,7 +114,7 @@
       "status": "ACTIVE",
       "is_admin_device": true,
       "created_at": "2026-09-01T00:00:00.000Z",
-      "last_used_at": "2026-11-18T19:48:35.669Z",
+      "last_used_at": "2026-11-18T20:37:36.679Z",
       "timeline": [
         {
           "id": "tl_adm_1",
@@ -148,8 +148,8 @@
       "credential_id": "cred_vasu_mbp_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-02T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T19:48:35.669Z",
-      "last_active_at": "2026-11-18T19:48:35.669Z",
+      "last_authenticated_at": "2026-11-18T20:37:36.679Z",
+      "last_active_at": "2026-11-18T20:37:36.679Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEq9V1zK2Y7nL6X4eQ8jB2tF0mS3wZ5xY8vU1tP2rQ3sA4bC5dE6fG7hI8jK9lM0nO1pQ2rS3tU4vW5xY6z7A8bC==",
@@ -157,7 +157,7 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-02T00:00:00.000Z",
-      "last_used_at": "2026-11-18T19:48:35.669Z",
+      "last_used_at": "2026-11-18T20:37:36.679Z",
       "timeline": [
         {
           "id": "tl_vsu_1",
@@ -198,8 +198,8 @@
       "credential_id": "cred_audit_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-03T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T19:48:35.669Z",
-      "last_active_at": "2026-11-18T19:48:35.669Z",
+      "last_authenticated_at": "2026-11-18T20:37:36.679Z",
+      "last_active_at": "2026-11-18T20:37:36.679Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7p9X2mR5yT8vN1qW4sE7hK0bL3zC6xY9vU2tP3rQ4sA5bC6dE7fG8hI9jK0lM1nO2pQ3rS4tU5vW6xY7z8A9bC==",
@@ -207,7 +207,7 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-03T00:00:00.000Z",
-      "last_used_at": "2026-11-18T19:48:35.669Z",
+      "last_used_at": "2026-11-18T20:37:36.679Z",
       "timeline": [
         {
           "id": "tl_aud_1",
@@ -235,9 +235,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Confidential design specifications for tactical communications and payload encapsulation.",
-      "encrypted_content": "5d5ojwxhah27+qlRKYi418M7MEoMn31DxSd8kon0aI14/feL7kdic2W8esKy888K6ip0jml55EsTZ7cuS5IctK20pOfcfQ+fjkJhI62qmDk7wG0DBkyr4UU8bWUA7dFIxaqtFJTixUw9xYERXtSIuVt+PjsK3l5zzIZhsLjk/XZkdB9mHMeKYdoxC4nFfFKCydNX+nDmmD+4toNm1WQUnKJWPYLUyEGqUO3Dj4YA37BkTy/yVFHzzCBQ7fhdj2WhbyZU6Fmwn+r4tRw4xUbm5hKNYp3nKHWTOQ==",
-      "iv": "DpYvk/clJPUq7WXT",
-      "auth_tag": "HuWvR0J6MC5IBePcDxEGow==",
+      "encrypted_content": "PR7jPGTEcv92YKVaueNvwRHWjnu0zyR+cG7qAbA9QkpBuynjSvRqDHRH6wzzMOUStskRO142CCAyZ1otIKhpE3tD2aVdR+A3GlgD203jWWzkqj/VIqez91WB7c07RITIHu1hSGQzsUfZkiC8lv4XBDgkH0vghB5eKHwyIk1szagBT3V/EG5o0EsfET1ApBkbkTU7n1mpTDYhcjfVxmy08VmaMAIwjIdIvT5soO7tvt3zsGl3DpDA4A6ViWd/kClXQpV0HKGWufCU8DFXvFr+aJE2bN2h65CNrQ==",
+      "iv": "PPIku/HsbCrGOHn7",
+      "auth_tag": "wv+xKccvW88z3pK/JBqfNA==",
       "aad": "asset_data:ast_alpha",
       "folder": "Projects",
       "file_type": "PDF",
@@ -248,7 +248,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-15T10:30:00.000Z",
-      "last_accessed_at": "2026-11-18T19:43:35.669Z",
+      "last_accessed_at": "2026-11-18T20:32:36.679Z",
       "key_version": "v2",
       "versions": [
         {
@@ -271,7 +271,7 @@
           "id": "log_alpha_1",
           "action": "DECRYPT",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T19:43:35.669Z",
+          "timestamp": "2026-11-18T20:32:36.679Z",
           "status": "SUCCESS",
           "details": "Authorized session decrypt via P-256"
         },
@@ -279,7 +279,7 @@
           "id": "log_alpha_2",
           "action": "READ",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T19:03:35.669Z",
+          "timestamp": "2026-11-18T19:52:36.679Z",
           "status": "SUCCESS"
         }
       ],
@@ -294,9 +294,9 @@
       "classification": "INTERNAL",
       "status": "ACTIVE",
       "description": "Comprehensive architectural diagrams, CAD schematics, and microservice definitions for Project Beta.",
-      "encrypted_content": "wBfZbUX+xOQ+cmHiREv4KMS6HbYSA+DB7T05d8Bx3hX5DYKYzyLtmyW3/6K2Gw/wxnciF/bdV9SZRwFfTsRIOGnc8QA5GJMSJugHKzB7RK4IifrmoZruWycNknB067Q3m4Uy219sPKcc+1QK2fqyy7ilWP9OJSzhZIl30KLTYBj7YcMjR0LyNojfDNliA7oWB9/Lv8GVLGfQUEVJUPra/udQgLJWnqik24hybayQk6wLWoPMgUEMbA==",
-      "iv": "BvZtD8Y/Vsya5B02",
-      "auth_tag": "126BGTu5REEixuYT0wiq+A==",
+      "encrypted_content": "1+bVXp/B/afKDwNMWiDObwHcXeoq+XWIIBRQIz4pOH74h9SeOccqqc97wdt7UuBUuF/WS4rfaKKzTlwPVHBszRNddBJgf8pUCEq56C8QIXOj7NDvLD0L87nI2Khzs2Kx8RlRqyyrnieYjfu9Q4xyiIyPISEdh9TRvKADMn9GS9i2GUeeH0KaxZnaY8COqglzmIHqD2MtwdVoqcSbcfqzg6TaxLzn6nDEILiwkNtMsFhR3NI70Icy/g==",
+      "iv": "uGzkg7vHUUBosJqG",
+      "auth_tag": "eb3B29nHiFvQ7R1V5tn16Q==",
       "aad": "asset_data:ast_beta",
       "folder": "Projects",
       "file_type": "ZIP",
@@ -307,7 +307,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-10T14:00:00.000Z",
-      "last_accessed_at": "2026-11-18T17:48:35.669Z",
+      "last_accessed_at": "2026-11-18T18:37:36.679Z",
       "key_version": "v1",
       "versions": [
         {
@@ -323,7 +323,7 @@
           "id": "log_beta_1",
           "action": "DOWNLOAD",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T17:48:35.669Z",
+          "timestamp": "2026-11-18T18:37:36.679Z",
           "status": "SUCCESS"
         }
       ],
@@ -338,9 +338,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Quarterly financial compliance, hardware procurement, and cryptographic subsystem expenditures.",
-      "encrypted_content": "9cwxP0DqD5kj43unbQ3+Xe/xdRgsf6bInu7l6tGfetM4cjCydEenwZOROPXM1lGs2YJVmtS8AZddHXtgAVs49Y5XzzNxabOjf0/HoSRenJRrUUESsqKKhkyehE4B11LaHiLBAq5Gs5erSTDwhKMvTGfKvUCg1QuSUcU46zVS5CIyc12AESU+g5MEhhXxVmz3izgk/2kb/JU7s3wFTyYL9ESvJleC8A==",
-      "iv": "G4Bvn5XB2lJqEtwn",
-      "auth_tag": "IwicI2JiAN9Jer8/R9JW0A==",
+      "encrypted_content": "twXPotpeeV6LvtA3OpHFVNiLTdr6ySCBIstw0k4L/RTnUW+aBCXg2pzFmmJGI3XU1gnK+L9MBg622SLQPWjOjuX2Nt59675alG/KhSiyigNxeKFtXG7Oiwn5GEYX8ytGYrF+Mr139cfwJefngN352EcnsRN15odtNjJ56eMSkR9HCXS3orvWYj8JRbX5L/QaXz6xpYISHj+V6NLu5/BOee/E6tM2wg==",
+      "iv": "tlYlja8TogSo1QFC",
+      "auth_tag": "nT1RrM944NilXPIxnz57zw==",
       "aad": "asset_data:ast_finance",
       "folder": "Finance",
       "file_type": "XLSX",
@@ -351,7 +351,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-08T09:15:00.000Z",
-      "last_accessed_at": "2026-11-18T18:48:35.669Z",
+      "last_accessed_at": "2026-11-18T19:37:36.679Z",
       "key_version": "v1",
       "versions": [
         {
@@ -367,7 +367,7 @@
           "id": "log_fin_1",
           "action": "DECRYPT",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T18:48:35.669Z",
+          "timestamp": "2026-11-18T19:37:36.679Z",
           "status": "SUCCESS"
         }
       ],
@@ -382,9 +382,9 @@
       "classification": "INTERNAL",
       "status": "ACTIVE",
       "description": "Forecast budget models and supplier bids for next-generation cryptographic hardware.",
-      "encrypted_content": "9/CsLiU4n0btpQOyyxMh6WgTjqT3FCWQHb6GFFftMwq3WcpWIgClhc3Zzvc5MPqhiQijd4zzRTpgTpdN85pqBrEQOI3abGM7ejB3/jnOhGjsc3kDTYWYGWB8ZSTseH97obYfoi29Lxhpu0KhxQiKRn9JSDrz1BER9A/DX5ZUiP9zTvTboAPHO0guhUB6BuPY/vO1/MNwXPjt3qaAkIz9xw==",
-      "iv": "cRdFjCm3pV1dJ2Z4",
-      "auth_tag": "AVInZ/W1igmkTdtc1vyZYA==",
+      "encrypted_content": "/7siKjgCRrST+6PkTc6Wk7rWC8GP4MFrnCbt93dnT/yB1xhMzkg0jcKWi5Ac21EazW9alUTfqGiXN4+PUHJwS7msEyo58Sc3qxCkIj9rctb5pKaWdSo1tmCgCVKq+Goxui2KHWnLb44d1R4RkvVuBqiYgPsxBMZx0CSiZ4gnDHbwqdUX5tNp2NxzjmTtHFlWOaKdWB+cDCrjTsfcrGACww==",
+      "iv": "vZsaOJIV39mALyJA",
+      "auth_tag": "XOcpcmcLQC6lIA/vrJhSxg==",
       "aad": "asset_data:ast_procure",
       "folder": "Finance",
       "file_type": "XLSX",
@@ -395,7 +395,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-12T11:20:00.000Z",
-      "last_accessed_at": "2026-11-18T15:48:35.669Z",
+      "last_accessed_at": "2026-11-18T16:37:36.679Z",
       "key_version": "v1",
       "versions": [
         {
@@ -411,7 +411,7 @@
           "id": "log_proc_1",
           "action": "READ",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T15:48:35.669Z",
+          "timestamp": "2026-11-18T16:37:36.679Z",
           "status": "SUCCESS"
         }
       ],
@@ -426,9 +426,9 @@
       "classification": "PUBLIC",
       "status": "ACTIVE",
       "description": "Organizational guidelines on cryptographic key custody, zero-trust hygiene, and KYC verification.",
-      "encrypted_content": "m6/l2+hnxJr8oOV35Jt3fbl1O1wZivFG4yv0REsUfTgu/YmHcj57A/Eq2evWEtioK0tAJNHKCXnlWJwUbh2Vuw4o5agOPklKp3BDWF+EAiFZiDPpBGQ5oWzlu/tiDX6dz1zf70O2gBcZ9Qon+8lGX3a7Wnmwz3SodHP7kxtZynYJaE5AHgnrO+vzfvel+tb5MG5WvCfhHiCoQdQwEZhI6wVdHn7dr3bL/o8BPOYBdoVi44S6+peePRAk",
-      "iv": "mID0vxsB9OGQ118Y",
-      "auth_tag": "y72sHG+1lc22LwpC/wkVbg==",
+      "encrypted_content": "ib2AGCJTHhhHQtGhosnt2Spp6UEvwGQa+Qs8GQNC3v6J8FDfUrBPye23bBkGg4t/HbroHO7K7VN5MdpaQOy7iE65FHXZeoXIIOs508Qsbkq6dcd8aCVAb03Cj+uh8B4HhUs45/YXd8H2B44RNrX6laMXO9AKUMTj9o+l1mL+PyW5MZuBIgXYWosIuqywqhX/qkiBJaIZAftbXE/IhqU0b/KVz3zkMtu29VnZnHASyTtCfvdFo5+mOScA",
+      "iv": "O5672+YUeCp2zwAV",
+      "auth_tag": "5kAeqi2qW2dZYKQ0CmP5xw==",
       "aad": "asset_data:ast_hr_policy",
       "folder": "HR",
       "file_type": "PDF",
@@ -461,9 +461,9 @@
       "classification": "RESTRICTED",
       "status": "ACTIVE",
       "description": "Field operative identity mappings, tactical assignments, and cryptographic public key fingerprints.",
-      "encrypted_content": "3rCFWC7pnyPeJtU8sERNbBtosdOISDS4G1RaWweAOeL6OxtQAokdSCVsxr+F0NTSOAQ1hDtQAGdp2Whwg0b61mjz/qE63pBgxUtJ6mRDfJEZL3loKetMayTk8lxoycdxyYJFGTDpv9773QisK1HaupN3vicJDBmjokyvnbPYwUQPyCHqMYG/Ru1W74bxWGvjqzhc2SXGSIBl8nurspI=",
-      "iv": "Ob0pmD4GAvdkMJ++",
-      "auth_tag": "aHdWL/C6TOoVJ9uzJq9Hmw==",
+      "encrypted_content": "k8WoIDnPXRkCAgAiftsah3BOz9wHWNzJ7XUDK+WiLdjw66pD25r8SNqU2hnjWsm7HUbOWrEApsifZYT91sD9EwPj/wix7c9jHvrPxakXOwCVKDXsgJib/LN0rYIoDJFCRgkTjv6A9S/7ewwPxBf60DG2iH8DNDCvywmeEwAXrrOwAHdZ6zfLJE/nxVODEkri9kAw1bTtnxVxmPQ9DFg=",
+      "iv": "EHoKhRL2GvOpG0JF",
+      "auth_tag": "upMPsaCmMCbVR2oGJKwBAw==",
       "aad": "asset_data:ast_roster",
       "folder": "HR",
       "file_type": "DOC",
@@ -474,7 +474,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-14T16:45:00.000Z",
-      "last_accessed_at": "2026-11-18T19:33:35.669Z",
+      "last_accessed_at": "2026-11-18T20:22:36.679Z",
       "key_version": "v2",
       "versions": [
         {
@@ -490,7 +490,7 @@
           "id": "log_rost_1",
           "action": "DECRYPT_ATTEMPT",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T19:33:35.669Z",
+          "timestamp": "2026-11-18T20:22:36.679Z",
           "status": "DENIED",
           "details": "Insufficient clearance level"
         }
@@ -506,9 +506,9 @@
       "classification": "RESTRICTED",
       "status": "ACTIVE",
       "description": "Hardware interface diagrams, bus timings, and electronic warfare countermeasure protocols.",
-      "encrypted_content": "f2m2WjFawQPBfxhW05Tm8sxRhtwfeDhz2BHMCDp6ykmfOnG1CkPeh1yROoR2yNTceMz4c5kq4ukD91gG8xmVGGhyNk6eEE9OVp1tQdOVvw7SyQD+VOT5Z3HtfhumzeZFx82aXPcnNyRepByK49UxhZkSdU4mp7HdOT8yNbGCdtlGAcdZX2/pxsrq03u9k17vjIDudQKXJMWx+SJV",
-      "iv": "USnBty1f7bigslQv",
-      "auth_tag": "BQt9MiCj66z21L35jKd1YQ==",
+      "encrypted_content": "5LVlG3YC6cN0aApOZDFJMz2xNMsT+7HjwflwgdzzGLhNy50SGdYEGjcVBnn2ClU2Ts2p+iSOSl0I7/xDD3Foi+OGIAUfBw9zQxbOOX+b/Jk9RlB5K8mde0I+Jq+mGklGqnTv8LYTWbQILi93OaV4dS2N128teU05OiM62tm6zVOy21vP21rqmtjg9vDqyAD+CDaYpDZlaFYKv1PY",
+      "iv": "zdHEJxuQtQIkJnH+",
+      "auth_tag": "2w/BSBqe1q0Dm2DTcZkQAQ==",
       "aad": "asset_data:ast_avionics",
       "folder": "Engineering",
       "file_type": "PDF",
@@ -519,7 +519,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-11T12:00:00.000Z",
-      "last_accessed_at": "2026-11-18T19:18:35.669Z",
+      "last_accessed_at": "2026-11-18T20:07:36.679Z",
       "key_version": "v2",
       "versions": [
         {
@@ -535,7 +535,7 @@
           "id": "log_avn_1",
           "action": "ACCESS_REQUEST",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T19:18:35.669Z",
+          "timestamp": "2026-11-18T20:07:36.679Z",
           "status": "PENDING",
           "details": "Awaiting Admin NFT Permit"
         }
@@ -551,9 +551,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Firmware binaries and zeroization routines for the cryptographic key storage layer.",
-      "encrypted_content": "oRZE2ZbMsx4eyj71frm044BY+4aQ8zse5OgLsexUnluqPAfXB5CU7R3u3o0V6xepS2VVxRZ2lGCZqOi8xX6GTDkJWz6p16vTKCuDeMISt5dbOj//uy8I9bqarUVcLk5Av2wk/aqK9qCEAvBB5q2PdVrX8vaEE907eOaIiDQSUsAmRXPZNBuVrd5oQ94=",
-      "iv": "OsWt9SV/qQ72EwdX",
-      "auth_tag": "JCmmJXetQlx+3pXNlFBljA==",
+      "encrypted_content": "npvJ2UmJ3K7VLzvtZsB+5Y4R0AJOvTLXLfwTbcq/oppPYAkOyqNZi2+82vanHPMV7p77mXUJHXsBr93c8ShKdOZEK7RQyQCT/xW3FPFF8/FxYVrDzqVyfzvTGxD2Kx++qV9yyjbaLzAFkXY7FD4QxJMV05y7ZNDNro4cX6G/djVPenHtiDp6VpTze7I=",
+      "iv": "/luMOKgjUcwfk7Fi",
+      "auth_tag": "yaxMJ8Q5hx9PPxkfHIvknw==",
       "aad": "asset_data:ast_kms",
       "folder": "Engineering",
       "file_type": "ZIP",
@@ -564,7 +564,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-13T15:30:00.000Z",
-      "last_accessed_at": "2026-11-17T19:48:35.669Z",
+      "last_accessed_at": "2026-11-17T20:37:36.679Z",
       "key_version": "v2",
       "versions": [
         {
@@ -580,7 +580,7 @@
           "id": "log_kms_1",
           "action": "ACCESS_EXPIRED",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-17T19:48:35.669Z",
+          "timestamp": "2026-11-17T20:37:36.679Z",
           "status": "DENIED",
           "details": "Temporary 24h clearance expired"
         }
@@ -596,9 +596,9 @@
       "classification": "PUBLIC",
       "status": "ACTIVE",
       "description": "Statutory audit compliance certificate confirming adherence to NIST SP 800-207 standards.",
-      "encrypted_content": "JXUZFXkpnjyzT1/972pJ8puVf9e9VSQJ7dXKlW4WgSXoSJoBYqrZ0as68C0gmMFU6brQnZRqh6oLoQ2javcsUYXQl37yrjLZ1it4MmU+PUr6baL25SW+OUa14P638rr8GJtjOOPiDtr1zVc8GLgmqAnotkEpJs6K2lE24AdkZBR7tGAwbBpAP3XmOg0k5KGvraHMGg7IG+vCWU0mnp/OddRsxBw=",
-      "iv": "0zTVgIi9nMKZZ15c",
-      "auth_tag": "Oh/lxPVYdRJXx+S4wqp/uQ==",
+      "encrypted_content": "G6XaqOLMDuU94QL4+B+cE3hog45HzlCvNV/XL2dSRxMkx0yBH3MYFFVrtSL+Uqg11ZwX0hdWYi1dJfGCHcF1soykgXCxbd55R0t+BUSN2t3haJaiyKUFgw7Vg4fCFNh5JzexXz6/5tmIRdaUvIheeWsiMIIVdG3RQHhmisMG18LNpwlC9TKkHwjAKdSMNeWvpk72IVrN+WvlhPTHWEy8LH9e3nI=",
+      "iv": "hsu4vvWP+86dnwVO",
+      "auth_tag": "WbTojbMRNoFxFZ0A+g+YlQ==",
       "aad": "asset_data:ast_compliance",
       "folder": "Legal",
       "file_type": "PDF",
@@ -631,9 +631,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Standard nondisclosure agreements and operational security protocols for defense contractors.",
-      "encrypted_content": "Jc4WO2825yw+dYSVo6H8GE5qCDp/9ZFILYbb9mAC/cUO/irbfFvbjfluC6e+iAjh1vv0SnF8wv9UKF83PR0VlqpLy5dYnadGH4dt3kdqyisl3TdVoHYOYmksNxFjJUl288pi+DvE3r4/5Q2MoAvvrNfVU/Vt1f26/QS964GKRz2MfxRf1VIJswb++qr6RkCpso6MJ1fv9J9k6cnjX/OJrJQL",
-      "iv": "6C08zN0a4IHM1J9Q",
-      "auth_tag": "PwDcYL2tGAwzcg0OdMHSyQ==",
+      "encrypted_content": "O4AKMX2ngDqzppUQCYOM5X+XxPnmMB7RmwJ77R4mkNIhhHXWoqdNLoritYzv2FwHtiLyIvWxrhGenWNRziyt1iw7RRnbc3K425S+VqWSWkELJmKJz5DkD/bLRGLkb96R1kSWwx2bw9bJWAlRhyfPzS3sa6L4nvKv+BQe4Jaey2zyfD8sUJWaG/+6QIKbkWPQrcqWI0OuihUSK19epVnE83sP",
+      "iv": "6eCeQqYS3ltEuaEW",
+      "auth_tag": "pKsdCfUjVDcSEu3r+QXl3g==",
       "aad": "asset_data:ast_nda",
       "folder": "Legal",
       "file_type": "DOC",
@@ -664,81 +664,81 @@
     [
       "ast_alpha",
       {
-        "cipher": "HWMgVeEDHpA57ItHFhvvZJNu2c7sWY8uAE8UCTay92g=",
-        "iv": "qXMNjbT6WP5mvpNP",
-        "authTag": "GsSseVDPH8StuQ2/dBM4xQ=="
+        "cipher": "AcdGxk55uh6AaGXyHDF3scTDvoIYyUvTbTSNmp9Gd5g=",
+        "iv": "iWJWXDNTjpdvvW41",
+        "authTag": "aEm2rZa2yhUB1Xy2RhT6WQ=="
       }
     ],
     [
       "ast_beta",
       {
-        "cipher": "Nd14heMk2KeORaxh2+TGozj8YpgEmUko0212ec0cBv4=",
-        "iv": "t6lDUUk4Dky4IEA7",
-        "authTag": "1ug8FxSSv7dHKoB1ohEImw=="
+        "cipher": "uAiuwoDJQqd+TInTPor+wDaB8FPpbRDwoXvWtxiAWsg=",
+        "iv": "iwu6SW8Ie/a0vAcF",
+        "authTag": "vBkETZ9Y+ZoWKK4sVAu8oA=="
       }
     ],
     [
       "ast_finance",
       {
-        "cipher": "0CRWqOqkUlb/Wfci+7rchIp1K9qzdkC17BJkmvC87RQ=",
-        "iv": "wPjKu5CkGl4JpY3H",
-        "authTag": "kVDcb0/j9ZAS1L0oX50lKg=="
+        "cipher": "rot5Z6tH+tVJqF6TtWR/FhimO018jk7LwQfToqALZGE=",
+        "iv": "FLjJppm9DbM7bKNr",
+        "authTag": "pHrwxsS/fRZ7Xe8sPM4arA=="
       }
     ],
     [
       "ast_procure",
       {
-        "cipher": "PPe0rNp5ejPEYz4pMMeb6jmqvSlPmdPJZirem61A5qM=",
-        "iv": "MJUfXWCpBHJxhIjN",
-        "authTag": "pnYQQYuRtj8xm4tXSBizgw=="
+        "cipher": "7qVolCpvdyIbEwYyHFbPts3rVZXLn+CtNJGLL1YxN3U=",
+        "iv": "HcdBtUxzVbnZ8koG",
+        "authTag": "veazqljh1o/WnQvjNIfeBA=="
       }
     ],
     [
       "ast_hr_policy",
       {
-        "cipher": "4+VobUoN+Fo8LPnTfKknuus4D0eONzJ6E/v9NmduhNw=",
-        "iv": "ZtFGu5aY/Z1xgZhi",
-        "authTag": "pbkV+i8pWhiBnOqj7Kj/BQ=="
+        "cipher": "0CEuRRlyK4+L/nv+nUjKb+raqiyQs+mWr/BSM7sQ77k=",
+        "iv": "h7utq7UVMLvaBvXc",
+        "authTag": "QCyR3VGW5d8dltM0g/WNjA=="
       }
     ],
     [
       "ast_roster",
       {
-        "cipher": "ZeZ7xCZNmXVQbIb/ZtveQNO41Kppb0alL3qEWIzdrz8=",
-        "iv": "BoMgaEtLke8b83dl",
-        "authTag": "oLmQJaRX6Sj7HeYhyrxfTw=="
+        "cipher": "mstZbwoBOZFN55/2m1TYMj9nmodsDcLXWLXWxuePXyk=",
+        "iv": "CpOhw+ZzSL80evv1",
+        "authTag": "cbYpfUjnnbIa/e0tqcifvg=="
       }
     ],
     [
       "ast_avionics",
       {
-        "cipher": "iZ4FkI0jf1OL/JJNnitsysCdD0ergdVtb3X4yJ2YoEI=",
-        "iv": "v7bZlH435hK343DU",
-        "authTag": "xUOYvLke2HXJ4AzB9WtX1Q=="
+        "cipher": "v2HYTJ7Tg0dzHmfVS4z/JNm9KVMdUwPRcRWuRcJ6cPo=",
+        "iv": "BZmOw5dyA81lojeT",
+        "authTag": "KB/+xIR1K/I0D4ukozT2Ug=="
       }
     ],
     [
       "ast_kms",
       {
-        "cipher": "lqdVIztTcoCWlHPuuaA3SErIFbDSCN5yCwDOsOWKusY=",
-        "iv": "LsU6aOPGEIjKzrft",
-        "authTag": "bbLjgJcEkBRx+PpKILy1Qw=="
+        "cipher": "WTYMe0L6jdMz74MB5S5LAGn9PGkreYkuWPilH02iaCE=",
+        "iv": "gWNEbew9v7NZVaAI",
+        "authTag": "fi9l4fdz73Tesv7lF2thdg=="
       }
     ],
     [
       "ast_compliance",
       {
-        "cipher": "Fw1x8qyz8t6H7ObOPz8mwhRhezGs5tE2LKIpA6BjnDk=",
-        "iv": "cg2yHUNCHY54vwBA",
-        "authTag": "1v7w+IENbcfTgq1ZcNCEOg=="
+        "cipher": "VgS6e/rUd9IBh8YDc2NZR0NTub91Ve1x96zF+fDFi34=",
+        "iv": "hadN+FUL6JYCJjhR",
+        "authTag": "S8Nra0tpnG0YT5Do2k6iuQ=="
       }
     ],
     [
       "ast_nda",
       {
-        "cipher": "b6bKhVzXVefWoG76eGkqQLycknVy6wAKXcU4Xh+MmaA=",
-        "iv": "4I5Hg3yYIZl26SrX",
-        "authTag": "LSFajE0OaxubFF3sEFs8TQ=="
+        "cipher": "J+n2ObUu96LQnzNDW/Gt6dFg5qy6FSCBDCWQb52gY40=",
+        "iv": "bfei9r3sskZg8+3q",
+        "authTag": "XQLVBUp+7EG0r73RpsCE2w=="
       }
     ]
   ],
@@ -837,7 +837,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T19:48:34.991Z",
+      "expires_at": "2026-11-25T20:37:35.932Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -864,7 +864,7 @@
       "can_edit": false,
       "can_delete": false,
       "status": "ACTIVE",
-      "assigned_at": "2026-11-18T19:48:35.554Z",
+      "assigned_at": "2026-11-18T20:37:36.564Z",
       "expires_at": null
     },
     {
@@ -891,7 +891,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T19:48:34.991Z",
+      "expires_at": "2026-11-17T20:37:35.932Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1157,7 +1157,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T19:48:35.123Z",
+      "expires_at": "2026-11-25T20:37:36.119Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1213,7 +1213,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T19:48:35.123Z",
+      "expires_at": "2026-11-17T20:37:36.119Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1394,7 +1394,7 @@
       "can_edit": false,
       "can_delete": false,
       "status": "ACTIVE",
-      "assigned_at": "2026-11-18T19:48:35.124Z",
+      "assigned_at": "2026-11-18T20:37:36.120Z",
       "expires_at": null
     },
     {
@@ -1491,7 +1491,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T19:48:35.269Z",
+      "expires_at": "2026-11-25T20:37:36.261Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1547,7 +1547,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T19:48:35.269Z",
+      "expires_at": "2026-11-17T20:37:36.261Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1813,7 +1813,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T19:48:35.408Z",
+      "expires_at": "2026-11-25T20:37:36.405Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1869,7 +1869,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T19:48:35.408Z",
+      "expires_at": "2026-11-17T20:37:36.405Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2135,7 +2135,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T19:48:35.540Z",
+      "expires_at": "2026-11-25T20:37:36.548Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2191,7 +2191,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T19:48:35.540Z",
+      "expires_at": "2026-11-17T20:37:36.548Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2457,7 +2457,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T19:48:35.669Z",
+      "expires_at": "2026-11-25T20:37:36.679Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2513,7 +2513,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T19:48:35.669Z",
+      "expires_at": "2026-11-17T20:37:36.679Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2779,7 +2779,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T19:48:35.770Z",
+      "expires_at": "2026-11-25T20:37:36.778Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2835,7 +2835,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T19:48:35.770Z",
+      "expires_at": "2026-11-17T20:37:36.778Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -3022,22 +3022,22 @@
       "reason": "reconcile vendor invoices for Substation 4 works",
       "status": "PENDING",
       "ttl_minutes": 45,
-      "created_at": "2026-11-18T19:23:34.991Z",
-      "approved_at": "2026-11-18T19:48:35.124Z",
-      "nft_token_id": "NFT-SEPOLIA-#2316",
+      "created_at": "2026-11-18T20:12:35.932Z",
+      "approved_at": "2026-11-18T20:37:36.120Z",
+      "nft_token_id": "NFT-SEPOLIA-#6343",
       "liveGrant": {
-        "id": "grant-f7befb28",
+        "id": "grant-b321039b",
         "user": "Arjun Verma",
         "userId": "usr_arjun_006",
         "assetCode": "SMX-FIN-002",
         "assetName": "Substation 4 Vendor Invoices",
-        "sessionId": "78937f42",
-        "ip": "10.42.7.90",
+        "sessionId": "0dcac20a",
+        "ip": "10.42.7.25",
         "device": "known device",
-        "expiresAt": "2026-11-18T20:33:35.125Z",
+        "expiresAt": "2026-11-18T21:22:36.120Z",
         "remainingSeconds": 0,
         "status": "REVOKED",
-        "createdAt": "2026-11-18T19:48:35.125Z"
+        "createdAt": "2026-11-18T20:37:36.120Z"
       }
     },
     {
@@ -3053,8 +3053,8 @@
       "reason": "statutory PF audit sample check",
       "status": "PENDING",
       "ttl_minutes": 15,
-      "created_at": "2026-11-18T19:40:34.991Z",
-      "rejected_at": "2026-11-18T19:48:35.269Z",
+      "created_at": "2026-11-18T20:29:35.932Z",
+      "rejected_at": "2026-11-18T20:37:36.262Z",
       "rejected_reason": "Security policy restriction"
     },
     {
@@ -3070,22 +3070,22 @@
       "reason": "Tactical comms integration review on authorized workstation",
       "status": "PENDING",
       "ttl_minutes": 60,
-      "created_at": "2026-11-18T19:18:34.991Z",
-      "approved_at": "2026-11-18T19:48:35.554Z",
-      "nft_token_id": "NFT-SEPOLIA-#5092",
+      "created_at": "2026-11-18T20:07:35.932Z",
+      "approved_at": "2026-11-18T20:37:36.564Z",
+      "nft_token_id": "NFT-SEPOLIA-#5408",
       "liveGrant": {
-        "id": "grant-be1296a6",
+        "id": "grant-d36e80b7",
         "user": "Vasu (Lead Engineer)",
         "userId": "usr_vasu_002",
         "assetCode": "SMX-AVN-003",
         "assetName": "Avionics Radar Interface Specs",
-        "sessionId": "c7f05462",
-        "ip": "10.42.7.4",
+        "sessionId": "abe30746",
+        "ip": "10.42.7.135",
         "device": "known device",
-        "expiresAt": "2026-11-18T21:18:35.554Z",
+        "expiresAt": "2026-11-18T22:07:36.564Z",
         "remainingSeconds": 0,
         "status": "REVOKED",
-        "createdAt": "2026-11-18T19:48:35.554Z"
+        "createdAt": "2026-11-18T20:37:36.564Z"
       }
     },
     {
@@ -3101,7 +3101,7 @@
       "reason": "Dual-chain patent claims review for upcoming intellectual property filing",
       "status": "PENDING",
       "ttl_minutes": 20,
-      "created_at": "2026-11-18T19:03:34.991Z"
+      "created_at": "2026-11-18T19:52:35.932Z"
     },
     {
       "id": "req_003",
@@ -3116,37 +3116,37 @@
       "reason": "Compliance review & permanent blockchain anchor verification",
       "status": "PENDING",
       "ttl_minutes": 60,
-      "created_at": "2026-11-18T18:58:34.991Z"
+      "created_at": "2026-11-18T19:47:35.932Z"
     }
   ],
   "liveGrants": [
     {
-      "id": "grant-be1296a6",
+      "id": "grant-d36e80b7",
       "user": "Vasu (Lead Engineer)",
       "userId": "usr_vasu_002",
       "assetCode": "SMX-AVN-003",
       "assetName": "Avionics Radar Interface Specs",
-      "sessionId": "c7f05462",
-      "ip": "10.42.7.4",
+      "sessionId": "abe30746",
+      "ip": "10.42.7.135",
       "device": "known device",
-      "expiresAt": "2026-11-18T21:18:35.554Z",
+      "expiresAt": "2026-11-18T22:07:36.564Z",
       "remainingSeconds": 0,
       "status": "REVOKED",
-      "createdAt": "2026-11-18T19:48:35.554Z"
+      "createdAt": "2026-11-18T20:37:36.564Z"
     },
     {
-      "id": "grant-f7befb28",
+      "id": "grant-b321039b",
       "user": "Arjun Verma",
       "userId": "usr_arjun_006",
       "assetCode": "SMX-FIN-002",
       "assetName": "Substation 4 Vendor Invoices",
-      "sessionId": "78937f42",
-      "ip": "10.42.7.90",
+      "sessionId": "0dcac20a",
+      "ip": "10.42.7.25",
       "device": "known device",
-      "expiresAt": "2026-11-18T20:33:35.125Z",
+      "expiresAt": "2026-11-18T21:22:36.120Z",
       "remainingSeconds": 0,
       "status": "REVOKED",
-      "createdAt": "2026-11-18T19:48:35.125Z"
+      "createdAt": "2026-11-18T20:37:36.120Z"
     },
     {
       "id": "grant-1",
@@ -3157,10 +3157,10 @@
       "sessionId": "1bb04bec",
       "ip": "10.42.7.19",
       "device": "known device",
-      "expiresAt": "2026-11-18T20:09:48.991Z",
+      "expiresAt": "2026-11-18T20:58:49.932Z",
       "remainingSeconds": 1274,
       "status": "ACTIVE",
-      "createdAt": "2026-11-18T19:39:48.991Z"
+      "createdAt": "2026-11-18T20:28:49.932Z"
     },
     {
       "id": "grant-2",
@@ -3171,53 +3171,53 @@
       "sessionId": "7a29f041",
       "ip": "10.42.5.88",
       "device": "corporate device",
-      "expiresAt": "2026-11-18T19:28:34.991Z",
+      "expiresAt": "2026-11-18T20:17:35.932Z",
       "remainingSeconds": 0,
       "status": "IDLE",
       "note": "key v2 · rotated 20 min ago",
-      "createdAt": "2026-11-18T18:58:34.991Z"
+      "createdAt": "2026-11-18T19:47:35.932Z"
     }
   ],
   "auditEvents": [
     {
-      "id": "aud_1af9c245",
+      "id": "aud_ca36e7f6",
       "event_type": "ACCESS_PERMISSION_REVOKED",
-      "description": "Live grant revoked for Vasu (Lead Engineer) on SMX-AVN-003 (Session c7f05462)",
+      "description": "Live grant revoked for Vasu (Lead Engineer) on SMX-AVN-003 (Session abe30746)",
       "target_id": "SMX-AVN-003",
       "target": "SMX-AVN-003",
       "user_name": "Administrator",
       "severity": "WARNING",
-      "event_hash": "0xbc497d1ce1119494b64c507ca0446ecf8e504bff5fa547bf4386bbb71fed9210",
-      "block_number": 6849567,
-      "created_at": "2026-11-18T19:48:35.556Z"
+      "event_hash": "0x7b2a67f299c6a2380a6b7c7805a32f6eba424edc633a75b5549f1ec4ac848ae5",
+      "block_number": 6849304,
+      "created_at": "2026-11-18T20:37:36.566Z"
     },
     {
-      "id": "aud_6468e688",
+      "id": "aud_d4995073",
       "event_type": "ACCESS_PERMISSION_EXTENDED",
       "description": "Decryption session extended by 30 min for Vasu (Lead Engineer) on SMX-AVN-003",
       "target_id": "SMX-AVN-003",
       "target": "SMX-AVN-003",
       "user_name": "Vasu (Lead Engineer)",
       "severity": "INFO",
-      "event_hash": "0xdd0e4caeb38abfe4403a8289edb3c22ab7d2546cf6b0f4307eea713cb7a79001",
-      "block_number": 6849669,
-      "created_at": "2026-11-18T19:48:35.555Z"
+      "event_hash": "0xdc9528d08ee02e7f690304bea8c4a749fb1bb8cb59abb6d9d885c63c07beeb86",
+      "block_number": 6849648,
+      "created_at": "2026-11-18T20:37:36.565Z"
     },
     {
-      "id": "aud_eb61da18",
+      "id": "aud_1e4ea6cb",
       "event_type": "NFT_ACCESS_PERMIT_MINTED",
-      "description": "Admin approved access for Vasu (Lead Engineer) (60m TTL). NFT Permit: NFT-SEPOLIA-#5092",
+      "description": "Admin approved access for Vasu (Lead Engineer) (60m TTL). NFT Permit: NFT-SEPOLIA-#5408",
       "target_id": "ast_avionics",
       "target": "ast_avionics",
       "user_email": "vasu@securemax.mil",
       "user_name": "Vasu (Lead Engineer)",
       "severity": "INFO",
-      "event_hash": "0xf00bfdc58d3b967f786dae49b0da500dcf22128520160f71c9b2974c57e1e4a6",
-      "block_number": 6849555,
-      "created_at": "2026-11-18T19:48:35.554Z"
+      "event_hash": "0x2f8b5edf7c4f8510e530d3d5b1b279836eec3703292f30893c6ea6f066742b82",
+      "block_number": 6849541,
+      "created_at": "2026-11-18T20:37:36.564Z"
     },
     {
-      "id": "aud_bcb38bda",
+      "id": "aud_eb962ea7",
       "event_type": "PERMISSION_CHANGED",
       "description": "Cryptographic access granted for asset ast_avionics (user: usr_vasu_002).",
       "target_id": "ast_avionics",
@@ -3232,24 +3232,24 @@
       ],
       "performed_by": "Administrator",
       "severity": "INFO",
-      "event_hash": "0xa78f812540b8c7bcd4e25a53612ce87542b29a72207ed5ccaa63893cca969a50",
-      "block_number": 6849657,
-      "created_at": "2026-11-18T19:48:35.554Z"
+      "event_hash": "0x5274b3a1fac2971f200c3fdc01a2b1c6604943d0fe83aa3a45a62f743b1cce4b",
+      "block_number": 6849602,
+      "created_at": "2026-11-18T20:37:36.564Z"
     },
     {
-      "id": "aud_f656422a",
+      "id": "aud_c46da6b5",
       "event_type": "ACCESS_PERMISSION_REVOKED",
-      "description": "Live grant revoked for Arjun Verma on SMX-FIN-002 (Session 78937f42)",
+      "description": "Live grant revoked for Arjun Verma on SMX-FIN-002 (Session 0dcac20a)",
       "target_id": "SMX-FIN-002",
       "target": "SMX-FIN-002",
       "user_name": "Administrator",
       "severity": "WARNING",
-      "event_hash": "0x4fd9cc179d8dbb0ecc46f699451392b7375527d8dba83212428088997c26f82d",
-      "block_number": 6849467,
-      "created_at": "2026-11-18T19:48:35.408Z"
+      "event_hash": "0xe79088e0b2e5473d05a41cc8d02cfa2e9ff3ab33c80166272b56be412f61c580",
+      "block_number": 6849669,
+      "created_at": "2026-11-18T20:37:36.405Z"
     },
     {
-      "id": "aud_d3df43b7",
+      "id": "aud_505a9125",
       "event_type": "ACCESS_REQUEST_REJECTED",
       "description": "Admin rejected clearance for Neha Iyer on Statutory PF Audit Records",
       "target_id": "ast_hr_policy",
@@ -3257,25 +3257,25 @@
       "user_email": "neha.iyer@securemax.mil",
       "user_name": "Neha Iyer",
       "severity": "WARNING",
-      "event_hash": "0x49b5528430d7cb14cc9af49f3cd5ee07dbbdd3bdfd1d6f9ee0215777119031b4",
-      "block_number": 6849357,
-      "created_at": "2026-11-18T19:48:35.269Z"
+      "event_hash": "0xfca7d43a14d61591eb7f07e18c6855115e8cd929e36956fb379cb9ff44b906e1",
+      "block_number": 6849635,
+      "created_at": "2026-11-18T20:37:36.262Z"
     },
     {
-      "id": "aud_9059ca2b",
+      "id": "aud_8dd8a647",
       "event_type": "NFT_ACCESS_PERMIT_MINTED",
-      "description": "Admin approved access for Arjun Verma (45m TTL). NFT Permit: NFT-SEPOLIA-#2316",
+      "description": "Admin approved access for Arjun Verma (45m TTL). NFT Permit: NFT-SEPOLIA-#6343",
       "target_id": "ast_fin_002",
       "target": "ast_fin_002",
       "user_email": "arjun.verma@securemax.mil",
       "user_name": "Arjun Verma",
       "severity": "INFO",
-      "event_hash": "0x614b1457ed79042d3cf5923f2514004cecf30523f0ea9ff02e697acc8a870465",
-      "block_number": 6849415,
-      "created_at": "2026-11-18T19:48:35.125Z"
+      "event_hash": "0x1d31a1546ef770e9c4daa2bdd91168b41abf908c57ca6ffbccc3538e58f67110",
+      "block_number": 6849470,
+      "created_at": "2026-11-18T20:37:36.120Z"
     },
     {
-      "id": "aud_5359ffb8",
+      "id": "aud_b197f7f0",
       "event_type": "PERMISSION_CHANGED",
       "description": "Cryptographic access granted for asset ast_fin_002 (user: usr_arjun_006).",
       "target_id": "ast_fin_002",
@@ -3288,9 +3288,9 @@
       ],
       "performed_by": "Administrator",
       "severity": "INFO",
-      "event_hash": "0x99a1029fbf3ccbf6973eb3c8618040dfa1fc42cbfb75cd4e67cd4bca003a3fd7",
-      "block_number": 6849487,
-      "created_at": "2026-11-18T19:48:35.125Z"
+      "event_hash": "0x5a4e811a5f7be5245b3debbbe0a3b0c3a5267ded18db7108d978750e7f96ef61",
+      "block_number": 6849534,
+      "created_at": "2026-11-18T20:37:36.120Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3303,7 +3303,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T17:18:34.991Z"
+      "created_at": "2026-11-18T18:07:35.932Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3316,7 +3316,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T17:28:34.991Z"
+      "created_at": "2026-11-18T18:17:35.932Z"
     },
     {
       "id": "aud_seed_1",
@@ -3328,7 +3328,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T17:48:34.991Z"
+      "created_at": "2026-11-18T18:37:35.932Z"
     },
     {
       "id": "aud_seed_2",
@@ -3340,7 +3340,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T18:13:34.991Z"
+      "created_at": "2026-11-18T19:02:35.932Z"
     },
     {
       "id": "aud_seed_3",
@@ -3352,7 +3352,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T18:48:34.991Z"
+      "created_at": "2026-11-18T19:37:35.932Z"
     },
     {
       "id": "aud_seed_4",
@@ -3364,7 +3364,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T19:18:34.991Z"
+      "created_at": "2026-11-18T20:07:35.932Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3377,7 +3377,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T17:18:35.123Z"
+      "created_at": "2026-11-18T18:07:36.119Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3390,7 +3390,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T17:28:35.123Z"
+      "created_at": "2026-11-18T18:17:36.119Z"
     },
     {
       "id": "aud_seed_1",
@@ -3402,7 +3402,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T17:48:35.123Z"
+      "created_at": "2026-11-18T18:37:36.119Z"
     },
     {
       "id": "aud_seed_2",
@@ -3414,7 +3414,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T18:13:35.123Z"
+      "created_at": "2026-11-18T19:02:36.119Z"
     },
     {
       "id": "aud_seed_3",
@@ -3426,7 +3426,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T18:48:35.123Z"
+      "created_at": "2026-11-18T19:37:36.119Z"
     },
     {
       "id": "aud_seed_4",
@@ -3438,7 +3438,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T19:18:35.123Z"
+      "created_at": "2026-11-18T20:07:36.119Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3451,7 +3451,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T17:18:35.269Z"
+      "created_at": "2026-11-18T18:07:36.261Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3464,7 +3464,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T17:28:35.269Z"
+      "created_at": "2026-11-18T18:17:36.261Z"
     },
     {
       "id": "aud_seed_1",
@@ -3476,7 +3476,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T17:48:35.269Z"
+      "created_at": "2026-11-18T18:37:36.261Z"
     },
     {
       "id": "aud_seed_2",
@@ -3488,7 +3488,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T18:13:35.269Z"
+      "created_at": "2026-11-18T19:02:36.261Z"
     },
     {
       "id": "aud_seed_3",
@@ -3500,7 +3500,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T18:48:35.269Z"
+      "created_at": "2026-11-18T19:37:36.261Z"
     },
     {
       "id": "aud_seed_4",
@@ -3512,7 +3512,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T19:18:35.269Z"
+      "created_at": "2026-11-18T20:07:36.261Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3525,7 +3525,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T17:18:35.408Z"
+      "created_at": "2026-11-18T18:07:36.405Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3538,7 +3538,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T17:28:35.408Z"
+      "created_at": "2026-11-18T18:17:36.405Z"
     },
     {
       "id": "aud_seed_1",
@@ -3550,7 +3550,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T17:48:35.408Z"
+      "created_at": "2026-11-18T18:37:36.405Z"
     },
     {
       "id": "aud_seed_2",
@@ -3562,7 +3562,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T18:13:35.408Z"
+      "created_at": "2026-11-18T19:02:36.405Z"
     },
     {
       "id": "aud_seed_3",
@@ -3574,7 +3574,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T18:48:35.408Z"
+      "created_at": "2026-11-18T19:37:36.405Z"
     },
     {
       "id": "aud_seed_4",
@@ -3586,7 +3586,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T19:18:35.408Z"
+      "created_at": "2026-11-18T20:07:36.405Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3599,7 +3599,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T17:18:35.540Z"
+      "created_at": "2026-11-18T18:07:36.548Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3612,7 +3612,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T17:28:35.540Z"
+      "created_at": "2026-11-18T18:17:36.548Z"
     },
     {
       "id": "aud_seed_1",
@@ -3624,7 +3624,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T17:48:35.540Z"
+      "created_at": "2026-11-18T18:37:36.548Z"
     },
     {
       "id": "aud_seed_2",
@@ -3636,7 +3636,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T18:13:35.540Z"
+      "created_at": "2026-11-18T19:02:36.548Z"
     },
     {
       "id": "aud_seed_3",
@@ -3648,7 +3648,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T18:48:35.540Z"
+      "created_at": "2026-11-18T19:37:36.548Z"
     },
     {
       "id": "aud_seed_4",
@@ -3660,7 +3660,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T19:18:35.540Z"
+      "created_at": "2026-11-18T20:07:36.548Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3673,7 +3673,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T17:18:35.669Z"
+      "created_at": "2026-11-18T18:07:36.679Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3686,7 +3686,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T17:28:35.669Z"
+      "created_at": "2026-11-18T18:17:36.679Z"
     },
     {
       "id": "aud_seed_1",
@@ -3698,7 +3698,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T17:48:35.669Z"
+      "created_at": "2026-11-18T18:37:36.679Z"
     },
     {
       "id": "aud_seed_2",
@@ -3710,7 +3710,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T18:13:35.669Z"
+      "created_at": "2026-11-18T19:02:36.679Z"
     },
     {
       "id": "aud_seed_3",
@@ -3722,7 +3722,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T18:48:35.669Z"
+      "created_at": "2026-11-18T19:37:36.679Z"
     },
     {
       "id": "aud_seed_4",
@@ -3734,7 +3734,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T19:18:35.669Z"
+      "created_at": "2026-11-18T20:07:36.679Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3747,7 +3747,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T17:18:35.770Z"
+      "created_at": "2026-11-18T18:07:36.778Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3760,7 +3760,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T17:28:35.770Z"
+      "created_at": "2026-11-18T18:17:36.778Z"
     },
     {
       "id": "aud_seed_1",
@@ -3772,7 +3772,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T17:48:35.770Z"
+      "created_at": "2026-11-18T18:37:36.778Z"
     },
     {
       "id": "aud_seed_2",
@@ -3784,7 +3784,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T18:13:35.770Z"
+      "created_at": "2026-11-18T19:02:36.778Z"
     },
     {
       "id": "aud_seed_3",
@@ -3796,7 +3796,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T18:48:35.770Z"
+      "created_at": "2026-11-18T19:37:36.778Z"
     },
     {
       "id": "aud_seed_4",
@@ -3808,24 +3808,24 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T19:18:35.770Z"
+      "created_at": "2026-11-18T20:07:36.778Z"
     }
   ],
   "notifications": [
     {
-      "id": "notif_430fbd99",
+      "id": "notif_96085632",
       "type": "ACCESS_APPROVED",
       "title": "Access Request Approved",
-      "message": "Access granted for Avionics Radar Interface Specs. On-chain permit NFT-SEPOLIA-#5092 minted.",
+      "message": "Access granted for Avionics Radar Interface Specs. On-chain permit NFT-SEPOLIA-#5408 minted.",
       "timestamp": "Just now",
       "read": false,
       "target_id": "ast_avionics"
     },
     {
-      "id": "notif_d61c016d",
+      "id": "notif_cc2fea70",
       "type": "ACCESS_APPROVED",
       "title": "Access Request Approved",
-      "message": "Access granted for Substation 4 Vendor Invoices. On-chain permit NFT-SEPOLIA-#2316 minted.",
+      "message": "Access granted for Substation 4 Vendor Invoices. On-chain permit NFT-SEPOLIA-#6343 minted.",
       "timestamp": "Just now",
       "read": false,
       "target_id": "ast_fin_002"
@@ -4200,8 +4200,8 @@
       "credential_id": "cred_admin_hw_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-01T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T19:48:35.669Z",
-      "last_active_at": "2026-11-18T19:48:35.669Z",
+      "last_authenticated_at": "2026-11-18T20:37:36.679Z",
+      "last_active_at": "2026-11-18T20:37:36.679Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2Z37UoHq3y1V4XwH5K7oF9P9k3sZ0s7uVvWxX0y1A2bC3dE4fG5hI6jK7lM8nO9pQ0rS1tU2vW3xY4z5A6bC7w==",
@@ -4209,7 +4209,7 @@
       "status": "ACTIVE",
       "is_admin_device": true,
       "created_at": "2026-09-01T00:00:00.000Z",
-      "last_used_at": "2026-11-18T19:48:35.669Z",
+      "last_used_at": "2026-11-18T20:37:36.679Z",
       "timeline": [
         {
           "id": "tl_adm_1",
@@ -4243,8 +4243,8 @@
       "credential_id": "cred_vasu_mbp_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-02T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T19:48:35.669Z",
-      "last_active_at": "2026-11-18T19:48:35.669Z",
+      "last_authenticated_at": "2026-11-18T20:37:36.679Z",
+      "last_active_at": "2026-11-18T20:37:36.679Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEq9V1zK2Y7nL6X4eQ8jB2tF0mS3wZ5xY8vU1tP2rQ3sA4bC5dE6fG7hI8jK9lM0nO1pQ2rS3tU4vW5xY6z7A8bC==",
@@ -4252,7 +4252,7 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-02T00:00:00.000Z",
-      "last_used_at": "2026-11-18T19:48:35.669Z",
+      "last_used_at": "2026-11-18T20:37:36.679Z",
       "timeline": [
         {
           "id": "tl_vsu_1",
@@ -4293,8 +4293,8 @@
       "credential_id": "cred_audit_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-03T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T19:48:35.669Z",
-      "last_active_at": "2026-11-18T19:48:35.669Z",
+      "last_authenticated_at": "2026-11-18T20:37:36.679Z",
+      "last_active_at": "2026-11-18T20:37:36.679Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7p9X2mR5yT8vN1qW4sE7hK0bL3zC6xY9vU2tP3rQ4sA5bC6dE7fG8hI9jK0lM1nO2pQ3rS4tU5vW6xY7z8A9bC==",
@@ -4302,7 +4302,7 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-03T00:00:00.000Z",
-      "last_used_at": "2026-11-18T19:48:35.669Z",
+      "last_used_at": "2026-11-18T20:37:36.679Z",
       "timeline": [
         {
           "id": "tl_aud_1",
@@ -4337,7 +4337,7 @@
     "admin_locked": false,
     "failed_admin_logins": 0,
     "last_admin_login": {
-      "timestamp": "2026-11-18T19:48:35.669Z",
+      "timestamp": "2026-11-18T20:37:36.679Z",
       "region": "Punjab, India",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "auth_method": "WEBAUTHN"
@@ -4360,9 +4360,9 @@
       "device_id": "dev_test",
       "device_name": "Test Device",
       "position": "Engineer",
-      "created_at": "2026-11-18T18:48:35.669Z",
-      "last_activity_at": "2026-11-18T19:48:35.669Z",
-      "expires_at": "2026-11-19T19:48:35.669Z",
+      "created_at": "2026-11-18T19:37:36.679Z",
+      "last_activity_at": "2026-11-18T20:37:36.679Z",
+      "expires_at": "2026-11-19T20:37:36.679Z",
       "authentication_level": "P256",
       "status": "ACTIVE"
     },
@@ -4374,9 +4374,9 @@
       "device_id": "dev_vasu_laptop",
       "device_name": "Vasu — Primary MacBook",
       "position": "Manager",
-      "created_at": "2026-11-18T19:18:35.669Z",
-      "last_activity_at": "2026-11-18T19:46:35.669Z",
-      "expires_at": "2026-11-19T03:18:35.669Z",
+      "created_at": "2026-11-18T20:07:36.679Z",
+      "last_activity_at": "2026-11-18T20:35:36.679Z",
+      "expires_at": "2026-11-19T04:07:36.679Z",
       "authentication_level": "PASSKEY",
       "status": "ACTIVE"
     },
@@ -4388,9 +4388,9 @@
       "device_id": "dev_admin_primary",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "position": "Administrator",
-      "created_at": "2026-11-18T18:48:35.669Z",
-      "last_activity_at": "2026-11-18T19:43:35.669Z",
-      "expires_at": "2026-11-19T02:48:35.669Z",
+      "created_at": "2026-11-18T19:37:36.679Z",
+      "last_activity_at": "2026-11-18T20:32:36.679Z",
+      "expires_at": "2026-11-19T03:37:36.679Z",
       "authentication_level": "WEBAUTHN",
       "status": "ACTIVE"
     }
@@ -4399,5 +4399,5 @@
   "sentinelScans": [],
   "sentinelFindings": [],
   "challenges": [],
-  "updatedAt": "2026-11-18T19:48:35.771Z"
+  "updatedAt": "2026-11-18T20:37:36.779Z"
 }
