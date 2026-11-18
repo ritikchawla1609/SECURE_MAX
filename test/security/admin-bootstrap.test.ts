@@ -248,34 +248,38 @@ describe('SecureMAX Admin Root Identity & One-Time Bootstrap Ceremony Suite', ()
       const deviceId = boot.adminDevice.id;
 
       // Trigger panic lock
-      deviceStore.lockAdministrator(adminId, 'PANIC_TRIGGER');
+      try {
+        deviceStore.lockAdministrator(adminId, 'PANIC_TRIGGER');
 
-      // 1. Settings show admin_locked = true
-      const settings = deviceStore.getSystemSettings();
-      expect(settings.admin_locked).toBe(true);
+        // 1. Settings show admin_locked = true
+        const settings = deviceStore.getSystemSettings();
+        expect(settings.admin_locked).toBe(true);
 
-      // 2. Admin device is suspended
-      const device = deviceStore.getDevicePassport(deviceId);
-      expect(device?.status).toBe('SUSPENDED');
-      expect(device?.risk_state).toBe('RESTRICTED');
+        // 2. Admin device is suspended
+        const device = deviceStore.getDevicePassport(deviceId);
+        expect(device?.status).toBe('SUSPENDED');
+        expect(device?.risk_state).toBe('RESTRICTED');
 
-      // 3. Timeline records panic event
-      const panicEvent = device?.timeline.find(t => t.event === 'DEVICE_LOCKED_PANIC');
-      expect(panicEvent).toBeDefined();
+        // 3. Timeline records panic event
+        const panicEvent = device?.timeline.find(t => t.event === 'DEVICE_LOCKED_PANIC');
+        expect(panicEvent).toBeDefined();
 
-      // 4. API endpoint verification
-      const req = new Request('http://localhost:3000/api/admin/panic', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          adminId,
-          reason: 'Physical breach detected at terminal',
-        }),
-      });
-      const res = await panicApi(req);
-      const data = await res.json();
-      expect(res.status).toBe(200);
-      expect(data.success).toBe(true);
+        // 4. API endpoint verification
+        const req = new Request('http://localhost:3000/api/admin/panic', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            adminId,
+            reason: 'Physical breach detected at terminal',
+          }),
+        });
+        const res = await panicApi(req);
+        const data = await res.json();
+        expect(res.status).toBe(200);
+        expect(data.success).toBe(true);
+      } finally {
+        deviceStore.systemSettings.admin_locked = false;
+      }
     });
   });
 

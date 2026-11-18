@@ -26,7 +26,8 @@ import {
   Briefcase,
   Settings,
   Wallet,
-  ExternalLink
+  ExternalLink,
+  ShieldAlert
 } from 'lucide-react';
 import { 
   getOrCreateLocalDeviceKey, 
@@ -47,6 +48,7 @@ export default function SecureMaxHeroLogin() {
   const [adminCount, setAdminCount] = useState<number>(1);
   const [showBootstrapWizard, setShowBootstrapWizard] = useState<boolean>(false);
   const [showRecoveryModal, setShowRecoveryModal] = useState<boolean>(false);
+  const [adminIsLocked, setAdminIsLocked] = useState<boolean>(false);
 
   // Cinematic Intro State
   const [showIntro, setShowIntro] = useState(false);
@@ -244,10 +246,11 @@ export default function SecureMaxHeroLogin() {
   // ----------------------------------------------------
   // MODEL A: ORGANIZATION ADMINISTRATOR (METAMASK EIP-191)
   // ----------------------------------------------------
-  const handleMetaMaskAdminLogin = async () => {
+  const handleMetaMaskAdminLogin = async (forceUnlock: boolean = false) => {
     setErrorMessage('');
+    if (forceUnlock) setAdminIsLocked(false);
     setLoading(true);
-    setStatusMessage('Connecting to MetaMask wallet...');
+    setStatusMessage(forceUnlock ? 'Submitting sovereign admin unlock signature...' : 'Connecting to MetaMask wallet...');
 
     try {
       const ethereum = getEthereumProvider();
@@ -284,7 +287,7 @@ export default function SecureMaxHeroLogin() {
       const challenge = await challengeRes.json();
 
       // 3. Request EIP-191 personal_sign from MetaMask
-      setStatusMessage('Please sign the cryptographic challenge in MetaMask...');
+      setStatusMessage(forceUnlock ? 'Please sign in MetaMask to confirm emergency administrator unlock...' : 'Please sign the cryptographic challenge in MetaMask...');
       
       // Convert challenge message to 0x-prefixed hex string for standard JSON-RPC personal_sign
       const messageBytes = new TextEncoder().encode(challenge.message);
@@ -325,11 +328,15 @@ export default function SecureMaxHeroLogin() {
           challengeId: challenge.challengeId,
           signature,
           authType: 'METAMASK',
+          autoUnlock: forceUnlock,
         }),
       });
 
       const result = await loginRes.json().catch(() => ({}));
       if (!loginRes.ok) {
+        if (result.adminLocked || (typeof result.error === 'string' && result.error.includes('locked'))) {
+          setAdminIsLocked(true);
+        }
         throw new Error(result.error || 'Admin authentication failed');
       }
 
@@ -798,10 +805,43 @@ export default function SecureMaxHeroLogin() {
                   </div>
                 )}
 
+                {/* Emergency Unlock & Recovery Actions */}
+                {adminIsLocked && (
+                  <div className="p-3.5 bg-amber-950/30 border border-amber-500/40 rounded-xl space-y-2.5 animate-in fade-in">
+                    <div className="flex items-center gap-2 text-amber-300 font-semibold text-xs">
+                      <ShieldAlert className="w-4 h-4 text-amber-400" />
+                      <span>Administrator Account Emergency Status</span>
+                    </div>
+                    <p className="text-[11px] text-zinc-300 leading-relaxed font-light">
+                      The root admin account is currently in locked status. You can unlock it instantly using your sovereign MetaMask wallet signature or execute the offline recovery ceremony.
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => handleMetaMaskAdminLogin(true)}
+                        disabled={loading}
+                        className="w-full py-2 px-3 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/50 text-cyan-300 font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
+                      >
+                        <Wallet className="w-3.5 h-3.5" />
+                        <span>Unlock with MetaMask</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowRecoveryModal(true)}
+                        disabled={loading}
+                        className="w-full py-2 px-3 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
+                      >
+                        <Key className="w-3.5 h-3.5" />
+                        <span>Recovery Ceremony</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {/* Authenticate with MetaMask Button */}
                 <button
                   type="button"
-                  onClick={handleMetaMaskAdminLogin}
+                  onClick={() => handleMetaMaskAdminLogin(false)}
                   disabled={loading}
                   className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 hover:from-cyan-300 hover:via-sky-400 hover:to-blue-500 text-white font-bold text-sm tracking-wide shadow-[0_0_25px_rgba(6,182,212,0.45)] hover:shadow-[0_0_35px_rgba(6,182,212,0.65)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.99]"
                 >

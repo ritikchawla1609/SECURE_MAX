@@ -212,20 +212,40 @@ export async function POST(req: Request) {
       }
 
       if (deviceStore.systemSettings.admin_locked) {
-        deviceStore.recordAdminLogin({
-          adminId: adminUser.id,
-          deviceId: 'metamask_' + recoveredSigner.slice(2, 10),
-          success: false,
-          reason: 'ADMIN_ACCOUNT_LOCKED',
-        });
-        
-    if (deviceStore?.lastSyncPromise) {
-      await deviceStore.lastSyncPromise;
-    }
-    return NextResponse.json(
-          { error: 'ACCESS DENIED: Administrator account is locked. Emergency recovery ceremony required.' },
-          { status: 403 }
-        );
+        if (body.autoUnlock) {
+          // Cryptographic wallet signature verified; sovereign root admin clears the emergency lock
+          deviceStore.systemSettings.admin_locked = false;
+          deviceStore.systemSettings.failed_admin_logins = 0;
+          deviceStore.systemSettings.last_security_change = new Date().toISOString();
+          if (adminUser) {
+            adminUser.status = UserStatus.ACTIVE;
+          }
+          deviceStore.saveToDisk();
+          await deviceStore.recordAuditEvent({
+            eventType: 'ADMIN_UNLOCK',
+            description: `Administrator account unlocked via verified sovereign MetaMask signature from ${recoveredSigner}`,
+            severity: 'INFO',
+          });
+        } else {
+          deviceStore.recordAdminLogin({
+            adminId: adminUser.id,
+            deviceId: 'metamask_' + recoveredSigner.slice(2, 10),
+            success: false,
+            reason: 'ADMIN_ACCOUNT_LOCKED',
+          });
+          
+          if (deviceStore?.lastSyncPromise) {
+            await deviceStore.lastSyncPromise;
+          }
+          return NextResponse.json(
+            { 
+              error: 'ACCESS DENIED: Administrator account is locked. Emergency recovery ceremony required.',
+              adminLocked: true,
+              canUnlockWithWallet: true,
+            },
+            { status: 403 }
+          );
+        }
       }
 
       // 5. Atomically consume the challenge

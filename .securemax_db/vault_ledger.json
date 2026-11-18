@@ -14960,7 +14960,7 @@
       "created_at": "2026-09-01T00:00:00.000Z"
     },
     "root_admin_id": "usr_admin_001",
-    "admin_locked": true,
+    "admin_locked": false,
     "failed_admin_logins": 0,
     "last_admin_login": {
       "timestamp": "2026-09-20T03:54:25.207Z",

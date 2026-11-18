@@ -837,13 +837,19 @@ export const SENTINEL_SCENARIOS: SentinelScenarioDefinition[] = [
           status: 'ACTIVE',
         });
 
-        deviceStore.lockAdministrator(adminUser.id, 'Sentinel S-27 Verification');
+        const prevLocked = deviceStore.systemSettings.admin_locked;
+        try {
+          deviceStore.lockAdministrator(adminUser.id, 'Sentinel S-27 Verification');
 
-        const sess = deviceStore.sessions.get(testSessionId);
-        if (sess && sess.status === 'REVOKED') {
-          return createResult(ctx, 'S-27', 'BLOCKED', start, 'All sessions revoked', 'Session status is REVOKED', ['panic_lockout_verified'], []);
+          const sess = deviceStore.sessions.get(testSessionId);
+          if (sess && sess.status === 'REVOKED') {
+            return createResult(ctx, 'S-27', 'BLOCKED', start, 'All sessions revoked', 'Session status is REVOKED', ['panic_lockout_verified'], []);
+          }
+          return createResult(ctx, 'S-27', 'VULNERABLE', start, 'All sessions revoked', 'Session status remained active', ['panic_failed'], ['Review panic lockout']);
+        } finally {
+          // Diagnostic restoration: ensure automated security tests do not brick administrator access
+          deviceStore.systemSettings.admin_locked = prevLocked;
         }
-        return createResult(ctx, 'S-27', 'VULNERABLE', start, 'All sessions revoked', 'Session status remained active', ['panic_failed'], ['Review panic lockout']);
       } catch (err: any) {
         return createResult(ctx, 'S-27', 'ERROR', start, 'Panic lockout check', err.message, [], ['Review panic code']);
       }

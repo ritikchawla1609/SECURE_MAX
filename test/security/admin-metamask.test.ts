@@ -241,34 +241,37 @@ describe('SecureMAX Dual-Authentication & Zero-Trust Architecture Suite', () => 
 
     it('SHOULD REJECT IF ADMIN ACCOUNT IS LOCKED: Locked admin account returns 403', async () => {
       deviceStore.systemSettings.admin_locked = true;
+      try {
+        const chalReq = new Request('http://localhost/api/auth/challenge', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'ETHEREUM',
+            walletAddress: adminEthWallet.address,
+          }),
+        });
+        const chalRes = await authChallenge(chalReq);
+        const chalData = await chalRes.json();
+        const signature = await adminEthWallet.signMessage(chalData.message);
 
-      const chalReq = new Request('http://localhost/api/auth/challenge', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'ETHEREUM',
-          walletAddress: adminEthWallet.address,
-        }),
-      });
-      const chalRes = await authChallenge(chalReq);
-      const chalData = await chalRes.json();
-      const signature = await adminEthWallet.signMessage(chalData.message);
+        const loginReq = new Request('http://localhost/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            walletAddress: adminEthWallet.address,
+            challengeId: chalData.challengeId,
+            signature,
+            authType: 'METAMASK',
+          }),
+        });
 
-      const loginReq = new Request('http://localhost/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          walletAddress: adminEthWallet.address,
-          challengeId: chalData.challengeId,
-          signature,
-          authType: 'METAMASK',
-        }),
-      });
-
-      const loginRes = await authLogin(loginReq);
-      expect(loginRes.status).toBe(403);
-      const errBody = await loginRes.json();
-      expect(errBody.error).toContain('Administrator account is locked');
+        const loginRes = await authLogin(loginReq);
+        expect(loginRes.status).toBe(403);
+        const errBody = await loginRes.json();
+        expect(errBody.error).toContain('Administrator account is locked');
+      } finally {
+        deviceStore.systemSettings.admin_locked = false;
+      }
     });
   });
 

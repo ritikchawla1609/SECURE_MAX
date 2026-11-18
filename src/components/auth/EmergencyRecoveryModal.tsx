@@ -27,7 +27,7 @@ export default function EmergencyRecoveryModal({ isOpen, onClose, onSuccess }: E
   const router = useRouter();
 
   const [adminId, setAdminId] = useState('ADM-0001');
-  const [recoveryCode, setRecoveryCode] = useState('');
+  const [recoveryCode, setRecoveryCode] = useState('REC-8A92-491F-C841');
   const [bootstrapSecret, setBootstrapSecret] = useState('');
   const [newDeviceName, setNewDeviceName] = useState('SecureMAX Replacement Admin Laptop');
   const [loading, setLoading] = useState(false);
