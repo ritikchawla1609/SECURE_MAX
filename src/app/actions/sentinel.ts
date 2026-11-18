@@ -7,8 +7,8 @@ import { getVerifiedSession } from '@/lib/auth/session';
 import { UserRole } from '@/types';
 
 export async function runSecurityScanAction(userId: string) {
-  
   if (deviceStore) {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   try {
@@ -34,8 +34,8 @@ export async function runSecurityScanAction(userId: string) {
 }
 
 export async function fetchSecurityPosture() {
-  
   if (deviceStore) {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   try {

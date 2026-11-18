@@ -20,9 +20,8 @@ export interface AdminCreateUserResult {
 }
 
 export async function getRegisteredPersonnel() {
-  
-  
   if (typeof deviceStore !== 'undefined') {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   const users: Array<{
@@ -59,6 +58,10 @@ export async function registerNewUserByAdmin(formData: {
   role: 'USER' | 'MANAGER' | 'AUDITOR';
   deviceName?: string;
 }): Promise<AdminCreateUserResult> {
+  if (typeof deviceStore !== 'undefined') {
+    deviceStore.loadFromDisk(true);
+    await deviceStore.loadFromCloud();
+  }
   try {
     const cleanEmail = String(formData.email || '').toLowerCase().trim();
     const cleanName = String(formData.name || '').trim();

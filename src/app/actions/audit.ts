@@ -7,8 +7,8 @@ import { AuditEventType } from '@/types';
 import { revalidatePath } from 'next/cache';
 
 export async function logPresentationAuditEventAction() {
-  
   if (deviceStore) {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   try {
@@ -90,8 +90,8 @@ export async function logPresentationAuditEventAction() {
 }
 
 export async function verifyChainIntegrityAction() {
-  
   if (deviceStore) {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   try {

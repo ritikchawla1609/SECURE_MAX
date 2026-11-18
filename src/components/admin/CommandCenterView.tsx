@@ -73,13 +73,17 @@ export function CommandCenterView() {
   // Live Grants with active ticking countdown (Dynamic from Realtime Ledger)
   const [liveGrants, setLiveGrants] = React.useState<LiveGrant[]>([]);
 
+  // Local optimistic locks to prevent background polling or stale in-flight fetches from reverting UI actions
+  const processedRequestIds = React.useRef<Set<string>>(new Set());
+  const revokedGrantIds = React.useRef<Set<string>>(new Set());
+
   // Synchronize state from database whenever realtime data arrives
   React.useEffect(() => {
     if (realtimeData?.pendingRequests) {
-      setPendingRequests(realtimeData.pendingRequests);
+      setPendingRequests(realtimeData.pendingRequests.filter(r => !processedRequestIds.current.has(r.id)));
     }
     if (realtimeData?.liveGrants) {
-      setLiveGrants(realtimeData.liveGrants);
+      setLiveGrants(realtimeData.liveGrants.filter(g => !revokedGrantIds.current.has(g.id)));
     }
   }, [realtimeData]);
 
@@ -132,35 +136,60 @@ export function CommandCenterView() {
   const handleApprove = async (id: string) => {
     try {
       const req = pendingRequests.find(r => r.id === id);
-      if (!req) return;
-      const ttlMinutes = req.ttlMinutes || 30;
+      const ttlMinutes = req?.ttlMinutes || 30;
 
+      // Lock ID optimistically so background polling doesn't revert it
+      processedRequestIds.current.add(id);
       // 0ms Optimistic UI update: remove pending request immediately
       setPendingRequests(prev => (prev || []).filter(r => r.id !== id));
 
-      // Backend update
-      if (typeof approveAccessRequestAction === 'function') {
-        const res = await approveAccessRequestAction({ requestId: id, ttlMinutes });
-        if (res?.success) {
-          if (res.grant) {
-            setLiveGrants(prev => [
-              res.grant,
-              ...(prev || []).filter(g => g && g.id !== res.grant.id && g.assetCode !== res.grant.assetCode),
-            ]);
+      // Backend update via Server Action with automatic REST fallback
+      let res: any = null;
+      try {
+        if (typeof approveAccessRequestAction === 'function') {
+          res = await approveAccessRequestAction({ requestId: id, ttlMinutes });
+        }
+      } catch (actionErr) {
+        console.warn('approveAccessRequestAction error, falling back to sync endpoint:', actionErr);
+      }
+
+      if (!res?.success) {
+        try {
+          const syncRes = await fetch('/api/sync/state', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'APPROVE', requestId: id, ttlMinutes }),
+          });
+          if (syncRes.ok) {
+            const syncJson = await syncRes.json();
+            if (syncJson.success) {
+              res = { success: true, grant: syncJson.liveGrants?.[0] };
+            }
           }
-          showNotice('success', `Access request for ${req.assetCode} approved & permit minted.`);
-          if (typeof broadcastUpdate === 'function') {
-            broadcastUpdate('REQUEST_APPROVED', { requestId: id, ttlMinutes, grant: res.grant });
-          } else {
-            refetch();
-          }
-        } else {
-          console.error('Failed to approve request:', res?.error);
-          showNotice('error', res?.error || 'Failed to approve request');
-          refetch();
+        } catch (syncErr) {
+          console.warn('Sync REST fallback error:', syncErr);
         }
       }
+
+      if (res?.success) {
+        if (res.grant) {
+          setLiveGrants(prev => [
+            res.grant,
+            ...(prev || []).filter(g => g && g.id !== res.grant.id && g.assetCode !== res.grant.assetCode),
+          ]);
+        }
+        showNotice('success', `Access request for ${req?.assetCode || id} approved & permit minted.`);
+        if (typeof broadcastUpdate === 'function') {
+          broadcastUpdate('REQUEST_APPROVED', { requestId: id, ttlMinutes, grant: res.grant });
+        }
+      } else {
+        processedRequestIds.current.delete(id);
+        console.error('Failed to approve request:', res?.error);
+        showNotice('error', res?.error || 'Failed to approve request');
+        refetch();
+      }
     } catch (err: any) {
+      processedRequestIds.current.delete(id);
       console.error('Crash in handleApprove:', err);
       showNotice('error', err?.message || 'Unexpected error approving request');
       refetch();
@@ -168,52 +197,94 @@ export function CommandCenterView() {
   };
 
   const handleDeny = async (id: string) => {
+    // Lock ID optimistically so background polling doesn't revert it
+    processedRequestIds.current.add(id);
     // 0ms Optimistic UI update
     setPendingRequests(prev => prev.filter(r => r.id !== id));
 
+    let res: any = null;
     try {
-      const res = await rejectAccessRequestAction({ requestId: id, reason: 'Security policy restriction' });
-      if (res?.success) {
-        showNotice('success', 'Access request rejected.');
-        if (typeof broadcastUpdate === 'function') {
-          broadcastUpdate('REQUEST_REJECTED', { requestId: id });
-        } else {
-          refetch();
-        }
-      } else {
-        console.error('Failed to deny request:', res?.error);
-        showNotice('error', res?.error || 'Failed to deny request');
-        refetch();
+      if (typeof rejectAccessRequestAction === 'function') {
+        res = await rejectAccessRequestAction({ requestId: id, reason: 'Security policy restriction' });
       }
-    } catch (err: any) {
-      console.error('Failed to deny request:', err);
-      showNotice('error', err?.message || 'Unexpected error denying request');
+    } catch (actionErr) {
+      console.warn('rejectAccessRequestAction error, falling back to sync endpoint:', actionErr);
+    }
+
+    if (!res?.success) {
+      try {
+        const syncRes = await fetch('/api/sync/state', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'REJECT', requestId: id, reason: 'Security policy restriction' }),
+        });
+        if (syncRes.ok) {
+          const syncJson = await syncRes.json();
+          if (syncJson.success) {
+            res = { success: true };
+          }
+        }
+      } catch (syncErr) {
+        console.warn('Sync REST fallback error:', syncErr);
+      }
+    }
+
+    if (res?.success) {
+      showNotice('success', 'Access request rejected.');
+      if (typeof broadcastUpdate === 'function') {
+        broadcastUpdate('REQUEST_REJECTED', { requestId: id });
+      }
+    } else {
+      processedRequestIds.current.delete(id);
+      console.error('Failed to deny request:', res?.error);
+      showNotice('error', res?.error || 'Failed to deny request');
       refetch();
     }
   };
 
   const handleRevokeGrant = async (id: string) => {
     const grantToRevoke = liveGrants.find(g => g.id === id);
+    // Lock ID optimistically so background polling doesn't revert it
+    revokedGrantIds.current.add(id);
     // 0ms Optimistic UI update: remove from active live grants immediately
     setLiveGrants(prev => prev.filter(g => g.id !== id));
 
+    let res: any = null;
     try {
-      const res = await revokeLiveGrantAction({ grantId: id });
-      if (res?.success) {
-        showNotice('success', `Live grant for ${grantToRevoke?.assetCode || id} revoked & access blocked.`);
-        if (typeof broadcastUpdate === 'function') {
-          broadcastUpdate('GRANT_REVOKED', { grantId: id, assetCode: grantToRevoke?.assetCode });
-        } else {
-          refetch();
-        }
-      } else {
-        console.error('Failed to revoke grant:', res?.error);
-        showNotice('error', res?.error || 'Failed to revoke live grant');
-        refetch();
+      if (typeof revokeLiveGrantAction === 'function') {
+        res = await revokeLiveGrantAction({ grantId: id });
       }
-    } catch (err: any) {
-      console.error('Failed to revoke grant:', err);
-      showNotice('error', err?.message || 'Unexpected error revoking grant');
+    } catch (actionErr) {
+      console.warn('revokeLiveGrantAction error, falling back to sync endpoint:', actionErr);
+    }
+
+    if (!res?.success) {
+      try {
+        const syncRes = await fetch('/api/sync/state', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'REVOKE', grantId: id }),
+        });
+        if (syncRes.ok) {
+          const syncJson = await syncRes.json();
+          if (syncJson.success) {
+            res = { success: true };
+          }
+        }
+      } catch (syncErr) {
+        console.warn('Sync REST fallback error:', syncErr);
+      }
+    }
+
+    if (res?.success) {
+      showNotice('success', `Live grant for ${grantToRevoke?.assetCode || id} revoked & access blocked.`);
+      if (typeof broadcastUpdate === 'function') {
+        broadcastUpdate('GRANT_REVOKED', { grantId: id, assetCode: grantToRevoke?.assetCode });
+      }
+    } else {
+      revokedGrantIds.current.delete(id);
+      console.error('Failed to revoke grant:', res?.error);
+      showNotice('error', res?.error || 'Failed to revoke live grant');
       refetch();
     }
   };

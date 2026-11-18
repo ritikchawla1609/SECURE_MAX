@@ -113,4 +113,66 @@ describe('End-to-End Decrypt and Revoke Flow', () => {
       'Access Denied'
     );
   });
+
+  it('5. Admin can deny access requests and state transitions to REJECTED', async () => {
+    const { rejectAccessRequestAction, submitAccessRequestAction } = await import('../../src/app/actions/accessRequests');
+
+    const submitRes = await submitAccessRequestAction({
+      assetId,
+      reason: 'Audit inspection for compliance',
+      ttlMinutes: 20,
+    });
+    expect(submitRes.success).toBe(true);
+    const requestId = submitRes.request!.id;
+
+    const denyRes = await rejectAccessRequestAction({
+      requestId,
+      reason: 'Unauthorized classification boundary',
+    });
+    expect(denyRes.success).toBe(true);
+    expect(denyRes.request?.status).toBe('REJECTED');
+    expect(denyRes.request?.rejected_reason).toBe('Unauthorized classification boundary');
+
+    // Verify in store
+    const inStore = deviceStore.getAccessRequests().find(r => r.id === requestId);
+    expect(inStore?.status).toBe('REJECTED');
+  });
+
+  it('6. Seeded requests (Arjun Verma, Neha Iyer, Vasu) approve and deny successfully', async () => {
+    const { approveAccessRequestAction, rejectAccessRequestAction } = await import('../../src/app/actions/accessRequests');
+
+    // Approve Arjun Verma (req-1)
+    const approveArjun = await approveAccessRequestAction({ requestId: 'req-1', ttlMinutes: 30 });
+    expect(approveArjun.success).toBe(true);
+    expect(approveArjun.request?.status).toBe('APPROVED');
+    expect(approveArjun.grant?.assetCode).toBe('SMX-FIN-002');
+
+    // Deny Neha Iyer (req-2)
+    const denyNeha = await rejectAccessRequestAction({ requestId: 'req-2', reason: 'Policy restriction' });
+    expect(denyNeha.success).toBe(true);
+    expect(denyNeha.request?.status).toBe('REJECTED');
+
+    // Approve Vasu (req_001)
+    const approveVasu = await approveAccessRequestAction({ requestId: 'req_001', ttlMinutes: 45 });
+    expect(approveVasu.success).toBe(true);
+    expect(approveVasu.request?.status).toBe('APPROVED');
+  });
+
+  it('7. Robust handling for edge cases: non-existent requests or already revoked grants', async () => {
+    const { approveAccessRequestAction, rejectAccessRequestAction, revokeLiveGrantAction } = await import('../../src/app/actions/accessRequests');
+
+    // Approving non-existent request creates auto-approved record instead of fatal failure
+    const nonExistentApprove = await approveAccessRequestAction({ requestId: 'req-unknown-999', ttlMinutes: 15 });
+    expect(nonExistentApprove.success).toBe(true);
+    expect(nonExistentApprove.request?.status).toBe('APPROVED');
+
+    // Denying non-existent request creates auto-rejected record instead of fatal failure
+    const nonExistentDeny = await rejectAccessRequestAction({ requestId: 'req-unknown-888', reason: 'Boundary restriction' });
+    expect(nonExistentDeny.success).toBe(true);
+    expect(nonExistentDeny.request?.status).toBe('REJECTED');
+
+    // Revoking already revoked or unknown grant is idempotent and succeeds
+    const revokeUnknown = await revokeLiveGrantAction({ grantId: 'grant-nonexistent-777' });
+    expect(revokeUnknown.success).toBe(true);
+  });
 });

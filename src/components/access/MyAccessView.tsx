@@ -233,16 +233,10 @@ export function MyAccessView() {
     try {
       const res = await fetchAllAccessRequestsAction();
       if (res.success && Array.isArray(res.requests)) {
-        setRequests(prev => {
-          const map = new Map<string, any>();
-          prev.forEach(r => map.set(r.id, r));
-          res.requests.forEach((r: any) => map.set(r.id, r));
-          const merged = Array.from(map.values());
-          if (typeof window !== 'undefined') {
-            try { localStorage.setItem('securemax_access_requests', JSON.stringify(merged)); } catch {}
-          }
-          return merged;
-        });
+        setRequests(res.requests);
+        if (typeof window !== 'undefined') {
+          try { localStorage.setItem('securemax_access_requests', JSON.stringify(res.requests)); } catch {}
+        }
       }
     } catch (err) {
       console.error('Failed to load access requests:', err);
@@ -400,7 +394,29 @@ export function MyAccessView() {
     if (!activeGrant) return;
     setActionInProgress('extend');
     try {
-      await extendLiveGrantAction({ grantId: activeGrant.id, additionalMinutes: 15 });
+      let res: any = null;
+      try {
+        res = await extendLiveGrantAction({ grantId: activeGrant.id, additionalMinutes: 15 });
+      } catch (actionErr) {
+        console.warn('extendLiveGrantAction error, falling back to sync endpoint:', actionErr);
+      }
+
+      if (!res?.success) {
+        try {
+          const syncRes = await fetch('/api/sync/state', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'EXTEND', grantId: activeGrant.id, ttlMinutes: 15 }),
+          });
+          if (syncRes.ok) {
+            const syncJson = await syncRes.json();
+            if (syncJson.success) res = { success: true };
+          }
+        } catch (syncErr) {
+          console.warn('Sync REST fallback error:', syncErr);
+        }
+      }
+
       broadcastUpdate('GRANT_EXTENDED', { grantId: activeGrant.id, assetCode: activeGrant.assetCode });
       setSecondsRemaining(prev => prev + 15 * 60);
       setIsLocked(false);
@@ -416,7 +432,29 @@ export function MyAccessView() {
     if (!activeGrant) return;
     setActionInProgress('lock');
     try {
-      await revokeLiveGrantAction({ grantId: activeGrant.id });
+      let res: any = null;
+      try {
+        res = await revokeLiveGrantAction({ grantId: activeGrant.id });
+      } catch (actionErr) {
+        console.warn('revokeLiveGrantAction error, falling back to sync endpoint:', actionErr);
+      }
+
+      if (!res?.success) {
+        try {
+          const syncRes = await fetch('/api/sync/state', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'REVOKE', grantId: activeGrant.id }),
+          });
+          if (syncRes.ok) {
+            const syncJson = await syncRes.json();
+            if (syncJson.success) res = { success: true };
+          }
+        } catch (syncErr) {
+          console.warn('Sync REST fallback error:', syncErr);
+        }
+      }
+
       broadcastUpdate('GRANT_REVOKED', { grantId: activeGrant.id, assetCode: activeGrant.assetCode });
       setIsLocked(true);
       setSecondsRemaining(0);

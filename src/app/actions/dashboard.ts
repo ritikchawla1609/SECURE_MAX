@@ -6,9 +6,8 @@ import { UserRole } from '@/types';
 import { deviceStore } from '@/lib/auth/deviceStore';
 
 export async function getDashboardMetrics() {
-  
-  
   if (typeof deviceStore !== 'undefined') {
+    deviceStore.loadFromDisk(true);
     await deviceStore.loadFromCloud();
   }
   try {
