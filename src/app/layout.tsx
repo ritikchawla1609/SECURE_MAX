@@ -4,7 +4,7 @@ import { Providers } from './providers';
 
 export const metadata: Metadata = {
   title: 'SecureMax | Self-Defending Decentralized Identity Platform',
-  description: 'SIH26125 Prototype',
+  description: 'Self-Defending Decentralized Identity Platform',
 };
 
 export default function RootLayout({

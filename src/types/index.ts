@@ -1,5 +1,5 @@
 // ============================================================
-// SecureMax SIH26125 — Global Type Definitions
+// SecureMax — Global Type Definitions
 // ============================================================
 
 export enum UserRole {

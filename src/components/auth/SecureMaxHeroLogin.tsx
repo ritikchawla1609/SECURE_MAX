@@ -25,7 +25,8 @@ import {
   UserPlus,
   Briefcase,
   Settings,
-  Wallet
+  Wallet,
+  ExternalLink
 } from 'lucide-react';
 import { 
   getOrCreateLocalDeviceKey, 
@@ -90,20 +91,66 @@ export default function SecureMaxHeroLogin() {
   const [hasMetaMask, setHasMetaMask] = useState<boolean>(false);
   const [metaMaskAccount, setMetaMaskAccount] = useState<string>('');
 
+  // Helper to reliably find the MetaMask or EVM provider (supporting multi-provider extensions)
+  const getEthereumProvider = () => {
+    if (typeof window === 'undefined') return null;
+    const win = window as any;
+    if (win.ethereum) {
+      if (Array.isArray(win.ethereum.providers)) {
+        const mm = win.ethereum.providers.find((p: any) => p.isMetaMask && !p.isBraveWallet);
+        if (mm) return mm;
+        const anyMM = win.ethereum.providers.find((p: any) => p.isMetaMask);
+        if (anyMM) return anyMM;
+        return win.ethereum.providers[0];
+      }
+      return win.ethereum;
+    }
+    return null;
+  };
+
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const eth = (window as any).ethereum;
+    const detect = () => {
+      const eth = getEthereumProvider();
       if (eth) {
         setHasMetaMask(true);
-        // Check if already connected
         eth.request({ method: 'eth_accounts' })
           .then((accounts: string[]) => {
             if (accounts && accounts.length > 0) {
-              setMetaMaskAccount(accounts[0]);
+              setMetaMaskAccount(accounts[0].toLowerCase());
             }
           })
           .catch(() => {});
       }
+    };
+
+    detect();
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('ethereum#initialized', detect, { once: true });
+      const timer = setTimeout(detect, 500);
+      const timer2 = setTimeout(detect, 1500);
+
+      const eth = getEthereumProvider();
+      const handleAccountsChanged = (accounts: string[]) => {
+        if (accounts && accounts.length > 0) {
+          setMetaMaskAccount(accounts[0].toLowerCase());
+        } else {
+          setMetaMaskAccount('');
+        }
+      };
+
+      if (eth?.on) {
+        eth.on('accountsChanged', handleAccountsChanged);
+      }
+
+      return () => {
+        window.removeEventListener('ethereum#initialized', detect);
+        clearTimeout(timer);
+        clearTimeout(timer2);
+        if (eth?.removeListener) {
+          eth.removeListener('accountsChanged', handleAccountsChanged);
+        }
+      };
     }
   }, []);
 
@@ -203,11 +250,11 @@ export default function SecureMaxHeroLogin() {
     setStatusMessage('Connecting to MetaMask wallet...');
 
     try {
-      if (typeof window === 'undefined' || !(window as any).ethereum) {
-        throw new Error('MetaMask wallet extension not detected. Please install MetaMask to authenticate as Organization Administrator.');
+      const ethereum = getEthereumProvider();
+      if (!ethereum) {
+        throw new Error('MetaMask wallet extension not detected. Please install or enable MetaMask in your browser.');
       }
-
-      const ethereum = (window as any).ethereum;
+      setHasMetaMask(true);
 
       // 1. Request account access
       setStatusMessage('Requesting MetaMask account access...');
@@ -238,10 +285,35 @@ export default function SecureMaxHeroLogin() {
 
       // 3. Request EIP-191 personal_sign from MetaMask
       setStatusMessage('Please sign the cryptographic challenge in MetaMask...');
-      const signature = await ethereum.request({
-        method: 'personal_sign',
-        params: [challenge.message, walletAddress],
-      });
+      
+      // Convert challenge message to 0x-prefixed hex string for standard JSON-RPC personal_sign
+      const messageBytes = new TextEncoder().encode(challenge.message);
+      const hexMessage = '0x' + Array.from(messageBytes, b => b.toString(16).padStart(2, '0')).join('');
+      
+      let signature: string;
+      try {
+        signature = await ethereum.request({
+          method: 'personal_sign',
+          params: [hexMessage, walletAddress],
+        });
+      } catch (signErr: any) {
+        if (signErr?.code === 4001) {
+          throw signErr; // User rejected request
+        }
+        // Fallback: try raw string if provider doesn't require hex encoding
+        try {
+          signature = await ethereum.request({
+            method: 'personal_sign',
+            params: [challenge.message, walletAddress],
+          });
+        } catch (rawErr: any) {
+          // Fallback: try inverted parameter order for legacy web3 providers
+          signature = await ethereum.request({
+            method: 'personal_sign',
+            params: [walletAddress, hexMessage],
+          });
+        }
+      }
 
       // 4. Submit to /api/auth/login
       setStatusMessage('Verifying cryptographic proof of wallet ownership...');
@@ -510,7 +582,7 @@ export default function SecureMaxHeroLogin() {
 
           <div className="border border-cyan-500/40 bg-cyan-950/30 px-4 py-1.5 rounded-full text-cyan-300 font-mono text-xs tracking-wider shadow-[0_0_15px_rgba(6,182,212,0.2)] flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-            SIH 2026
+            SYSTEM ACTIVE
           </div>
         </div>
       </header>
@@ -727,27 +799,29 @@ export default function SecureMaxHeroLogin() {
                 )}
 
                 {/* Authenticate with MetaMask Button */}
-                {hasMetaMask ? (
-                  <button
-                    type="button"
-                    onClick={handleMetaMaskAdminLogin}
-                    disabled={loading}
-                    className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 hover:from-cyan-300 hover:via-sky-400 hover:to-blue-500 text-white font-bold text-sm tracking-wide shadow-[0_0_25px_rgba(6,182,212,0.45)] hover:shadow-[0_0_35px_rgba(6,182,212,0.65)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.99]"
-                  >
-                    <Wallet className="w-4 h-4" />
-                    <span>Authenticate with MetaMask</span>
-                    <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-                  </button>
-                ) : (
-                  <a
-                    href="https://metamask.io/download/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-3.5 px-6 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm tracking-wide shadow-[0_0_25px_rgba(245,158,11,0.35)] transition-all flex items-center justify-center gap-2 text-center"
-                  >
-                    <Wallet className="w-4 h-4" />
-                    <span>Install MetaMask Extension</span>
-                  </a>
+                <button
+                  type="button"
+                  onClick={handleMetaMaskAdminLogin}
+                  disabled={loading}
+                  className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-600 hover:from-cyan-300 hover:via-sky-400 hover:to-blue-500 text-white font-bold text-sm tracking-wide shadow-[0_0_25px_rgba(6,182,212,0.45)] hover:shadow-[0_0_35px_rgba(6,182,212,0.65)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.99]"
+                >
+                  <Wallet className="w-4 h-4" />
+                  <span>{metaMaskAccount ? `Authenticate (${metaMaskAccount.slice(0, 6)}...${metaMaskAccount.slice(-4)})` : 'Authenticate with MetaMask'}</span>
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                </button>
+
+                {!hasMetaMask && (
+                  <div className="text-center pt-1">
+                    <a
+                      href="https://metamask.io/download/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[11px] text-zinc-400 hover:text-cyan-400 underline font-mono flex items-center justify-center gap-1.5"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      <span>Don&apos;t have MetaMask? Install the browser extension</span>
+                    </a>
+                  </div>
                 )}
 
                 {/* State-Aware System Initialization (Strictly zero-admin state only) */}
@@ -1065,7 +1139,7 @@ export default function SecureMaxHeroLogin() {
         <div className="flex items-center gap-2">
           <span>A SAFER TOMORROW BUILT TOGETHER.</span>
           <span>—</span>
-          <span className="text-cyan-400">SECUREMAX SIH 2026</span>
+          <span className="text-cyan-400">SECUREMAX</span>
         </div>
         <div>
           &quot;TECHNOLOGY FOR A MORE TRUSTED INDIA&quot;

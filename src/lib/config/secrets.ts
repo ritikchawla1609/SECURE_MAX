@@ -5,7 +5,7 @@ const INSECURE_DEFAULT_JWT = 'securemax-dev-jwt-secret-minimum-32-chars-long-sec
 
 export const IS_TEST_ENV = process.env.NODE_ENV === 'test' || Boolean(process.env.VITEST);
 export const TEST_KMS_MASTER_KEY = '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
-export const TEST_JWT_SECRET = 'test-environment-jwt-secret-minimum-32-chars-long';
+export const TEST_JWT_SECRET = 'securemax-dev-jwt-secret-minimum-32-chars-long-secure-padding';
 
 /**
  * Validates and returns the KMS Master Key.

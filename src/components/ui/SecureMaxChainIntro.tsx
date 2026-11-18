@@ -272,7 +272,7 @@ export default function SecureMaxChainIntro({ onComplete, isOpen, onClose }: Sec
           SECURE<span className="text-cyan-400">MAX</span>
         </h1>
         <div className="text-[10px] font-mono text-zinc-500 tracking-[0.3em] uppercase mt-2">
-          PEOPLE • DATA • TRUST • SIH 2026
+          PEOPLE • DATA • TRUST
         </div>
       </div>
 
