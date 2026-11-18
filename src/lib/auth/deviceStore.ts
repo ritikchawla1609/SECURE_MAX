@@ -5014,8 +5014,17 @@ class SecureMaxStore {
     req.nft_token_id = req.nft_token_id || `NFT-SEPOLIA-#${Math.floor(1000 + Math.random() * 9000)}`;
 
     // If it was for an asset, grant decryption access in assignments
+    if (!req.asset_id && req.asset_code) {
+      for (const [id, a] of this.assets.entries()) {
+        if (a.asset_code === req.asset_code || a.id === req.asset_code) {
+          req.asset_id = id;
+          break;
+        }
+      }
+    }
     if (req.asset_id && req.user_id) {
-      this.setAssignment(req.asset_id, req.user_id, true, true);
+      const expiresAt = ttlMinutes ? new Date(Date.now() + ttlMinutes * 60 * 1000).toISOString() : null;
+      this.setAssignment(req.asset_id, req.user_id, true, true, true, false, false, expiresAt);
     }
 
     // Create an active Live Grant with TTL

@@ -98,7 +98,7 @@ export function getIsolatedTestFixtureAssignment(userId: string, assetId: string
     userId.includes('test') || 
     userId === 'user-123' || 
     userId.includes('temp_authorized') ||
-    userId.startsWith('usr_') ||
+    userId.startsWith('usr_breach_') ||
     userId.startsWith('sandbox-')
   ) {
     return {

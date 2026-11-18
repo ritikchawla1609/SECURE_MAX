@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverComponentsExternalPackages: ['ethers'],
+    serverComponentsExternalPackages: ['ethers', 'viem'],
   },
   images: {
     remotePatterns: [],
