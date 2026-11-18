@@ -232,11 +232,35 @@ export function MyAccessView() {
   const fetchRequestsData = React.useCallback(async () => {
     try {
       const res = await fetchAllAccessRequestsAction();
-      if (res.success && res.requests) {
-        setRequests(res.requests);
+      if (res.success && Array.isArray(res.requests)) {
+        setRequests(prev => {
+          const map = new Map<string, any>();
+          prev.forEach(r => map.set(r.id, r));
+          res.requests.forEach((r: any) => map.set(r.id, r));
+          const merged = Array.from(map.values());
+          if (typeof window !== 'undefined') {
+            try { localStorage.setItem('securemax_access_requests', JSON.stringify(merged)); } catch {}
+          }
+          return merged;
+        });
       }
     } catch (err) {
       console.error('Failed to load access requests:', err);
+    }
+  }, []);
+
+  // Hydrate requests immediately from localStorage on mount to prevent refresh data reset
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const cached = localStorage.getItem('securemax_access_requests');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setRequests(parsed);
+          }
+        }
+      } catch {}
     }
   }, []);
 
@@ -459,6 +483,15 @@ export function MyAccessView() {
 
       if (result.success) {
         setRequestSubmitted(true);
+        if (result.request) {
+          setRequests(prev => {
+            const updated = [result.request, ...prev.filter(r => r.id !== result.request.id)];
+            if (typeof window !== 'undefined') {
+              try { localStorage.setItem('securemax_access_requests', JSON.stringify(updated)); } catch {}
+            }
+            return updated;
+          });
+        }
         broadcastUpdate('REQUEST_SUBMITTED', { 
           assetId: requestAssetId, 
           assetCode: targetAsset?.code, 

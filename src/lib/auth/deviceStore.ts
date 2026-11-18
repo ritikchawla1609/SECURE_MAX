@@ -368,6 +368,14 @@ class SecureMaxStore {
     if (process.env.SECUREMAX_STORE_PATH) {
       return process.env.SECUREMAX_STORE_PATH;
     }
+    const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+    if (isServerless) {
+      return path.join('/tmp', '.securemax_db', 'vault_ledger.json');
+    }
+    return path.join(process.cwd(), '.securemax_db', 'vault_ledger.json');
+  }
+
+  private getFallbackDbFilePath(): string {
     return path.join(process.cwd(), '.securemax_db', 'vault_ledger.json');
   }
 
@@ -670,14 +678,26 @@ class SecureMaxStore {
         updatedAt: new Date().toISOString(),
       };
 
-      const tmpPath = `${filePath}.${Date.now()}.tmp`;
+      const primaryPath = this.getDbFilePath();
+      const fallbackPath = this.getFallbackDbFilePath();
+
+      const tmpPath = `${primaryPath}.${Date.now()}.tmp`;
       try {
+        const dir = path.dirname(primaryPath);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
         fs.writeFileSync(tmpPath, JSON.stringify(payload, null, 2), 'utf8');
-        fs.renameSync(tmpPath, filePath);
+        fs.renameSync(tmpPath, primaryPath);
       } catch (fsErr) {
-        // Vercel serverless read-only filesystem error is expected here.
-        // We catch it so we can continue to the Supabase Cloud sync.
-        console.warn('[SecureMaxStore] Local disk write skipped (likely Vercel environment):', fsErr);
+        console.warn('[SecureMaxStore] Primary disk write skipped:', fsErr);
+      }
+
+      // Also attempt write to fallback path if different (e.g. local environment)
+      if (primaryPath !== fallbackPath) {
+        try {
+          const dir = path.dirname(fallbackPath);
+          if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+          fs.writeFileSync(fallbackPath, JSON.stringify(payload, null, 2), 'utf8');
+        } catch {}
       }
       
       storeEvents.emit('change', { type: 'STATE_MUTATION', timestamp: Date.now() });
@@ -693,11 +713,25 @@ class SecureMaxStore {
 
   public loadFromDisk(): boolean {
     try {
-      const filePath = this.getDbFilePath();
-      if (!fs.existsSync(filePath)) {
+      const primaryPath = this.getDbFilePath();
+      const fallbackPath = this.getFallbackDbFilePath();
+
+      // In serverless /tmp environment, seed /tmp from bundled ledger if not yet created
+      if (!fs.existsSync(primaryPath) && fs.existsSync(fallbackPath)) {
+        try {
+          const dir = path.dirname(primaryPath);
+          if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+          }
+          fs.copyFileSync(fallbackPath, primaryPath);
+        } catch {}
+      }
+
+      const pathToRead = fs.existsSync(primaryPath) ? primaryPath : fallbackPath;
+      if (!fs.existsSync(pathToRead)) {
         return false;
       }
-      const raw = fs.readFileSync(filePath, 'utf8');
+      const raw = fs.readFileSync(pathToRead, 'utf8');
       const parsed = JSON.parse(raw);
       return this.hydrate(parsed);
     } catch (err) {

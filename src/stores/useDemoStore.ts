@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export type SystemState = 'NORMAL' | 'ELEVATED' | 'INCIDENT' | 'CONTAINMENT' | 'RECOVERED';
 
@@ -51,8 +52,10 @@ interface DemoState {
   setPresentationStage: (stage: number) => void;
 }
 
-export const useDemoStore = create<DemoState>((set, get) => ({
-  systemState: 'NORMAL',
+export const useDemoStore = create<DemoState>()(
+  persist(
+    (set, get) => ({
+      systemState: 'NORMAL',
   postureScore: 98,
   activeThreat: null,
   attackPathStage: 'IDLE',
@@ -140,4 +143,14 @@ export const useDemoStore = create<DemoState>((set, get) => ({
 
   setPresentationMode: (active) => set({ presentationModeActive: active, presentationStage: 0 }),
   setPresentationStage: (stage) => set({ presentationStage: stage })
-}));
+}),
+    {
+      name: 'securemax_demo_store',
+      partialize: (state) => ({
+        systemState: state.systemState,
+        postureScore: state.postureScore,
+        incidents: state.incidents,
+      }),
+    }
+  )
+);

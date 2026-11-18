@@ -84,7 +84,12 @@ export function Sidebar({ onNavigate, isMobile }: SidebarProps) {
         </div>
         <nav className="space-y-1">
           {filteredNav.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href + '/'));
+            const isActive = pathname === item.href ||
+              (item.href === '/assets' && pathname?.startsWith('/access')) ||
+              (item.href === '/devices' && (pathname?.startsWith('/positions') || pathname?.startsWith('/identity'))) ||
+              (item.href === '/dashboard/soc' && (pathname?.startsWith('/security') || pathname?.startsWith('/breachlab'))) ||
+              (item.href === '/audit' && pathname?.startsWith('/infrastructure')) ||
+              (item.href !== '/' && pathname?.startsWith(item.href + '/'));
             return (
               <Link
                 key={item.name}

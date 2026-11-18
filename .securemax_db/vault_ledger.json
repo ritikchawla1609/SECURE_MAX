@@ -1,8 +1,33 @@
 {
   "users": [
     {
+      "id": "ADM-0001",
+      "name": "Marshal Patel",
+      "email": "marshal@cyber.mil",
+      "role": "ADMIN",
+      "position": "Root Administrator",
+      "position_id": "pos_root_admin",
+      "kyc_status": "VERIFIED",
+      "status": "ACTIVE",
+      "did": "did:securemax:admin:adm-0001",
+      "created_at": "2026-11-18T15:40:59.774Z",
+      "admin_wallet": "0x7ffdbb7868c127152f2007a6025ff15a5723ce08"
+    },
+    {
+      "id": "usr_bb80b173",
+      "name": "Dr. Sunita",
+      "email": "sunita@cyber.mil",
+      "role": "MANAGER",
+      "position_id": "pos_user",
+      "position": "User",
+      "kyc_status": "PENDING",
+      "status": "ACTIVE",
+      "did": "did:securemax:user:80b173",
+      "created_at": "2026-11-18T15:40:59.779Z"
+    },
+    {
       "id": "usr_admin_001",
-      "name": "Root Administrator",
+      "name": "Vasu (Administrator)",
       "email": "admin@securemax.mil",
       "role": "ADMIN",
       "position": "Root Administrator",
@@ -10,7 +35,6 @@
       "kyc_status": "VERIFIED",
       "status": "ACTIVE",
       "did": "did:securemax:admin:001",
-      "admin_wallet": "0xc532c65055108e7901212b6c30ef800152e26eb5",
       "created_at": "2026-09-01T00:00:00.000Z"
     },
     {
@@ -38,6 +62,16 @@
       "created_at": "2026-09-03T00:00:00.000Z"
     },
     {
+      "id": "usr_ritik_004",
+      "name": "Ritik (Systems Architect)",
+      "email": "ritik@securemax.mil",
+      "role": "USER",
+      "kyc_status": "VERIFIED",
+      "status": "ACTIVE",
+      "did": "did:securemax:user:004",
+      "created_at": "2026-09-04T00:00:00.000Z"
+    },
+    {
       "id": "usr_vaani_005",
       "name": "Vaani (Security Analyst)",
       "email": "vaani@securemax.mil",
@@ -48,39 +82,154 @@
       "created_at": "2026-09-05T00:00:00.000Z"
     },
     {
-      "id": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
+      "id": "usr_arjun_006",
+      "name": "Arjun Verma",
+      "email": "arjun.verma@securemax.mil",
+      "role": "USER",
+      "kyc_status": "VERIFIED",
+      "status": "ACTIVE",
+      "did": "did:securemax:user:arjun006",
+      "created_at": "2026-09-10T00:00:00.000Z"
+    },
+    {
+      "id": "usr_riya_007",
+      "name": "Riya Sharma",
+      "email": "riya.sharma@securemax.mil",
+      "role": "USER",
+      "kyc_status": "VERIFIED",
+      "status": "ACTIVE",
+      "did": "did:securemax:user:riya007",
+      "created_at": "2026-09-10T00:00:00.000Z"
+    },
+    {
+      "id": "user-123",
+      "name": "Test Integration User",
+      "email": "user123@test.securemax.mil",
+      "role": "USER",
+      "kyc_status": "VERIFIED",
+      "status": "ACTIVE",
+      "did": "did:securemax:user:123",
+      "created_at": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "id": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
       "name": "Sandbox User",
-      "email": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad@defense.gov",
+      "email": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035@defense.gov",
       "role": "USER",
       "status": "ACTIVE",
-      "did": "did:key:sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
+      "did": "did:key:sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
       "kyc_status": "VERIFIED",
-      "created_at": "2026-11-18T13:49:24.959Z"
+      "created_at": "2026-11-18T15:43:03.952Z"
     },
     {
-      "id": "sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3",
+      "id": "sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c",
       "name": "Sandbox Admin",
-      "email": "sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3@defense.gov",
+      "email": "sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c@defense.gov",
       "role": "ADMIN",
       "status": "ACTIVE",
-      "did": "did:key:sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3",
+      "did": "did:key:sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c",
       "kyc_status": "VERIFIED",
-      "created_at": "2026-11-18T13:49:24.961Z"
+      "created_at": "2026-11-18T15:43:03.955Z"
     },
     {
-      "id": "usr_a87f30e0",
-      "name": "Officer Vikram 2069",
-      "email": "vikram_2069@securemax.mil",
+      "id": "usr_c1fe9404",
+      "name": "Officer Vikram 1447",
+      "email": "vikram_1447@securemax.mil",
       "role": "USER",
       "position": "User",
       "position_id": "pos_user",
       "kyc_status": "VERIFIED",
       "status": "ACTIVE",
-      "did": "did:securemax:user:7f30e0",
-      "created_at": "2026-11-18T13:49:28.015Z"
+      "did": "did:securemax:user:fe9404",
+      "created_at": "2026-11-18T15:43:05.725Z"
     }
   ],
   "devices": [
+    {
+      "id": "DEV-ADMIN-001",
+      "device_id": "DEV-ADMIN-001",
+      "user_id": "ADM-0001",
+      "user_name": "Marshal Patel",
+      "user_email": "marshal@cyber.mil",
+      "position": "Root Administrator",
+      "device_name": "Air-Gapped Terminal",
+      "device_type": "laptop",
+      "os": "macOS",
+      "browser": "Chrome",
+      "browser_version": "128.0",
+      "model": "SecureMAX Hardware-Bound Terminal",
+      "credential_id": "cred_admin_17f9ac24",
+      "credential_type": "WebAuthn",
+      "registered_at": "2026-11-18T15:40:59.774Z",
+      "last_authenticated_at": "2026-11-18T15:40:59.778Z",
+      "last_active_at": "2026-11-18T15:40:59.778Z",
+      "risk_state": "TRUSTED",
+      "registration_region": "India",
+      "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmarshal_public_key",
+      "algorithm": "ECDSA_P256",
+      "status": "ACTIVE",
+      "is_admin_device": true,
+      "created_at": "2026-11-18T15:40:59.774Z",
+      "last_used_at": "2026-11-18T15:40:59.781Z",
+      "timeline": [
+        {
+          "id": "tl_19ad3652",
+          "timestamp": "2026-11-18T15:40:59.781Z",
+          "event": "LOGIN_SUCCESS",
+          "details": "Authenticated session established via PASSKEY",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_ff1eab3b",
+          "timestamp": "2026-11-18T15:40:59.778Z",
+          "event": "ADMIN_LOGIN",
+          "details": "Admin logged in successfully via WebAuthn (Gujarat, India)",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_1",
+          "timestamp": "2026-11-18T15:40:54.774Z",
+          "event": "SYSTEM_INITIALIZATION_STARTED",
+          "details": "One-time deployment bootstrap initiated",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_2",
+          "timestamp": "2026-11-18T15:40:55.774Z",
+          "event": "ROOT_ADMIN_CREATED",
+          "details": "Root administrator created: Marshal Patel (ADM-0001)",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_3",
+          "timestamp": "2026-11-18T15:40:56.774Z",
+          "event": "ADMIN_DEVICE_REGISTERED",
+          "details": "Singleton trusted device registered: Air-Gapped Terminal",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_4",
+          "timestamp": "2026-11-18T15:40:57.774Z",
+          "event": "ADMIN_CREDENTIAL_REGISTERED",
+          "details": "WebAuthn / Passkey cryptographic credential anchored",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_5",
+          "timestamp": "2026-11-18T15:40:58.774Z",
+          "event": "SYSTEM_INITIALIZATION_COMPLETED",
+          "details": "System initialization completed successfully",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_6",
+          "timestamp": "2026-11-18T15:40:59.774Z",
+          "event": "ADMIN_BOOTSTRAP_DISABLED",
+          "details": "Bootstrap mode permanently locked down",
+          "severity": "INFO"
+        }
+      ]
+    },
     {
       "id": "dev_admin_primary",
       "device_id": "dev_admin_primary",
@@ -97,8 +246,8 @@
       "credential_id": "cred_admin_hw_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-01T00:00:00.000Z",
-      "last_authenticated_at": "2026-09-20T03:54:25.207Z",
-      "last_active_at": "2026-09-20T03:54:25.207Z",
+      "last_authenticated_at": "2026-11-18T15:42:58.251Z",
+      "last_active_at": "2026-11-18T15:42:58.251Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2Z37UoHq3y1V4XwH5K7oF9P9k3sZ0s7uVvWxX0y1A2bC3dE4fG5hI6jK7lM8nO9pQ0rS1tU2vW3xY4z5A6bC7w==",
@@ -106,403 +255,46 @@
       "status": "ACTIVE",
       "is_admin_device": true,
       "created_at": "2026-09-01T00:00:00.000Z",
-      "last_used_at": "2026-11-18T13:49:29.162Z",
+      "last_used_at": "2026-11-18T15:43:05.958Z",
       "timeline": [
         {
-          "id": "tl_4108c7e0",
-          "timestamp": "2026-11-18T13:49:29.162Z",
+          "id": "tl_d8acac8a",
+          "timestamp": "2026-11-18T15:43:05.958Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_e88d611d",
-          "timestamp": "2026-11-18T13:49:25.299Z",
+          "id": "tl_e91d545c",
+          "timestamp": "2026-11-18T15:43:03.833Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_84c459c7",
-          "timestamp": "2026-11-18T13:49:22.840Z",
+          "id": "tl_0aea15e2",
+          "timestamp": "2026-11-18T15:43:02.091Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_a5d3a86c",
-          "timestamp": "2026-11-18T13:49:20.915Z",
+          "id": "tl_7cf5b6fa",
+          "timestamp": "2026-11-18T15:43:00.408Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_f1826bb9",
-          "timestamp": "2026-11-18T13:49:20.915Z",
+          "id": "tl_0ddf2761",
+          "timestamp": "2026-11-18T15:43:00.408Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_4dc1fdf8",
-          "timestamp": "2026-11-18T13:49:19.035Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_aa2bf077",
-          "timestamp": "2026-10-21T13:59:04.998Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_a445f6f5",
-          "timestamp": "2026-10-21T13:59:03.072Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_479ff1c1",
-          "timestamp": "2026-10-21T13:59:02.008Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_d55e001b",
-          "timestamp": "2026-10-21T13:59:00.376Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_fdad0372",
-          "timestamp": "2026-10-21T13:58:56.223Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_7a8c989d",
-          "timestamp": "2026-10-21T13:58:52.467Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_c6015a10",
-          "timestamp": "2026-10-21T13:58:25.899Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_18ae46ed",
-          "timestamp": "2026-10-21T13:57:48.536Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_8f4da205",
-          "timestamp": "2026-10-21T13:56:39.887Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_e47b5186",
-          "timestamp": "2026-10-21T13:55:30.373Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_fcb6f756",
-          "timestamp": "2026-10-21T13:55:28.340Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_274414a1",
-          "timestamp": "2026-10-21T13:55:26.879Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_231d9c20",
-          "timestamp": "2026-10-21T13:55:13.772Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_965aeeda",
-          "timestamp": "2026-10-21T13:55:09.630Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_0100a0a8",
-          "timestamp": "2026-10-21T13:55:05.077Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_d8197c97",
-          "timestamp": "2026-10-21T13:53:19.191Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_1d9b32a7",
-          "timestamp": "2026-10-21T13:53:17.529Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_2b9e9356",
-          "timestamp": "2026-10-21T13:53:16.506Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_33b206be",
-          "timestamp": "2026-10-21T13:53:03.472Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_3e604d85",
-          "timestamp": "2026-10-21T13:52:58.845Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_e2dba211",
-          "timestamp": "2026-10-21T13:52:54.987Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_1223171d",
-          "timestamp": "2026-10-21T13:49:27.037Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_630596b3",
-          "timestamp": "2026-10-21T13:49:26.094Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_0dff7966",
-          "timestamp": "2026-10-21T13:49:25.053Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_b922669b",
-          "timestamp": "2026-10-21T13:49:11.975Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_57fa0cdf",
-          "timestamp": "2026-10-21T13:49:01.026Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_513823fc",
-          "timestamp": "2026-10-21T13:48:55.614Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_64743b1a",
-          "timestamp": "2026-10-21T13:47:03.428Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_12c97ade",
-          "timestamp": "2026-10-21T13:47:02.101Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_4d27cc70",
-          "timestamp": "2026-10-21T13:47:01.165Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ac9b8a1c",
-          "timestamp": "2026-10-21T13:46:49.880Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_401baa9e",
-          "timestamp": "2026-10-21T13:46:43.179Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_e4fefce1",
-          "timestamp": "2026-10-21T13:46:39.494Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_778eb6a9",
-          "timestamp": "2026-10-21T10:39:56.124Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_afe75c42",
-          "timestamp": "2026-10-21T10:39:52.545Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_22a79f2c",
-          "timestamp": "2026-10-21T10:39:50.779Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_3081d63a",
-          "timestamp": "2026-10-21T10:39:20.283Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_a40855b5",
-          "timestamp": "2026-10-21T10:39:12.881Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_212067b5",
-          "timestamp": "2026-10-21T10:38:59.195Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ff9ae686",
-          "timestamp": "2026-10-21T10:30:35.633Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_968d8f38",
-          "timestamp": "2026-10-21T10:30:32.862Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_fc5128ad",
-          "timestamp": "2026-10-21T10:30:29.357Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ac2676f0",
-          "timestamp": "2026-10-21T10:30:26.586Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_6ec287a7",
-          "timestamp": "2026-10-21T10:30:26.586Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_a2f53fa4",
-          "timestamp": "2026-10-21T10:30:26.586Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_9580a7f4",
-          "timestamp": "2026-10-21T10:28:59.196Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_01ec0115",
-          "timestamp": "2026-10-21T10:28:59.134Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_19efd98d",
-          "timestamp": "2026-10-21T10:28:59.134Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_9679883e",
-          "timestamp": "2026-10-21T10:28:58.436Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ddafb305",
-          "timestamp": "2026-10-21T10:28:58.435Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_5254bf92",
-          "timestamp": "2026-10-21T10:28:58.435Z",
+          "id": "tl_11f21525",
+          "timestamp": "2026-11-18T15:42:58.352Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
@@ -539,8 +331,8 @@
       "credential_id": "cred_vasu_mbp_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-02T00:00:00.000Z",
-      "last_authenticated_at": "2026-09-20T03:54:25.207Z",
-      "last_active_at": "2026-09-20T03:54:25.207Z",
+      "last_authenticated_at": "2026-11-18T15:42:58.251Z",
+      "last_active_at": "2026-11-18T15:42:58.251Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEq9V1zK2Y7nL6X4eQ8jB2tF0mS3wZ5xY8vU1tP2rQ3sA4bC5dE6fG7hI8jK9lM0nO1pQ2rS3tU4vW5xY6z7A8bC==",
@@ -548,53 +340,11 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-02T00:00:00.000Z",
-      "last_used_at": "2026-11-18T13:49:19.035Z",
+      "last_used_at": "2026-11-18T15:42:58.352Z",
       "timeline": [
         {
-          "id": "tl_e2edfae4",
-          "timestamp": "2026-11-18T13:49:19.035Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_85990d4d",
-          "timestamp": "2026-10-21T13:58:54.819Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_6dcf2804",
-          "timestamp": "2026-10-21T13:55:07.966Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_5abe7ae3",
-          "timestamp": "2026-10-21T13:52:57.387Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_94809444",
-          "timestamp": "2026-10-21T13:48:58.712Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_f94d5e2d",
-          "timestamp": "2026-10-21T13:46:41.836Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_706b99aa",
-          "timestamp": "2026-10-21T10:39:05.059Z",
+          "id": "tl_3ec01fde",
+          "timestamp": "2026-11-18T15:42:58.352Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via P256",
           "severity": "INFO"
@@ -638,8 +388,8 @@
       "credential_id": "cred_audit_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-03T00:00:00.000Z",
-      "last_authenticated_at": "2026-09-20T03:54:25.207Z",
-      "last_active_at": "2026-09-20T03:54:25.207Z",
+      "last_authenticated_at": "2026-11-18T15:42:58.251Z",
+      "last_active_at": "2026-11-18T15:42:58.251Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7p9X2mR5yT8vN1qW4sE7hK0bL3zC6xY9vU2tP3rQ4sA5bC6dE7fG8hI9jK0lM1nO2pQ3rS4tU5vW6xY7z8A9bC==",
@@ -647,67 +397,11 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-03T00:00:00.000Z",
-      "last_used_at": "2026-11-18T13:49:29.162Z",
+      "last_used_at": "2026-11-18T15:43:06.855Z",
       "timeline": [
         {
-          "id": "tl_5867cffd",
-          "timestamp": "2026-11-18T13:49:29.162Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_776b5a0e",
-          "timestamp": "2026-10-21T13:59:06.337Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_b292369c",
-          "timestamp": "2026-10-21T13:55:32.043Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_c640d528",
-          "timestamp": "2026-10-21T13:53:20.529Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_97896bcb",
-          "timestamp": "2026-10-21T13:49:28.365Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ea416cd7",
-          "timestamp": "2026-10-21T13:47:04.826Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_8cf58e8d",
-          "timestamp": "2026-10-21T10:39:58.625Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_888b42a5",
-          "timestamp": "2026-10-21T10:30:36.213Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_f6f3326c",
-          "timestamp": "2026-10-21T10:28:59.102Z",
+          "id": "tl_320be803",
+          "timestamp": "2026-11-18T15:43:06.855Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via P256",
           "severity": "INFO"
@@ -729,37 +423,31 @@
       ]
     },
     {
-      "id": "dev_revoked_1795009764958",
-      "device_id": "dev_revoked_1795009764958",
-      "user_id": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
+      "id": "dev_revoked_1795016583952",
+      "device_id": "dev_revoked_1795016583952",
+      "user_id": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
       "device_name": "Stolen Terminal",
       "status": "REVOKED"
     }
   ],
   "enrollments": [
     {
-      "code": "3KFU-7B7C-94YU",
-      "user_id": "usr_9f6037c6",
-      "expires_at": "2026-09-20T02:18:28.046Z",
-      "created_at": "2026-09-20T02:03:28.046Z"
+      "code": "Z83Z-G887-WDE9",
+      "user_id": "usr_bb80b173",
+      "expires_at": "2026-11-18T15:55:59.779Z",
+      "created_at": "2026-11-18T15:40:59.779Z"
     },
     {
-      "code": "ZH5Q-F4MQ-F7V6",
-      "user_id": "usr_9f6037c6",
-      "expires_at": "2026-09-20T02:34:48.016Z",
-      "created_at": "2026-09-20T02:19:48.016Z"
+      "code": "NEPZ-LCTC-44J2",
+      "user_id": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
+      "expires_at": "2026-11-18T15:58:03.952Z",
+      "created_at": "2026-11-18T15:43:03.952Z"
     },
     {
-      "code": "WLWE-9HZ2-APPJ",
-      "user_id": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
-      "expires_at": "2026-11-18T14:04:24.959Z",
-      "created_at": "2026-11-18T13:49:24.959Z"
-    },
-    {
-      "code": "SMX-FF7F-17F8",
-      "user_id": "usr_a87f30e0",
-      "expires_at": "2026-11-19T13:49:28.016Z",
-      "created_at": "2026-11-18T13:49:28.016Z"
+      "code": "SMX-9EFE-3DC0",
+      "user_id": "usr_c1fe9404",
+      "expires_at": "2026-11-19T15:43:05.738Z",
+      "created_at": "2026-11-18T15:43:05.738Z"
     }
   ],
   "assets": [
@@ -770,9 +458,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Confidential design specifications for tactical communications and payload encapsulation.",
-      "encrypted_content": "iKnJisKqQf4kx1DnzhR97Pbore/Jg8bH8r/O4do6YEql6cmxcSZJUf7gD0lIz5n8c+wAQP228A/T8TwQ4cswygQa1GDFYcY4UdGXT6+h+0Ce4rjZfLub3yp6YSjCntA8vqG95R1uJhUdWm1jqqBoOCuLVw+ZnbD6W9mt2U93LWkKCKOzpxlbXdn7mGcP4J/uVkt9r/RRAzIaSmLru46NtjiFjoQ+9yEJ8R69pHx+vYT2putKzhOXHFELqemyD1wNeH8+IBnK3+VehMrFs87dKE1NP/v2Am4Lww==",
-      "iv": "fHvBpkqT/TBCQ2QJ",
-      "auth_tag": "8wyZjWEK535Hr4QBl911qw==",
+      "encrypted_content": "nujpgVCBHUlfabl29MiPUZSrwWzrUjDyo8KFBV+r+38rxZlqhCsvY9E8wozapGpDr8pzKuLuc3OM0OVoSUpCG0ivC7GyC/aMshk8szStkX9Jsm/fO9p7I/fj9uKgB6zieFGMDA6HQhMHIVyIvgHrDYL6aDuDUkLArUt5dM8RZSHA41d8Nb1pfvN63SZmyHX6FEsBfNn6zLA3V/YRjHxlJu4RF/gJRp2BX+Zf5kMfDnXuxvNqVv06hLETXynABQ+niw8m6r+sb7Mm8ohqxTquU8IqW/AEyUd38w==",
+      "iv": "e3h8MvKZveeLZzjg",
+      "auth_tag": "GG0CYQ4vmLsfSsshQiYy8Q==",
       "aad": "asset_data:ast_alpha",
       "folder": "Projects",
       "file_type": "PDF",
@@ -783,7 +471,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-15T10:30:00.000Z",
-      "last_accessed_at": "2026-09-20T03:55:15.351Z",
+      "last_accessed_at": "2026-11-18T15:37:58.251Z",
       "key_version": "v2",
       "versions": [
         {
@@ -803,18 +491,10 @@
       ],
       "access_history": [
         {
-          "id": "log_6cfa1feb",
-          "action": "DECRYPT",
-          "user_name": "Vasu (Administrator)",
-          "timestamp": "2026-09-20T03:55:15.351Z",
-          "status": "SUCCESS",
-          "details": "Streaming AES-256-GCM decryption started"
-        },
-        {
           "id": "log_alpha_1",
           "action": "DECRYPT",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-09-20T03:49:25.207Z",
+          "timestamp": "2026-11-18T15:37:58.251Z",
           "status": "SUCCESS",
           "details": "Authorized session decrypt via P-256"
         },
@@ -822,7 +502,7 @@
           "id": "log_alpha_2",
           "action": "READ",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-09-20T03:09:25.207Z",
+          "timestamp": "2026-11-18T14:57:58.251Z",
           "status": "SUCCESS"
         }
       ],
@@ -831,15 +511,272 @@
       "did": "did:securemax:asset:ast_alpha"
     },
     {
+      "id": "ast_beta",
+      "asset_code": "SMX-BETA-002",
+      "name": "Project Beta Architecture Blueprints",
+      "classification": "INTERNAL",
+      "status": "ACTIVE",
+      "description": "Comprehensive architectural diagrams, CAD schematics, and microservice definitions for Project Beta.",
+      "encrypted_content": "7mIy3xrHc9d4My+yOd4IURBnz9QAE7qln7fPflmcgxmDW4+nO6uELg3ONwEkYJ1Vscv9YRCfIfgEN07f40NUnDJHcPbftOSVwn7jrBlfjuXoZTFTpG+j1dHd/oMAI3RKC5zs6giaBXfbTLMepbdwX2WHz0yIUS9wRN24G/OER7Gn6fSb0itHHMn7PPXNg6ghgjpdTm6wasZZ6c4k0dXds1r3SkVUJH16aaC1pFjoMrnkFqq5rOM1mw==",
+      "iv": "k9nHrUXjUWxfAVMj",
+      "auth_tag": "6ZoGjK53mlvrSi1JKPiSAg==",
+      "aad": "asset_data:ast_beta",
+      "folder": "Projects",
+      "file_type": "ZIP",
+      "mime_type": "application/zip",
+      "file_size_bytes": 15518976,
+      "owner_id": "usr_vasu_002",
+      "owner_name": "Vasu (Lead Engineer)",
+      "shared_with_all": false,
+      "default_access_policy": "PRIVATE",
+      "created_at": "2026-09-10T14:00:00.000Z",
+      "last_accessed_at": "2026-11-18T13:42:58.251Z",
+      "key_version": "v1",
+      "versions": [
+        {
+          "version": "v1.0",
+          "uploaded_by": "Vasu (Lead Engineer)",
+          "created_at": "2026-09-10T14:00:00.000Z",
+          "size": "14.8 MB",
+          "notes": "Initial schematics release"
+        }
+      ],
+      "access_history": [
+        {
+          "id": "log_beta_1",
+          "action": "DOWNLOAD",
+          "user_name": "Vasu (Lead Engineer)",
+          "timestamp": "2026-11-18T13:42:58.251Z",
+          "status": "SUCCESS"
+        }
+      ],
+      "blockchain_token_id": "NFT-SEPOLIA-#8492",
+      "blockchain_contract": "0xC5388f457D01cdF25B4A29f0A38d65f4e690bC2B",
+      "did": "did:securemax:asset:ast_beta"
+    },
+    {
+      "id": "ast_finance",
+      "asset_code": "SMX-FIN-003",
+      "name": "Financial Audit Report Q3",
+      "classification": "CONFIDENTIAL",
+      "status": "ACTIVE",
+      "description": "Quarterly financial compliance, hardware procurement, and cryptographic subsystem expenditures.",
+      "encrypted_content": "SRPcq0Mr4aiapLjx1burNLR4TK24eTY32ORByJnvGSI6vh/7w5INfpmbp37QM5CnmQea+uDC0tCdj7UaXEcVloOmF6Kvkb4kwojuipVkiX7D/igazsFUFBufV8J83eO3nT1MGRLf5gMcuRZEtb+MiaJnQFEaigEYGppGSzwRp0OBTOAvIICiOc5DiEdXDounhEPqVuJx6GKHyarRAPelQ+qlDozZSA==",
+      "iv": "/y7LpZ17rd0cIUDJ",
+      "auth_tag": "8MDpuCET2j8Bcp0DZVbanQ==",
+      "aad": "asset_data:ast_finance",
+      "folder": "Finance",
+      "file_type": "XLSX",
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "file_size_bytes": 1258291,
+      "owner_id": "usr_auditor_003",
+      "owner_name": "Neha Kapoor",
+      "shared_with_all": false,
+      "default_access_policy": "PRIVATE",
+      "created_at": "2026-09-08T09:15:00.000Z",
+      "last_accessed_at": "2026-11-18T14:42:58.251Z",
+      "key_version": "v1",
+      "versions": [
+        {
+          "version": "v1.0",
+          "uploaded_by": "Compliance Auditor",
+          "created_at": "2026-09-08T09:15:00.000Z",
+          "size": "1.2 MB",
+          "notes": "Signed Q3 audit statement"
+        }
+      ],
+      "access_history": [
+        {
+          "id": "log_fin_1",
+          "action": "DECRYPT",
+          "user_name": "Vasu (Lead Engineer)",
+          "timestamp": "2026-11-18T14:42:58.251Z",
+          "status": "SUCCESS"
+        }
+      ],
+      "blockchain_token_id": "NFT-SEPOLIA-#8493",
+      "blockchain_contract": "0xC5388f457D01cdF25B4A29f0A38d65f4e690bC2B",
+      "did": "did:securemax:asset:ast_finance"
+    },
+    {
+      "id": "ast_procure",
+      "asset_code": "SMX-FIN-004",
+      "name": "FY27 Defense Procurement Estimates",
+      "classification": "INTERNAL",
+      "status": "ACTIVE",
+      "description": "Forecast budget models and supplier bids for next-generation cryptographic hardware.",
+      "encrypted_content": "0J7YqYBQFcomDLBk7TBLhJAW/7sy3AhI8fVfhPzl6bs6d1PK7OFR559LE+VrDNQzUXXvjjE+g2gNCetN1N9yZ0kvmL5EKaP5NNfRUE/Ad+bIwUjuNL/vz0oXOIV1Kxak9uU/ihewz8O1Y986q0nT5pcsXI/Lc8Qr2/yylPFJjHH7C/T33HtiGGCRR8K9iS+h+WdEA3tW1ckAzbQQZGkDhw==",
+      "iv": "XTHmJzxQ0YlK0sS5",
+      "auth_tag": "PeUpluHEsy20cgHTay7zEw==",
+      "aad": "asset_data:ast_procure",
+      "folder": "Finance",
+      "file_type": "XLSX",
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "file_size_bytes": 3250585,
+      "owner_id": "usr_admin_001",
+      "owner_name": "Vasu (Administrator)",
+      "shared_with_all": false,
+      "default_access_policy": "PRIVATE",
+      "created_at": "2026-09-12T11:20:00.000Z",
+      "last_accessed_at": "2026-11-18T11:42:58.251Z",
+      "key_version": "v1",
+      "versions": [
+        {
+          "version": "v1.0",
+          "uploaded_by": "Vasu (Administrator)",
+          "created_at": "2026-09-12T11:20:00.000Z",
+          "size": "3.1 MB",
+          "notes": "Initial budget projections"
+        }
+      ],
+      "access_history": [
+        {
+          "id": "log_proc_1",
+          "action": "READ",
+          "user_name": "Vasu (Lead Engineer)",
+          "timestamp": "2026-11-18T11:42:58.251Z",
+          "status": "SUCCESS"
+        }
+      ],
+      "blockchain_token_id": "NFT-SEPOLIA-#8494",
+      "blockchain_contract": "0xC5388f457D01cdF25B4A29f0A38d65f4e690bC2B",
+      "did": "did:securemax:asset:ast_procure"
+    },
+    {
+      "id": "ast_hr_policy",
+      "asset_code": "SMX-HR-005",
+      "name": "Global Clearance & Personnel Policy",
+      "classification": "PUBLIC",
+      "status": "ACTIVE",
+      "description": "Organizational guidelines on cryptographic key custody, zero-trust hygiene, and KYC verification.",
+      "encrypted_content": "pu8GUqXut2p4oFWlpCuTk+7k8HTYSwUDDk3PPyqK6Lkaz5Achs7zNA8xo65nRyOxWljEwQPX2Ga0ekDs1pHhkKRPj+fK1w1xS76dPT5+M+3GM2S9ZScailMrU/kXzNzLL+OptlwRlM0lKD1NpoOpaejngNmt5qKNo7fWPCSVqjZOn0PQj6AzZ1aUh+EyFITCCFAZRdUuTXJA9lDZsTx3axOLEZPOHUdXDU97iXveIei9uw/R1QfCbbfx",
+      "iv": "M9lcbNZ4B6H8w7Gw",
+      "auth_tag": "/bggEOOAd+o8TEEcJ/WACw==",
+      "aad": "asset_data:ast_hr_policy",
+      "folder": "HR",
+      "file_type": "PDF",
+      "mime_type": "application/pdf",
+      "file_size_bytes": 870400,
+      "owner_id": "usr_admin_001",
+      "owner_name": "Vasu (Administrator)",
+      "shared_with_all": true,
+      "default_access_policy": "ORGANIZATION",
+      "created_at": "2026-09-01T09:00:00.000Z",
+      "key_version": "v1",
+      "versions": [
+        {
+          "version": "v1.0",
+          "uploaded_by": "Vasu (Administrator)",
+          "created_at": "2026-09-01T09:00:00.000Z",
+          "size": "850 KB",
+          "notes": "Standard policy baseline"
+        }
+      ],
+      "access_history": [],
+      "blockchain_token_id": "NFT-SEPOLIA-#8495",
+      "blockchain_contract": "0xC5388f457D01cdF25B4A29f0A38d65f4e690bC2B",
+      "did": "did:securemax:asset:ast_hr_policy"
+    },
+    {
+      "id": "ast_roster",
+      "asset_code": "SMX-HR-006",
+      "name": "Active Operatives Personnel Roster",
+      "classification": "RESTRICTED",
+      "status": "ACTIVE",
+      "description": "Field operative identity mappings, tactical assignments, and cryptographic public key fingerprints.",
+      "encrypted_content": "wNUBhxBvRkUW9Phym6TR5sUnq3hOV/RYWs0usFYu57TSw0n1bg7YhiAnBe+83DbwyHA/oQlLoZnuy32FBLexj2RCNNmLbuxCrr4OriHGSHez78FE0vqa7x2vyoio4x3pDgzQ+7BKoOOdaZQap7DrFz+0z24efPFLdBX4eKJTP1JoPJomRvtsxIEh0eCkkb3wXyeiPqlh4MM7SXDubKk=",
+      "iv": "1DaKumWRcgL5wh+d",
+      "auth_tag": "r760Nv0WSM9zC+17R1UXjQ==",
+      "aad": "asset_data:ast_roster",
+      "folder": "HR",
+      "file_type": "DOC",
+      "mime_type": "application/msword",
+      "file_size_bytes": 1887436,
+      "owner_id": "usr_admin_001",
+      "owner_name": "Vasu (Administrator)",
+      "shared_with_all": false,
+      "default_access_policy": "PRIVATE",
+      "created_at": "2026-09-14T16:45:00.000Z",
+      "last_accessed_at": "2026-11-18T15:27:58.251Z",
+      "key_version": "v2",
+      "versions": [
+        {
+          "version": "v2.0",
+          "uploaded_by": "Vasu (Administrator)",
+          "created_at": "2026-09-14T16:45:00.000Z",
+          "size": "1.8 MB",
+          "notes": "Updated tactical assignments"
+        }
+      ],
+      "access_history": [
+        {
+          "id": "log_rost_1",
+          "action": "DECRYPT_ATTEMPT",
+          "user_name": "Vasu (Lead Engineer)",
+          "timestamp": "2026-11-18T15:27:58.251Z",
+          "status": "DENIED",
+          "details": "Insufficient clearance level"
+        }
+      ],
+      "blockchain_token_id": "NFT-SEPOLIA-#8496",
+      "blockchain_contract": "0xC5388f457D01cdF25B4A29f0A38d65f4e690bC2B",
+      "did": "did:securemax:asset:ast_roster"
+    },
+    {
+      "id": "ast_avionics",
+      "asset_code": "SMX-AVN-007",
+      "name": "Avionics Radar Interface Specs",
+      "classification": "RESTRICTED",
+      "status": "ACTIVE",
+      "description": "Hardware interface diagrams, bus timings, and electronic warfare countermeasure protocols.",
+      "encrypted_content": "LR7IMjTgkGPoT6eosm6QPh0Q6b+hpzyq+FLmt+k9r7XNKECgAHDDDEXrkK5dRqx4GoyfGuSGWrSXXomcOo+OxCR5PPyqVbTXWzyyi24DSdakg6nST3n0bIleGFghkGLriK6Co1MMC5X3P3EKcV50qwpWco53k4yBnu1CLCZnIOc7LmFQBqFKiFKD7wTS/rsBwR0vaJO0T8t3ebz1",
+      "iv": "QMpS6DOySSnTMwym",
+      "auth_tag": "remXmBQ6l8TzLr9YuUhcNg==",
+      "aad": "asset_data:ast_avionics",
+      "folder": "Engineering",
+      "file_type": "PDF",
+      "mime_type": "application/pdf",
+      "file_size_bytes": 5872025,
+      "owner_id": "usr_admin_001",
+      "owner_name": "Vasu (Administrator)",
+      "shared_with_all": false,
+      "default_access_policy": "PRIVATE",
+      "created_at": "2026-09-11T12:00:00.000Z",
+      "last_accessed_at": "2026-11-18T15:12:58.251Z",
+      "key_version": "v2",
+      "versions": [
+        {
+          "version": "v2.0",
+          "uploaded_by": "Vasu (Administrator)",
+          "created_at": "2026-09-11T12:00:00.000Z",
+          "size": "5.6 MB",
+          "notes": "Integrated MIL-STD-1553 specs"
+        }
+      ],
+      "access_history": [
+        {
+          "id": "log_avn_1",
+          "action": "ACCESS_REQUEST",
+          "user_name": "Vasu (Lead Engineer)",
+          "timestamp": "2026-11-18T15:12:58.251Z",
+          "status": "PENDING",
+          "details": "Awaiting Admin NFT Permit"
+        }
+      ],
+      "blockchain_token_id": "NFT-SEPOLIA-#8497",
+      "blockchain_contract": "0xC5388f457D01cdF25B4A29f0A38d65f4e690bC2B",
+      "did": "did:securemax:asset:ast_avionics"
+    },
+    {
       "id": "ast_kms",
       "asset_code": "SMX-ENG-008",
       "name": "KMS Module Microcode v2.4",
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Firmware binaries and zeroization routines for the cryptographic key storage layer.",
-      "encrypted_content": "OhgOfCyVXbPYlFchrggaEUy2dgQohELJbTkuZ3rXXSD7OD2NxEFQV15Qg4UWB06Tx3q9SFrSV9ee0AKxo7srAaZUwwanwkibdhvlslLYmaQiWi5QNVVKqScPn2PMHe+bY2vUoNhZTMLiCtfA9+SjoXInYn0+tzDe0brq4+HHWSiFsc8zLwvPq+lKR6U=",
-      "iv": "rjdtZ9hutllbP461",
-      "auth_tag": "IWo7PG100q1npmTHYQA3BA==",
+      "encrypted_content": "xrgy8Ozv2Am9yv2TM1f4+4Q7WhUFfkoeufAi8UyaBLDY2vThIgFEs0dfrdp0LsNNVZ6+NPNu732A2x2m3cy7eGmYKbhsb9o/fh1LzHgBz2T84x59RnQN4gvbkEeDnv1gS4eZsPD9dGM47QoL/f1/qAFUvwKpa35TwLt3+0+MQZ1iZbGMtVmoa7lLlc4=",
+      "iv": "ah/gqYUA3EpPnsl4",
+      "auth_tag": "JEIiWwC4rmLCxdvnjI9ZmA==",
       "aad": "asset_data:ast_kms",
       "folder": "Engineering",
       "file_type": "ZIP",
@@ -850,7 +787,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-13T15:30:00.000Z",
-      "last_accessed_at": "2026-09-19T03:54:25.207Z",
+      "last_accessed_at": "2026-11-17T15:42:58.251Z",
       "key_version": "v2",
       "versions": [
         {
@@ -866,7 +803,7 @@
           "id": "log_kms_1",
           "action": "ACCESS_EXPIRED",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-09-19T03:54:25.207Z",
+          "timestamp": "2026-11-17T15:42:58.251Z",
           "status": "DENIED",
           "details": "Temporary 24h clearance expired"
         }
@@ -882,9 +819,9 @@
       "classification": "PUBLIC",
       "status": "ACTIVE",
       "description": "Statutory audit compliance certificate confirming adherence to NIST SP 800-207 standards.",
-      "encrypted_content": "t7S99ZmsmR14DWi2MkDgMabFMRxUXtAGqmhkM22GzdkgQEoggWesP+C73NArnDZ8wIzv33I75iP/882xLDL1J+JZ+Bnl187XyKNTXLcEo+TdEDS1DYygR5FGnFNOqNceWuEATilivQeYXn69f6mSiqFgC+lf4/cvlIcaZv9iPsD+yVZ4O9UIO6A2BzpNeFPwS1Y6//79PXuDTUYrVH5+CY1WVjw=",
-      "iv": "OUrO0EQ8R1TQ7P8t",
-      "auth_tag": "4Jwb77WPosj9WT7+vGEP9A==",
+      "encrypted_content": "Zrxon0idGxdTVFncXNvzou0WHw8boV0pyoD79uEMKt8ww6EeY2Y20/gcZ5RWbhauNHFojM/UU2CMckhnNjL0cNe8uv6eit4Q1FV8G/w4KAD/LcwupASBcbYzPdkpWBUxU6NKGkC92RulqlWMpVv0gIDLTFE/ozD++6AoQlheVdujOB8b/k8Sac+uIZgAou4f6fkXgHcoKBDsPZf48w4wQEEpoWg=",
+      "iv": "O90SdBdrCES3pqs3",
+      "auth_tag": "fKOBecHdJXTw3g4pXFdRTw==",
       "aad": "asset_data:ast_compliance",
       "folder": "Legal",
       "file_type": "PDF",
@@ -905,20 +842,10 @@
           "notes": "Annual compliance certification"
         }
       ],
-      "access_history": [
-        {
-          "id": "log_de654761",
-          "action": "DECRYPT",
-          "user_name": "Ritik",
-          "timestamp": "2026-09-20T04:01:04.387Z",
-          "status": "SUCCESS",
-          "details": "Streaming AES-256-GCM decryption started"
-        }
-      ],
+      "access_history": [],
       "blockchain_token_id": "NFT-SEPOLIA-#8499",
       "blockchain_contract": "0xC5388f457D01cdF25B4A29f0A38d65f4e690bC2B",
-      "did": "did:securemax:asset:ast_compliance",
-      "last_accessed_at": "2026-09-20T04:01:04.387Z"
+      "did": "did:securemax:asset:ast_compliance"
     },
     {
       "id": "ast_nda",
@@ -927,9 +854,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Standard nondisclosure agreements and operational security protocols for defense contractors.",
-      "encrypted_content": "t5JgBwwIRSDgrAAQyE2siIAMpztB7YSs5Ycj9WyXAmFzMzk8C/5yVLSWmU5hAu9uJo+EUUcZRkJpgol0CMB0ZGpsj9ShrvA4wiAdNyIe1PkPoMYNXbLhz5Gk8OIhkmXl1b9g0WBrvWg5qlsD3OB8V72niFtXBikYNhFguTC4jy26NiGcMvJGkLMBXuMYrUH6xTtH639s9z04PZUIGhSnP6PB",
-      "iv": "+n8U/C5blHM8R5iX",
-      "auth_tag": "jnAOVazqgUYL1jygGyY3MA==",
+      "encrypted_content": "mA5Jqe/Kk+QhBbIXXTO5/jMu0Jzd3NvVYgc2uW/KE7UJiH4Ai1vq/AEfxtBF9JXmFYYHGDpWRUMrHrEk3aQGB0tqND4FFHUFiuJ5etFvRRV3Qty5uJCFbWcCt/Bb+J8fkk6xi0IfqN6y27V56nes8Z2E8+aAXdPogXopK3XGGkHWSQ3picuIzO3JYmWMFwelNihghq49zjC37WF7J/WzcPSf",
+      "iv": "l90kGLrMXWqfXVv2",
+      "auth_tag": "T1Sc3+LtQ3WdsFgFJLEoyA==",
       "aad": "asset_data:ast_nda",
       "folder": "Legal",
       "file_type": "DOC",
@@ -956,151 +883,175 @@
       "did": "did:securemax:asset:ast_nda"
     },
     {
-      "id": "ast_b30c57c0",
-      "asset_code": "SMX-PRO-467",
-      "name": "Test-Asset-3566.txt",
+      "id": "ast_690b980f",
+      "asset_code": "SMX-PRO-241",
+      "name": "Test-Asset-2760.txt",
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
-      "description": "Uploaded via Secure Data Vault by Root Administrator",
-      "encrypted_content": "8DG99gIXoNOSnJHvLwL8Qf6JqSOFXacLPREf/GDQmUe7Eu8WMivjLlNdkc+8gAAkxXJ2giNyHmxc4rzj0LrzIBabA6m+sg==",
-      "iv": "xvQ3tJFImFFHRVw1",
-      "auth_tag": "OrVlsAcoB+NGkwXWEk9ZJw==",
-      "aad": "asset_data:ast_b30c57c0",
+      "description": "Uploaded via Secure Data Vault by Vasu (Administrator)",
+      "encrypted_content": "T02hqy2ddpGUy2i/Qe79CZ1P7C0GBH9Qo/btKQdiIsoSnq1x0ThxeesecgfFeWRaoaIssbwb08LCO0OkJJ42ojuxQ20VPA==",
+      "iv": "rIrsra5XtO2/MaL6",
+      "auth_tag": "LzuvZ4n2JBaDsex02V3ufQ==",
+      "aad": "asset_data:ast_690b980f",
       "folder": "Projects",
       "file_type": "TXT",
       "mime_type": "text/plain",
       "file_size_bytes": 70,
       "owner_id": "usr_admin_001",
-      "owner_name": "Root Administrator",
+      "owner_name": "Vasu (Administrator)",
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
-      "created_at": "2026-11-18T13:49:24.953Z",
-      "last_accessed_at": "2026-11-18T13:49:27.632Z",
+      "created_at": "2026-11-18T15:43:03.552Z",
+      "last_accessed_at": "2026-11-18T15:43:05.647Z",
       "key_version": "v1",
       "versions": [
         {
           "version": "v1.0",
-          "uploaded_by": "Root Administrator",
-          "created_at": "2026-11-18T13:49:24.953Z",
+          "uploaded_by": "Vasu (Administrator)",
+          "created_at": "2026-11-18T15:43:03.552Z",
           "size": "0.00 MB",
           "notes": "Initial cryptographic commit via Secure Data Vault"
         }
       ],
       "access_history": [
         {
-          "id": "log_a9abefc1",
+          "id": "log_251d1a97",
           "action": "DECRYPT",
-          "user_name": "Root Administrator",
-          "timestamp": "2026-11-18T13:49:27.632Z",
+          "user_name": "Vasu (Administrator)",
+          "timestamp": "2026-11-18T15:43:05.647Z",
           "status": "SUCCESS",
           "details": "Streaming AES-256-GCM decryption started"
         },
         {
-          "id": "log_a090c052",
+          "id": "log_56eae140",
           "action": "UPLOAD_ENCRYPT",
-          "user_name": "Root Administrator",
-          "timestamp": "2026-11-18T13:49:24.953Z",
+          "user_name": "Vasu (Administrator)",
+          "timestamp": "2026-11-18T15:43:03.552Z",
           "status": "SUCCESS",
           "details": "AES-256-GCM Envelope Encryption complete"
         }
       ],
-      "blockchain_token_id": "NFT-SEPOLIA-#9430",
+      "blockchain_token_id": "NFT-SEPOLIA-#8190",
       "blockchain_contract": "0xC5388f457D01cdF25B4A29f0A38d65f4e690bC2B",
-      "did": "did:securemax:asset:ast_b30c57c0"
+      "did": "did:securemax:asset:ast_690b980f"
     }
   ],
   "wrappedDEKs": [
     [
       "ast_alpha",
       {
-        "cipher": "wRnIIjsvHy5hWVkO6HSeneqy7tIFrGGuBLMS7axhcNM=",
-        "iv": "41DhNzLQ8/ILZz3H",
-        "authTag": "d/OUUEWk4AgKHuq8gSSVRw=="
+        "cipher": "qPuGUinlAiJYw0GShSBR3E4zCBZExS3+IE/NNGsIDdY=",
+        "iv": "ZoELhqMyrB8K4iyw",
+        "authTag": "CK1jipSw050gadbe6U//bg=="
+      }
+    ],
+    [
+      "ast_beta",
+      {
+        "cipher": "aal2kTVMIf2B4c+TOUThxaznNJBWECTF1dUXoS872fg=",
+        "iv": "kWRqGzWBhSN14L2w",
+        "authTag": "vtOxmoYv+jWcmFpYvlD3KA=="
+      }
+    ],
+    [
+      "ast_finance",
+      {
+        "cipher": "WrkcytQQam0+l2sjyWXl6XngRl8Fas9OeFlnqdeX4Ek=",
+        "iv": "rTyvbdVmqjn5MZnP",
+        "authTag": "eVP7CgDBZpOFTEkfxzrIhA=="
+      }
+    ],
+    [
+      "ast_procure",
+      {
+        "cipher": "OMCwC5DdTyNc/dY5FwluZDJGL+i+agVNnjjBwnoXpIU=",
+        "iv": "3lifyGevLiWtSRYl",
+        "authTag": "B5FQZcPSSgIZqAMDyoDwDw=="
+      }
+    ],
+    [
+      "ast_hr_policy",
+      {
+        "cipher": "U+IrRDmF4A2i5Jww+wGAa/7+LP04gEMYLnBp8DlafmQ=",
+        "iv": "C7KKWH1gpY0B4bEQ",
+        "authTag": "Niw7cOxu9kDS30TJpawAUw=="
+      }
+    ],
+    [
+      "ast_roster",
+      {
+        "cipher": "tQCr8B/h6QrsDNbMt4dzE+SjFVN8dypFsdXKIAmHRYQ=",
+        "iv": "/f49aPgfvZ4G2UNc",
+        "authTag": "nUy0vcMB/fP6LuEY8O4QAw=="
+      }
+    ],
+    [
+      "ast_avionics",
+      {
+        "cipher": "YpbXLDi1hrYHRsGJgfzmGb23Ed8XogdzGeK3qmTWVls=",
+        "iv": "Sedpfc4dfKw3Mr4W",
+        "authTag": "s9y8FOgLCMwmzv3p+1YA5g=="
       }
     ],
     [
       "ast_kms",
       {
-        "cipher": "yIG2HzSMNLKiB4UPG7AKP+ehsDwYSopPiyMXiG8syz8=",
-        "iv": "T7DTAfUEESwprE7G",
-        "authTag": "oMVQuywvCYSxRYChxApuHQ=="
+        "cipher": "9mfoNlTgpIXB9c80Y78Jd7d5mNVw1OpODkTEpka2Xbk=",
+        "iv": "jK5JZ7YXkGdjdKlT",
+        "authTag": "EhPC4JF+KaQF5WYO9kyaCQ=="
       }
     ],
     [
       "ast_compliance",
       {
-        "cipher": "exLwbwfB9GIx9VOcx0+5IfoY4A/Pr1/U3MFSOK+URX0=",
-        "iv": "/HwXgTxCRmHM89lK",
-        "authTag": "AyNvhXhZkZA4Q/OnQ+y6Jg=="
+        "cipher": "SqV3zHE/9kQVJUPbIAnXhvA3yvBvGB6BJsKepWXsYQg=",
+        "iv": "onJnuZ3da+tL3nmA",
+        "authTag": "EoE40p/uRFK+HWt1H4ooXQ=="
       }
     ],
     [
       "ast_nda",
       {
-        "cipher": "gFkJ7nEZnypnN24Hq6FBtt3CWsOkYFq7lzpHKsTRw/Q=",
-        "iv": "DmZROeP5NE6hnTqA",
-        "authTag": "Wi1AnoLHCkwWqxrQW8rOLw=="
+        "cipher": "yjgWJwb0+FLcO6xtDlB8FBYtpr2BEMAbC3B1B6Q0OyA=",
+        "iv": "3RjxzI0H9XAb+ln1",
+        "authTag": "YXbXhVNpqjA185KdqFynTw=="
       }
     ],
     [
-      "ast_b30c57c0",
+      "ast_690b980f",
       {
-        "cipher": "1rACRjoJDo+EvaB5CPN3+oMJ9R2hRyrf2DoZZi/p4MM=",
-        "iv": "6eEQxPPOcjAKBQBD",
-        "authTag": "rTnwuVGSFORjcerfaYQjGQ=="
+        "cipher": "ccCNdzlmvncnSqYscoJ/QHbC/IA8GSzCm0TvniumSCM=",
+        "iv": "imhSmoy7Ral3DuGK",
+        "authTag": "Y2hj80DhVhmcYZYbK65RVg=="
       }
     ]
   ],
   "assignments": [
     {
-      "asset_id": "ast_fe824b8b",
-      "user_id": "usr_admin_001",
+      "asset_id": "vault_payload_99",
+      "user_id": "usr_bb80b173",
       "can_read": true,
       "can_decrypt": true,
       "can_download": true,
       "can_edit": false,
       "can_delete": false,
       "status": "ACTIVE",
-      "assigned_at": "2026-09-19T23:01:39.548Z",
+      "assigned_at": "2026-11-18T15:40:59.780Z",
       "expires_at": null
     },
     {
-      "asset_id": "ast_7050a002",
-      "user_id": "usr_admin_001",
+      "asset_id": "asset-456",
+      "user_id": "user-123",
       "can_read": true,
       "can_decrypt": true,
       "can_download": true,
       "can_edit": false,
       "can_delete": false,
       "status": "ACTIVE",
-      "assigned_at": "2026-09-20T02:28:34.847Z",
-      "expires_at": null
-    },
-    {
-      "asset_id": "ast_7050a002",
-      "user_id": "ALL",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-19T23:23:57.816Z",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
       "expires_at": null,
-      "shared_by": "Vasu (Administrator)",
-      "shared_with_name": "All People (Organization-Wide)"
-    },
-    {
-      "asset_id": "ast_7050a002",
-      "user_id": "usr_d63e8d15",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-20T00:17:09.343Z",
-      "expires_at": null
+      "shared_by": "Administrator",
+      "shared_with_name": "Test Integration User"
     },
     {
       "asset_id": "ast_hr_policy",
@@ -1182,7 +1133,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-09-27T03:54:25.723Z",
+      "expires_at": "2026-11-25T15:42:58.347Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1238,7 +1189,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-09-19T03:54:25.723Z",
+      "expires_at": "2026-11-17T15:42:58.347Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1411,7 +1362,7 @@
       "shared_with_name": "Vasu (Administrator)"
     },
     {
-      "asset_id": "ast_c11581cb",
+      "asset_id": "ast_690b980f",
       "user_id": "usr_admin_001",
       "can_read": true,
       "can_decrypt": true,
@@ -1419,277 +1370,194 @@
       "can_edit": true,
       "can_delete": true,
       "status": "ACTIVE",
-      "assigned_at": "2026-09-19T19:50:40.504Z",
+      "assigned_at": "2026-11-18T15:43:03.552Z",
       "expires_at": null,
       "shared_by": "Self (Owner)",
       "shared_with_name": "Vasu (Administrator)"
     },
     {
-      "asset_id": "ast_99e666bd",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-19T19:51:05.234Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_51fc0601",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-19T19:56:46.053Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "sandbox-asset-8ece8cd6-5e09-47e8-9d1e-4fbe285c0992",
-      "user_id": "sandbox-user-a2393564-cb24-4781-a13b-6e35d1724e06",
+      "asset_id": "sandbox-asset-11894a2e-9567-4951-8cbe-26ace2d7fd9a",
+      "user_id": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
       "can_read": true,
       "can_decrypt": false,
       "can_download": false,
       "can_edit": false,
       "can_delete": false,
       "status": "REVOKED",
-      "assigned_at": "2026-10-21T10:30:32.110Z",
+      "assigned_at": "2026-11-18T15:43:03.660Z",
       "expires_at": null
-    },
-    {
-      "asset_id": "sandbox-asset-8e3ff752-41b3-4dda-b44e-4a614cc050b2",
-      "user_id": "sandbox-user-bde72ac0-a3e4-4eb3-86c3-4d8b60678854",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "REVOKED",
-      "assigned_at": "2026-10-21T10:39:03.599Z",
-      "expires_at": null
-    },
-    {
-      "asset_id": "sandbox-asset-d5ec74b3-3477-4699-ba34-dd8498fb7f31",
-      "user_id": "sandbox-user-14b5e162-fe3b-4c7c-a92e-dfccf88cf128",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "REVOKED",
-      "assigned_at": "2026-10-21T13:46:41.288Z",
-      "expires_at": null
-    },
-    {
-      "asset_id": "sandbox-asset-59d2e9d2-e83d-4e0d-aa7f-f82850633dfd",
-      "user_id": "sandbox-user-54f68c28-e6eb-4471-8ce8-69a0405a7275",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "REVOKED",
-      "assigned_at": "2026-10-21T13:48:57.552Z",
-      "expires_at": null
-    },
-    {
-      "asset_id": "ast_4df046b5",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-10-21T13:49:03.209Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "sandbox-asset-e571f71a-898b-47bf-9991-bfb02c28930d",
-      "user_id": "sandbox-user-0d2da51b-3e93-45a0-a879-8ba899c22dc2",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "REVOKED",
-      "assigned_at": "2026-10-21T13:52:56.824Z",
-      "expires_at": null
-    },
-    {
-      "asset_id": "ast_066eef48",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-10-21T13:53:01.447Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "sandbox-asset-03c9338d-40d5-4cf5-8d91-42944ac9e3ab",
-      "user_id": "sandbox-user-d4c4eb17-7b86-4836-a1d5-bf1ab6077758",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "REVOKED",
-      "assigned_at": "2026-10-21T13:55:06.884Z",
-      "expires_at": null
-    },
-    {
-      "asset_id": "ast_9b1cb74d",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-10-21T13:55:12.209Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "sandbox-asset-e9ae8621-061a-4c9e-b645-0a332e5db62d",
-      "user_id": "sandbox-user-0df72622-9b3d-4db7-b000-ab41f3139624",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "REVOKED",
-      "assigned_at": "2026-10-21T13:58:54.290Z",
-      "expires_at": null
-    },
-    {
-      "asset_id": "ast_817d3848",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-10-21T13:58:58.732Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "sandbox-asset-8db7b09e-7751-486c-b8da-112d0ecd0044",
-      "user_id": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "REVOKED",
-      "assigned_at": "2026-11-18T13:49:24.631Z",
-      "expires_at": null
-    },
-    {
-      "asset_id": "ast_b30c57c0",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-11-18T13:49:24.953Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Root Administrator"
     }
   ],
   "accessRequests": [
     {
-      "id": "req_006e6a7c",
-      "user_id": "usr_admin_001",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Vasu (Administrator)",
-      "role": "ADMIN",
-      "request_type": "ASSET_ACCESS",
-      "asset_id": "ast_7050a002",
-      "asset_code": "SMX-PRO-224",
-      "asset_name": "ChatGPT Image Sep 19, 2026, 04_07_00 PM.png",
-      "reason": "Security review and operational maintenance",
+      "id": "req_3807b3cb",
+      "user_id": "usr_bb80b173",
+      "user_email": "sunita@cyber.mil",
+      "user_name": "Dr. Sunita",
+      "role": "MANAGER",
+      "request_type": "HIGH_RISK_DATA",
+      "asset_id": "vault_payload_99",
+      "asset_code": "SMX-AUDIT-ROOT",
+      "asset_name": "System Audit Ledger",
+      "reason": "Cryptographic key audit",
       "status": "APPROVED",
-      "created_at": "2026-09-20T02:27:36.910Z",
+      "created_at": "2026-11-18T15:40:59.780Z",
+      "approved_at": "2026-11-18T15:40:59.780Z",
       "ttl_minutes": 30,
-      "approved_at": "2026-09-20T02:28:34.847Z",
-      "nft_token_id": "NFT-SEPOLIA-#8636",
+      "nft_token_id": "NFT-SEPOLIA-#3094",
       "liveGrant": {
-        "id": "grant-ffad3378",
-        "user": "Vasu (Administrator)",
-        "userId": "usr_admin_001",
-        "assetCode": "SMX-PRO-224",
-        "assetName": "ChatGPT Image Sep 19, 2026, 04_07_00 PM.png",
-        "sessionId": "5f6a623c",
-        "ip": "10.42.7.84",
+        "id": "grant-6e9284d4",
+        "user": "Dr. Sunita",
+        "userId": "usr_bb80b173",
+        "assetCode": "SMX-AUDIT-ROOT",
+        "assetName": "System Audit Ledger",
+        "sessionId": "ddcf860f",
+        "ip": "10.42.7.64",
         "device": "known device",
-        "expiresAt": "2026-09-20T02:58:34.873Z",
+        "expiresAt": "2026-11-18T16:10:59.781Z",
         "remainingSeconds": 1800,
         "status": "ACTIVE",
-        "createdAt": "2026-09-20T02:28:34.873Z"
+        "createdAt": "2026-11-18T15:40:59.781Z"
       }
     },
     {
-      "id": "req_69f4c611",
-      "user_id": "usr_d63e8d15",
-      "user_email": "vs@gmail.com",
-      "user_name": "vs",
-      "role": "AUDITOR",
+      "id": "req-1",
+      "user_id": "usr_arjun_006",
+      "user_email": "arjun.verma@securemax.mil",
+      "user_name": "Arjun Verma",
+      "role": "ENGINEER",
       "request_type": "ASSET_ACCESS",
-      "asset_id": "ast_7050a002",
-      "asset_code": "SMX-PRO-224",
-      "asset_name": "ChatGPT Image Sep 19, 2026, 04_07_00 PM.png",
-      "reason": "Security review and operational maintenance",
-      "status": "APPROVED",
-      "created_at": "2026-09-19T23:40:36.428Z",
-      "approved_at": "2026-09-20T00:17:09.343Z",
+      "asset_id": "ast_fin_002",
+      "asset_code": "SMX-FIN-002",
+      "asset_name": "Substation 4 Vendor Invoices",
+      "reason": "reconcile vendor invoices for Substation 4 works",
+      "status": "PENDING",
       "ttl_minutes": 30,
-      "nft_token_id": "NFT-SEPOLIA-#6371",
-      "rejected_at": "2026-09-20T00:17:04.692Z",
-      "rejected_reason": "Security policy restriction"
+      "created_at": "2026-11-18T15:17:58.347Z"
+    },
+    {
+      "id": "req-2",
+      "user_id": "usr_neha_008",
+      "user_email": "neha.iyer@securemax.mil",
+      "user_name": "Neha Iyer",
+      "role": "AUDITOR",
+      "request_type": "HIGH_RISK_DATA",
+      "asset_id": "ast_hr_policy",
+      "asset_code": "SMX-HR-001",
+      "asset_name": "Statutory PF Audit Records",
+      "reason": "statutory PF audit sample check",
+      "status": "PENDING",
+      "ttl_minutes": 15,
+      "created_at": "2026-11-18T15:34:58.347Z"
+    },
+    {
+      "id": "req_001",
+      "user_id": "usr_vasu_002",
+      "user_email": "vasu@securemax.mil",
+      "user_name": "Vasu (Lead Engineer)",
+      "role": "USER",
+      "request_type": "HIGH_RISK_DATA",
+      "asset_id": "ast_avionics",
+      "asset_code": "SMX-AVN-003",
+      "asset_name": "Avionics Radar Interface Specs",
+      "reason": "Tactical comms integration review on authorized workstation",
+      "status": "PENDING",
+      "ttl_minutes": 30,
+      "created_at": "2026-11-18T15:12:58.347Z"
+    },
+    {
+      "id": "req_002",
+      "user_id": "usr_vasu_002",
+      "user_email": "vasu@securemax.mil",
+      "user_name": "Vasu (Lead Engineer)",
+      "role": "USER",
+      "request_type": "ASSET_ACCESS",
+      "asset_id": "ast_patent",
+      "asset_code": "SMX-AST-000134",
+      "asset_name": "Patent Filing NDAs & Claims.pdf",
+      "reason": "Dual-chain patent claims review for upcoming intellectual property filing",
+      "status": "PENDING",
+      "ttl_minutes": 20,
+      "created_at": "2026-11-18T14:57:58.347Z"
+    },
+    {
+      "id": "req_003",
+      "user_id": "usr_auditor_003",
+      "user_email": "auditor@securemax.mil",
+      "user_name": "Neha Kapoor",
+      "role": "AUDITOR",
+      "request_type": "AUDIT_UPDATE",
+      "asset_id": "ast_finance",
+      "asset_code": "SMX-AUDIT-Q3",
+      "asset_name": "Financial Ledger & Statutory Audit Records",
+      "reason": "Compliance review & permanent blockchain anchor verification",
+      "status": "PENDING",
+      "ttl_minutes": 60,
+      "created_at": "2026-11-18T14:52:58.347Z"
     }
   ],
   "liveGrants": [
     {
-      "id": "grant-ffad3378",
-      "user": "Vasu (Administrator)",
-      "userId": "usr_admin_001",
-      "assetCode": "SMX-PRO-224",
-      "assetName": "ChatGPT Image Sep 19, 2026, 04_07_00 PM.png",
-      "sessionId": "5f6a623c",
-      "ip": "10.42.7.84",
+      "id": "grant-6e9284d4",
+      "user": "Dr. Sunita",
+      "userId": "usr_bb80b173",
+      "assetCode": "SMX-AUDIT-ROOT",
+      "assetName": "System Audit Ledger",
+      "sessionId": "ddcf860f",
+      "ip": "10.42.7.64",
       "device": "known device",
-      "expiresAt": "2026-09-20T02:58:34.873Z",
+      "expiresAt": "2026-11-18T16:10:59.781Z",
       "remainingSeconds": 1800,
       "status": "ACTIVE",
-      "createdAt": "2026-09-20T02:28:34.873Z"
+      "createdAt": "2026-11-18T15:40:59.781Z"
+    },
+    {
+      "id": "grant-136171a0",
+      "user": "Officer Rajiv",
+      "userId": "usr_271712e0",
+      "assetCode": "SMX-AUDIT-ROOT",
+      "assetName": "System Audit Ledger",
+      "sessionId": "8c3a4a5c",
+      "ip": "10.42.7.131",
+      "device": "known device",
+      "expiresAt": "2026-11-18T16:10:59.764Z",
+      "remainingSeconds": 1800,
+      "status": "ACTIVE",
+      "createdAt": "2026-11-18T15:40:59.764Z"
+    },
+    {
+      "id": "grant-1",
+      "user": "Arjun Verma",
+      "userId": "usr_arjun_006",
+      "assetCode": "SMX-ENG-003",
+      "assetName": "Substation 4 SIPROTEC relay configuration",
+      "sessionId": "1bb04bec",
+      "ip": "10.42.7.19",
+      "device": "known device",
+      "expiresAt": "2026-11-18T16:04:12.347Z",
+      "remainingSeconds": 1274,
+      "status": "ACTIVE",
+      "createdAt": "2026-11-18T15:34:12.347Z"
+    },
+    {
+      "id": "grant-2",
+      "user": "Riya Sharma",
+      "userId": "usr_riya_007",
+      "assetCode": "SMX-HR-001",
+      "assetName": "HR Statutory Master",
+      "sessionId": "7a29f041",
+      "ip": "10.42.5.88",
+      "device": "corporate device",
+      "expiresAt": "2026-11-18T15:22:58.347Z",
+      "remainingSeconds": 0,
+      "status": "IDLE",
+      "note": "key v2 · rotated 20 min ago",
+      "createdAt": "2026-11-18T14:52:58.347Z"
     }
   ],
   "auditEvents": [
     {
-      "id": "aud_8d61a5ba",
+      "id": "aud_e8b878fd",
       "event_type": "USER_LOGIN_SUCCESS",
       "description": "Neha Kapoor (AUDITOR) logged in via Audit Secure Terminal [127.0.0.1]",
       "target_id": "usr_auditor_003",
@@ -1697,90 +1565,77 @@
       "user_email": "auditor@securemax.mil",
       "user_name": "Neha Kapoor",
       "severity": "INFO",
-      "event_hash": "0x175773c04eb025b8d8700a44469bc6e9f7a1d6ec3f890c2fb992075d7cfd9f0b",
-      "block_number": 6849568,
-      "created_at": "2026-11-18T13:49:29.164Z"
+      "event_hash": "0x8d5cfb9b8a6211df5e6482f3e451cb55e0ea571529fb8e9962a6b5b884196679",
+      "block_number": 6849241,
+      "created_at": "2026-11-18T15:43:06.855Z"
     },
     {
-      "id": "aud_a7c2b547",
+      "id": "aud_a0f6ba89",
       "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Root Administrator (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
+      "description": "Vasu (Administrator) (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
       "target_id": "usr_admin_001",
       "target": "usr_admin_001",
       "user_email": "admin@securemax.mil",
-      "user_name": "Root Administrator",
+      "user_name": "Vasu (Administrator)",
       "severity": "INFO",
-      "event_hash": "0x0443eec9bf27381c7b803da39eb5c69d5433b391cef047206c863c49d5532210",
-      "block_number": 6849520,
-      "created_at": "2026-11-18T13:49:29.162Z"
+      "event_hash": "0x4efd7e562c5986606699494f1e8965f07996454b0c18030c11be50ff2b453133",
+      "block_number": 6849527,
+      "created_at": "2026-11-18T15:43:05.959Z"
     },
     {
-      "id": "aud_a24fb745",
+      "id": "aud_598dd9d3",
       "event_type": "USER_IDENTITY_REGISTERED",
-      "description": "Admin registered new identity: Officer Vikram 2069 (User). DID: did:securemax:user:7f30e0",
-      "target_id": "usr_a87f30e0",
-      "target": "usr_a87f30e0",
-      "user_email": "vikram_2069@securemax.mil",
-      "user_name": "Officer Vikram 2069",
+      "description": "Admin registered new identity: Officer Vikram 1447 (User). DID: did:securemax:user:fe9404",
+      "target_id": "usr_c1fe9404",
+      "target": "usr_c1fe9404",
+      "user_email": "vikram_1447@securemax.mil",
+      "user_name": "Officer Vikram 1447",
       "severity": "INFO",
-      "event_hash": "0x5953883910d0b3e995d9be301ac4803ff00d41574526df5e72c4ed52ec8f6188",
-      "block_number": 6849225,
-      "created_at": "2026-11-18T13:49:28.015Z"
+      "event_hash": "0x5e16faadb3b8c3a80614e93b901dc49adea8fcd15150c36b230db57c485f7d62",
+      "block_number": 6849552,
+      "created_at": "2026-11-18T15:43:05.726Z"
     },
     {
-      "id": "aud_d7ef2f86",
+      "id": "aud_f5bd35d8",
       "event_type": "TEMPORARY_KEY_AUTHORIZED",
-      "description": "Audit Event: TEMPORARY_KEY_AUTHORIZED on ASSET:ast_b30c57c0",
-      "target_id": "ast_b30c57c0",
-      "target": "ast_b30c57c0",
+      "description": "Audit Event: TEMPORARY_KEY_AUTHORIZED on ASSET:ast_690b980f",
+      "target_id": "ast_690b980f",
+      "target": "ast_690b980f",
       "severity": "INFO",
-      "event_hash": "0x28e3af5f3a1b32aacf2f21b177da6360b13b37c98b506df357c22f6680c55eaa",
-      "block_number": 6849473,
-      "created_at": "2026-11-18T13:49:27.619Z"
+      "event_hash": "0x4278cbd1736d9a8b91f2c7fae1bc3193cb83bae2ab30a274b64d6746f27714fe",
+      "block_number": 6849315,
+      "created_at": "2026-11-18T15:43:05.635Z"
     },
     {
-      "id": "aud_5fd40d58",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Root Administrator (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
-      "target_id": "usr_admin_001",
-      "target": "usr_admin_001",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Root Administrator",
-      "severity": "INFO",
-      "event_hash": "0x1cdab429a923e5857c63740e560fd9217cfcd434767a9274554849c437688aa2",
-      "block_number": 6849596,
-      "created_at": "2026-11-18T13:49:25.299Z"
-    },
-    {
-      "id": "aud_6628dcd9",
+      "id": "aud_06f264e2",
       "event_type": "ADMIN_PANIC_LOCK_ACTIVATED",
-      "description": "CRITICAL: Administrator account Sandbox Admin (sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3) has been panic locked. All sessions revoked and device suspended. Emergency recovery ceremony required.",
-      "target_id": "sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3",
-      "target": "sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3",
+      "description": "CRITICAL: Administrator account Sandbox Admin (sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c) has been panic locked. All sessions revoked and device suspended. Emergency recovery ceremony required.",
+      "target_id": "sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c",
+      "target": "sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c",
       "performed_by": "Sentinel S-27 Verification",
       "severity": "CRITICAL",
-      "event_hash": "0xb525a3abfd4e89ab424ff937bc34e091249be58de7be0778b4a2ea7f3eadeba2",
-      "block_number": 6849510,
-      "created_at": "2026-11-18T13:49:24.962Z"
+      "event_hash": "0x687528b1f06a32ecbb350a6f1ae5f565f6358f27eea6fb21b1b9a792eba54786",
+      "block_number": 6849331,
+      "created_at": "2026-11-18T15:43:03.956Z"
     },
     {
-      "id": "aud_056d84a8",
+      "id": "aud_b1dbb8aa",
       "event_type": "ALL_SESSIONS_REVOKED",
-      "description": "All active sessions revoked for user sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3",
-      "target_id": "sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3",
-      "target": "sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3",
+      "description": "All active sessions revoked for user sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c",
+      "target_id": "sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c",
+      "target": "sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c",
       "performed_by": "Sentinel S-27 Verification",
       "severity": "WARNING",
-      "event_hash": "0x82d10f14e4ba216b54c382567f9e941ceacf4d0cefffdbb659f71ea5b93de98b",
-      "block_number": 6849398,
-      "created_at": "2026-11-18T13:49:24.961Z"
+      "event_hash": "0xa5981207e699a98c4896c64e2305f8d4d4348016dffee18a4602e5e9da03089f",
+      "block_number": 6849234,
+      "created_at": "2026-11-18T15:43:03.955Z"
     },
     {
-      "id": "aud_eb40c844",
+      "id": "aud_c0c8a6ca",
       "event_type": "DEVICE_ENROLLMENT_CREATED",
       "description": "Temporary 15-minute device enrollment capability issued for Sandbox User (USER)",
-      "target_id": "enr_244d7256",
-      "target": "enr_244d7256",
+      "target_id": "enr_2af4bd5b",
+      "target": "enr_2af4bd5b",
       "before": null,
       "after": {
         "position": "USER",
@@ -1788,42 +1643,43 @@
         "max_devices": 1
       },
       "performed_by": "Sandbox User",
-      "user_email": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad@defense.gov",
+      "user_email": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035@defense.gov",
       "user_name": "Sandbox User",
       "severity": "INFO",
-      "event_hash": "0x90f814fae86f71f28adc1e67fe0d2ba6061b20eab11173632fc295ec324ec5ba",
-      "block_number": 6849474,
-      "created_at": "2026-11-18T13:49:24.959Z"
+      "event_hash": "0xead7e8b1600eb34f653793c1c9dd7cd992c319f6e77a495daeaebd2b5238b173",
+      "block_number": 6849356,
+      "created_at": "2026-11-18T15:43:03.952Z"
     },
     {
-      "id": "aud_1cd2bab8",
-      "event_type": "ASSET_ENCRYPTED_AND_STORED",
-      "description": "Asset registered and encrypted with AES-256-GCM: Test-Asset-3566.txt (SMX-PRO-467) [Scope: PRIVATE]",
-      "target_id": "ast_b30c57c0",
-      "target": "ast_b30c57c0",
-      "user_name": "Root Administrator",
+      "id": "aud_d6456954",
+      "event_type": "USER_LOGIN_SUCCESS",
+      "description": "Vasu (Administrator) (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
+      "target_id": "usr_admin_001",
+      "target": "usr_admin_001",
+      "user_email": "admin@securemax.mil",
+      "user_name": "Vasu (Administrator)",
       "severity": "INFO",
-      "event_hash": "0xfc9fe28d4cb4536d9864ef3edbb7e5ecf46114082bed7ba7e5b0bc321040f58e",
-      "block_number": 6849434,
-      "created_at": "2026-11-18T13:49:24.953Z"
+      "event_hash": "0x1ef1598c16c83a8989ae42d5748268ba9be9e7521abca13e98ced3a6f6992c9d",
+      "block_number": 6849498,
+      "created_at": "2026-11-18T15:43:03.833Z"
     },
     {
-      "id": "aud_06bafb48",
+      "id": "aud_87bc88bf",
       "event_type": "ROLE_REVOKED",
-      "description": "Audit Event: ROLE_REVOKED on USER_ASSET:sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
-      "target_id": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
-      "target": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
+      "description": "Audit Event: ROLE_REVOKED on USER_ASSET:sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
+      "target_id": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
+      "target": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
       "severity": "INFO",
-      "event_hash": "0xb4cb5f7ad5957aa926cc85cf6ba41af549c4f4b1d04ec3c4db9b49d8dd823460",
-      "block_number": 6849612,
-      "created_at": "2026-11-18T13:49:24.633Z"
+      "event_hash": "0xa733a7d77cda44c3f3c75c8c41e7ff0b8de52ae9ace925d2d7b5b33750f7a5a8",
+      "block_number": 6849509,
+      "created_at": "2026-11-18T15:43:03.663Z"
     },
     {
-      "id": "aud_e9237206",
+      "id": "aud_de01e653",
       "event_type": "PERMISSION_CHANGED",
-      "description": "Cryptographic access revoked for asset sandbox-asset-8db7b09e-7751-486c-b8da-112d0ecd0044 (user: sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad).",
-      "target_id": "sandbox-asset-8db7b09e-7751-486c-b8da-112d0ecd0044",
-      "target": "sandbox-asset-8db7b09e-7751-486c-b8da-112d0ecd0044",
+      "description": "Cryptographic access revoked for asset sandbox-asset-11894a2e-9567-4951-8cbe-26ace2d7fd9a (user: sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035).",
+      "target_id": "sandbox-asset-11894a2e-9567-4951-8cbe-26ace2d7fd9a",
+      "target": "sandbox-asset-11894a2e-9567-4951-8cbe-26ace2d7fd9a",
       "before": [
         "READ",
         "DECRYPT"
@@ -1833,184 +1689,31 @@
       ],
       "performed_by": "Administrator",
       "severity": "WARNING",
-      "event_hash": "0x621b765811014fd880cc7cef7d9d026d423cd0b893820363574a63f9b644eb76",
-      "block_number": 6849503,
-      "created_at": "2026-11-18T13:49:24.631Z"
+      "event_hash": "0xf127b3beb59a3281439668226c8d62f2fd6fac1e521a36817f17e818b450f36f",
+      "block_number": 6849581,
+      "created_at": "2026-11-18T15:43:03.660Z"
     },
     {
-      "id": "aud_98ebf686",
+      "id": "aud_eefb3e62",
+      "event_type": "ASSET_ENCRYPTED_AND_STORED",
+      "description": "Asset registered and encrypted with AES-256-GCM: Test-Asset-2760.txt (SMX-PRO-241) [Scope: PRIVATE]",
+      "target_id": "ast_690b980f",
+      "target": "ast_690b980f",
+      "user_name": "Vasu (Administrator)",
+      "severity": "INFO",
+      "event_hash": "0xe1e67c8fd0bfce8b39493a2698981ebda73278506a8bd08b047cdb55c26ba0c5",
+      "block_number": 6849385,
+      "created_at": "2026-11-18T15:43:03.552Z"
+    },
+    {
+      "id": "aud_09c2870e",
       "event_type": "POSITION_CREATED",
-      "description": "New position created: SecOps Specialist 3102 [Level: STANDARD] by Root Administrator",
-      "target_id": "pos_ac4f0b65",
-      "target": "pos_ac4f0b65",
+      "description": "New position created: SecOps Specialist 2319 [Level: STANDARD] by Vasu (Administrator)",
+      "target_id": "pos_db128c6c",
+      "target": "pos_db128c6c",
       "before": null,
       "after": {
-        "name": "SecOps Specialist 3102",
-        "privilege_level": "STANDARD",
-        "permissions": {
-          "identity": {
-            "register": false,
-            "suspend": false,
-            "revoke": false
-          },
-          "users": {
-            "create": false,
-            "suspend": false
-          },
-          "assets": {
-            "view": true,
-            "allocate": false,
-            "transfer": false,
-            "delete": false
-          },
-          "access": {
-            "approve": false,
-            "revoke": false
-          },
-          "audit": {
-            "view": false,
-            "export": false
-          },
-          "security": {
-            "view_alerts": false,
-            "manage_devices": false
-          }
-        }
-      },
-      "performed_by": "Root Administrator",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Root Administrator",
-      "severity": "INFO",
-      "event_hash": "0xbda865c3c1ec6ab2bf8dc67881491147f226f422485579e0e9edaae03ec811b9",
-      "block_number": 6849448,
-      "created_at": "2026-11-18T13:49:24.628Z"
-    },
-    {
-      "id": "aud_b1862252",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Root Administrator (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
-      "target_id": "usr_admin_001",
-      "target": "usr_admin_001",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Root Administrator",
-      "severity": "INFO",
-      "event_hash": "0xd8cf8db12049270aa60e79414c6c35d08dec86200f274a3cdc492e25887ffdd8",
-      "block_number": 6849218,
-      "created_at": "2026-11-18T13:49:22.840Z"
-    },
-    {
-      "id": "aud_eb3cea82",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Root Administrator (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
-      "target_id": "usr_admin_001",
-      "target": "usr_admin_001",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Root Administrator",
-      "severity": "INFO",
-      "event_hash": "0x2919733863267cb0c9729db174bd7fd9654df0a8f79f5259efae1b6e771c9e39",
-      "block_number": 6849598,
-      "created_at": "2026-11-18T13:49:20.917Z"
-    },
-    {
-      "id": "aud_0ebaaab2",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Root Administrator (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
-      "target_id": "usr_admin_001",
-      "target": "usr_admin_001",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Root Administrator",
-      "severity": "INFO",
-      "event_hash": "0xaf655cc58a46a8bac8ad5413cb27dd8871bfea519eba408073c5b27b2c28a9a6",
-      "block_number": 6849607,
-      "created_at": "2026-11-18T13:49:20.915Z"
-    },
-    {
-      "id": "aud_3da4514f",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Root Administrator (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
-      "target_id": "usr_admin_001",
-      "target": "usr_admin_001",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Root Administrator",
-      "severity": "INFO",
-      "event_hash": "0x38e6c927ee361a3a2ebee27a0ec3d4cf74388a057b888ecaf5c82af597d335b4",
-      "block_number": 6849351,
-      "created_at": "2026-11-18T13:49:19.038Z"
-    },
-    {
-      "id": "aud_6698805c",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Vasu (Lead Engineer) (USER) logged in via Vasu — Primary MacBook [127.0.0.1]",
-      "target_id": "usr_vasu_002",
-      "target": "usr_vasu_002",
-      "user_email": "vasu@securemax.mil",
-      "user_name": "Vasu (Lead Engineer)",
-      "severity": "INFO",
-      "event_hash": "0x194d9eabca402b20fd93730a3b61ff435e11bc0af88ccd371c2136c984ab4f02",
-      "block_number": 6849691,
-      "created_at": "2026-11-18T13:49:19.035Z"
-    },
-    {
-      "id": "aud_4233f068",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Neha Kapoor (AUDITOR) logged in via Audit Secure Terminal [127.0.0.1]",
-      "target_id": "usr_auditor_003",
-      "target": "usr_auditor_003",
-      "user_email": "auditor@securemax.mil",
-      "user_name": "Neha Kapoor",
-      "severity": "INFO",
-      "event_hash": "0x4ed45a9353b01785cf8274177902e01c44cf2ebfe550db92e36b8511003e45c0",
-      "block_number": 6849610,
-      "created_at": "2026-10-21T13:59:06.337Z"
-    },
-    {
-      "id": "aud_5b011a83",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Vasu (Administrator) (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
-      "target_id": "usr_admin_001",
-      "target": "usr_admin_001",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Vasu (Administrator)",
-      "severity": "INFO",
-      "event_hash": "0x642340f46fa6b0592d2e3f9e5215d3be6a7af8da8d1b7044f4e0b78f3c3fced8",
-      "block_number": 6849302,
-      "created_at": "2026-10-21T13:59:04.998Z"
-    },
-    {
-      "id": "aud_75677ec6",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Vasu (Administrator) (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
-      "target_id": "usr_admin_001",
-      "target": "usr_admin_001",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Vasu (Administrator)",
-      "severity": "INFO",
-      "event_hash": "0x65debf61fc48d361b622e6c658bca55cf6c3997ce67f80823b4e6fc0363d18de",
-      "block_number": 6849562,
-      "created_at": "2026-10-21T13:59:03.072Z"
-    },
-    {
-      "id": "aud_2648752a",
-      "event_type": "USER_LOGIN_SUCCESS",
-      "description": "Vasu (Administrator) (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
-      "target_id": "usr_admin_001",
-      "target": "usr_admin_001",
-      "user_email": "admin@securemax.mil",
-      "user_name": "Vasu (Administrator)",
-      "severity": "INFO",
-      "event_hash": "0xf7a1e82a9046f6ea311c29bf1bb0c40f1143983072cc2193b027eb299233429f",
-      "block_number": 6849446,
-      "created_at": "2026-10-21T13:59:02.008Z"
-    },
-    {
-      "id": "aud_db8302ad",
-      "event_type": "POSITION_CREATED",
-      "description": "New position created: SecOps Specialist 1095 [Level: STANDARD] by Vasu (Administrator)",
-      "target_id": "pos_dd1c1ef1",
-      "target": "pos_dd1c1ef1",
-      "before": null,
-      "after": {
-        "name": "SecOps Specialist 1095",
+        "name": "SecOps Specialist 2319",
         "privilege_level": "STANDARD",
         "permissions": {
           "identity": {
@@ -2046,12 +1749,12 @@
       "user_email": "admin@securemax.mil",
       "user_name": "Vasu (Administrator)",
       "severity": "INFO",
-      "event_hash": "0x3f597bf45d4f6cc3fddc714a1bf8da3f3887351d783f8990c563f692f956189a",
-      "block_number": 6849695,
-      "created_at": "2026-10-21T13:59:01.466Z"
+      "event_hash": "0xb5f48e5b23e3a286798af8c77a38bef1603239e8a2c0f93425f99fd5d73531c4",
+      "block_number": 6849436,
+      "created_at": "2026-11-18T15:43:03.498Z"
     },
     {
-      "id": "aud_e824050b",
+      "id": "aud_ec38f275",
       "event_type": "USER_LOGIN_SUCCESS",
       "description": "Vasu (Administrator) (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
       "target_id": "usr_admin_001",
@@ -2059,194 +1762,483 @@
       "user_email": "admin@securemax.mil",
       "user_name": "Vasu (Administrator)",
       "severity": "INFO",
-      "event_hash": "0xa2a0001c59ae78805d6b1b05a0654e4db479071992149950fa756bf27c8583e4",
-      "block_number": 6849360,
-      "created_at": "2026-10-21T13:59:00.376Z"
+      "event_hash": "0x823bdf6180f70841c591aec35504f3f55786f5ee4d0a4d2a765d7477e6765902",
+      "block_number": 6849397,
+      "created_at": "2026-11-18T15:43:02.091Z"
     },
     {
-      "id": "aud_a2808781",
-      "event_type": "TEMPORARY_KEY_AUTHORIZED",
-      "description": "Audit Event: TEMPORARY_KEY_AUTHORIZED on ASSET:ast_817d3848",
-      "target_id": "ast_817d3848",
-      "target": "ast_817d3848",
-      "severity": "INFO",
-      "event_hash": "0xff5d18b028b9d38cc14ff94d6163074a13c1d3e36d8441b2b8df2a0058cc585e",
-      "block_number": 6849213,
-      "created_at": "2026-10-21T13:58:59.986Z"
-    },
-    {
-      "id": "aud_9e8d2f2a",
-      "event_type": "ASSET_ENCRYPTED_AND_STORED",
-      "description": "Asset registered and encrypted with AES-256-GCM: Test-Asset-7511.txt (SMX-PRO-439) [Scope: PRIVATE]",
-      "target_id": "ast_817d3848",
-      "target": "ast_817d3848",
+      "id": "aud_cf8c4a9b",
+      "event_type": "USER_LOGIN_SUCCESS",
+      "description": "Vasu (Administrator) (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
+      "target_id": "usr_admin_001",
+      "target": "usr_admin_001",
+      "user_email": "admin@securemax.mil",
       "user_name": "Vasu (Administrator)",
       "severity": "INFO",
-      "event_hash": "0x98e4575bdb49cf069eaaaa7b9188b63f8cca5daad183682e97779e43093ef17b",
-      "block_number": 6849376,
-      "created_at": "2026-10-21T13:58:58.732Z"
+      "event_hash": "0xdb67fd91d28b3722dbfd9d20b578d99cea44dd407788401202751b3261951ba6",
+      "block_number": 6849529,
+      "created_at": "2026-11-18T15:43:00.411Z"
+    },
+    {
+      "id": "aud_d161b64b",
+      "event_type": "USER_LOGIN_SUCCESS",
+      "description": "Vasu (Administrator) (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
+      "target_id": "usr_admin_001",
+      "target": "usr_admin_001",
+      "user_email": "admin@securemax.mil",
+      "user_name": "Vasu (Administrator)",
+      "severity": "INFO",
+      "event_hash": "0x642e1a8f76c8752911d64e43925022814dd0b26e14a19b04c85f3e9ae4157eec",
+      "block_number": 6849459,
+      "created_at": "2026-11-18T15:43:00.408Z"
+    },
+    {
+      "id": "aud_c25bfddb",
+      "event_type": "USER_LOGIN_SUCCESS",
+      "description": "Vasu (Administrator) (ADMIN) logged in via Admin Laptop (Hardware-Bound) [127.0.0.1]",
+      "target_id": "usr_admin_001",
+      "target": "usr_admin_001",
+      "user_email": "admin@securemax.mil",
+      "user_name": "Vasu (Administrator)",
+      "severity": "INFO",
+      "event_hash": "0x4807796579777e374a01314dd98078cb0e9833a25f3f539c0e400ef77f5cdcfd",
+      "block_number": 6849262,
+      "created_at": "2026-11-18T15:42:58.356Z"
+    },
+    {
+      "id": "aud_8c7d9096",
+      "event_type": "USER_LOGIN_SUCCESS",
+      "description": "Vasu (Lead Engineer) (USER) logged in via Vasu — Primary MacBook [127.0.0.1]",
+      "target_id": "usr_vasu_002",
+      "target": "usr_vasu_002",
+      "user_email": "vasu@securemax.mil",
+      "user_name": "Vasu (Lead Engineer)",
+      "severity": "INFO",
+      "event_hash": "0xe68584b37c35867c3ffe75b08b66b7c58d9ce5397b57c1210a0882313842a02c",
+      "block_number": 6849362,
+      "created_at": "2026-11-18T15:42:58.352Z"
+    },
+    {
+      "id": "aud_5d0407fa",
+      "event_type": "NFT_ACCESS_PERMIT_MINTED",
+      "description": "Admin approved access for Dr. Sunita (30m TTL). NFT Permit: NFT-SEPOLIA-#3094",
+      "target_id": "vault_payload_99",
+      "target": "vault_payload_99",
+      "user_email": "sunita@cyber.mil",
+      "user_name": "Dr. Sunita",
+      "severity": "INFO",
+      "event_hash": "0x8aa16976c15a5a6f0f3c4dd2e67c00a710287bd6864118d6a437948164cb6fa4",
+      "block_number": 6849344,
+      "created_at": "2026-11-18T15:40:59.781Z"
+    },
+    {
+      "id": "aud_6405416e",
+      "event_type": "PERMISSION_CHANGED",
+      "description": "Cryptographic access granted for asset vault_payload_99 (user: usr_bb80b173).",
+      "target_id": "vault_payload_99",
+      "target": "vault_payload_99",
+      "before": [],
+      "after": [
+        "READ",
+        "DECRYPT",
+        "DOWNLOAD"
+      ],
+      "performed_by": "Administrator",
+      "severity": "INFO",
+      "event_hash": "0x5467af70f13fdcffac7de4616145a2df1ee7c0131ef98fa4dce346bbbe1fa74a",
+      "block_number": 6849293,
+      "created_at": "2026-11-18T15:40:59.780Z"
+    },
+    {
+      "id": "aud_6e861299",
+      "event_type": "ACCESS_REQUEST_SUBMITTED",
+      "description": "Dr. Sunita requested clearance for System Audit Ledger (Pending Admin NFT Permit)",
+      "target_id": "vault_payload_99",
+      "target": "vault_payload_99",
+      "user_email": "sunita@cyber.mil",
+      "user_name": "Dr. Sunita",
+      "severity": "WARNING",
+      "event_hash": "0xd44b626ed586e0d39a1e878b556ef5f300ebc23699df09041d78692a0f720629",
+      "block_number": 6849645,
+      "created_at": "2026-11-18T15:40:59.780Z"
+    },
+    {
+      "id": "aud_2dffda03",
+      "event_type": "DEVICE_ENROLLMENT_CREATED",
+      "description": "Temporary 15-minute device enrollment capability issued for Dr. Sunita (User)",
+      "target_id": "enr_79a0ee10",
+      "target": "enr_79a0ee10",
+      "before": null,
+      "after": {
+        "position": "User",
+        "duration_minutes": 15,
+        "max_devices": 1
+      },
+      "performed_by": "Dr. Sunita",
+      "user_email": "sunita@cyber.mil",
+      "user_name": "Dr. Sunita",
+      "severity": "INFO",
+      "event_hash": "0x9c97d5c36d4b0713a75456917e07c19153db9352b87a8f57f2da719c855c3b1b",
+      "block_number": 6849447,
+      "created_at": "2026-11-18T15:40:59.779Z"
+    },
+    {
+      "id": "aud_0b27512f",
+      "event_type": "ADMIN_LOGIN_FAILURE",
+      "description": "ACCESS DENIED: Failed root admin login attempt: UNAUTHORIZED_DEVICE",
+      "target_id": "dev_rogue",
+      "target": "dev_rogue",
+      "before": null,
+      "after": {
+        "actor_id": "ADM-0001",
+        "device_id": "dev_rogue",
+        "reason_code": "UNAUTHORIZED_DEVICE",
+        "result": "DENIED"
+      },
+      "performed_by": "ADM-0001",
+      "severity": "CRITICAL",
+      "event_hash": "0x38b6328723bcaf8cf2f1196e4a3f6cbe8cc0b12576a15005761e481bed631293",
+      "block_number": 6849357,
+      "created_at": "2026-11-18T15:40:59.778Z"
+    },
+    {
+      "id": "aud_77c99d4c",
+      "event_type": "ADMIN_LOGIN_SUCCESS",
+      "description": "Root Admin login successful via WebAuthn device verification (Air-Gapped Terminal)",
+      "target_id": "DEV-ADMIN-001",
+      "target": "DEV-ADMIN-001",
+      "before": null,
+      "after": {
+        "actor_id": "ADM-0001",
+        "device_id": "DEV-ADMIN-001",
+        "authentication": "WEBAUTHN",
+        "authentication_level": "HIGH",
+        "result": "ALLOWED",
+        "region": "Gujarat, India"
+      },
+      "performed_by": "Marshal Patel",
+      "severity": "INFO",
+      "event_hash": "0x3a2a6baa6e29eb876ee2a1bc45f5d5c6c5728f500884b3ee86694907a3c0f84f",
+      "block_number": 6849478,
+      "created_at": "2026-11-18T15:40:59.778Z"
+    },
+    {
+      "id": "aud_c0ea04f5",
+      "event_type": "SECURITY_ALERT_UNEXPECTED_LOCATION",
+      "description": "WARNING: Admin login from unexpected location: Gujarat, India (Registered in: India)",
+      "target_id": "DEV-ADMIN-001",
+      "target": "DEV-ADMIN-001",
+      "performed_by": "Marshal Patel",
+      "severity": "WARNING",
+      "event_hash": "0xba021afd837acc3820683b22ea1f0788f7016aa364abd4f50cfdf1f12554f491",
+      "block_number": 6849465,
+      "created_at": "2026-11-18T15:40:59.778Z"
+    },
+    {
+      "id": "aud_6f28d0de",
+      "event_type": "ADMIN_BOOTSTRAP_DISABLED",
+      "description": "Admin bootstrap permanently disabled. System state: SYSTEM_LOCKED",
+      "performed_by": "SYSTEM_SECURITY_POLICY",
+      "user_email": "marshal@cyber.mil",
+      "user_name": "Marshal Patel",
+      "severity": "WARNING",
+      "event_hash": "0x606f04aeb0dd6cc3e6f09afc9df4e5cba59851308cabcc3cef575fa4424044d4",
+      "block_number": 6849329,
+      "created_at": "2026-11-18T15:40:59.777Z"
+    },
+    {
+      "id": "aud_027839fc",
+      "event_type": "SYSTEM_INITIALIZATION_COMPLETED",
+      "description": "SecureMAX system fully initialized and locked with root admin: Marshal Patel",
+      "performed_by": "Marshal Patel",
+      "user_email": "marshal@cyber.mil",
+      "user_name": "Marshal Patel",
+      "severity": "INFO",
+      "event_hash": "0xccdd3573a4aaa86e92061336e1a7fae294fc6101af697b9ffaaaeae1e9da091b",
+      "block_number": 6849676,
+      "created_at": "2026-11-18T15:40:59.777Z"
+    },
+    {
+      "id": "aud_1073e78c",
+      "event_type": "ADMIN_CREDENTIAL_REGISTERED",
+      "description": "WebAuthn / Passkey credential registered for Marshal Patel",
+      "target_id": "cred_admin_17f9ac24",
+      "target": "cred_admin_17f9ac24",
+      "performed_by": "Marshal Patel",
+      "user_email": "marshal@cyber.mil",
+      "user_name": "Marshal Patel",
+      "severity": "INFO",
+      "event_hash": "0x48a425816053b7e6b6aba2a941088a86e048663647da99ac4000634fde5eab98",
+      "block_number": 6849340,
+      "created_at": "2026-11-18T15:40:59.776Z"
+    },
+    {
+      "id": "aud_b6f38c62",
+      "event_type": "ADMIN_DEVICE_REGISTERED",
+      "description": "Singleton Admin device bound: Air-Gapped Terminal (ID: DEV-ADMIN-001)",
+      "target_id": "DEV-ADMIN-001",
+      "target": "DEV-ADMIN-001",
+      "performed_by": "Marshal Patel",
+      "user_email": "marshal@cyber.mil",
+      "user_name": "Marshal Patel",
+      "severity": "INFO",
+      "event_hash": "0x379112651dbdb8b479de4e1e1c7229a320d0cd631ea4976165421f164e623a31",
+      "block_number": 6849590,
+      "created_at": "2026-11-18T15:40:59.776Z"
+    },
+    {
+      "id": "aud_3d495345",
+      "event_type": "ROOT_ADMIN_CREATED",
+      "description": "Root administrator registered: Marshal Patel (ADM-0001) for organization: Integrated Cyber Command",
+      "target_id": "ADM-0001",
+      "target": "ADM-0001",
+      "performed_by": "Marshal Patel",
+      "user_email": "marshal@cyber.mil",
+      "user_name": "Marshal Patel",
+      "severity": "INFO",
+      "event_hash": "0x6800174b7f0f9583c8056bacaa2ceab1935f5b055ea64070f673a01e3930b65b",
+      "block_number": 6849625,
+      "created_at": "2026-11-18T15:40:59.775Z"
+    },
+    {
+      "id": "aud_2aa0118b",
+      "event_type": "SYSTEM_INITIALIZATION_STARTED",
+      "description": "SecureMAX bootstrap started for organization: Integrated Cyber Command (ID: ORG-7883A9)",
+      "performed_by": "DEPLOYMENT_BOOTSTRAP",
+      "user_email": "marshal@cyber.mil",
+      "user_name": "Marshal Patel",
+      "severity": "INFO",
+      "event_hash": "0x40a4dc710156bb85c7595c902dd930014df967d6eccb8c8be2ade598f15855f3",
+      "block_number": 6849694,
+      "created_at": "2026-11-18T15:40:59.774Z"
+    },
+    {
+      "id": "aud_seed_admin_root",
+      "event_type": "ROOT_ADMIN_CREATED",
+      "description": "Root administrator registered and identity anchored: Vasu (Administrator) (usr_admin_001) bound to Admin Laptop (Hardware-Bound)",
+      "target_id": "usr_admin_001",
+      "user_email": "admin@securemax.mil",
+      "user_name": "Vasu (Administrator)",
+      "performed_by": "Vasu (Administrator)",
+      "severity": "INFO",
+      "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
+      "block_number": 6849200,
+      "created_at": "2026-11-18T13:12:58.347Z"
+    },
+    {
+      "id": "aud_seed_admin_dev",
+      "event_type": "ADMIN_DEVICE_REGISTERED",
+      "description": "Singleton hardware terminal bound to Root Admin: Admin Laptop (Hardware-Bound) (ID: dev_admin_primary)",
+      "target_id": "dev_admin_primary",
+      "user_email": "admin@securemax.mil",
+      "user_name": "Vasu (Administrator)",
+      "performed_by": "Vasu (Administrator)",
+      "severity": "INFO",
+      "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
+      "block_number": 6849205,
+      "created_at": "2026-11-18T13:22:58.347Z"
+    },
+    {
+      "id": "aud_seed_1",
+      "event_type": "USER_IDENTITY_REGISTERED",
+      "description": "DID generated for Vasu (Field Operator): did:securemax:user:002",
+      "target_id": "usr_vasu_002",
+      "user_email": "vasu@securemax.mil",
+      "user_name": "Vasu (Lead Engineer)",
+      "severity": "INFO",
+      "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
+      "block_number": 6849210,
+      "created_at": "2026-11-18T13:42:58.347Z"
+    },
+    {
+      "id": "aud_seed_2",
+      "event_type": "HARDWARE_DEVICE_ENROLLED",
+      "description": "New hardware device enrolled: Field Laptop (ECDSA P-256)",
+      "target_id": "dev_user_primary",
+      "user_email": "vasu@securemax.mil",
+      "user_name": "Vasu (Lead Engineer)",
+      "severity": "INFO",
+      "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
+      "block_number": 6849245,
+      "created_at": "2026-11-18T14:07:58.347Z"
+    },
+    {
+      "id": "aud_seed_3",
+      "event_type": "SEPOLIA_ANCHOR_VERIFIED",
+      "description": "State root anchored to Sepolia Contract: 0xC5388f457D01cdF25B4A29f0A38d65f4e690bC2B",
+      "target_id": "ETHEREUM_SEPOLIA",
+      "user_email": "admin@securemax.mil",
+      "user_name": "Vasu (Administrator)",
+      "severity": "INFO",
+      "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
+      "block_number": 6849280,
+      "created_at": "2026-11-18T14:42:58.347Z"
+    },
+    {
+      "id": "aud_seed_4",
+      "event_type": "ACCESS_REQUEST_SUBMITTED",
+      "description": "High-risk access requested for Avionics Radar (SMX-AVN-003) awaiting Admin NFT Permit",
+      "target_id": "ast_avionics",
+      "user_email": "vasu@securemax.mil",
+      "user_name": "Vasu (Lead Engineer)",
+      "severity": "WARNING",
+      "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
+      "block_number": 6849310,
+      "created_at": "2026-11-18T15:12:58.347Z"
     }
   ],
   "notifications": [
     {
-      "id": "notif_3e81bd9f",
+      "id": "notif_f64b944c",
       "type": "ACCESS_APPROVED",
       "title": "Access Request Approved",
-      "message": "Access granted for ChatGPT Image Sep 19, 2026, 04_07_00 PM.png. On-chain permit NFT-SEPOLIA-#8636 minted.",
+      "message": "Access granted for System Audit Ledger. On-chain permit NFT-SEPOLIA-#3094 minted.",
       "timestamp": "Just now",
       "read": false,
-      "target_id": "ast_7050a002"
+      "target_id": "vault_payload_99"
     },
     {
-      "id": "notif_5237af9e",
-      "type": "ACCESS_APPROVED",
-      "title": "Access Request Approved",
-      "message": "Access granted for ChatGPT Image Sep 19, 2026, 04_07_00 PM.png. On-chain permit NFT-SEPOLIA-#4502 minted.",
-      "timestamp": "Just now",
-      "read": false,
-      "target_id": "ast_7050a002"
-    },
-    {
-      "id": "notif_0fb8dfc7",
+      "id": "notif_3481316b",
       "type": "ACCESS_REQUEST",
       "title": "New Access Request",
-      "message": "Vasu (Administrator) requested clearance for ChatGPT Image Sep 19, 2026, 04_07_00 PM.png",
+      "message": "Dr. Sunita requested clearance for System Audit Ledger",
       "timestamp": "Just now",
       "read": false,
-      "target_id": "ast_7050a002"
+      "target_id": "vault_payload_99"
+    },
+    {
+      "id": "notif_44aa544a",
+      "type": "ACCESS_REQUEST",
+      "title": "New Access Request",
+      "message": "Officer Rajiv requested clearance for System Audit Ledger",
+      "timestamp": "Just now",
+      "read": false,
+      "target_id": "asset_classified_002"
+    },
+    {
+      "id": "notif_0234ce21",
+      "type": "ACCESS_APPROVED",
+      "title": "Access Request Approved",
+      "message": "Access granted for System Audit Ledger. On-chain permit NFT-SEPOLIA-#4759 minted.",
+      "timestamp": "Just now",
+      "read": false,
+      "target_id": "asset_intel_001"
+    },
+    {
+      "id": "notif_08fda6c9",
+      "type": "ACCESS_REQUEST",
+      "title": "New Access Request",
+      "message": "Officer Rajiv requested clearance for System Audit Ledger",
+      "timestamp": "Just now",
+      "read": false,
+      "target_id": "asset_intel_001"
+    },
+    {
+      "id": "notif_1",
+      "type": "ACCESS_REQUEST",
+      "title": "New Access Request",
+      "message": "Arjun Verma requested access for Substation 4 Vendor Invoices",
+      "timestamp": "25 min ago",
+      "read": false,
+      "target_id": "ast_fin_002"
+    },
+    {
+      "id": "notif_2",
+      "type": "ACCESS_APPROVED",
+      "title": "Access Approved",
+      "message": "Admin granted decryption permit for Project Alpha.pdf",
+      "timestamp": "17:02 Today",
+      "read": false,
+      "target_id": "ast_alpha"
     }
   ],
   "loginHistory": [
     {
-      "id": "log_04535a77",
+      "id": "log_9ac0c862",
       "userId": "usr_auditor_003",
       "userName": "Neha Kapoor",
       "userEmail": "auditor@securemax.mil",
       "role": "AUDITOR",
       "deviceName": "Audit Secure Terminal",
       "ip": "127.0.0.1",
-      "timestamp": "2026-11-18T13:49:29.164Z",
+      "timestamp": "2026-11-18T15:43:06.855Z",
       "status": "SUCCESS"
     },
     {
-      "id": "log_a567b410",
+      "id": "log_4dffd5ba",
       "userId": "usr_admin_001",
-      "userName": "Root Administrator",
+      "userName": "Vasu (Administrator)",
       "userEmail": "admin@securemax.mil",
       "role": "ADMIN",
       "deviceName": "Admin Laptop (Hardware-Bound)",
       "ip": "127.0.0.1",
-      "timestamp": "2026-11-18T13:49:29.162Z",
+      "timestamp": "2026-11-18T15:43:05.958Z",
       "status": "SUCCESS"
     },
     {
-      "id": "log_7365998b",
+      "id": "log_debc0159",
       "userId": "usr_admin_001",
-      "userName": "Root Administrator",
+      "userName": "Vasu (Administrator)",
       "userEmail": "admin@securemax.mil",
       "role": "ADMIN",
       "deviceName": "Admin Laptop (Hardware-Bound)",
       "ip": "127.0.0.1",
-      "timestamp": "2026-11-18T13:49:25.299Z",
+      "timestamp": "2026-11-18T15:43:03.833Z",
       "status": "SUCCESS"
     },
     {
-      "id": "log_7377f5fb",
+      "id": "log_a3c1c8ed",
       "userId": "usr_admin_001",
-      "userName": "Root Administrator",
+      "userName": "Vasu (Administrator)",
       "userEmail": "admin@securemax.mil",
       "role": "ADMIN",
       "deviceName": "Admin Laptop (Hardware-Bound)",
       "ip": "127.0.0.1",
-      "timestamp": "2026-11-18T13:49:22.840Z",
+      "timestamp": "2026-11-18T15:43:02.091Z",
       "status": "SUCCESS"
     },
     {
-      "id": "log_227492e1",
+      "id": "log_31720dfa",
       "userId": "usr_admin_001",
-      "userName": "Root Administrator",
+      "userName": "Vasu (Administrator)",
       "userEmail": "admin@securemax.mil",
       "role": "ADMIN",
       "deviceName": "Admin Laptop (Hardware-Bound)",
       "ip": "127.0.0.1",
-      "timestamp": "2026-11-18T13:49:20.917Z",
+      "timestamp": "2026-11-18T15:43:00.411Z",
       "status": "SUCCESS"
     },
     {
-      "id": "log_aadf572c",
+      "id": "log_89421d79",
       "userId": "usr_admin_001",
-      "userName": "Root Administrator",
+      "userName": "Vasu (Administrator)",
       "userEmail": "admin@securemax.mil",
       "role": "ADMIN",
       "deviceName": "Admin Laptop (Hardware-Bound)",
       "ip": "127.0.0.1",
-      "timestamp": "2026-11-18T13:49:20.915Z",
+      "timestamp": "2026-11-18T15:43:00.408Z",
       "status": "SUCCESS"
     },
     {
-      "id": "log_542bd3c8",
+      "id": "log_449f1da4",
       "userId": "usr_admin_001",
-      "userName": "Root Administrator",
+      "userName": "Vasu (Administrator)",
       "userEmail": "admin@securemax.mil",
       "role": "ADMIN",
       "deviceName": "Admin Laptop (Hardware-Bound)",
       "ip": "127.0.0.1",
-      "timestamp": "2026-11-18T13:49:19.038Z",
+      "timestamp": "2026-11-18T15:42:58.356Z",
       "status": "SUCCESS"
     },
     {
-      "id": "log_a3ec4e8d",
+      "id": "log_103a55bc",
       "userId": "usr_vasu_002",
       "userName": "Vasu (Lead Engineer)",
       "userEmail": "vasu@securemax.mil",
       "role": "USER",
       "deviceName": "Vasu — Primary MacBook",
       "ip": "127.0.0.1",
-      "timestamp": "2026-11-18T13:49:19.035Z",
-      "status": "SUCCESS"
-    },
-    {
-      "id": "log_a7f76631",
-      "userId": "usr_auditor_003",
-      "userName": "Neha Kapoor",
-      "userEmail": "auditor@securemax.mil",
-      "role": "AUDITOR",
-      "deviceName": "Audit Secure Terminal",
-      "ip": "127.0.0.1",
-      "timestamp": "2026-10-21T13:59:06.337Z",
-      "status": "SUCCESS"
-    },
-    {
-      "id": "log_949f86a6",
-      "userId": "usr_admin_001",
-      "userName": "Vasu (Administrator)",
-      "userEmail": "admin@securemax.mil",
-      "role": "ADMIN",
-      "deviceName": "Admin Laptop (Hardware-Bound)",
-      "ip": "127.0.0.1",
-      "timestamp": "2026-10-21T13:59:04.998Z",
-      "status": "SUCCESS"
-    },
-    {
-      "id": "log_7b5fe1f4",
-      "userId": "usr_admin_001",
-      "userName": "Vasu (Administrator)",
-      "userEmail": "admin@securemax.mil",
-      "role": "ADMIN",
-      "deviceName": "Admin Laptop (Hardware-Bound)",
-      "ip": "127.0.0.1",
-      "timestamp": "2026-10-21T13:59:03.072Z",
-      "status": "SUCCESS"
-    },
-    {
-      "id": "log_b1c90d60",
-      "userId": "usr_admin_001",
-      "userName": "Vasu (Administrator)",
-      "userEmail": "admin@securemax.mil",
-      "role": "ADMIN",
-      "deviceName": "Admin Laptop (Hardware-Bound)",
-      "ip": "127.0.0.1",
-      "timestamp": "2026-10-21T13:59:02.008Z",
+      "timestamp": "2026-11-18T15:42:58.352Z",
       "status": "SUCCESS"
     }
   ],
@@ -2475,8 +2467,8 @@
       "created_by": "Vasu (Administrator)"
     },
     {
-      "id": "pos_52f66138",
-      "name": "SecOps Specialist 6695",
+      "id": "pos_db128c6c",
+      "name": "SecOps Specialist 2319",
       "description": "Zero-Trust incident responder and containment specialist",
       "privilege_level": "STANDARD",
       "permissions": {
@@ -2509,87 +2501,96 @@
         }
       },
       "is_predefined": false,
-      "created_at": "2026-10-21T13:58:26.836Z",
+      "created_at": "2026-11-18T15:43:03.498Z",
       "created_by": "Vasu (Administrator)"
-    },
-    {
-      "id": "pos_dd1c1ef1",
-      "name": "SecOps Specialist 1095",
-      "description": "Zero-Trust incident responder and containment specialist",
-      "privilege_level": "STANDARD",
-      "permissions": {
-        "identity": {
-          "register": false,
-          "suspend": false,
-          "revoke": false
-        },
-        "users": {
-          "create": false,
-          "suspend": false
-        },
-        "assets": {
-          "view": true,
-          "allocate": false,
-          "transfer": false,
-          "delete": false
-        },
-        "access": {
-          "approve": false,
-          "revoke": false
-        },
-        "audit": {
-          "view": false,
-          "export": false
-        },
-        "security": {
-          "view_alerts": false,
-          "manage_devices": false
-        }
-      },
-      "is_predefined": false,
-      "created_at": "2026-10-21T13:59:01.466Z",
-      "created_by": "Vasu (Administrator)"
-    },
-    {
-      "id": "pos_ac4f0b65",
-      "name": "SecOps Specialist 3102",
-      "description": "Zero-Trust incident responder and containment specialist",
-      "privilege_level": "STANDARD",
-      "permissions": {
-        "identity": {
-          "register": false,
-          "suspend": false,
-          "revoke": false
-        },
-        "users": {
-          "create": false,
-          "suspend": false
-        },
-        "assets": {
-          "view": true,
-          "allocate": false,
-          "transfer": false,
-          "delete": false
-        },
-        "access": {
-          "approve": false,
-          "revoke": false
-        },
-        "audit": {
-          "view": false,
-          "export": false
-        },
-        "security": {
-          "view_alerts": false,
-          "manage_devices": false
-        }
-      },
-      "is_predefined": false,
-      "created_at": "2026-11-18T13:49:24.628Z",
-      "created_by": "Root Administrator"
     }
   ],
   "devicePassports": [
+    {
+      "id": "DEV-ADMIN-001",
+      "device_id": "DEV-ADMIN-001",
+      "user_id": "ADM-0001",
+      "user_name": "Marshal Patel",
+      "user_email": "marshal@cyber.mil",
+      "position": "Root Administrator",
+      "device_name": "Air-Gapped Terminal",
+      "device_type": "laptop",
+      "os": "macOS",
+      "browser": "Chrome",
+      "browser_version": "128.0",
+      "model": "SecureMAX Hardware-Bound Terminal",
+      "credential_id": "cred_admin_17f9ac24",
+      "credential_type": "WebAuthn",
+      "registered_at": "2026-11-18T15:40:59.774Z",
+      "last_authenticated_at": "2026-11-18T15:40:59.778Z",
+      "last_active_at": "2026-11-18T15:40:59.778Z",
+      "risk_state": "TRUSTED",
+      "registration_region": "India",
+      "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmarshal_public_key",
+      "algorithm": "ECDSA_P256",
+      "status": "ACTIVE",
+      "is_admin_device": true,
+      "created_at": "2026-11-18T15:40:59.774Z",
+      "last_used_at": "2026-11-18T15:40:59.781Z",
+      "timeline": [
+        {
+          "id": "tl_19ad3652",
+          "timestamp": "2026-11-18T15:40:59.781Z",
+          "event": "LOGIN_SUCCESS",
+          "details": "Authenticated session established via PASSKEY",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_ff1eab3b",
+          "timestamp": "2026-11-18T15:40:59.778Z",
+          "event": "ADMIN_LOGIN",
+          "details": "Admin logged in successfully via WebAuthn (Gujarat, India)",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_1",
+          "timestamp": "2026-11-18T15:40:54.774Z",
+          "event": "SYSTEM_INITIALIZATION_STARTED",
+          "details": "One-time deployment bootstrap initiated",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_2",
+          "timestamp": "2026-11-18T15:40:55.774Z",
+          "event": "ROOT_ADMIN_CREATED",
+          "details": "Root administrator created: Marshal Patel (ADM-0001)",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_3",
+          "timestamp": "2026-11-18T15:40:56.774Z",
+          "event": "ADMIN_DEVICE_REGISTERED",
+          "details": "Singleton trusted device registered: Air-Gapped Terminal",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_4",
+          "timestamp": "2026-11-18T15:40:57.774Z",
+          "event": "ADMIN_CREDENTIAL_REGISTERED",
+          "details": "WebAuthn / Passkey cryptographic credential anchored",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_5",
+          "timestamp": "2026-11-18T15:40:58.774Z",
+          "event": "SYSTEM_INITIALIZATION_COMPLETED",
+          "details": "System initialization completed successfully",
+          "severity": "INFO"
+        },
+        {
+          "id": "tl_boot_6",
+          "timestamp": "2026-11-18T15:40:59.774Z",
+          "event": "ADMIN_BOOTSTRAP_DISABLED",
+          "details": "Bootstrap mode permanently locked down",
+          "severity": "INFO"
+        }
+      ]
+    },
     {
       "id": "dev_admin_primary",
       "device_id": "dev_admin_primary",
@@ -2606,8 +2607,8 @@
       "credential_id": "cred_admin_hw_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-01T00:00:00.000Z",
-      "last_authenticated_at": "2026-09-20T03:54:25.207Z",
-      "last_active_at": "2026-09-20T03:54:25.207Z",
+      "last_authenticated_at": "2026-11-18T15:42:58.251Z",
+      "last_active_at": "2026-11-18T15:42:58.251Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2Z37UoHq3y1V4XwH5K7oF9P9k3sZ0s7uVvWxX0y1A2bC3dE4fG5hI6jK7lM8nO9pQ0rS1tU2vW3xY4z5A6bC7w==",
@@ -2615,403 +2616,46 @@
       "status": "ACTIVE",
       "is_admin_device": true,
       "created_at": "2026-09-01T00:00:00.000Z",
-      "last_used_at": "2026-09-20T03:54:25.207Z",
+      "last_used_at": "2026-11-18T15:43:05.958Z",
       "timeline": [
         {
-          "id": "tl_4108c7e0",
-          "timestamp": "2026-11-18T13:49:29.162Z",
+          "id": "tl_d8acac8a",
+          "timestamp": "2026-11-18T15:43:05.958Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_e88d611d",
-          "timestamp": "2026-11-18T13:49:25.299Z",
+          "id": "tl_e91d545c",
+          "timestamp": "2026-11-18T15:43:03.833Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_84c459c7",
-          "timestamp": "2026-11-18T13:49:22.840Z",
+          "id": "tl_0aea15e2",
+          "timestamp": "2026-11-18T15:43:02.091Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_a5d3a86c",
-          "timestamp": "2026-11-18T13:49:20.915Z",
+          "id": "tl_7cf5b6fa",
+          "timestamp": "2026-11-18T15:43:00.408Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_f1826bb9",
-          "timestamp": "2026-11-18T13:49:20.915Z",
+          "id": "tl_0ddf2761",
+          "timestamp": "2026-11-18T15:43:00.408Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
         },
         {
-          "id": "tl_4dc1fdf8",
-          "timestamp": "2026-11-18T13:49:19.035Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_aa2bf077",
-          "timestamp": "2026-10-21T13:59:04.998Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_a445f6f5",
-          "timestamp": "2026-10-21T13:59:03.072Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_479ff1c1",
-          "timestamp": "2026-10-21T13:59:02.008Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_d55e001b",
-          "timestamp": "2026-10-21T13:59:00.376Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_fdad0372",
-          "timestamp": "2026-10-21T13:58:56.223Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_7a8c989d",
-          "timestamp": "2026-10-21T13:58:52.467Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_c6015a10",
-          "timestamp": "2026-10-21T13:58:25.899Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_18ae46ed",
-          "timestamp": "2026-10-21T13:57:48.536Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_8f4da205",
-          "timestamp": "2026-10-21T13:56:39.887Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_e47b5186",
-          "timestamp": "2026-10-21T13:55:30.373Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_fcb6f756",
-          "timestamp": "2026-10-21T13:55:28.340Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_274414a1",
-          "timestamp": "2026-10-21T13:55:26.879Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_231d9c20",
-          "timestamp": "2026-10-21T13:55:13.772Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_965aeeda",
-          "timestamp": "2026-10-21T13:55:09.630Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_0100a0a8",
-          "timestamp": "2026-10-21T13:55:05.077Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_d8197c97",
-          "timestamp": "2026-10-21T13:53:19.191Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_1d9b32a7",
-          "timestamp": "2026-10-21T13:53:17.529Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_2b9e9356",
-          "timestamp": "2026-10-21T13:53:16.506Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_33b206be",
-          "timestamp": "2026-10-21T13:53:03.472Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_3e604d85",
-          "timestamp": "2026-10-21T13:52:58.845Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_e2dba211",
-          "timestamp": "2026-10-21T13:52:54.987Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_1223171d",
-          "timestamp": "2026-10-21T13:49:27.037Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_630596b3",
-          "timestamp": "2026-10-21T13:49:26.094Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_0dff7966",
-          "timestamp": "2026-10-21T13:49:25.053Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_b922669b",
-          "timestamp": "2026-10-21T13:49:11.975Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_57fa0cdf",
-          "timestamp": "2026-10-21T13:49:01.026Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_513823fc",
-          "timestamp": "2026-10-21T13:48:55.614Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_64743b1a",
-          "timestamp": "2026-10-21T13:47:03.428Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_12c97ade",
-          "timestamp": "2026-10-21T13:47:02.101Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_4d27cc70",
-          "timestamp": "2026-10-21T13:47:01.165Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ac9b8a1c",
-          "timestamp": "2026-10-21T13:46:49.880Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_401baa9e",
-          "timestamp": "2026-10-21T13:46:43.179Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_e4fefce1",
-          "timestamp": "2026-10-21T13:46:39.494Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_778eb6a9",
-          "timestamp": "2026-10-21T10:39:56.124Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_afe75c42",
-          "timestamp": "2026-10-21T10:39:52.545Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_22a79f2c",
-          "timestamp": "2026-10-21T10:39:50.779Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_3081d63a",
-          "timestamp": "2026-10-21T10:39:20.283Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_a40855b5",
-          "timestamp": "2026-10-21T10:39:12.881Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_212067b5",
-          "timestamp": "2026-10-21T10:38:59.195Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ff9ae686",
-          "timestamp": "2026-10-21T10:30:35.633Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_968d8f38",
-          "timestamp": "2026-10-21T10:30:32.862Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_fc5128ad",
-          "timestamp": "2026-10-21T10:30:29.357Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ac2676f0",
-          "timestamp": "2026-10-21T10:30:26.586Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_6ec287a7",
-          "timestamp": "2026-10-21T10:30:26.586Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_a2f53fa4",
-          "timestamp": "2026-10-21T10:30:26.586Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_9580a7f4",
-          "timestamp": "2026-10-21T10:28:59.196Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_01ec0115",
-          "timestamp": "2026-10-21T10:28:59.134Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_19efd98d",
-          "timestamp": "2026-10-21T10:28:59.134Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_9679883e",
-          "timestamp": "2026-10-21T10:28:58.436Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ddafb305",
-          "timestamp": "2026-10-21T10:28:58.435Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via WEBAUTHN",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_5254bf92",
-          "timestamp": "2026-10-21T10:28:58.435Z",
+          "id": "tl_11f21525",
+          "timestamp": "2026-11-18T15:42:58.352Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via WEBAUTHN",
           "severity": "INFO"
@@ -3048,8 +2692,8 @@
       "credential_id": "cred_vasu_mbp_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-02T00:00:00.000Z",
-      "last_authenticated_at": "2026-09-20T03:54:25.207Z",
-      "last_active_at": "2026-09-20T03:54:25.207Z",
+      "last_authenticated_at": "2026-11-18T15:42:58.251Z",
+      "last_active_at": "2026-11-18T15:42:58.251Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEq9V1zK2Y7nL6X4eQ8jB2tF0mS3wZ5xY8vU1tP2rQ3sA4bC5dE6fG7hI8jK9lM0nO1pQ2rS3tU4vW5xY6z7A8bC==",
@@ -3057,53 +2701,11 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-02T00:00:00.000Z",
-      "last_used_at": "2026-09-20T03:54:25.207Z",
+      "last_used_at": "2026-11-18T15:42:58.352Z",
       "timeline": [
         {
-          "id": "tl_e2edfae4",
-          "timestamp": "2026-11-18T13:49:19.035Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_85990d4d",
-          "timestamp": "2026-10-21T13:58:54.819Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_6dcf2804",
-          "timestamp": "2026-10-21T13:55:07.966Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_5abe7ae3",
-          "timestamp": "2026-10-21T13:52:57.387Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_94809444",
-          "timestamp": "2026-10-21T13:48:58.712Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_f94d5e2d",
-          "timestamp": "2026-10-21T13:46:41.836Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_706b99aa",
-          "timestamp": "2026-10-21T10:39:05.059Z",
+          "id": "tl_3ec01fde",
+          "timestamp": "2026-11-18T15:42:58.352Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via P256",
           "severity": "INFO"
@@ -3147,8 +2749,8 @@
       "credential_id": "cred_audit_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-03T00:00:00.000Z",
-      "last_authenticated_at": "2026-09-20T03:54:25.207Z",
-      "last_active_at": "2026-09-20T03:54:25.207Z",
+      "last_authenticated_at": "2026-11-18T15:42:58.251Z",
+      "last_active_at": "2026-11-18T15:42:58.251Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7p9X2mR5yT8vN1qW4sE7hK0bL3zC6xY9vU2tP3rQ4sA5bC6dE7fG8hI9jK0lM1nO2pQ3rS4tU5vW6xY7z8A9bC==",
@@ -3156,67 +2758,11 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-03T00:00:00.000Z",
-      "last_used_at": "2026-09-20T03:54:25.207Z",
+      "last_used_at": "2026-11-18T15:43:06.855Z",
       "timeline": [
         {
-          "id": "tl_5867cffd",
-          "timestamp": "2026-11-18T13:49:29.162Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_776b5a0e",
-          "timestamp": "2026-10-21T13:59:06.337Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_b292369c",
-          "timestamp": "2026-10-21T13:55:32.043Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_c640d528",
-          "timestamp": "2026-10-21T13:53:20.529Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_97896bcb",
-          "timestamp": "2026-10-21T13:49:28.365Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_ea416cd7",
-          "timestamp": "2026-10-21T13:47:04.826Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_8cf58e8d",
-          "timestamp": "2026-10-21T10:39:58.625Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_888b42a5",
-          "timestamp": "2026-10-21T10:30:36.213Z",
-          "event": "LOGIN_SUCCESS",
-          "details": "Authenticated session established via P256",
-          "severity": "INFO"
-        },
-        {
-          "id": "tl_f6f3326c",
-          "timestamp": "2026-10-21T10:28:59.102Z",
+          "id": "tl_320be803",
+          "timestamp": "2026-11-18T15:43:06.855Z",
           "event": "LOGIN_SUCCESS",
           "details": "Authenticated session established via P256",
           "severity": "INFO"
@@ -3238,9 +2784,9 @@
       ]
     },
     {
-      "id": "dev_revoked_1795009764958",
-      "device_id": "dev_revoked_1795009764958",
-      "user_id": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
+      "id": "dev_revoked_1795016583952",
+      "device_id": "dev_revoked_1795016583952",
+      "user_id": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
       "device_name": "Stolen Terminal",
       "status": "REVOKED",
       "device_type": "laptop",
@@ -3248,16 +2794,16 @@
       "browser": "Chrome",
       "browser_version": "128.0",
       "model": "MacBook Pro",
-      "credential_id": "cred_dev_revoked_1795009764958",
+      "credential_id": "cred_dev_revoked_1795016583952",
       "credential_type": "WebAuthn",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "position": "USER",
       "user_name": "Sandbox User",
-      "user_email": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad@defense.gov",
+      "user_email": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035@defense.gov",
       "timeline": [
         {
-          "id": "tl_dev_revoked_1795009764958",
+          "id": "tl_dev_revoked_1795016583952",
           "event": "DEVICE_REGISTERED",
           "details": "Device Stolen Terminal registered",
           "severity": "INFO"
@@ -3281,12 +2827,12 @@
     "admin_locked": false,
     "failed_admin_logins": 0,
     "last_admin_login": {
-      "timestamp": "2026-09-20T03:54:25.207Z",
+      "timestamp": "2026-11-18T15:42:58.251Z",
       "region": "Punjab, India",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "auth_method": "WEBAUTHN"
     },
-    "last_security_change": "2026-11-18T13:49:24.961Z"
+    "last_security_change": "2026-11-18T15:43:03.955Z"
   },
   "recoveryVault": {
     "recoveryId": "REC-8A92-491F",
@@ -3294,401 +2840,234 @@
     "createdAt": "2026-09-01T00:00:00.000Z",
     "used": false
   },
-  "adminWallet": "0xc532c65055108e7901212b6c30ef800152e26eb5",
+  "adminWallet": "0x7ffdbb7868c127152f2007a6025ff15a5723ce08",
   "sessions": [
     {
-      "session_id": "SES-0CC71DAB",
-      "user_id": "usr_admin_001",
-      "user_name": "Vasu (Administrator)",
-      "user_email": "admin@securemax.mil",
-      "device_id": "dev_admin_metamask",
-      "device_name": "Primary Device",
-      "position": "ADMIN",
-      "created_at": "2026-09-20T00:44:42.630Z",
-      "last_activity_at": "2026-09-20T00:44:42.630Z",
-      "expires_at": "2026-09-20T08:44:42.630Z",
-      "authentication_level": "METAMASK",
+      "session_id": "SES-D8F563CF",
+      "user_id": "usr_bb80b173",
+      "user_name": "Dr. Sunita",
+      "user_email": "sunita@cyber.mil",
+      "device_id": "DEV-ADMIN-001",
+      "device_name": "Air-Gapped Terminal",
+      "position": "MANAGER",
+      "created_at": "2026-11-18T15:40:59.781Z",
+      "last_activity_at": "2026-11-18T15:40:59.781Z",
+      "expires_at": "2026-11-18T23:40:59.781Z",
+      "authentication_level": "PASSKEY",
       "status": "ACTIVE"
     },
     {
-      "session_id": "SES-13A3F904",
+      "session_id": "session-789",
+      "user_id": "user-123",
+      "user_name": "Test Integration User",
+      "user_email": "user123@test.securemax.mil",
+      "device_id": "dev_test",
+      "device_name": "Test Device",
+      "position": "Engineer",
+      "created_at": "2026-11-18T14:42:58.251Z",
+      "last_activity_at": "2026-11-18T15:42:58.251Z",
+      "expires_at": "2026-11-19T15:42:58.251Z",
+      "authentication_level": "P256",
+      "status": "ACTIVE"
+    },
+    {
+      "session_id": "SES-8821",
+      "user_id": "usr_vasu_002",
+      "user_name": "Vasu (Lead Engineer)",
+      "user_email": "vasu@securemax.mil",
+      "device_id": "dev_vasu_laptop",
+      "device_name": "Vasu — Primary MacBook",
+      "position": "Manager",
+      "created_at": "2026-11-18T15:12:58.251Z",
+      "last_activity_at": "2026-11-18T15:40:58.251Z",
+      "expires_at": "2026-11-18T23:12:58.251Z",
+      "authentication_level": "PASSKEY",
+      "status": "ACTIVE"
+    },
+    {
+      "session_id": "SES-0001",
       "user_id": "usr_admin_001",
       "user_name": "Vasu (Administrator)",
       "user_email": "admin@securemax.mil",
       "device_id": "dev_admin_primary",
-      "device_name": "Admin Workstation Terminal",
-      "position": "ADMIN",
-      "created_at": "2026-09-20T02:00:09.303Z",
-      "last_activity_at": "2026-09-20T02:00:09.303Z",
-      "expires_at": "2026-09-20T10:00:09.303Z",
+      "device_name": "Admin Laptop (Hardware-Bound)",
+      "position": "Administrator",
+      "created_at": "2026-11-18T14:42:58.251Z",
+      "last_activity_at": "2026-11-18T15:37:58.251Z",
+      "expires_at": "2026-11-18T22:42:58.251Z",
       "authentication_level": "WEBAUTHN",
       "status": "ACTIVE"
     },
     {
-      "session_id": "SES-DD0FF576",
-      "user_id": "usr_admin_001",
-      "user_name": "Vasu (Administrator)",
-      "user_email": "admin@securemax.mil",
-      "device_id": "dev_admin_primary",
-      "device_name": "Admin Workstation Terminal",
-      "position": "ADMIN",
-      "created_at": "2026-09-20T02:01:43.899Z",
-      "last_activity_at": "2026-09-20T02:01:43.899Z",
-      "expires_at": "2026-09-20T10:01:43.899Z",
-      "authentication_level": "WEBAUTHN",
-      "status": "ACTIVE"
-    },
-    {
-      "session_id": "SES-E98F2041",
-      "user_id": "usr_admin_001",
-      "user_name": "Vasu (Administrator)",
-      "user_email": "admin@securemax.mil",
-      "device_id": "dev_admin_primary",
-      "device_name": "Admin Workstation Terminal",
-      "position": "ADMIN",
-      "created_at": "2026-09-20T02:03:06.960Z",
-      "last_activity_at": "2026-09-20T02:03:06.960Z",
-      "expires_at": "2026-09-20T10:03:06.960Z",
-      "authentication_level": "WEBAUTHN",
-      "status": "ACTIVE"
-    },
-    {
-      "session_id": "SES-61015582",
+      "session_id": "SES-8F42DD5B",
       "user_id": "usr_vasu_002",
       "user_name": "Vasu (Lead Engineer)",
       "user_email": "vasu@securemax.mil",
       "device_id": "dev_vasu_laptop",
       "device_name": "Vasu — Primary MacBook",
       "position": "USER",
-      "created_at": "2026-11-18T13:49:19.035Z",
-      "last_activity_at": "2026-11-18T13:49:19.035Z",
-      "expires_at": "2026-11-18T21:49:19.035Z",
+      "created_at": "2026-11-18T15:42:58.352Z",
+      "last_activity_at": "2026-11-18T15:42:58.352Z",
+      "expires_at": "2026-11-18T23:42:58.352Z",
       "authentication_level": "P256",
       "status": "ACTIVE"
     },
     {
-      "session_id": "SES-81250678",
+      "session_id": "SES-95575944",
       "user_id": "usr_admin_001",
-      "user_name": "Root Administrator",
+      "user_name": "Vasu (Administrator)",
       "user_email": "admin@securemax.mil",
       "device_id": "dev_admin_primary",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "position": "ADMIN",
-      "created_at": "2026-11-18T13:49:19.035Z",
-      "last_activity_at": "2026-11-18T13:49:19.035Z",
-      "expires_at": "2026-11-18T21:49:19.035Z",
+      "created_at": "2026-11-18T15:42:58.352Z",
+      "last_activity_at": "2026-11-18T15:42:58.352Z",
+      "expires_at": "2026-11-18T23:42:58.352Z",
       "authentication_level": "WEBAUTHN",
       "status": "ACTIVE"
     },
     {
-      "session_id": "SES-E6237A21",
+      "session_id": "SES-10EE2348",
       "user_id": "usr_admin_001",
-      "user_name": "Root Administrator",
+      "user_name": "Vasu (Administrator)",
       "user_email": "admin@securemax.mil",
       "device_id": "dev_admin_primary",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "position": "ADMIN",
-      "created_at": "2026-11-18T13:49:20.915Z",
-      "last_activity_at": "2026-11-18T13:49:20.915Z",
-      "expires_at": "2026-11-18T21:49:20.915Z",
+      "created_at": "2026-11-18T15:43:00.408Z",
+      "last_activity_at": "2026-11-18T15:43:00.408Z",
+      "expires_at": "2026-11-18T23:43:00.408Z",
       "authentication_level": "WEBAUTHN",
       "status": "ACTIVE"
     },
     {
-      "session_id": "SES-27B3B317",
+      "session_id": "SES-74233A79",
       "user_id": "usr_admin_001",
-      "user_name": "Root Administrator",
+      "user_name": "Vasu (Administrator)",
       "user_email": "admin@securemax.mil",
       "device_id": "dev_admin_primary",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "position": "ADMIN",
-      "created_at": "2026-11-18T13:49:20.915Z",
-      "last_activity_at": "2026-11-18T13:49:20.915Z",
-      "expires_at": "2026-11-18T21:49:20.915Z",
+      "created_at": "2026-11-18T15:43:00.408Z",
+      "last_activity_at": "2026-11-18T15:43:00.408Z",
+      "expires_at": "2026-11-18T23:43:00.408Z",
       "authentication_level": "WEBAUTHN",
       "status": "ACTIVE"
     },
     {
-      "session_id": "SES-8E2F7E66",
+      "session_id": "SES-C2807623",
       "user_id": "usr_admin_001",
-      "user_name": "Root Administrator",
+      "user_name": "Vasu (Administrator)",
       "user_email": "admin@securemax.mil",
       "device_id": "dev_admin_primary",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "position": "ADMIN",
-      "created_at": "2026-11-18T13:49:22.840Z",
-      "last_activity_at": "2026-11-18T13:49:22.840Z",
-      "expires_at": "2026-11-18T21:49:22.840Z",
+      "created_at": "2026-11-18T15:43:02.091Z",
+      "last_activity_at": "2026-11-18T15:43:02.091Z",
+      "expires_at": "2026-11-18T23:43:02.091Z",
       "authentication_level": "WEBAUTHN",
       "status": "ACTIVE"
     },
     {
-      "session_id": "sess_revoked_1795009764635",
-      "user_id": "sandbox-user-877806fc-0ca9-45c2-a20f-dc51d348d3ad",
+      "session_id": "sess_revoked_1795016583664",
+      "user_id": "sandbox-user-ff740c85-3eb7-410f-b88c-f9128d981035",
       "device_id": "dev_mock",
       "position": "Engineer",
-      "created_at": "2026-11-18T13:49:24.635Z",
-      "last_activity_at": "2026-11-18T13:49:24.635Z",
-      "expires_at": "2026-11-18T14:49:24.635Z",
+      "created_at": "2026-11-18T15:43:03.664Z",
+      "last_activity_at": "2026-11-18T15:43:03.664Z",
+      "expires_at": "2026-11-18T16:43:03.664Z",
       "authentication_level": "P256",
       "status": "REVOKED"
     },
     {
-      "session_id": "sess_panic_1795009764961",
-      "user_id": "sandbox-admin-794f82fa-a594-4fed-a4b8-7cd7ce9c6ca3",
+      "session_id": "SES-9B2662F6",
+      "user_id": "usr_admin_001",
+      "user_name": "Vasu (Administrator)",
+      "user_email": "admin@securemax.mil",
+      "device_id": "dev_admin_primary",
+      "device_name": "Admin Laptop (Hardware-Bound)",
+      "position": "ADMIN",
+      "created_at": "2026-11-18T15:43:03.833Z",
+      "last_activity_at": "2026-11-18T15:43:03.833Z",
+      "expires_at": "2026-11-18T23:43:03.833Z",
+      "authentication_level": "WEBAUTHN",
+      "status": "ACTIVE"
+    },
+    {
+      "session_id": "sess_panic_1795016583955",
+      "user_id": "sandbox-admin-b1d6bdb4-e30c-40e0-93d4-52a519e6e95c",
       "device_id": "dev_mock",
       "position": "Administrator",
-      "created_at": "2026-11-18T13:49:24.961Z",
-      "last_activity_at": "2026-11-18T13:49:24.961Z",
-      "expires_at": "2026-11-18T14:49:24.961Z",
+      "created_at": "2026-11-18T15:43:03.955Z",
+      "last_activity_at": "2026-11-18T15:43:03.955Z",
+      "expires_at": "2026-11-18T16:43:03.955Z",
       "authentication_level": "P256",
       "status": "REVOKED"
     },
     {
-      "session_id": "SES-0C6BBF3C",
+      "session_id": "SES-E0FA52B0",
       "user_id": "usr_admin_001",
-      "user_name": "Root Administrator",
+      "user_name": "Vasu (Administrator)",
       "user_email": "admin@securemax.mil",
       "device_id": "dev_admin_primary",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "position": "ADMIN",
-      "created_at": "2026-11-18T13:49:25.299Z",
-      "last_activity_at": "2026-11-18T13:49:25.299Z",
-      "expires_at": "2026-11-18T21:49:25.299Z",
+      "created_at": "2026-11-18T15:43:05.958Z",
+      "last_activity_at": "2026-11-18T15:43:05.958Z",
+      "expires_at": "2026-11-18T23:43:05.958Z",
       "authentication_level": "WEBAUTHN",
       "status": "ACTIVE"
     },
     {
-      "session_id": "SES-E44CDC30",
-      "user_id": "usr_admin_001",
-      "user_name": "Root Administrator",
-      "user_email": "admin@securemax.mil",
-      "device_id": "dev_admin_primary",
-      "device_name": "Admin Laptop (Hardware-Bound)",
-      "position": "ADMIN",
-      "created_at": "2026-11-18T13:49:29.162Z",
-      "last_activity_at": "2026-11-18T13:49:29.162Z",
-      "expires_at": "2026-11-18T21:49:29.162Z",
-      "authentication_level": "WEBAUTHN",
-      "status": "ACTIVE"
-    },
-    {
-      "session_id": "SES-4AA0539A",
+      "session_id": "SES-953C1FCC",
       "user_id": "usr_auditor_003",
       "user_name": "Neha Kapoor",
       "user_email": "auditor@securemax.mil",
       "device_id": "dev_auditor_terminal",
       "device_name": "Audit Secure Terminal",
       "position": "AUDITOR",
-      "created_at": "2026-11-18T13:49:29.162Z",
-      "last_activity_at": "2026-11-18T13:49:29.162Z",
-      "expires_at": "2026-11-18T21:49:29.162Z",
+      "created_at": "2026-11-18T15:43:06.855Z",
+      "last_activity_at": "2026-11-18T15:43:06.855Z",
+      "expires_at": "2026-11-18T23:43:06.855Z",
       "authentication_level": "P256",
       "status": "ACTIVE"
     }
   ],
   "decryptionAuths": [
     [
-      "0xa2736a1bfaa45b240160855b1af8d2cad0714e62a5d039c095fcc2268b03f079",
+      "0x829ed9ea880f44c88ad4847836a2e7349a1b11c9d237b510c108d5a0af8dec40",
       {
-        "authId": "0xa2736a1bfaa45b240160855b1af8d2cad0714e62a5d039c095fcc2268b03f079",
+        "authId": "0x829ed9ea880f44c88ad4847836a2e7349a1b11c9d237b510c108d5a0af8dec40",
         "userDid": "did:securemax:admin:001",
-        "assetId": "ast_7050a002",
-        "keyId": "ast_7050a002",
+        "assetId": "ast_690b980f",
+        "keyId": "ast_690b980f",
         "status": "ACTIVE",
-        "expiresAt": "2026-10-21T14:19:04.000Z",
-        "createdAt": "2026-10-21T13:49:04.241Z"
-      }
-    ],
-    [
-      "0x9fcda0fe5a4762dc504a856f1934c09ff979e05deacfa52f6e6a6188ab49ba89",
-      {
-        "authId": "0x9fcda0fe5a4762dc504a856f1934c09ff979e05deacfa52f6e6a6188ab49ba89",
-        "userDid": "did:securemax:admin:001",
-        "assetId": "ast_066eef48",
-        "keyId": "ast_066eef48",
-        "status": "ACTIVE",
-        "expiresAt": "2026-10-21T14:23:03.000Z",
-        "createdAt": "2026-10-21T13:53:03.164Z"
-      }
-    ],
-    [
-      "0x6d8ecf8e1e626c3c7bfbb7ad1c3fc26c4d375e2e2a9ba6269a936d4787b9a491",
-      {
-        "authId": "0x6d8ecf8e1e626c3c7bfbb7ad1c3fc26c4d375e2e2a9ba6269a936d4787b9a491",
-        "userDid": "did:securemax:admin:001",
-        "assetId": "ast_9b1cb74d",
-        "keyId": "ast_9b1cb74d",
-        "status": "ACTIVE",
-        "expiresAt": "2026-10-21T14:25:13.000Z",
-        "createdAt": "2026-10-21T13:55:13.538Z"
-      }
-    ],
-    [
-      "0xf2e77f03899b3cfdd286bd89c48feb44135a8c619bea7f34c7472922d79c6024",
-      {
-        "authId": "0xf2e77f03899b3cfdd286bd89c48feb44135a8c619bea7f34c7472922d79c6024",
-        "userDid": "did:securemax:admin:001",
-        "assetId": "ast_817d3848",
-        "keyId": "ast_817d3848",
-        "status": "ACTIVE",
-        "expiresAt": "2026-10-21T14:28:59.000Z",
-        "createdAt": "2026-10-21T13:58:59.985Z"
-      }
-    ],
-    [
-      "0xd64a88bd58f6c42d1abe3fa383fd0a8c4e3ef2a38779f5d898f7adb2b3ffc943",
-      {
-        "authId": "0xd64a88bd58f6c42d1abe3fa383fd0a8c4e3ef2a38779f5d898f7adb2b3ffc943",
-        "userDid": "did:securemax:admin:001",
-        "assetId": "ast_b30c57c0",
-        "keyId": "ast_b30c57c0",
-        "status": "ACTIVE",
-        "expiresAt": "2026-11-18T14:19:27.000Z",
-        "createdAt": "2026-11-18T13:49:27.619Z"
+        "expiresAt": "2026-11-18T16:13:05.000Z",
+        "createdAt": "2026-11-18T15:43:05.634Z"
       }
     ]
   ],
   "sentinelScans": [
     {
-      "id": "a7bc10f3-1bb4-48be-ba94-ea48a9b631f8",
+      "id": "912a9272-c507-49b6-af2e-f88fa2cf76fe",
       "triggered_by": "usr_admin_001",
       "status": "COMPLETED",
       "passed_count": 29,
       "failed_count": 1,
-      "started_at": "2026-11-18T13:49:24.630Z",
-      "completed_at": "2026-11-18T13:49:24.963Z"
-    },
-    {
-      "id": "b1e5679f-8101-4700-8476-4911bace06cd",
-      "triggered_by": "usr_admin_001",
-      "status": "COMPLETED",
-      "passed_count": 29,
-      "failed_count": 1,
-      "started_at": "2026-10-21T13:58:54.289Z",
-      "completed_at": "2026-10-21T13:58:54.666Z"
-    },
-    {
-      "id": "7a10348b-a337-4954-8a0d-266bb6e8aa76",
-      "triggered_by": "usr_admin_001",
-      "status": "COMPLETED",
-      "passed_count": 29,
-      "failed_count": 1,
-      "started_at": "2026-10-21T13:55:06.883Z",
-      "completed_at": "2026-10-21T13:55:07.319Z"
-    },
-    {
-      "id": "c83eaf86-319b-4271-8552-3fa1d45dd16d",
-      "triggered_by": "usr_admin_001",
-      "status": "COMPLETED",
-      "passed_count": 29,
-      "failed_count": 1,
-      "started_at": "2026-10-21T13:52:56.823Z",
-      "completed_at": "2026-10-21T13:52:57.213Z"
-    },
-    {
-      "id": "0aac45fb-2b1d-46dd-baa3-fa9b46e8d3b9",
-      "triggered_by": "usr_admin_001",
-      "status": "COMPLETED",
-      "passed_count": 29,
-      "failed_count": 1,
-      "started_at": "2026-10-21T13:48:57.552Z",
-      "completed_at": "2026-10-21T13:48:58.011Z"
-    },
-    {
-      "id": "792701b5-8de1-47b2-b420-c49793a9d1de",
-      "triggered_by": "usr_admin_001",
-      "status": "COMPLETED",
-      "passed_count": 29,
-      "failed_count": 1,
-      "started_at": "2026-10-21T13:46:41.287Z",
-      "completed_at": "2026-10-21T13:46:41.688Z"
-    },
-    {
-      "id": "d7c45bcd-07f5-4b09-9d7c-b3c94868d5e9",
-      "triggered_by": "usr_admin_001",
-      "status": "COMPLETED",
-      "passed_count": 29,
-      "failed_count": 1,
-      "started_at": "2026-10-21T10:39:03.598Z",
-      "completed_at": "2026-10-21T10:39:04.054Z"
-    },
-    {
-      "id": "ccc7402c-6470-4ed2-a325-0846cd335b3c",
-      "triggered_by": "usr_admin_001",
-      "status": "COMPLETED",
-      "passed_count": 29,
-      "failed_count": 1,
-      "started_at": "2026-10-21T10:30:32.109Z",
-      "completed_at": "2026-10-21T10:30:32.657Z"
+      "started_at": "2026-11-18T15:43:03.660Z",
+      "completed_at": "2026-11-18T15:43:03.957Z"
     }
   ],
   "sentinelFindings": [
     {
-      "id": "9261cf6e-df70-447d-bc63-303913c56d35",
-      "scan_id": "a7bc10f3-1bb4-48be-ba94-ea48a9b631f8",
+      "id": "e8b7b999-4bd9-4b88-9a20-fb9e195280eb",
+      "scan_id": "912a9272-c507-49b6-af2e-f88fa2cf76fe",
       "severity": "CRITICAL",
       "description": "Unauthorized Admin Endpoint Invocation via Forged Header - Allowed unauthenticated session",
       "status": "OPEN",
-      "created_at": "2026-11-18T13:49:24.963Z"
-    },
-    {
-      "id": "b561211c-727a-4877-a131-69ecf6f8a7cf",
-      "scan_id": "b1e5679f-8101-4700-8476-4911bace06cd",
-      "severity": "CRITICAL",
-      "description": "Unauthorized Admin Endpoint Invocation via Forged Header - Allowed unauthenticated session",
-      "status": "OPEN",
-      "created_at": "2026-10-21T13:58:54.665Z"
-    },
-    {
-      "id": "0c876045-0adf-41b8-923b-3d35cf8c4a8a",
-      "scan_id": "7a10348b-a337-4954-8a0d-266bb6e8aa76",
-      "severity": "CRITICAL",
-      "description": "Unauthorized Admin Endpoint Invocation via Forged Header - Allowed unauthenticated session",
-      "status": "OPEN",
-      "created_at": "2026-10-21T13:55:07.319Z"
-    },
-    {
-      "id": "d4f6e6a8-c1b5-453a-824c-4e5be9d606be",
-      "scan_id": "c83eaf86-319b-4271-8552-3fa1d45dd16d",
-      "severity": "CRITICAL",
-      "description": "Unauthorized Admin Endpoint Invocation via Forged Header - Allowed unauthenticated session",
-      "status": "OPEN",
-      "created_at": "2026-10-21T13:52:57.213Z"
-    },
-    {
-      "id": "42dc23b6-051c-449d-98dc-fe98086d8f1e",
-      "scan_id": "0aac45fb-2b1d-46dd-baa3-fa9b46e8d3b9",
-      "severity": "CRITICAL",
-      "description": "Unauthorized Admin Endpoint Invocation via Forged Header - Allowed unauthenticated session",
-      "status": "OPEN",
-      "created_at": "2026-10-21T13:48:58.011Z"
-    },
-    {
-      "id": "fcae4e61-81c7-4494-85f4-1f2e0b41cbb1",
-      "scan_id": "792701b5-8de1-47b2-b420-c49793a9d1de",
-      "severity": "CRITICAL",
-      "description": "Unauthorized Admin Endpoint Invocation via Forged Header - Allowed unauthenticated session",
-      "status": "OPEN",
-      "created_at": "2026-10-21T13:46:41.688Z"
-    },
-    {
-      "id": "2ab3627d-22f8-4008-ad26-3b3180ec3d13",
-      "scan_id": "d7c45bcd-07f5-4b09-9d7c-b3c94868d5e9",
-      "severity": "CRITICAL",
-      "description": "Unauthorized Admin Endpoint Invocation via Forged Header - Allowed unauthenticated session",
-      "status": "OPEN",
-      "created_at": "2026-10-21T10:39:04.054Z"
-    },
-    {
-      "id": "a88b4d34-56f6-40eb-8871-8d321a99abc6",
-      "scan_id": "ccc7402c-6470-4ed2-a325-0846cd335b3c",
-      "severity": "CRITICAL",
-      "description": "Unauthorized Admin Endpoint Invocation via Forged Header - Allowed unauthenticated session",
-      "status": "OPEN",
-      "created_at": "2026-10-21T10:30:32.657Z"
+      "created_at": "2026-11-18T15:43:03.957Z"
     }
   ],
   "challenges": [],
-  "updatedAt": "2026-11-18T13:49:29.165Z"
+  "updatedAt": "2026-11-18T15:43:06.856Z"
 }

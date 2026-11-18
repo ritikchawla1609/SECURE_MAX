@@ -110,6 +110,19 @@ export default function AssetsPage() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [viewMode, setViewMode] = React.useState<'table' | 'grid'>('table');
   const [requestedAssetIds, setRequestedAssetIds] = React.useState<string[]>([]);
+
+  // Hydrate requested asset IDs from localStorage on mount
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const cached = localStorage.getItem('securemax_requested_asset_ids');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed)) setRequestedAssetIds(parsed);
+        }
+      } catch {}
+    }
+  }, []);
   const [serverPendingAssetIds, setServerPendingAssetIds] = React.useState<string[]>([]);
   const [serverRejectedAssetIds, setServerRejectedAssetIds] = React.useState<string[]>([]);
   const [requestNotice, setRequestNotice] = React.useState<string | null>(null);
@@ -271,7 +284,13 @@ export default function AssetsPage() {
         reason: 'Zero-Trust tactical mission review',
       });
       if (res.success) {
-        setRequestedAssetIds(prev => [...prev, assetId]);
+        setRequestedAssetIds(prev => {
+          const next = Array.from(new Set([...prev, assetId]));
+          if (typeof window !== 'undefined') {
+            try { localStorage.setItem('securemax_requested_asset_ids', JSON.stringify(next)); } catch {}
+          }
+          return next;
+        });
         setRequestNotice('Request submitted! Awaiting Administrator NFT permit approval.');
         setTimeout(() => setRequestNotice(null), 4000);
         fetchAssets();

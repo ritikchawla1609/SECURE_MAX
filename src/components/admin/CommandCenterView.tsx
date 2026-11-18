@@ -468,6 +468,12 @@ export function CommandCenterView() {
                     </div>
                   </div>
                 ))}
+
+                {liveGrants.filter(g => g.status === 'ACTIVE').length === 0 && (
+                  <div className="py-2 text-center text-[11px] font-mono text-zinc-500">
+                    No active live grants currently issued.
+                  </div>
+                )}
               </div>
             </div>
 
