@@ -340,6 +340,10 @@ export default function SecureMaxHeroLogin() {
         throw new Error(result.error || 'Admin authentication failed');
       }
 
+      if (result.token && typeof window !== 'undefined') {
+        localStorage.setItem('securemesh_token', result.token);
+      }
+
       setStatusMessage('Administrator verified! Redirecting to Root Admin Dashboard...');
       router.push('/dashboard/admin');
     } catch (err: any) {

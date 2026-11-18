@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "usr_admin_001",
-      "name": "Vasu (Administrator)",
+      "name": "Root Administrator",
       "email": "admin@securemax.mil",
       "role": "ADMIN",
       "position": "Root Administrator",
@@ -10,6 +10,7 @@
       "kyc_status": "VERIFIED",
       "status": "ACTIVE",
       "did": "did:securemax:admin:001",
+      "admin_wallet": "0xc532c65055108e7901212b6c30ef800152e26eb5",
       "created_at": "2026-09-01T00:00:00.000Z"
     },
     {
@@ -14976,7 +14977,7 @@
     "createdAt": "2026-09-01T00:00:00.000Z",
     "used": false
   },
-  "adminWallet": "0x7ffdbb7868c127152f2007a6025ff15a5723ce08",
+  "adminWallet": "0xc532c65055108e7901212b6c30ef800152e26eb5",
   "sessions": [
     {
       "session_id": "SES-0CC71DAB",

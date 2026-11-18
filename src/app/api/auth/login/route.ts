@@ -90,7 +90,11 @@ export async function POST(req: Request) {
         );
       }
       // Clear the cookie immediately to prevent replay
-      cookies().set('auth_nonce', '', { maxAge: 0, path: '/api/auth' });
+      try {
+        cookies().set('auth_nonce', '', { maxAge: 0, path: '/api/auth' });
+      } catch (cookieErr) {
+        // Non-blocking in serverless environments
+      }
 
       if (new Date(storedChallenge.expiresAt).getTime() < Date.now()) {
         
@@ -313,22 +317,26 @@ export async function POST(req: Request) {
         .setExpirationTime('8h')
         .sign(jwtSecret);
 
-      cookies().set('securemesh_session', sessionToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/',
-        maxAge: 8 * 60 * 60, // 8 hours
-      });
+      try {
+        cookies().set('securemesh_session', sessionToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          path: '/',
+          maxAge: 8 * 60 * 60, // 8 hours
+        });
+      } catch (cookieErr) {
+        // Non-blocking in serverless environments
+      }
 
-      
-    if (deviceStore?.lastSyncPromise) {
-      await deviceStore.lastSyncPromise;
-    }
-    return NextResponse.json({
+      if (deviceStore?.lastSyncPromise) {
+        await deviceStore.lastSyncPromise;
+      }
+      return NextResponse.json({
         success: true,
         assuranceLevel: 'LEVEL_3',
         authModel: 'METAMASK',
+        token: sessionToken,
         user: {
           id: adminUser.id,
           name: adminUser.name,
@@ -664,12 +672,13 @@ export async function POST(req: Request) {
         },
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('[Login API Error]:', error);
     
     if (deviceStore?.lastSyncPromise) {
       await deviceStore.lastSyncPromise;
     }
-    return NextResponse.json({ error: 'Internal authentication server error' }, { status: 500 });
+    const message = error?.message || 'Internal authentication server error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

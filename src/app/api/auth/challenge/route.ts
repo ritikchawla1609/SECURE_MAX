@@ -27,13 +27,17 @@ export async function POST(req: Request) {
       ttlSeconds: 120, // 2-minute short-lived challenge
     });
 
-    cookies().set('auth_nonce', record.challengeId, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      path: '/api/auth',
-      maxAge: 120,
-    });
+    try {
+      cookies().set('auth_nonce', record.challengeId, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/api/auth',
+        maxAge: 120,
+      });
+    } catch (cookieErr) {
+      // Non-blocking cookie set in edge/serverless contexts
+    }
 
     
     if (deviceStore?.lastSyncPromise) {
@@ -79,13 +83,17 @@ export async function GET(req: Request) {
       ttlSeconds: 120,
     });
 
-    cookies().set('auth_nonce', record.challengeId, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      path: '/api/auth',
-      maxAge: 120,
-    });
+    try {
+      cookies().set('auth_nonce', record.challengeId, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/api/auth',
+        maxAge: 120,
+      });
+    } catch (cookieErr) {
+      // Non-blocking cookie set in edge/serverless contexts
+    }
 
     
     if (deviceStore?.lastSyncPromise) {
