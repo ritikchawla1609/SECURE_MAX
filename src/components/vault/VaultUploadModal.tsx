@@ -93,6 +93,8 @@ export function VaultUploadModal({
   React.useEffect(() => {
     if (txState === 'CONFIRMED') {
       finishUpload();
+    } else if (txState === 'FAILED' || txState === 'REJECTED') {
+      setLoading(false);
     }
   }, [txState, finishUpload]);
 
@@ -116,8 +118,13 @@ export function VaultUploadModal({
       setError('File name is required');
       return;
     }
-    if (!content.trim()) {
+    if (!content.trim() && !selectedFile) {
       setError('File content payload cannot be empty');
+      return;
+    }
+    const resolvedTargetUser = targetUserId || (availableUsers.length > 0 ? availableUsers[0].id : '');
+    if (shareScope === 'SPECIFIC_USER' && !resolvedTargetUser) {
+      setError('Please select a user to share this asset with');
       return;
     }
 
@@ -133,7 +140,7 @@ export function VaultUploadModal({
       formData.append('shareScope', shareScope);
       
       if (shareScope === 'SPECIFIC_USER') {
-        formData.append('targetUserId', targetUserId);
+        formData.append('targetUserId', resolvedTargetUser);
       }
       formData.append('saveDefaultPolicy', String(saveDefaultPolicy));
 

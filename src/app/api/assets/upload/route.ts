@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     let sizeBytes = 0;
     let mimeType = 'text/plain';
     
-    if (file && typeof file === 'object') {
+    if (file && typeof file === 'object' && typeof (file as any).arrayBuffer === 'function') {
       const buffer = Buffer.from(await file.arrayBuffer());
       plaintext = buffer.toString('base64');
       sizeBytes = file.size;

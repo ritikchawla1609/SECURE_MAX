@@ -1,18 +1,40 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest';
+import { describe, it, expect, vi, beforeAll, beforeEach } from 'vitest';
 
 vi.mock('server-only', () => ({}));
 
 import { deviceStore } from '../../src/lib/auth/deviceStore';
 import { registerNewUserByAdmin } from '../../src/app/actions/adminUsers';
-import { UserRole } from '../../src/types';
+import { UserRole, UserStatus } from '../../src/types';
+import { getVerifiedSession, getJwtSecret } from '../../src/lib/auth/session';
+import { cookies } from 'next/headers';
+import { SignJWT } from 'jose';
+
+// Mock Next.js next/headers cookies
+vi.mock('next/headers', () => {
+  const store = new Map();
+  return {
+    cookies: vi.fn(() => ({
+      get: vi.fn((key) => store.get(key)),
+      set: vi.fn((key, val, options) => store.set(key, { value: val, ...options })),
+      delete: vi.fn((key) => store.delete(key)),
+      _store: store,
+    })),
+  };
+});
 
 describe('End-to-End Integration: Admin User Creation, Enrollment Generation, Credential Login & Vault Uploads', () => {
   beforeAll(() => {
-    deviceStore.seedTestDataForTesting();
+    deviceStore.seedTestDataForTesting(true);
+  });
+
+  beforeEach(() => {
+    const cookieStore = cookies() as any;
+    cookieStore._store.clear();
   });
 
   let createdUser: any = null;
   let starterCode: string = '';
+  let userSession: any = null;
 
   it('Flow 1: Admin can add new user from Command Center (registerNewUserByAdmin)', async () => {
     const res = await registerNewUserByAdmin({
@@ -99,6 +121,33 @@ describe('End-to-End Integration: Admin User Creation, Enrollment Generation, Cr
 
     expect(session.session_id).toBeDefined();
     expect(session.user_id).toBe(createdUser.id);
+    userSession = session;
+
+    // Issue JWT cookie and verify session resolution via getVerifiedSession
+    const jwtSecret = getJwtSecret();
+    const token = await new SignJWT({
+      userId: createdUser.id,
+      email: createdUser.email,
+      name: createdUser.name,
+      role: UserRole.ENGINEER,
+      did: createdUser.did,
+      deviceId: result.passport.device_id,
+      deviceName: 'Rohan Primary MacBook',
+      sessionId: session.session_id,
+      assuranceLevel: 'LEVEL_2',
+    })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setIssuedAt()
+      .setExpirationTime('8h')
+      .sign(jwtSecret);
+
+    const cookieStore = cookies() as any;
+    cookieStore._store.set('securemesh_session', { value: token });
+
+    const verified = await getVerifiedSession();
+    expect(verified.userId).toBe(createdUser.id);
+    expect(verified.email).toBe('rohan.sharma@securemax.mil');
+    expect(verified.role).toBe(UserRole.ENGINEER);
   });
 
   it('Flow 4A: User can add data publicly (ALL_PEOPLE share scope)', () => {
@@ -200,6 +249,79 @@ describe('End-to-End Integration: Admin User Creation, Enrollment Generation, Cr
     }
   });
 
+  it('Flow 4D: Admin can upload under all 4 classifications and all 3 scopes without identity errors', async () => {
+    const adminWallet = '0xc532c65055108e7901212b6c30ef800152e26eb5';
+    const admin = deviceStore.getUserById('usr_admin_001') || deviceStore.getUserById('ADM-0001');
+    expect(admin).toBeDefined();
+
+    // Verify admin session via getVerifiedSession
+    const adminSession = await deviceStore.createSession({
+      userId: admin!.id,
+      deviceId: 'dev_admin_metamask',
+      authLevel: 'METAMASK',
+      durationHours: 8,
+    });
+
+    const jwtSecret = getJwtSecret();
+    const token = await new SignJWT({
+      userId: admin!.id,
+      email: admin!.email,
+      name: admin!.name,
+      role: UserRole.ADMIN,
+      did: admin!.did,
+      deviceId: 'dev_admin_metamask',
+      walletAddress: adminWallet,
+      sessionId: adminSession.session_id,
+      assuranceLevel: 'LEVEL_3',
+    })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setIssuedAt()
+      .setExpirationTime('8h')
+      .sign(jwtSecret);
+
+    const cookieStore = cookies() as any;
+    cookieStore._store.set('securemesh_session', { value: token });
+
+    const verifiedAdmin = await getVerifiedSession();
+    expect(verifiedAdmin.role).toBe(UserRole.ADMIN);
+    expect(verifiedAdmin.userId).toBe(admin!.id);
+
+    const classifications = ['PUBLIC', 'INTERNAL', 'CONFIDENTIAL', 'RESTRICTED'] as const;
+    const scopes = ['PRIVATE', 'ALL_PEOPLE', 'SPECIFIC_USER'] as const;
+
+    for (const classification of classifications) {
+      for (const shareScope of scopes) {
+        const asset = deviceStore.createAsset({
+          name: `Admin_Vault_${classification}_${shareScope}.dat`,
+          folder: 'Projects',
+          classification,
+          description: `Admin vault payload for ${classification} / ${shareScope}`,
+          plaintext: `ADMIN PAYLOAD [${classification}:${shareScope}]`,
+          ownerId: admin!.id,
+          ownerName: admin!.name,
+          shareScope,
+          targetUserId: shareScope === 'SPECIFIC_USER' ? createdUser.id : undefined,
+          canDecryptShared: true,
+          canDownloadShared: true,
+        });
+
+        expect(asset).toBeDefined();
+        expect(asset.id).toBeDefined();
+        expect(asset.classification).toBe(classification);
+
+        const assignment = deviceStore.getAssignment(admin!.id, asset.id);
+        expect(assignment).toBeDefined();
+        expect(assignment?.can_decrypt).toBe(true);
+
+        if (shareScope === 'SPECIFIC_USER') {
+          const userAssignment = deviceStore.getAssignment(createdUser.id, asset.id);
+          expect(userAssignment).toBeDefined();
+          expect(userAssignment?.can_decrypt).toBe(true);
+        }
+      }
+    }
+  });
+
   it('Flow 5: Admin wallet 0xc532c65055108e7901212b6c30ef800152e26eb5 has root administrator authority', () => {
     const adminWallet = '0xc532c65055108e7901212b6c30ef800152e26eb5';
     expect(deviceStore.getAdminWallet().toLowerCase()).toBe(adminWallet);
@@ -207,5 +329,10 @@ describe('End-to-End Integration: Admin User Creation, Enrollment Generation, Cr
     const admin = deviceStore.getUserById('usr_admin_001') || deviceStore.getUserById('ADM-0001');
     expect(admin).toBeDefined();
     expect(admin?.role).toBe(UserRole.ADMIN);
+
+    // Verify lookup by wallet address
+    const byWallet = deviceStore.getUserById(adminWallet);
+    expect(byWallet).toBeDefined();
+    expect(byWallet?.role).toBe(UserRole.ADMIN);
   });
 });

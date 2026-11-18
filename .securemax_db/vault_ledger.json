@@ -105,8 +105,8 @@
       "credential_id": "cred_admin_hw_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-01T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T20:53:58.445Z",
-      "last_active_at": "2026-11-18T20:53:58.445Z",
+      "last_authenticated_at": "2026-11-18T21:18:53.145Z",
+      "last_active_at": "2026-11-18T21:18:53.145Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2Z37UoHq3y1V4XwH5K7oF9P9k3sZ0s7uVvWxX0y1A2bC3dE4fG5hI6jK7lM8nO9pQ0rS1tU2vW3xY4z5A6bC7w==",
@@ -114,7 +114,7 @@
       "status": "ACTIVE",
       "is_admin_device": true,
       "created_at": "2026-09-01T00:00:00.000Z",
-      "last_used_at": "2026-11-18T20:53:58.445Z",
+      "last_used_at": "2026-11-18T21:18:53.145Z",
       "timeline": [
         {
           "id": "tl_adm_1",
@@ -148,8 +148,8 @@
       "credential_id": "cred_vasu_mbp_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-02T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T20:53:58.445Z",
-      "last_active_at": "2026-11-18T20:53:58.445Z",
+      "last_authenticated_at": "2026-11-18T21:18:53.145Z",
+      "last_active_at": "2026-11-18T21:18:53.145Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEq9V1zK2Y7nL6X4eQ8jB2tF0mS3wZ5xY8vU1tP2rQ3sA4bC5dE6fG7hI8jK9lM0nO1pQ2rS3tU4vW5xY6z7A8bC==",
@@ -157,7 +157,7 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-02T00:00:00.000Z",
-      "last_used_at": "2026-11-18T20:53:58.445Z",
+      "last_used_at": "2026-11-18T21:18:53.145Z",
       "timeline": [
         {
           "id": "tl_vsu_1",
@@ -198,8 +198,8 @@
       "credential_id": "cred_audit_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-03T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T20:53:58.445Z",
-      "last_active_at": "2026-11-18T20:53:58.445Z",
+      "last_authenticated_at": "2026-11-18T21:18:53.145Z",
+      "last_active_at": "2026-11-18T21:18:53.145Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7p9X2mR5yT8vN1qW4sE7hK0bL3zC6xY9vU2tP3rQ4sA5bC6dE7fG8hI9jK0lM1nO2pQ3rS4tU5vW6xY7z8A9bC==",
@@ -207,7 +207,7 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-03T00:00:00.000Z",
-      "last_used_at": "2026-11-18T20:53:58.445Z",
+      "last_used_at": "2026-11-18T21:18:53.145Z",
       "timeline": [
         {
           "id": "tl_aud_1",
@@ -235,9 +235,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Confidential design specifications for tactical communications and payload encapsulation.",
-      "encrypted_content": "iAQG+NzvDWgMOWqWv/ogtoZZPoZyqQkYD8XzxUgCV5GRubMuWELgyv/AwUG5XAAW6ec0zEzT2eIDe79mhEjCrWaR2suHpo+VDihHAfafSkQHR0ydBEQCWuv/GugWaR9B5xSK2+jqDBTs2pDbGiy2SVYwDAUlCF3fonzTX3j8ieKTsPbchSw0jS3ykU1JWw4H5jhOllhcItyHrbRPS7MZcz8FfaAUOZovbR1WEfen9PnzaiYG2ElmsPiR/xVX72lcE6MkknpBzlISzpDiU6o29t+6oeqafhdE+A==",
-      "iv": "qB6M3mlvwkzm6I2l",
-      "auth_tag": "kwBt6UmYL3PZEziAYL0j/A==",
+      "encrypted_content": "2KrRVYAVwXzeikTzOmPS8//9NUNpEJ1kO6ooaybWZSGuIyV5uzFSi4XFliscUgLnopWZGhRsSCfkHakryOh1aoTg8gfxJvYGgqFb53ysA+2nTBzJR2I2vO8qqHlQUdoZsVhBkcaFlaJ+VjDAuj5WooTocAjObePYCHm6zxUGgpzItZkqbpSVaj6Y27ONGRsvA6oHuCK8iYhzLsG6g6hvkmlPAPQB9e4rn4dc0ukLdjpqodPnA+Q7sxWw8rT0EiFP1sLHJRg9FWP7ufCzTRmgzE80zyiaiV06TA==",
+      "iv": "npTtdwdF3wshLsxX",
+      "auth_tag": "p2C9k17+0GTQHWxb89xxJQ==",
       "aad": "asset_data:ast_alpha",
       "folder": "Projects",
       "file_type": "PDF",
@@ -248,7 +248,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-15T10:30:00.000Z",
-      "last_accessed_at": "2026-11-18T20:48:58.445Z",
+      "last_accessed_at": "2026-11-18T21:13:53.145Z",
       "key_version": "v2",
       "versions": [
         {
@@ -271,7 +271,7 @@
           "id": "log_alpha_1",
           "action": "DECRYPT",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T20:48:58.445Z",
+          "timestamp": "2026-11-18T21:13:53.145Z",
           "status": "SUCCESS",
           "details": "Authorized session decrypt via P-256"
         },
@@ -279,7 +279,7 @@
           "id": "log_alpha_2",
           "action": "READ",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T20:08:58.445Z",
+          "timestamp": "2026-11-18T20:33:53.145Z",
           "status": "SUCCESS"
         }
       ],
@@ -294,9 +294,9 @@
       "classification": "INTERNAL",
       "status": "ACTIVE",
       "description": "Comprehensive architectural diagrams, CAD schematics, and microservice definitions for Project Beta.",
-      "encrypted_content": "0Fiahrz5YwqeZCrIHcIVEskNYUvsWYMWOeUQyBtiH9fcXoWhdyTIVraJq6aUurXdevDtLt8pFzs0nTqFkvcqTO/dBv0QpZQWTk0DZ/X/xV/yAMl7sUjytkSKefOm0gXdDGh1eVKujUFA4SRB3ULLEkUHQL8N7Np5rLKJR0pm/NFr02JF+RvitTe3LsnvRtsAMEk4nFE6q2iv52v2y229uuLbxafma81u4Iq4ACWFTUE9466kcGmoCQ==",
-      "iv": "6tdpIzbXJlaor/Bc",
-      "auth_tag": "j9wlnDSrRvja044R6fnIWA==",
+      "encrypted_content": "g1OuyZ3rchirhmk1insP5ZH6a3s40/CBQyuF6noyfOfoSJm7ruSLKU+HRhyYDENdongGs6L/M0EZrklvYSkEF3i7aWSyWbR49VUCIPObGw4iQnZ9CescqGSe0XicxGFrK2fi8CqHE0X19oWrlqb3FHqPIjkugusftJAPacnereWhKsO2rDfAII7lyTcb8j5hqaV36UYkuc+oRLFuC+PR/8TE3C5lwDyEHJ7cLF5tgzRYnbb+abnaHA==",
+      "iv": "YUcTsnZez7FiTD7d",
+      "auth_tag": "GuAH5bIt1Rw9ZmBoeWOBQw==",
       "aad": "asset_data:ast_beta",
       "folder": "Projects",
       "file_type": "ZIP",
@@ -307,7 +307,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-10T14:00:00.000Z",
-      "last_accessed_at": "2026-11-18T18:53:58.445Z",
+      "last_accessed_at": "2026-11-18T19:18:53.145Z",
       "key_version": "v1",
       "versions": [
         {
@@ -323,7 +323,7 @@
           "id": "log_beta_1",
           "action": "DOWNLOAD",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T18:53:58.445Z",
+          "timestamp": "2026-11-18T19:18:53.145Z",
           "status": "SUCCESS"
         }
       ],
@@ -338,9 +338,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Quarterly financial compliance, hardware procurement, and cryptographic subsystem expenditures.",
-      "encrypted_content": "m6R074cGTHJWcW6SuT2U/onsobqVxl0akpRwNnnPKyoLK6Zjjw5oR7oN15635K/TWhu3fOk93KwnXk/yKU2eO2ZLYAiG2Ffg6JFDFWBw84/qmE5MEUdiYH1wSumqavKHt+Tfnk81QsOAy8ldnPJSavEHNKrS0JekIEXkkqw4ueyaD4+ddyUgD/KSwG6Gztqho7fprT4BDFggrEkq4pBLuCqj0vSq2Q==",
-      "iv": "fXo6BfGcjZO5m02B",
-      "auth_tag": "5fRl+4nfp4VE3kU0e4i/Og==",
+      "encrypted_content": "obahDB+ZkNjfUcfuGlDkqjnB1rB29oVm6uUqLmz2kUpRuJMyCE9EJKAtoQpNYqcKgrgPn+TFFUPkDIUP+IBOYmR9jkxfcPV+Rj6m8IuHmJRcs2T1mGLClGD08TQQUljX225rS0ZCmTf5DiR6QK8Sj9vka/W1GK4Q28G/x6iWQ029DXhLw4oZ+VcKg2Lyy31b8FmgDXPrnp4MoIrwGb5R2z2S43qgiw==",
+      "iv": "0NtakbWk1BJ2UTWO",
+      "auth_tag": "UpnGWCH4N7B8l5EgQ+Ortw==",
       "aad": "asset_data:ast_finance",
       "folder": "Finance",
       "file_type": "XLSX",
@@ -351,7 +351,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-08T09:15:00.000Z",
-      "last_accessed_at": "2026-11-18T19:53:58.445Z",
+      "last_accessed_at": "2026-11-18T20:18:53.145Z",
       "key_version": "v1",
       "versions": [
         {
@@ -367,7 +367,7 @@
           "id": "log_fin_1",
           "action": "DECRYPT",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T19:53:58.445Z",
+          "timestamp": "2026-11-18T20:18:53.145Z",
           "status": "SUCCESS"
         }
       ],
@@ -382,9 +382,9 @@
       "classification": "INTERNAL",
       "status": "ACTIVE",
       "description": "Forecast budget models and supplier bids for next-generation cryptographic hardware.",
-      "encrypted_content": "KPNKPuCaTtX9VEyDRInMJfsn17qUgWl201a2m+867o91xbnHy03IneST2j7+0OMrJNonih2pnFOlvgKLXi1RBQRom1WRRHKLyLo6XIVFKxhPN4jImHiGCT4XljoECblj410BptC5smyTxln724qH+DLM0De7np3OLqJoopof2ojKkzZdrhs32a34tT+zAp7mwymyywCsny2e+dGmNgtTzQ==",
-      "iv": "Wz5Ta0xqM6rqBr8D",
-      "auth_tag": "qNNPdnfD3wUlHdQi4o2jZQ==",
+      "encrypted_content": "t7SHRXRft9r58vWWGwjfTED6YmBWGe49sxAGkjgfgxh9CAQarf/hdi4UHCovE7/YeQA9EhWaVhCxKNi4WtoDYNrfh7xeRec+TtMgI1U7IFee5oc5WTNhMVaE1WvlE3PuD7GG4NMxM22wr5Kazpr6+qF5pTK1TUD2HKWhjzYAtBG9X4CY+29AQeyEmCR/4fhDnc4XPlNRTRumD4JSZW4NLw==",
+      "iv": "At8CqETr6oV4L6FY",
+      "auth_tag": "v9CBaZ7i5dz9e7kRDfNRZQ==",
       "aad": "asset_data:ast_procure",
       "folder": "Finance",
       "file_type": "XLSX",
@@ -395,7 +395,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-12T11:20:00.000Z",
-      "last_accessed_at": "2026-11-18T16:53:58.445Z",
+      "last_accessed_at": "2026-11-18T17:18:53.145Z",
       "key_version": "v1",
       "versions": [
         {
@@ -411,7 +411,7 @@
           "id": "log_proc_1",
           "action": "READ",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T16:53:58.445Z",
+          "timestamp": "2026-11-18T17:18:53.145Z",
           "status": "SUCCESS"
         }
       ],
@@ -426,9 +426,9 @@
       "classification": "PUBLIC",
       "status": "ACTIVE",
       "description": "Organizational guidelines on cryptographic key custody, zero-trust hygiene, and KYC verification.",
-      "encrypted_content": "cvw1X6UpOm4ShoJDrwaObzfKw2UxcutBsYS9TYwA8Gu4ASjZ+eLiMtJJbmBGguSQeJr4zP59Uqo49/MMyBKYNuh0A4TYFV2IBRCHM78I0LY49Gp4FLxxVTRXW19AZdo3iPlV9/xEJR75y4M1AxExy3i3yD3iAL7ePmxduZ6QMVmhAlnfTcMUWbSiD9icy3J0WxB7R5UkLLjeXZO6/g7RqwCb1sEj+2Ng69R+7ZiEQqIE4WAW/BxpZAgX",
-      "iv": "KwNpFDA93o4qGp4j",
-      "auth_tag": "YzOVq6Q6oQRV6xVtrexk2g==",
+      "encrypted_content": "GVjYaZJ3BaJwd7AVVLq6XHVAqhtShHxxMF2vlCXd7sVb4OTTj5NfEKfz8R2H1igb6M+yvcidnhWbwnY570T/ZDqUTofz6ZI4nm8QI5NKpEaXMDr3wxloTrlU7kY/dhT4gnFSIsLImyqAa9qlZP0Wh/8isi0uj9LZBjwAnR5aimpnu1yrcWutk5WMl0iZ0NJGpg57eSlnVYmI4vFvxAgxEKQJhDpBEHER5FoZ6H3XtiM5PLZS9cy4SUMT",
+      "iv": "GPAQ4WnV6qbSL3jY",
+      "auth_tag": "f+bQ1B7B0rUuAPd4VxVicQ==",
       "aad": "asset_data:ast_hr_policy",
       "folder": "HR",
       "file_type": "PDF",
@@ -461,9 +461,9 @@
       "classification": "RESTRICTED",
       "status": "ACTIVE",
       "description": "Field operative identity mappings, tactical assignments, and cryptographic public key fingerprints.",
-      "encrypted_content": "SHmdRSrF3i8JS9OOuUuaYX+mqzJXtItIDRsSjocX9rsZRn4qfxBrH14H7K3D086WNep6EuUyAWkb3WGmz8GLRQI0K39kDowd65qWfCuzauu21r0/t8Hw6GY6sTh4RZDnhGqzGHqv6Pe9TzMk2LrszLbPmpTL9niZXOscubrqawOKNfaEi8NczrvaH8ZrtLss85hadncSxz7XVrbTuB8=",
-      "iv": "AIWtZkCzAq9GJYJ1",
-      "auth_tag": "LjVfutzBSa8KJNtBKKn0SA==",
+      "encrypted_content": "PuCNdqRkqJCtSEq+gQkSeL73sz+7mHtYa9rOFSIjE9v6QC18SHodmD7b8odYnCHU4eXJXQXRasTbBHXdKOzBADAMmjeFAnqXxCXmjUc2549wQ0CqyqBShRMHrmNlxvHOv+ax1td5YpVGVJ8naIWfTYiocf63FRwhnGS6h+kKorcrkIkR7P2YG8v8aOZbiknPNaCtvvOVrD3v6nx6DRs=",
+      "iv": "dVC4A9x0fQP6vWKa",
+      "auth_tag": "sDTQ843pdhjaOBZRzAKGRw==",
       "aad": "asset_data:ast_roster",
       "folder": "HR",
       "file_type": "DOC",
@@ -474,7 +474,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-14T16:45:00.000Z",
-      "last_accessed_at": "2026-11-18T20:38:58.445Z",
+      "last_accessed_at": "2026-11-18T21:03:53.145Z",
       "key_version": "v2",
       "versions": [
         {
@@ -490,7 +490,7 @@
           "id": "log_rost_1",
           "action": "DECRYPT_ATTEMPT",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T20:38:58.445Z",
+          "timestamp": "2026-11-18T21:03:53.145Z",
           "status": "DENIED",
           "details": "Insufficient clearance level"
         }
@@ -506,9 +506,9 @@
       "classification": "RESTRICTED",
       "status": "ACTIVE",
       "description": "Hardware interface diagrams, bus timings, and electronic warfare countermeasure protocols.",
-      "encrypted_content": "iOLtc4x0WFlzIBny/MHvYlGyzXq1i87f/iZvb/+YCiq5eNjIyp82RXHZm30TLwGc/p4WFtv+doYgZQ19h7OTVS19Cp+SrkhFQu/V2ukTiFMHGvBHLzYukSfMABt8lUT5PwtRpVrkJre5l0OyUJKVNqh5T37vNNSKK1tHnQo6w9ak317Aoe/k1jeYapngULbfbOltHIHIw8D0C37i",
-      "iv": "HYGBUDv/8k7a1JE9",
-      "auth_tag": "gm9S4v3maPccChO8Tmb/gA==",
+      "encrypted_content": "YguUW5JgqEo0DzkM4yFPD18aDc22rIZ2P7AdGDxBVvu63mChl4gubAIxMjHicXG3x+HdFKUORQvah8i79mCYTSyBTDgrBdoUOoG2XXyr9uxp8ayYVY3l5WPJyCGo0B0/g0DCi+arVA/6lsvSW69KVpkrVzg4QllB62eAQR6hn102rOzdqHz/T4kXnxgCpm33d1cuLXibLUTtIsDs",
+      "iv": "8/dGWg3l6dCL6EUe",
+      "auth_tag": "lZ+ekobK+GxT9w4f0ZPjwg==",
       "aad": "asset_data:ast_avionics",
       "folder": "Engineering",
       "file_type": "PDF",
@@ -519,7 +519,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-11T12:00:00.000Z",
-      "last_accessed_at": "2026-11-18T20:23:58.445Z",
+      "last_accessed_at": "2026-11-18T20:48:53.145Z",
       "key_version": "v2",
       "versions": [
         {
@@ -535,7 +535,7 @@
           "id": "log_avn_1",
           "action": "ACCESS_REQUEST",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-18T20:23:58.445Z",
+          "timestamp": "2026-11-18T20:48:53.145Z",
           "status": "PENDING",
           "details": "Awaiting Admin NFT Permit"
         }
@@ -551,9 +551,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Firmware binaries and zeroization routines for the cryptographic key storage layer.",
-      "encrypted_content": "Pb+2Ka3GPE6LVBrNjCoSQCsRmN5Mwg4AxoKGyWK+/xjRnamsTyLIiGsuJ+oowW4NDgGAio1xRJzQUHSEFs0Q332ltl4HqB+CEiejI4BuhQ1uL7szOeCuw4tDJRyG1uADjM66nwl1k1BdyCKCSOC5w+S2YP+kosOnlmCkKmZXq9GxXdkAZZMxtZkTpw0=",
-      "iv": "/13NBpqTjcL185Dm",
-      "auth_tag": "zzrNDL2iGd8QyiMIWNOQNw==",
+      "encrypted_content": "t+ROFAZ792IcCH/wLsGXlHPdv2OdFVzWszjaKLFj4hPGhEHHOEO2uqkhE3cd+/geWFvm8SZOimkOozuVYKvRUtvZlo0WyXtAomYix06Ahzgusvcr2HNTk05UiPbs4N/iPdpfZukd4ntpKeVqT6+OA1NhEs+A2RwWPOviKMHH/QbCvMM9UKbjS6L5FNw=",
+      "iv": "7q9Bvz/JzleBtBsf",
+      "auth_tag": "DfAqCVCo3H/ZniW/4DU4IA==",
       "aad": "asset_data:ast_kms",
       "folder": "Engineering",
       "file_type": "ZIP",
@@ -564,7 +564,7 @@
       "shared_with_all": false,
       "default_access_policy": "PRIVATE",
       "created_at": "2026-09-13T15:30:00.000Z",
-      "last_accessed_at": "2026-11-17T20:53:58.445Z",
+      "last_accessed_at": "2026-11-17T21:18:53.145Z",
       "key_version": "v2",
       "versions": [
         {
@@ -580,7 +580,7 @@
           "id": "log_kms_1",
           "action": "ACCESS_EXPIRED",
           "user_name": "Vasu (Lead Engineer)",
-          "timestamp": "2026-11-17T20:53:58.445Z",
+          "timestamp": "2026-11-17T21:18:53.145Z",
           "status": "DENIED",
           "details": "Temporary 24h clearance expired"
         }
@@ -596,9 +596,9 @@
       "classification": "PUBLIC",
       "status": "ACTIVE",
       "description": "Statutory audit compliance certificate confirming adherence to NIST SP 800-207 standards.",
-      "encrypted_content": "dD5nZRTPBuWd1WHl5idFy7eKSlzL9jR9v9HDkfNm3DSff6fU8yEM6a3IqoRaNpKUzsxhFGlRqMpgskzdT6b+jNtgzOyl5HM9z8Li3p2UBj4Aj+ZTYfs5R5JgtGJzVT4NIQ24mZCgMAtjKvkxEqwq2LB1BQzsZfxkYJn6rWVVcQ5qH6uvptfzESNzczEeLOB4MxUFuVEohv3IJcpPr9a7snziEwg=",
-      "iv": "pctCL8mVql61hupB",
-      "auth_tag": "oNFTCHu9hsy9PZMbqcIcsQ==",
+      "encrypted_content": "stAWfgbcu8Ai5NJz9ACyw3RKG/Tz+KtbzjPLm2/FbeWKHgUBR0RYpBhOVxph9QBtGls7T5Aa2KsO3pujacwJnaEFQ2IOVu4uLB9JGTzKbpOxYjxpJAr9/6Ej/EsLRaFgsF0NgubiFGb/nUTaQoj8My1bRIw0vZmfcdshU2tT05fiXPsjRQRO3NWXtWHmZnkvuFnHHRNffJ/lh86RpC8wWHL//VU=",
+      "iv": "8Ij9+DlB9CqlbEFH",
+      "auth_tag": "VQ1iHoV70xS5ukZp49bJcw==",
       "aad": "asset_data:ast_compliance",
       "folder": "Legal",
       "file_type": "PDF",
@@ -631,9 +631,9 @@
       "classification": "CONFIDENTIAL",
       "status": "ACTIVE",
       "description": "Standard nondisclosure agreements and operational security protocols for defense contractors.",
-      "encrypted_content": "lF2RRQSTauKJpdqV9LlEMfbyn+6fe9U9m8qYr2YYykO/9iqB0gEbTAIgo2c47ty0I2+tQ8D/aLpoiyst6Wp5BMqOZjkPBq/KtfrerAiupMDzhu8/jRgwinXpDnePsKfdODIrsr/1MofujWAGPFtJTXSRHdpWAe7wHjAJCVCgyIW5rqcFX7/muACaS9JSKWxmI+JD8Co9OnTp95+eAYvxgoDi",
-      "iv": "fpjJKz214ItHYrIH",
-      "auth_tag": "Us/38pb/+X3AcZWZNx8xrw==",
+      "encrypted_content": "pRhNXreW8+7M1y7Ic3RSC1rjSKJPooWrSZgrDaU5GnL6HttJEVhH97b16cBnkhrrZ+VocnJndsiYsXvggBVSXV/0DlvygozfH2TsZEFyC6vOZD3RxeJ+94wegkd2hTw9qc6rkgL0cH7B9HQ0+7KBptmeST7XuiTgwuTW3b5XrRAsVyDvJD/DCAJv9wK9U6SQXgSPxO8ALrh0b13qBtIH2khb",
+      "iv": "KgkbCB4IzNnBivu5",
+      "auth_tag": "ELpkpnFziNAY2UmvI99/Mw==",
       "aad": "asset_data:ast_nda",
       "folder": "Legal",
       "file_type": "DOC",
@@ -664,81 +664,81 @@
     [
       "ast_alpha",
       {
-        "cipher": "Ixb00hAQH+7DI6rE7us4HKgDYydlxTZFj42gRCjy94s=",
-        "iv": "QeI3Iaeo6fNHcK1r",
-        "authTag": "6+yfqxR39KfNV2ndecjJfg=="
+        "cipher": "n50QQFEKpoyw8JeHSAwdpRpWBdziC2t43SVKwtz5dcc=",
+        "iv": "nEnSUjZM7BRimc9s",
+        "authTag": "BIUV9tonh54TnNfT3F6mfQ=="
       }
     ],
     [
       "ast_beta",
       {
-        "cipher": "79LJhJ1fIUTAar7Ns2qFryaLCjKs5gEk98T9o7xfyBg=",
-        "iv": "N5OhkaHdZVGY+q9c",
-        "authTag": "9XfzkK4Ry1VAd28xKshQ/A=="
+        "cipher": "b2CrD6iUk2qAaP+QbxTJNoXn0F4XlY4qD57wpp9tJa4=",
+        "iv": "hRSaKPZhGK0S72iu",
+        "authTag": "t4djGlW/H3ueKxICxQvcgQ=="
       }
     ],
     [
       "ast_finance",
       {
-        "cipher": "nZsCjAiesWac8KLbc1X7bA6f151/83vLFGLx6kIx7Fk=",
-        "iv": "iTAI5t+1nZkQU5mS",
-        "authTag": "sjsUtvuQ5hOEIlHw4RUzpg=="
+        "cipher": "IrwV/dCO7GNR7yk3WOXY9Q7jL5PEm+wEurTOp76sM7Q=",
+        "iv": "18UXzGQE0dLxF3Iq",
+        "authTag": "Z6LnWxP4mpqHxEXXaykdrQ=="
       }
     ],
     [
       "ast_procure",
       {
-        "cipher": "T1m/x1zOQDaNiImGxrfn2P+unktTqVZ0W7T/rZNwH20=",
-        "iv": "qcPKITN4d6ox6COY",
-        "authTag": "6Uxb4LhNUpSnE9ad8zZshA=="
+        "cipher": "ezsE1jMY7fp9rkKc3rSNhXwik5rt9iWVXC5Y7u2cwEE=",
+        "iv": "5mHPnSE+ukYbZQTI",
+        "authTag": "K/zjAS1H1D21zFc/18AzaQ=="
       }
     ],
     [
       "ast_hr_policy",
       {
-        "cipher": "N/0mh7by3IxRVaFkWpCxfZY0z2KRftCZTV6iY3z/Gt0=",
-        "iv": "uoiLWmcEaHrdMFnt",
-        "authTag": "G8t6HUME9JGOcFUMN4VJgw=="
+        "cipher": "LfqR64IvaC/VQlcyZKFgt+6qzL7x2g+b/QRabS51H6w=",
+        "iv": "U7wJHJbDMNu5sR65",
+        "authTag": "nJLR2RtlTTjSNPZGjP7/Eg=="
       }
     ],
     [
       "ast_roster",
       {
-        "cipher": "LJ4B6ukff5kZXxNQPrSrqHL3futM4OGVOQjyi+qn2fY=",
-        "iv": "V0kAcRzwPWrxulRB",
-        "authTag": "YuRzLE10J8hWfuXeog9ecQ=="
+        "cipher": "mnfZ7AgLB1VuFeMUX9hn4+7TCPbKueYZFaAjvchPr0A=",
+        "iv": "qyamLUcGKdN37wYV",
+        "authTag": "MxPBAphd3r/MieSNYo2EGQ=="
       }
     ],
     [
       "ast_avionics",
       {
-        "cipher": "6Zj5DWtmfotvOMTNVEXhI0VwcJ8AEbEbfc3j6xwfl5k=",
-        "iv": "dDUyz6dTy/5qzxMy",
-        "authTag": "AU19MQUKO0pz/fAgofU8rg=="
+        "cipher": "DSBgn7/5th3QW66qcSln72GyoCvS0Ee/nUB03gqqwrM=",
+        "iv": "VXeqkhjJFw79yWup",
+        "authTag": "ovb6doVIQcFk5AZ3qtmKmw=="
       }
     ],
     [
       "ast_kms",
       {
-        "cipher": "8xbS1v4jh0nIFMEhizmJ7bUTRY5xmjl6j4mNFRq8EuE=",
-        "iv": "JBkXS4sNyfhcr79f",
-        "authTag": "znkLT7lTz/jidPVeTzfdcw=="
+        "cipher": "dEFAXNY7tFwRyl6+MXCiSZsPgKkH2cwOwEYFgpaUhjs=",
+        "iv": "PqjJUrfigb3sZ5F1",
+        "authTag": "hzgTVt0hxAd2CCbUIhyJ/g=="
       }
     ],
     [
       "ast_compliance",
       {
-        "cipher": "o2/e/PgZ/eEdbNCsIUKxaAjwdqemCfWLjb+JjeZZN+M=",
-        "iv": "jY0O57TOPjSIejJJ",
-        "authTag": "QLWgT4AyiL5nHpnCSoN57g=="
+        "cipher": "1I6ljOkAUKw37rS0Y8mZ7up9r5ZQXx1z9G2FgKtWniI=",
+        "iv": "l9TyvyCUV2wD8IhR",
+        "authTag": "MPiuTg7SoHohocOdd4l0Pw=="
       }
     ],
     [
       "ast_nda",
       {
-        "cipher": "+fDAO66vj5g6njvXDKZmjvCt6Xi2feWjUE9E8tYimk8=",
-        "iv": "qPaVcyRSr2l6oNop",
-        "authTag": "Hm2TR6CGx26GzqC5ibM0zg=="
+        "cipher": "3ZZyoU8SqeCQePepTUj2XbblSp+rOkUF2xUJBJ3NPQQ=",
+        "iv": "uD+/CWcaU+osx0DD",
+        "authTag": "IltB2CgIRA76q4ubJR2Q6A=="
       }
     ]
   ],
@@ -837,7 +837,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T20:53:57.802Z",
+      "expires_at": "2026-11-25T21:18:52.463Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -864,8 +864,8 @@
       "can_edit": false,
       "can_delete": false,
       "status": "ACTIVE",
-      "assigned_at": "2026-11-18T20:53:58.301Z",
-      "expires_at": null
+      "assigned_at": "2026-11-18T21:18:53.029Z",
+      "expires_at": "2026-11-18T22:18:53.029Z"
     },
     {
       "asset_id": "ast_roster",
@@ -891,7 +891,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T20:53:57.802Z",
+      "expires_at": "2026-11-17T21:18:52.463Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1157,7 +1157,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T20:53:57.916Z",
+      "expires_at": "2026-11-25T21:18:52.602Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1213,7 +1213,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T20:53:57.916Z",
+      "expires_at": "2026-11-17T21:18:52.602Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1394,8 +1394,8 @@
       "can_edit": false,
       "can_delete": false,
       "status": "ACTIVE",
-      "assigned_at": "2026-11-18T20:53:57.916Z",
-      "expires_at": null
+      "assigned_at": "2026-11-18T21:18:52.602Z",
+      "expires_at": "2026-11-18T22:03:52.602Z"
     },
     {
       "asset_id": "asset-456",
@@ -1491,7 +1491,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T20:53:58.037Z",
+      "expires_at": "2026-11-25T21:18:52.744Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -1547,329 +1547,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T20:53:58.037Z",
-      "shared_by": "Vasu (Administrator)",
-      "shared_with_name": "Vasu (Lead Engineer)"
-    },
-    {
-      "asset_id": "ast_finance",
-      "user_id": "usr_auditor_003",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-08T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Neha Kapoor"
-    },
-    {
-      "asset_id": "ast_nda",
-      "user_id": "usr_auditor_003",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-04T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Neha Kapoor"
-    },
-    {
-      "asset_id": "ast_alpha",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_beta",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_finance",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_procure",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_hr_policy",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_roster",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_avionics",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_kms",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_compliance",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "ast_nda",
-      "user_id": "usr_admin_001",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "System Administrator",
-      "shared_with_name": "Vasu (Administrator)"
-    },
-    {
-      "asset_id": "asset-456",
-      "user_id": "user-123",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Administrator",
-      "shared_with_name": "Test Integration User"
-    },
-    {
-      "asset_id": "ast_hr_policy",
-      "user_id": "ALL",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-01T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Vasu (Administrator)",
-      "shared_with_name": "All People (Organization-Wide)"
-    },
-    {
-      "asset_id": "ast_compliance",
-      "user_id": "ALL",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-05T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Compliance Auditor",
-      "shared_with_name": "All People (Organization-Wide)"
-    },
-    {
-      "asset_id": "ast_alpha",
-      "user_id": "usr_vasu_002",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-02T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Vasu (Lead Engineer)"
-    },
-    {
-      "asset_id": "ast_beta",
-      "user_id": "usr_vasu_002",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": true,
-      "can_delete": true,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-10T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Self (Owner)",
-      "shared_with_name": "Vasu (Lead Engineer)"
-    },
-    {
-      "asset_id": "ast_finance",
-      "user_id": "usr_vasu_002",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-08T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Compliance Auditor",
-      "shared_with_name": "Vasu (Lead Engineer)"
-    },
-    {
-      "asset_id": "ast_procure",
-      "user_id": "usr_vasu_002",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T20:53:58.153Z",
-      "shared_by": "Vasu (Administrator)",
-      "shared_with_name": "Vasu (Lead Engineer)"
-    },
-    {
-      "asset_id": "ast_nda",
-      "user_id": "usr_vasu_002",
-      "can_read": true,
-      "can_decrypt": true,
-      "can_download": true,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-04T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Compliance Auditor",
-      "shared_with_name": "Vasu (Lead Engineer)"
-    },
-    {
-      "asset_id": "ast_avionics",
-      "user_id": "usr_vasu_002",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-11T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Vasu (Administrator)",
-      "shared_with_name": "Vasu (Lead Engineer)"
-    },
-    {
-      "asset_id": "ast_roster",
-      "user_id": "usr_vasu_002",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "ACTIVE",
-      "assigned_at": "2026-09-14T00:00:00.000Z",
-      "expires_at": null,
-      "shared_by": "Vasu (Administrator)",
-      "shared_with_name": "Vasu (Lead Engineer)"
-    },
-    {
-      "asset_id": "ast_kms",
-      "user_id": "usr_vasu_002",
-      "can_read": true,
-      "can_decrypt": false,
-      "can_download": false,
-      "can_edit": false,
-      "can_delete": false,
-      "status": "EXPIRED",
-      "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T20:53:58.153Z",
+      "expires_at": "2026-11-17T21:18:52.744Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2135,7 +1813,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T20:53:58.285Z",
+      "expires_at": "2026-11-25T21:18:52.866Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2191,7 +1869,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T20:53:58.285Z",
+      "expires_at": "2026-11-17T21:18:52.866Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2457,7 +2135,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T20:53:58.445Z",
+      "expires_at": "2026-11-25T21:18:53.014Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2513,7 +2191,7 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T20:53:58.445Z",
+      "expires_at": "2026-11-17T21:18:53.014Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2779,7 +2457,7 @@
       "can_delete": false,
       "status": "ACTIVE",
       "assigned_at": "2026-09-12T00:00:00.000Z",
-      "expires_at": "2026-11-25T20:53:58.558Z",
+      "expires_at": "2026-11-25T21:18:53.145Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -2835,7 +2513,329 @@
       "can_delete": false,
       "status": "EXPIRED",
       "assigned_at": "2026-09-13T00:00:00.000Z",
-      "expires_at": "2026-11-17T20:53:58.558Z",
+      "expires_at": "2026-11-17T21:18:53.145Z",
+      "shared_by": "Vasu (Administrator)",
+      "shared_with_name": "Vasu (Lead Engineer)"
+    },
+    {
+      "asset_id": "ast_finance",
+      "user_id": "usr_auditor_003",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-08T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Self (Owner)",
+      "shared_with_name": "Neha Kapoor"
+    },
+    {
+      "asset_id": "ast_nda",
+      "user_id": "usr_auditor_003",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-04T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Self (Owner)",
+      "shared_with_name": "Neha Kapoor"
+    },
+    {
+      "asset_id": "ast_alpha",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "ast_beta",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "ast_finance",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "ast_procure",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "ast_hr_policy",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "ast_roster",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "ast_avionics",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "ast_kms",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "ast_compliance",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "ast_nda",
+      "user_id": "usr_admin_001",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "System Administrator",
+      "shared_with_name": "Vasu (Administrator)"
+    },
+    {
+      "asset_id": "asset-456",
+      "user_id": "user-123",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": false,
+      "can_delete": false,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Administrator",
+      "shared_with_name": "Test Integration User"
+    },
+    {
+      "asset_id": "ast_hr_policy",
+      "user_id": "ALL",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": false,
+      "can_delete": false,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-01T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Vasu (Administrator)",
+      "shared_with_name": "All People (Organization-Wide)"
+    },
+    {
+      "asset_id": "ast_compliance",
+      "user_id": "ALL",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": false,
+      "can_delete": false,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-05T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Compliance Auditor",
+      "shared_with_name": "All People (Organization-Wide)"
+    },
+    {
+      "asset_id": "ast_alpha",
+      "user_id": "usr_vasu_002",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-02T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Self (Owner)",
+      "shared_with_name": "Vasu (Lead Engineer)"
+    },
+    {
+      "asset_id": "ast_beta",
+      "user_id": "usr_vasu_002",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": true,
+      "can_delete": true,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-10T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Self (Owner)",
+      "shared_with_name": "Vasu (Lead Engineer)"
+    },
+    {
+      "asset_id": "ast_finance",
+      "user_id": "usr_vasu_002",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": false,
+      "can_delete": false,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-08T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Compliance Auditor",
+      "shared_with_name": "Vasu (Lead Engineer)"
+    },
+    {
+      "asset_id": "ast_procure",
+      "user_id": "usr_vasu_002",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": false,
+      "can_edit": false,
+      "can_delete": false,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-12T00:00:00.000Z",
+      "expires_at": "2026-11-25T21:18:53.244Z",
+      "shared_by": "Vasu (Administrator)",
+      "shared_with_name": "Vasu (Lead Engineer)"
+    },
+    {
+      "asset_id": "ast_nda",
+      "user_id": "usr_vasu_002",
+      "can_read": true,
+      "can_decrypt": true,
+      "can_download": true,
+      "can_edit": false,
+      "can_delete": false,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-04T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Compliance Auditor",
+      "shared_with_name": "Vasu (Lead Engineer)"
+    },
+    {
+      "asset_id": "ast_avionics",
+      "user_id": "usr_vasu_002",
+      "can_read": true,
+      "can_decrypt": false,
+      "can_download": false,
+      "can_edit": false,
+      "can_delete": false,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-11T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Vasu (Administrator)",
+      "shared_with_name": "Vasu (Lead Engineer)"
+    },
+    {
+      "asset_id": "ast_roster",
+      "user_id": "usr_vasu_002",
+      "can_read": true,
+      "can_decrypt": false,
+      "can_download": false,
+      "can_edit": false,
+      "can_delete": false,
+      "status": "ACTIVE",
+      "assigned_at": "2026-09-14T00:00:00.000Z",
+      "expires_at": null,
+      "shared_by": "Vasu (Administrator)",
+      "shared_with_name": "Vasu (Lead Engineer)"
+    },
+    {
+      "asset_id": "ast_kms",
+      "user_id": "usr_vasu_002",
+      "can_read": true,
+      "can_decrypt": false,
+      "can_download": false,
+      "can_edit": false,
+      "can_delete": false,
+      "status": "EXPIRED",
+      "assigned_at": "2026-09-13T00:00:00.000Z",
+      "expires_at": "2026-11-17T21:18:53.244Z",
       "shared_by": "Vasu (Administrator)",
       "shared_with_name": "Vasu (Lead Engineer)"
     },
@@ -3022,22 +3022,22 @@
       "reason": "reconcile vendor invoices for Substation 4 works",
       "status": "PENDING",
       "ttl_minutes": 45,
-      "created_at": "2026-11-18T20:28:57.802Z",
-      "approved_at": "2026-11-18T20:53:57.916Z",
-      "nft_token_id": "NFT-SEPOLIA-#8740",
+      "created_at": "2026-11-18T20:53:52.463Z",
+      "approved_at": "2026-11-18T21:18:52.602Z",
+      "nft_token_id": "NFT-SEPOLIA-#4487",
       "liveGrant": {
-        "id": "grant-06abeffa",
+        "id": "grant-cf39f192",
         "user": "Arjun Verma",
         "userId": "usr_arjun_006",
         "assetCode": "SMX-FIN-002",
         "assetName": "Substation 4 Vendor Invoices",
-        "sessionId": "eff81a10",
-        "ip": "10.42.7.145",
+        "sessionId": "08f51e69",
+        "ip": "10.42.7.176",
         "device": "known device",
-        "expiresAt": "2026-11-18T21:38:57.916Z",
+        "expiresAt": "2026-11-18T22:03:52.603Z",
         "remainingSeconds": 0,
         "status": "REVOKED",
-        "createdAt": "2026-11-18T20:53:57.916Z"
+        "createdAt": "2026-11-18T21:18:52.603Z"
       }
     },
     {
@@ -3053,8 +3053,8 @@
       "reason": "statutory PF audit sample check",
       "status": "PENDING",
       "ttl_minutes": 15,
-      "created_at": "2026-11-18T20:45:57.802Z",
-      "rejected_at": "2026-11-18T20:53:58.037Z",
+      "created_at": "2026-11-18T21:10:52.463Z",
+      "rejected_at": "2026-11-18T21:18:52.744Z",
       "rejected_reason": "Security policy restriction"
     },
     {
@@ -3070,22 +3070,22 @@
       "reason": "Tactical comms integration review on authorized workstation",
       "status": "PENDING",
       "ttl_minutes": 60,
-      "created_at": "2026-11-18T20:23:57.802Z",
-      "approved_at": "2026-11-18T20:53:58.301Z",
-      "nft_token_id": "NFT-SEPOLIA-#2728",
+      "created_at": "2026-11-18T20:48:52.463Z",
+      "approved_at": "2026-11-18T21:18:53.029Z",
+      "nft_token_id": "NFT-SEPOLIA-#8820",
       "liveGrant": {
-        "id": "grant-02a1581b",
+        "id": "grant-a392956c",
         "user": "Vasu (Lead Engineer)",
         "userId": "usr_vasu_002",
         "assetCode": "SMX-AVN-003",
         "assetName": "Avionics Radar Interface Specs",
-        "sessionId": "e2c41400",
-        "ip": "10.42.7.127",
+        "sessionId": "ede7cb35",
+        "ip": "10.42.7.13",
         "device": "known device",
-        "expiresAt": "2026-11-18T22:23:58.301Z",
+        "expiresAt": "2026-11-18T22:48:53.029Z",
         "remainingSeconds": 0,
         "status": "REVOKED",
-        "createdAt": "2026-11-18T20:53:58.301Z"
+        "createdAt": "2026-11-18T21:18:53.029Z"
       }
     },
     {
@@ -3101,7 +3101,7 @@
       "reason": "Dual-chain patent claims review for upcoming intellectual property filing",
       "status": "PENDING",
       "ttl_minutes": 20,
-      "created_at": "2026-11-18T20:08:57.802Z"
+      "created_at": "2026-11-18T20:33:52.463Z"
     },
     {
       "id": "req_003",
@@ -3116,37 +3116,37 @@
       "reason": "Compliance review & permanent blockchain anchor verification",
       "status": "PENDING",
       "ttl_minutes": 60,
-      "created_at": "2026-11-18T20:03:57.802Z"
+      "created_at": "2026-11-18T20:28:52.463Z"
     }
   ],
   "liveGrants": [
     {
-      "id": "grant-02a1581b",
+      "id": "grant-a392956c",
       "user": "Vasu (Lead Engineer)",
       "userId": "usr_vasu_002",
       "assetCode": "SMX-AVN-003",
       "assetName": "Avionics Radar Interface Specs",
-      "sessionId": "e2c41400",
-      "ip": "10.42.7.127",
+      "sessionId": "ede7cb35",
+      "ip": "10.42.7.13",
       "device": "known device",
-      "expiresAt": "2026-11-18T22:23:58.301Z",
+      "expiresAt": "2026-11-18T22:48:53.029Z",
       "remainingSeconds": 0,
       "status": "REVOKED",
-      "createdAt": "2026-11-18T20:53:58.301Z"
+      "createdAt": "2026-11-18T21:18:53.029Z"
     },
     {
-      "id": "grant-06abeffa",
+      "id": "grant-cf39f192",
       "user": "Arjun Verma",
       "userId": "usr_arjun_006",
       "assetCode": "SMX-FIN-002",
       "assetName": "Substation 4 Vendor Invoices",
-      "sessionId": "eff81a10",
-      "ip": "10.42.7.145",
+      "sessionId": "08f51e69",
+      "ip": "10.42.7.176",
       "device": "known device",
-      "expiresAt": "2026-11-18T21:38:57.916Z",
+      "expiresAt": "2026-11-18T22:03:52.603Z",
       "remainingSeconds": 0,
       "status": "REVOKED",
-      "createdAt": "2026-11-18T20:53:57.916Z"
+      "createdAt": "2026-11-18T21:18:52.603Z"
     },
     {
       "id": "grant-1",
@@ -3157,10 +3157,10 @@
       "sessionId": "1bb04bec",
       "ip": "10.42.7.19",
       "device": "known device",
-      "expiresAt": "2026-11-18T21:15:11.802Z",
+      "expiresAt": "2026-11-18T21:40:06.463Z",
       "remainingSeconds": 1274,
       "status": "ACTIVE",
-      "createdAt": "2026-11-18T20:45:11.802Z"
+      "createdAt": "2026-11-18T21:10:06.463Z"
     },
     {
       "id": "grant-2",
@@ -3171,53 +3171,53 @@
       "sessionId": "7a29f041",
       "ip": "10.42.5.88",
       "device": "corporate device",
-      "expiresAt": "2026-11-18T20:33:57.802Z",
+      "expiresAt": "2026-11-18T20:58:52.463Z",
       "remainingSeconds": 0,
       "status": "IDLE",
       "note": "key v2 · rotated 20 min ago",
-      "createdAt": "2026-11-18T20:03:57.802Z"
+      "createdAt": "2026-11-18T20:28:52.463Z"
     }
   ],
   "auditEvents": [
     {
-      "id": "aud_d9c72152",
+      "id": "aud_b7e82b18",
       "event_type": "ACCESS_PERMISSION_REVOKED",
-      "description": "Live grant revoked for Vasu (Lead Engineer) on SMX-AVN-003 (Session e2c41400)",
+      "description": "Live grant revoked for Vasu (Lead Engineer) on SMX-AVN-003 (Session ede7cb35)",
       "target_id": "SMX-AVN-003",
       "target": "SMX-AVN-003",
       "user_name": "Administrator",
       "severity": "WARNING",
-      "event_hash": "0xe52716c901cca392d483d4bf338ba94970f9ba7bc1ad6d5bffbdc21e016a4308",
-      "block_number": 6849665,
-      "created_at": "2026-11-18T20:53:58.303Z"
+      "event_hash": "0x55a5b2299771d934d422925f849b87033c5a8d66bf9fc415253c1b804bcc0a91",
+      "block_number": 6849401,
+      "created_at": "2026-11-18T21:18:53.030Z"
     },
     {
-      "id": "aud_d97b3e95",
+      "id": "aud_46dd166b",
       "event_type": "ACCESS_PERMISSION_EXTENDED",
       "description": "Decryption session extended by 30 min for Vasu (Lead Engineer) on SMX-AVN-003",
       "target_id": "SMX-AVN-003",
       "target": "SMX-AVN-003",
       "user_name": "Vasu (Lead Engineer)",
       "severity": "INFO",
-      "event_hash": "0xe1b1723039922917644c3c9b69ed4dde8d62e4b8cd81f64e5c6837e48e4b3778",
-      "block_number": 6849457,
-      "created_at": "2026-11-18T20:53:58.302Z"
+      "event_hash": "0x498be598ec9d51976440c2150d48e97cab2fb5d27d99972c3253fbe639f3471d",
+      "block_number": 6849257,
+      "created_at": "2026-11-18T21:18:53.030Z"
     },
     {
-      "id": "aud_b20a78a7",
+      "id": "aud_5a6e68e6",
       "event_type": "NFT_ACCESS_PERMIT_MINTED",
-      "description": "Admin approved access for Vasu (Lead Engineer) (60m TTL). NFT Permit: NFT-SEPOLIA-#2728",
+      "description": "Admin approved access for Vasu (Lead Engineer) (60m TTL). NFT Permit: NFT-SEPOLIA-#8820",
       "target_id": "ast_avionics",
       "target": "ast_avionics",
       "user_email": "vasu@securemax.mil",
       "user_name": "Vasu (Lead Engineer)",
       "severity": "INFO",
-      "event_hash": "0x74de21afff5694677b8bd82df8be4caddf276fce858d24114b4e6339acbfa94b",
-      "block_number": 6849252,
-      "created_at": "2026-11-18T20:53:58.301Z"
+      "event_hash": "0x1d6b96d4277e22db6ad12b9a5ffaa6de8d1e6f24f92bbb7aaffc1d310d96fe6e",
+      "block_number": 6849256,
+      "created_at": "2026-11-18T21:18:53.029Z"
     },
     {
-      "id": "aud_c2823aaf",
+      "id": "aud_167b0add",
       "event_type": "PERMISSION_CHANGED",
       "description": "Cryptographic access granted for asset ast_avionics (user: usr_vasu_002).",
       "target_id": "ast_avionics",
@@ -3232,24 +3232,24 @@
       ],
       "performed_by": "Administrator",
       "severity": "INFO",
-      "event_hash": "0x9574a2c89b082d0003ffb8d44ef8ebad127b7b62d510af43e1aa3dce85d6f67b",
-      "block_number": 6849419,
-      "created_at": "2026-11-18T20:53:58.301Z"
+      "event_hash": "0x2ca40a9715fc53701b4811e6835765580df0424c18b79ece04a6cb9bfaf9c81c",
+      "block_number": 6849378,
+      "created_at": "2026-11-18T21:18:53.029Z"
     },
     {
-      "id": "aud_234d1853",
+      "id": "aud_ad97ace3",
       "event_type": "ACCESS_PERMISSION_REVOKED",
-      "description": "Live grant revoked for Arjun Verma on SMX-FIN-002 (Session eff81a10)",
+      "description": "Live grant revoked for Arjun Verma on SMX-FIN-002 (Session 08f51e69)",
       "target_id": "SMX-FIN-002",
       "target": "SMX-FIN-002",
       "user_name": "Administrator",
       "severity": "WARNING",
-      "event_hash": "0xc924f776ed8424949abd7948b06aacac421a4960513fd4339b788d7f1d7e4a38",
-      "block_number": 6849217,
-      "created_at": "2026-11-18T20:53:58.153Z"
+      "event_hash": "0xdb3cf67798be04412e34510cbb6033d80652607f8f7def042dd9ecd4210e2803",
+      "block_number": 6849277,
+      "created_at": "2026-11-18T21:18:52.866Z"
     },
     {
-      "id": "aud_7bcf015d",
+      "id": "aud_ccfc1f06",
       "event_type": "ACCESS_REQUEST_REJECTED",
       "description": "Admin rejected clearance for Neha Iyer on Statutory PF Audit Records",
       "target_id": "ast_hr_policy",
@@ -3257,25 +3257,25 @@
       "user_email": "neha.iyer@securemax.mil",
       "user_name": "Neha Iyer",
       "severity": "WARNING",
-      "event_hash": "0x747df459c9dde91c526fbfce42364aff27854430248bad7859225de8b19b02b4",
-      "block_number": 6849323,
-      "created_at": "2026-11-18T20:53:58.037Z"
+      "event_hash": "0x1f58f69406d0c583ab5363fa79ca637038dc8417ce1f22a3a9bce063080fd5aa",
+      "block_number": 6849417,
+      "created_at": "2026-11-18T21:18:52.744Z"
     },
     {
-      "id": "aud_fe4fb849",
+      "id": "aud_926593e4",
       "event_type": "NFT_ACCESS_PERMIT_MINTED",
-      "description": "Admin approved access for Arjun Verma (45m TTL). NFT Permit: NFT-SEPOLIA-#8740",
+      "description": "Admin approved access for Arjun Verma (45m TTL). NFT Permit: NFT-SEPOLIA-#4487",
       "target_id": "ast_fin_002",
       "target": "ast_fin_002",
       "user_email": "arjun.verma@securemax.mil",
       "user_name": "Arjun Verma",
       "severity": "INFO",
-      "event_hash": "0x8677cf2a3cb45334bdc6b4d419fab7da664d234caabe77ac670f2a9f55b370ef",
-      "block_number": 6849425,
-      "created_at": "2026-11-18T20:53:57.916Z"
+      "event_hash": "0x7c2414291bf8e82ee2276c4a83a14c765778282521cc2ca16fcfb035cc6d3098",
+      "block_number": 6849259,
+      "created_at": "2026-11-18T21:18:52.603Z"
     },
     {
-      "id": "aud_17cb05e3",
+      "id": "aud_1a53f750",
       "event_type": "PERMISSION_CHANGED",
       "description": "Cryptographic access granted for asset ast_fin_002 (user: usr_arjun_006).",
       "target_id": "ast_fin_002",
@@ -3288,9 +3288,9 @@
       ],
       "performed_by": "Administrator",
       "severity": "INFO",
-      "event_hash": "0xd896ad9c1e3eb4f7f611c886802945304e8fce0903206e33b1898edad2fbc504",
-      "block_number": 6849584,
-      "created_at": "2026-11-18T20:53:57.916Z"
+      "event_hash": "0x4d803f1e4dd4dfba9e06e3ada275ed5aeb45cc444751e84c36c1412ffca179a3",
+      "block_number": 6849543,
+      "created_at": "2026-11-18T21:18:52.603Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3303,7 +3303,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T18:23:57.802Z"
+      "created_at": "2026-11-18T18:48:52.463Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3316,7 +3316,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T18:33:57.802Z"
+      "created_at": "2026-11-18T18:58:52.463Z"
     },
     {
       "id": "aud_seed_1",
@@ -3328,7 +3328,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T18:53:57.802Z"
+      "created_at": "2026-11-18T19:18:52.463Z"
     },
     {
       "id": "aud_seed_2",
@@ -3340,7 +3340,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T19:18:57.802Z"
+      "created_at": "2026-11-18T19:43:52.463Z"
     },
     {
       "id": "aud_seed_3",
@@ -3352,7 +3352,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T19:53:57.802Z"
+      "created_at": "2026-11-18T20:18:52.463Z"
     },
     {
       "id": "aud_seed_4",
@@ -3364,7 +3364,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T20:23:57.802Z"
+      "created_at": "2026-11-18T20:48:52.463Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3377,7 +3377,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T18:23:57.916Z"
+      "created_at": "2026-11-18T18:48:52.602Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3390,7 +3390,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T18:33:57.916Z"
+      "created_at": "2026-11-18T18:58:52.602Z"
     },
     {
       "id": "aud_seed_1",
@@ -3402,7 +3402,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T18:53:57.916Z"
+      "created_at": "2026-11-18T19:18:52.602Z"
     },
     {
       "id": "aud_seed_2",
@@ -3414,7 +3414,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T19:18:57.916Z"
+      "created_at": "2026-11-18T19:43:52.602Z"
     },
     {
       "id": "aud_seed_3",
@@ -3426,7 +3426,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T19:53:57.916Z"
+      "created_at": "2026-11-18T20:18:52.602Z"
     },
     {
       "id": "aud_seed_4",
@@ -3438,7 +3438,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T20:23:57.916Z"
+      "created_at": "2026-11-18T20:48:52.602Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3451,7 +3451,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T18:23:58.037Z"
+      "created_at": "2026-11-18T18:48:52.744Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3464,7 +3464,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T18:33:58.037Z"
+      "created_at": "2026-11-18T18:58:52.744Z"
     },
     {
       "id": "aud_seed_1",
@@ -3476,7 +3476,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T18:53:58.037Z"
+      "created_at": "2026-11-18T19:18:52.744Z"
     },
     {
       "id": "aud_seed_2",
@@ -3488,7 +3488,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T19:18:58.037Z"
+      "created_at": "2026-11-18T19:43:52.744Z"
     },
     {
       "id": "aud_seed_3",
@@ -3500,7 +3500,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T19:53:58.037Z"
+      "created_at": "2026-11-18T20:18:52.744Z"
     },
     {
       "id": "aud_seed_4",
@@ -3512,7 +3512,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T20:23:58.037Z"
+      "created_at": "2026-11-18T20:48:52.744Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3525,7 +3525,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T18:23:58.153Z"
+      "created_at": "2026-11-18T18:48:52.866Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3538,7 +3538,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T18:33:58.153Z"
+      "created_at": "2026-11-18T18:58:52.866Z"
     },
     {
       "id": "aud_seed_1",
@@ -3550,7 +3550,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T18:53:58.153Z"
+      "created_at": "2026-11-18T19:18:52.866Z"
     },
     {
       "id": "aud_seed_2",
@@ -3562,7 +3562,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T19:18:58.153Z"
+      "created_at": "2026-11-18T19:43:52.866Z"
     },
     {
       "id": "aud_seed_3",
@@ -3574,7 +3574,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T19:53:58.153Z"
+      "created_at": "2026-11-18T20:18:52.866Z"
     },
     {
       "id": "aud_seed_4",
@@ -3586,7 +3586,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T20:23:58.153Z"
+      "created_at": "2026-11-18T20:48:52.866Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3599,7 +3599,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T18:23:58.285Z"
+      "created_at": "2026-11-18T18:48:53.014Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3612,7 +3612,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T18:33:58.285Z"
+      "created_at": "2026-11-18T18:58:53.014Z"
     },
     {
       "id": "aud_seed_1",
@@ -3624,7 +3624,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T18:53:58.285Z"
+      "created_at": "2026-11-18T19:18:53.014Z"
     },
     {
       "id": "aud_seed_2",
@@ -3636,7 +3636,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T19:18:58.285Z"
+      "created_at": "2026-11-18T19:43:53.014Z"
     },
     {
       "id": "aud_seed_3",
@@ -3648,7 +3648,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T19:53:58.285Z"
+      "created_at": "2026-11-18T20:18:53.014Z"
     },
     {
       "id": "aud_seed_4",
@@ -3660,7 +3660,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T20:23:58.285Z"
+      "created_at": "2026-11-18T20:48:53.014Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3673,7 +3673,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T18:23:58.445Z"
+      "created_at": "2026-11-18T18:48:53.145Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3686,7 +3686,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T18:33:58.445Z"
+      "created_at": "2026-11-18T18:58:53.145Z"
     },
     {
       "id": "aud_seed_1",
@@ -3698,7 +3698,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T18:53:58.445Z"
+      "created_at": "2026-11-18T19:18:53.145Z"
     },
     {
       "id": "aud_seed_2",
@@ -3710,7 +3710,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T19:18:58.445Z"
+      "created_at": "2026-11-18T19:43:53.145Z"
     },
     {
       "id": "aud_seed_3",
@@ -3722,7 +3722,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T19:53:58.445Z"
+      "created_at": "2026-11-18T20:18:53.145Z"
     },
     {
       "id": "aud_seed_4",
@@ -3734,7 +3734,7 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T20:23:58.445Z"
+      "created_at": "2026-11-18T20:48:53.145Z"
     },
     {
       "id": "aud_seed_admin_root",
@@ -3747,7 +3747,7 @@
       "severity": "INFO",
       "event_hash": "0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
       "block_number": 6849200,
-      "created_at": "2026-11-18T18:23:58.558Z"
+      "created_at": "2026-11-18T18:48:53.244Z"
     },
     {
       "id": "aud_seed_admin_dev",
@@ -3760,7 +3760,7 @@
       "severity": "INFO",
       "event_hash": "0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "block_number": 6849205,
-      "created_at": "2026-11-18T18:33:58.558Z"
+      "created_at": "2026-11-18T18:58:53.244Z"
     },
     {
       "id": "aud_seed_1",
@@ -3772,7 +3772,7 @@
       "severity": "INFO",
       "event_hash": "0x3f4a9b2c8e1d5a7f9b0c2e4d6a8f1b3c5e7a9b0d2f4a6c8e1b3d5f7a9c0e2b4",
       "block_number": 6849210,
-      "created_at": "2026-11-18T18:53:58.558Z"
+      "created_at": "2026-11-18T19:18:53.244Z"
     },
     {
       "id": "aud_seed_2",
@@ -3784,7 +3784,7 @@
       "severity": "INFO",
       "event_hash": "0x8a1c3e5f7b9d2a4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0",
       "block_number": 6849245,
-      "created_at": "2026-11-18T19:18:58.558Z"
+      "created_at": "2026-11-18T19:43:53.244Z"
     },
     {
       "id": "aud_seed_3",
@@ -3796,7 +3796,7 @@
       "severity": "INFO",
       "event_hash": "0x7e9a1b3c5d7f9a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b1d3f5a7c9e1b3d5f7a9",
       "block_number": 6849280,
-      "created_at": "2026-11-18T19:53:58.558Z"
+      "created_at": "2026-11-18T20:18:53.244Z"
     },
     {
       "id": "aud_seed_4",
@@ -3808,24 +3808,24 @@
       "severity": "WARNING",
       "event_hash": "0x4c6e8f0b1d3f5a7c9e1b3d5f7a9c0e2b4a6c8e1b3d5f7a9c0e2b4a6c8e1b3d5",
       "block_number": 6849310,
-      "created_at": "2026-11-18T20:23:58.558Z"
+      "created_at": "2026-11-18T20:48:53.244Z"
     }
   ],
   "notifications": [
     {
-      "id": "notif_10ca54ff",
+      "id": "notif_ba17b02b",
       "type": "ACCESS_APPROVED",
       "title": "Access Request Approved",
-      "message": "Access granted for Avionics Radar Interface Specs. On-chain permit NFT-SEPOLIA-#2728 minted.",
+      "message": "Access granted for Avionics Radar Interface Specs. On-chain permit NFT-SEPOLIA-#8820 minted.",
       "timestamp": "Just now",
       "read": false,
       "target_id": "ast_avionics"
     },
     {
-      "id": "notif_46cd3cd5",
+      "id": "notif_f3267098",
       "type": "ACCESS_APPROVED",
       "title": "Access Request Approved",
-      "message": "Access granted for Substation 4 Vendor Invoices. On-chain permit NFT-SEPOLIA-#8740 minted.",
+      "message": "Access granted for Substation 4 Vendor Invoices. On-chain permit NFT-SEPOLIA-#4487 minted.",
       "timestamp": "Just now",
       "read": false,
       "target_id": "ast_fin_002"
@@ -4200,8 +4200,8 @@
       "credential_id": "cred_admin_hw_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-01T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T20:53:58.445Z",
-      "last_active_at": "2026-11-18T20:53:58.445Z",
+      "last_authenticated_at": "2026-11-18T21:18:53.145Z",
+      "last_active_at": "2026-11-18T21:18:53.145Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2Z37UoHq3y1V4XwH5K7oF9P9k3sZ0s7uVvWxX0y1A2bC3dE4fG5hI6jK7lM8nO9pQ0rS1tU2vW3xY4z5A6bC7w==",
@@ -4209,7 +4209,7 @@
       "status": "ACTIVE",
       "is_admin_device": true,
       "created_at": "2026-09-01T00:00:00.000Z",
-      "last_used_at": "2026-11-18T20:53:58.445Z",
+      "last_used_at": "2026-11-18T21:18:53.145Z",
       "timeline": [
         {
           "id": "tl_adm_1",
@@ -4243,8 +4243,8 @@
       "credential_id": "cred_vasu_mbp_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-02T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T20:53:58.445Z",
-      "last_active_at": "2026-11-18T20:53:58.445Z",
+      "last_authenticated_at": "2026-11-18T21:18:53.145Z",
+      "last_active_at": "2026-11-18T21:18:53.145Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEq9V1zK2Y7nL6X4eQ8jB2tF0mS3wZ5xY8vU1tP2rQ3sA4bC5dE6fG7hI8jK9lM0nO1pQ2rS3tU4vW5xY6z7A8bC==",
@@ -4252,7 +4252,7 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-02T00:00:00.000Z",
-      "last_used_at": "2026-11-18T20:53:58.445Z",
+      "last_used_at": "2026-11-18T21:18:53.145Z",
       "timeline": [
         {
           "id": "tl_vsu_1",
@@ -4293,8 +4293,8 @@
       "credential_id": "cred_audit_01",
       "credential_type": "WebAuthn",
       "registered_at": "2026-09-03T00:00:00.000Z",
-      "last_authenticated_at": "2026-11-18T20:53:58.445Z",
-      "last_active_at": "2026-11-18T20:53:58.445Z",
+      "last_authenticated_at": "2026-11-18T21:18:53.145Z",
+      "last_active_at": "2026-11-18T21:18:53.145Z",
       "risk_state": "TRUSTED",
       "registration_region": "Punjab, India",
       "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7p9X2mR5yT8vN1qW4sE7hK0bL3zC6xY9vU2tP3rQ4sA5bC6dE7fG8hI9jK0lM1nO2pQ3rS4tU5vW6xY7z8A9bC==",
@@ -4302,7 +4302,7 @@
       "status": "ACTIVE",
       "is_admin_device": false,
       "created_at": "2026-09-03T00:00:00.000Z",
-      "last_used_at": "2026-11-18T20:53:58.445Z",
+      "last_used_at": "2026-11-18T21:18:53.145Z",
       "timeline": [
         {
           "id": "tl_aud_1",
@@ -4337,7 +4337,7 @@
     "admin_locked": false,
     "failed_admin_logins": 0,
     "last_admin_login": {
-      "timestamp": "2026-11-18T20:53:58.445Z",
+      "timestamp": "2026-11-18T21:18:53.145Z",
       "region": "Punjab, India",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "auth_method": "WEBAUTHN"
@@ -4360,9 +4360,9 @@
       "device_id": "dev_test",
       "device_name": "Test Device",
       "position": "Engineer",
-      "created_at": "2026-11-18T19:53:58.445Z",
-      "last_activity_at": "2026-11-18T20:53:58.445Z",
-      "expires_at": "2026-11-19T20:53:58.445Z",
+      "created_at": "2026-11-18T20:18:53.145Z",
+      "last_activity_at": "2026-11-18T21:18:53.145Z",
+      "expires_at": "2026-11-19T21:18:53.145Z",
       "authentication_level": "P256",
       "status": "ACTIVE"
     },
@@ -4374,9 +4374,9 @@
       "device_id": "dev_vasu_laptop",
       "device_name": "Vasu — Primary MacBook",
       "position": "Manager",
-      "created_at": "2026-11-18T20:23:58.445Z",
-      "last_activity_at": "2026-11-18T20:51:58.445Z",
-      "expires_at": "2026-11-19T04:23:58.445Z",
+      "created_at": "2026-11-18T20:48:53.145Z",
+      "last_activity_at": "2026-11-18T21:16:53.145Z",
+      "expires_at": "2026-11-19T04:48:53.145Z",
       "authentication_level": "PASSKEY",
       "status": "ACTIVE"
     },
@@ -4388,9 +4388,9 @@
       "device_id": "dev_admin_primary",
       "device_name": "Admin Laptop (Hardware-Bound)",
       "position": "Administrator",
-      "created_at": "2026-11-18T19:53:58.445Z",
-      "last_activity_at": "2026-11-18T20:48:58.445Z",
-      "expires_at": "2026-11-19T03:53:58.445Z",
+      "created_at": "2026-11-18T20:18:53.145Z",
+      "last_activity_at": "2026-11-18T21:13:53.145Z",
+      "expires_at": "2026-11-19T04:18:53.145Z",
       "authentication_level": "WEBAUTHN",
       "status": "ACTIVE"
     }
@@ -4399,5 +4399,5 @@
   "sentinelScans": [],
   "sentinelFindings": [],
   "challenges": [],
-  "updatedAt": "2026-11-18T20:53:58.559Z"
+  "updatedAt": "2026-11-18T21:18:53.245Z"
 }

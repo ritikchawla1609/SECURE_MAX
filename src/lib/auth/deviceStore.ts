@@ -2112,12 +2112,12 @@ class SecureMaxStore {
     if (!email) return null;
     const clean = email.toLowerCase().trim();
     for (const u of this.users.values()) {
-      if (u.email.toLowerCase() === clean) return u;
+      if (u.email && u.email.toLowerCase() === clean) return u;
     }
     if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
       this.loadFromDisk(true);
       for (const u of this.users.values()) {
-        if (u.email.toLowerCase() === clean) return u;
+        if (u.email && u.email.toLowerCase() === clean) return u;
       }
     }
     return null;
@@ -2128,14 +2128,21 @@ class SecureMaxStore {
     let user = this.users.get(userId);
     if (user) return user;
 
-    // Check case-insensitive
+    // Check case-insensitive ID, DID, or wallet address
     const lowerId = userId.toLowerCase();
     for (const u of this.users.values()) {
-      if (u.id.toLowerCase() === lowerId) return u;
+      if (u.id && u.id.toLowerCase() === lowerId) return u;
+      if (u.did && u.did.toLowerCase() === lowerId) return u;
+      if (u.admin_wallet && u.admin_wallet.toLowerCase() === lowerId) return u;
     }
 
-    // Admin ID alias (ADM-0001 <-> usr_admin_001)
-    if (userId === 'ADM-0001' || userId === 'usr_admin_001') {
+    // Admin aliases & wallet addresses (ADM-0001 <-> usr_admin_001 <-> admin wallet)
+    if (
+      userId === 'ADM-0001' || 
+      userId === 'usr_admin_001' || 
+      lowerId === '0xc532c65055108e7901212b6c30ef800152e26eb5' || 
+      lowerId === (this.adminWallet || '').toLowerCase()
+    ) {
       user = this.users.get('usr_admin_001') || this.users.get('ADM-0001');
       if (user) return user;
       for (const u of this.users.values()) {
@@ -2149,7 +2156,21 @@ class SecureMaxStore {
       user = this.users.get(userId);
       if (user) return user;
       for (const u of this.users.values()) {
-        if (u.id.toLowerCase() === lowerId) return u;
+        if (u.id && u.id.toLowerCase() === lowerId) return u;
+        if (u.did && u.did.toLowerCase() === lowerId) return u;
+        if (u.admin_wallet && u.admin_wallet.toLowerCase() === lowerId) return u;
+      }
+      if (
+        userId === 'ADM-0001' || 
+        userId === 'usr_admin_001' || 
+        lowerId === '0xc532c65055108e7901212b6c30ef800152e26eb5' || 
+        lowerId === (this.adminWallet || '').toLowerCase()
+      ) {
+        user = this.users.get('usr_admin_001') || this.users.get('ADM-0001');
+        if (user) return user;
+        for (const u of this.users.values()) {
+          if (u.role === UserRole.ADMIN || u.email === 'admin@securemax.mil') return u;
+        }
       }
     }
 
