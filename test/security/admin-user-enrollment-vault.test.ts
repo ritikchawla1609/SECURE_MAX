@@ -165,4 +165,47 @@ describe('End-to-End Integration: Admin User Creation, Enrollment Generation, Cr
     const auditorView = auditorAssets.find(a => a.asset.id === specificAsset.id);
     expect(auditorView).toBeUndefined();
   });
+
+  it('Flow 4C: User/Admin can upload under all 4 classifications with PRIVATE scope', () => {
+    const classifications = ['PUBLIC', 'INTERNAL', 'CONFIDENTIAL', 'RESTRICTED'] as const;
+
+    for (const classification of classifications) {
+      const asset = deviceStore.createAsset({
+        name: `Test_Document_${classification}.pdf`,
+        folder: 'Engineering',
+        classification,
+        description: `Test payload for ${classification} security tier`,
+        plaintext: `Secure content under classification ${classification}`,
+        ownerId: createdUser.id,
+        ownerName: 'Rohan Sharma',
+        shareScope: 'PRIVATE',
+        canDecryptShared: false,
+        canDownloadShared: false,
+      });
+
+      expect(asset).toBeDefined();
+      expect(asset.classification).toBe(classification);
+      expect(asset.shared_with_all).toBe(false);
+
+      // Owner can access
+      const ownerAssets = deviceStore.getAssetsForUser(createdUser.id);
+      const ownerView = ownerAssets.find(a => a.asset.id === asset.id);
+      expect(ownerView).toBeDefined();
+      expect(ownerView?.is_owner).toBe(true);
+
+      // Third party cannot access
+      const thirdPartyAssets = deviceStore.getAssetsForUser('usr_vasu_002');
+      const thirdPartyView = thirdPartyAssets.find(a => a.asset.id === asset.id);
+      expect(thirdPartyView).toBeUndefined();
+    }
+  });
+
+  it('Flow 5: Admin wallet 0xc532c65055108e7901212b6c30ef800152e26eb5 has root administrator authority', () => {
+    const adminWallet = '0xc532c65055108e7901212b6c30ef800152e26eb5';
+    expect(deviceStore.getAdminWallet().toLowerCase()).toBe(adminWallet);
+
+    const admin = deviceStore.getUserById('usr_admin_001') || deviceStore.getUserById('ADM-0001');
+    expect(admin).toBeDefined();
+    expect(admin?.role).toBe(UserRole.ADMIN);
+  });
 });

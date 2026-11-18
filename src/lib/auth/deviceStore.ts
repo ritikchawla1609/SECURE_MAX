@@ -316,7 +316,7 @@ class SecureMaxStore {
   public sentinelFindings: any[] = [];
   public challengeCache: Map<string, { challengeId: string; identifier: string; nonce: string; message: string; expiresAt: string }> = new Map();
   public challenges: Map<string, StoredChallenge> = new Map();
-  public adminWallet: string = (process.env.ADMIN_WALLET || '0x7FfdbB7868C127152F2007a6025FF15A5723CE08').toLowerCase();
+  public adminWallet: string = (process.env.ADMIN_WALLET || '0xc532c65055108e7901212b6c30ef800152e26eb5').toLowerCase();
   
   // Track ongoing cloud sync promises so Vercel Serverless Functions can await them before exiting
   public lastSyncPromise: Promise<any> | null = null;
@@ -489,8 +489,10 @@ class SecureMaxStore {
 
     if (process.env.ADMIN_WALLET) {
       this.adminWallet = process.env.ADMIN_WALLET.toLowerCase();
-    } else if (parsed.adminWallet) {
+    } else if (parsed.adminWallet && !parsed.adminWallet.startsWith('0x7ffdbb')) {
       this.adminWallet = parsed.adminWallet.toLowerCase();
+    } else {
+      this.adminWallet = '0xc532c65055108e7901212b6c30ef800152e26eb5';
     }
 
     if (Array.isArray(parsed.decryptionAuths)) {
@@ -775,7 +777,7 @@ class SecureMaxStore {
     this.devicePassports.clear();
     this.challenges.clear();
     this.challengeCache.clear();
-    this.adminWallet = (process.env.ADMIN_WALLET || '0x7FfdbB7868C127152F2007a6025FF15A5723CE08').toLowerCase();
+    this.adminWallet = (process.env.ADMIN_WALLET || '0xc532c65055108e7901212b6c30ef800152e26eb5').toLowerCase();
     this.assets.clear();
     this.assignments = [];
     this.accessRequests = [];
@@ -2107,9 +2109,16 @@ class SecureMaxStore {
 
   // --- USER LOOKUPS ---
   public getUserByEmail(email: string): StoredUser | null {
+    if (!email) return null;
     const clean = email.toLowerCase().trim();
     for (const u of this.users.values()) {
       if (u.email.toLowerCase() === clean) return u;
+    }
+    if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+      this.loadFromDisk(true);
+      for (const u of this.users.values()) {
+        if (u.email.toLowerCase() === clean) return u;
+      }
     }
     return null;
   }
@@ -2134,12 +2143,13 @@ class SecureMaxStore {
       }
     }
 
-    // Disk read if users map is empty in non-test
+    // Disk read if user not found in memory in non-test
     if (process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
-      if (this.users.size === 0) {
-        this.loadFromDisk(true);
-        user = this.users.get(userId);
-        if (user) return user;
+      this.loadFromDisk(true);
+      user = this.users.get(userId);
+      if (user) return user;
+      for (const u of this.users.values()) {
+        if (u.id.toLowerCase() === lowerId) return u;
       }
     }
 
@@ -2262,7 +2272,7 @@ class SecureMaxStore {
     const adminId = params.adminId?.trim() || 'ADM-0001';
     const orgId = params.orgId?.trim() || 'ORG-' + crypto.randomBytes(3).toString('hex').toUpperCase();
 
-    const adminWallet = (params.adminWallet || this.adminWallet || process.env.ADMIN_WALLET || '0x7FfdbB7868C127152F2007a6025FF15A5723CE08').toLowerCase();
+    const adminWallet = (params.adminWallet || this.adminWallet || process.env.ADMIN_WALLET || '0xc532c65055108e7901212b6c30ef800152e26eb5').toLowerCase();
 
     const adminUser: StoredUser = {
       id: adminId,
