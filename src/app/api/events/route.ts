@@ -44,10 +44,6 @@ export async function GET(req: NextRequest) {
   if (typeof deviceStore !== 'undefined') {
     await deviceStore.loadFromCloud();
   }
-  
-  if (deviceStore) {
-    await deviceStore.loadFromCloud();
-  }
   const encoder = new TextEncoder();
 
   let listener: ((event: any) => void) | null = null;
@@ -84,14 +80,31 @@ export async function GET(req: NextRequest) {
       }, 15000);
 
       // Clean up on abort signal
-      req.signal.addEventListener('abort', () => {
-        if (listener) storeEvents.off('change', listener);
-        if (heartbeat) clearInterval(heartbeat);
-      });
+      const cleanup = () => {
+        if (listener) {
+          storeEvents.off('change', listener);
+          listener = null;
+        }
+        if (heartbeat) {
+          clearInterval(heartbeat);
+          heartbeat = null;
+        }
+        try {
+          controller.close();
+        } catch {}
+      };
+
+      req.signal.addEventListener('abort', cleanup, { once: true });
     },
     cancel() {
-      if (listener) storeEvents.off('change', listener);
-      if (heartbeat) clearInterval(heartbeat);
+      if (listener) {
+        storeEvents.off('change', listener);
+        listener = null;
+      }
+      if (heartbeat) {
+        clearInterval(heartbeat);
+        heartbeat = null;
+      }
     },
   });
 

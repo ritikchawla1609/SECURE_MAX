@@ -14,20 +14,38 @@ test.describe('End-to-End User Journey Lifecycle & Multi-Viewport Quality Gate',
     await expect(page).toHaveURL(/\/dashboard\/admin/);
     await expect(page.locator('text=Command Center').first()).toBeVisible();
 
-    // 3. Register a new user via UI modal or Quick Registration
-    const quickAddName = `Agent-${Date.now().toString().slice(-4)}`;
-    const quickAddEmail = `agent_${Date.now().toString().slice(-4)}@securemax.mil`;
+    // 3. Register a new user via Command Center modal
+    const uniqueId = Date.now().toString().slice(-4);
+    const quickAddName = `Agent-${uniqueId} Cooper`;
+    const quickAddEmail = `agent_${uniqueId}@securemax.mil`;
 
-    const nameInput = page.locator('input[placeholder*="Vikram"], input[placeholder*="Full Name"]').first();
-    const emailInput = page.locator('input[placeholder*="vikram@"], input[placeholder*="Email"]').first();
-    const addMemberBtn = page.locator('button:has-text("Add Member")').first();
+    const addUserBtn = page.locator('button:has-text("+ Add User")').first();
+    await expect(addUserBtn).toBeVisible();
+    await addUserBtn.click();
 
-    if (await nameInput.isVisible() && await emailInput.isVisible()) {
-      await nameInput.fill(quickAddName);
-      await emailInput.fill(quickAddEmail);
-      await addMemberBtn.click();
-      await expect(page.locator(`text=${quickAddName}`).first()).toBeVisible({ timeout: 8000 });
-    }
+    // Wait for the modal to be visible
+    await expect(page.locator('text=Register User Identity')).toBeVisible();
+
+    const nameInput = page.locator('input[placeholder*="Vikram Singh"]').first();
+    const emailInput = page.locator('input[placeholder*="vikram@securemax.mil"]').first();
+    await expect(nameInput).toBeVisible();
+    await expect(emailInput).toBeVisible();
+
+    await nameInput.fill(quickAddName);
+    await emailInput.fill(quickAddEmail);
+
+    const submitRegisterBtn = page.locator('button[type="submit"]:has-text("Register Identity")').first();
+    await expect(submitRegisterBtn).toBeVisible();
+    await submitRegisterBtn.click();
+
+    // Assert registration success & enrollment pairing code generation
+    await expect(page.locator('text=Identity Successfully Registered')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('text=15-Minute / 24-Hour Device Pairing Code')).toBeVisible();
+    
+    // Close registration modal
+    const doneBtn = page.locator('button:has-text("Done")').first();
+    await doneBtn.click();
+    await expect(page.locator('text=Register User Identity')).not.toBeVisible();
 
     // 4. Switch to User Session to test Request Clearance
     const userLoginRes = await page.request.post('/api/auth/demo-login', {
@@ -39,21 +57,45 @@ test.describe('End-to-End User Journey Lifecycle & Multi-Viewport Quality Gate',
     await expect(page).toHaveURL(/\/access/);
     await expect(page.locator('text=My Access').first()).toBeVisible();
 
-    // 5. Submit an access request
-    const requestAccessBtn = page.locator('button:has-text("Request access"), button:has-text("Request New Clearance"), button:has-text("Request Access")').first();
-    if (await requestAccessBtn.isVisible()) {
-      await requestAccessBtn.click();
-      const reasonInput = page.locator('textarea, input[placeholder*="reason"], input[placeholder*="purpose"]').first();
-      if (await reasonInput.isVisible({ timeout: 3000 }).catch(() => false)) {
-        await reasonInput.fill('Phase 6 verification: operational access authorization');
-        const submitBtn = page.locator('button:has-text("SUBMIT REQUEST"), button:has-text("Submit Access Request")').first();
-        if (await submitBtn.isVisible()) {
-          await submitBtn.click();
-        }
-      }
+    // 5. Submit an access clearance request
+    const requestAccessBtn = page.locator('button:has-text("Request access"), button:has-text("Request New Clearance")').first();
+    await expect(requestAccessBtn).toBeVisible();
+    await requestAccessBtn.click();
+
+    // Modal appears
+    await expect(page.locator('h3:has-text("Request access")')).toBeVisible();
+    const reasonInput = page.locator('input[placeholder*="justification"], input[placeholder*="reason"], input[value*="Security review"]').first();
+    await expect(reasonInput).toBeVisible();
+    await reasonInput.fill('Phase 6 verification: operational access authorization');
+
+    const submitRequestBtn = page.locator('button[type="submit"]:has-text("Submit request")').first();
+    await expect(submitRequestBtn).toBeVisible();
+    await submitRequestBtn.click();
+
+    // Verify confirmation notice
+    await expect(page.locator('text=Access Request Submitted!')).toBeVisible({ timeout: 8000 });
+
+    // 6. Admin switches in to approve clearance
+    const adminRelogin = await page.request.post('/api/auth/demo-login', {
+      data: { role: 'ADMIN' },
+    });
+    expect(adminRelogin.ok()).toBeTruthy();
+
+    await page.goto('/dashboard/admin');
+    await expect(page.locator('text=Access requests & live grants').first()).toBeVisible();
+
+    const approveBtn = page.locator('button:has-text("Approve")').first();
+    if (await approveBtn.isVisible({ timeout: 4000 }).catch(() => false)) {
+      await approveBtn.click();
+      await page.waitForTimeout(1000);
     }
 
-    // 6. Navigate to Vault and verify accessible assets
+    // 7. Navigate to Vault and verify accessible assets
+    const userRelogin = await page.request.post('/api/auth/demo-login', {
+      data: { role: 'USER' },
+    });
+    expect(userRelogin.ok()).toBeTruthy();
+
     await page.goto('/assets');
     await expect(page).toHaveURL(/\/assets/);
     await expect(page.locator('text=Secure Data Vault').or(page.locator('text=My Secure Data Vault')).first()).toBeVisible();

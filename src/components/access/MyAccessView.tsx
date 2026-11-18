@@ -494,6 +494,13 @@ export function MyAccessView() {
     }
   };
 
+  React.useEffect(() => {
+    if (showRequestModal && !requestAssetId && assets.length > 0) {
+      const firstRequestable = assets.find(a => !a.canDecrypt);
+      setRequestAssetId(firstRequestable?.id || assets[0].id);
+    }
+  }, [showRequestModal, requestAssetId, assets]);
+
   const handleOpenRequestModal = (asset?: VaultAsset) => {
     if (asset) {
       setRequestAssetId(asset.id);
@@ -507,14 +514,15 @@ export function MyAccessView() {
 
   const handleSubmitAccessRequest = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!requestAssetId) return;
+    const effectiveAssetId = requestAssetId || assets.find(a => !a.canDecrypt)?.id || assets[0]?.id;
+    if (!effectiveAssetId) return;
 
     setSubmittingRequest(true);
-    const targetAsset = assets.find(a => a.id === requestAssetId);
+    const targetAsset = assets.find(a => a.id === effectiveAssetId);
 
     try {
       const result = await submitAccessRequestAction({
-        assetId: requestAssetId,
+        assetId: effectiveAssetId,
         assetCode: targetAsset?.code,
         reason: requestPurpose,
         requestType: 'ASSET_ACCESS',
@@ -1230,7 +1238,7 @@ export function MyAccessView() {
                 <div className="space-y-1">
                   <label className="text-[10px] text-zinc-400 uppercase">Select Asset</label>
                   <select
-                    value={requestAssetId}
+                    value={requestAssetId || (assets.find(a => !a.canDecrypt)?.id || assets[0]?.id || '')}
                     onChange={e => setRequestAssetId(e.target.value)}
                     className="w-full bg-black/60 border border-zinc-800 rounded-md text-zinc-200 text-xs font-mono h-9 px-3 focus:outline-none focus:border-emerald-500"
                   >
@@ -1276,7 +1284,7 @@ export function MyAccessView() {
 
                 <Button 
                   type="submit" 
-                  disabled={submittingRequest || !requestAssetId}
+                  disabled={submittingRequest || (!requestAssetId && assets.length === 0)}
                   className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs h-9 mt-3"
                 >
                   {submittingRequest ? 'Submitting to Blockchain...' : 'Submit request'}

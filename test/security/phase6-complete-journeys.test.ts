@@ -11,7 +11,8 @@ import {
   fetchAllAccessRequestsAction,
   fetchLiveGrantsAction 
 } from '../../src/app/actions/accessRequests';
-import { authorizeAssetAccess } from '../../src/lib/api/access-flow';
+import { authorizeAssetAccess, prepareDecryptionStream } from '../../src/lib/api/access-flow';
+import { Readable } from 'stream';
 import { UserRole, UserStatus } from '../../src/types';
 
 describe('PHASE 6: End-to-End User Journeys & Complete Quality Gate Suite', () => {
@@ -305,5 +306,128 @@ describe('PHASE 6: End-to-End User Journeys & Complete Quality Gate Suite', () =
     deviceStore.saveToDisk();
     const ledgerIntegrity = deviceStore.auditEvents.every(e => Boolean(e.id && (e.created_at || (e as any).timestamp)));
     expect(ledgerIntegrity).toBe(true);
+  });
+
+  it('Journey 11: User uploads → Shares with download flag → Peer initiates decryption stream → Bit-exact download verified', async () => {
+    // 1. Unsuspend User B and its device & establish a fresh active session
+    const userBObj = deviceStore.getUserById(userB.id);
+    if (userBObj) userBObj.status = UserStatus.ACTIVE;
+    const userBDev = deviceStore.devices.get(userBDeviceId);
+    if (userBDev) userBDev.status = 'ACTIVE';
+
+    const freshSessionB = await deviceStore.createSession({
+      userId: userB.id,
+      deviceId: userBDeviceId,
+      position: 'Field Member',
+      authLevel: 'PASSKEY',
+      durationHours: 8,
+    });
+    userBSessionId = freshSessionB.session_id;
+
+    // 2. User A uploads a classified tactical binary document
+    const originalContent = 'RESTRICTED_PAYLOAD_V2::GPS_COORDINATES:34.0522N,118.2437W::CIPHER_SUITE=AES-256-GCM';
+    const uploadedAsset = deviceStore.createAsset({
+      name: 'SatCom_Telemetry_Manifest.dat',
+      folder: 'Engineering',
+      classification: 'RESTRICTED',
+      description: 'Satellite downlink frequency calibration parameters',
+      plaintext: originalContent,
+      ownerId: userA.id,
+      ownerName: userA.name,
+      shareScope: 'SPECIFIC_USER',
+      targetUserId: userB.id,
+      canDecryptShared: true,
+      canDownloadShared: true,
+    });
+
+    expect(uploadedAsset.id).toBeDefined();
+
+    // 3. User B requests decryption authorization token
+    const authResult = await authorizeAssetAccess(
+      userB.id,
+      uploadedAsset.id,
+      userBSessionId,
+      userBDeviceId
+    );
+    expect(authResult.authorized).toBe(true);
+    expect(authResult.tempToken).toBeTruthy();
+
+    // 4. User B requests the streaming decryption transform
+    const decryptStream = await prepareDecryptionStream(
+      uploadedAsset.id,
+      uploadedAsset.iv,
+      uploadedAsset.auth_tag,
+      authResult.tempToken,
+      userBSessionId
+    );
+
+    // 5. Pipe ciphertext through stream and verify bit-exact reconstructed file
+    const cipherBuffer = Buffer.from(uploadedAsset.encrypted_content, 'base64');
+    const inputReadable = Readable.from(cipherBuffer);
+    const decryptedChunks: Buffer[] = [];
+
+    await new Promise<void>((resolve, reject) => {
+      inputReadable
+        .pipe(decryptStream)
+        .on('data', (chunk: Buffer) => decryptedChunks.push(chunk))
+        .on('end', () => resolve())
+        .on('error', (err: any) => reject(err));
+    });
+
+    const reconstructedPlaintext = Buffer.concat(decryptedChunks).toString('utf8');
+    expect(reconstructedPlaintext).toBe(originalContent);
+  });
+
+  it('Journey 12: TTL Expiration Boundary: Expired access assignment automatically locks decryption', async () => {
+    // 1. User A creates an asset with an already-expired access assignment for User B
+    const expiredAsset = deviceStore.createAsset({
+      name: 'Emergency_Directive_Alpha.txt',
+      folder: 'Projects',
+      classification: 'CONFIDENTIAL',
+      description: 'Temporary protocol expired 10 minutes ago',
+      plaintext: 'EMERGENCY SHUTDOWN CODE: 0x999',
+      ownerId: userA.id,
+      ownerName: userA.name,
+      shareScope: 'PRIVATE',
+    });
+
+    // Explicitly set an expired timestamp in User B's assignment
+    const pastTime = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+    deviceStore.setAssignment(
+      expiredAsset.id,
+      userB.id,
+      true, // can_read
+      true, // can_decrypt
+      true, // can_download
+      false,
+      false,
+      pastTime // expiredAt
+    );
+
+    // 2. User B attempts decryption on expired assignment
+    await expect(
+      authorizeAssetAccess(userB.id, expiredAsset.id, userBSessionId, userBDeviceId)
+    ).rejects.toThrow(/revoked|restricted|expired/i);
+  });
+
+  it('Journey 13: Concurrent Access & Replay Immunity: Parallel requests maintain store integrity', async () => {
+    // Perform 5 concurrent authorization and access recording cycles
+    const concurrentRequests = Array.from({ length: 5 }).map(async () => {
+      const auth = await authorizeAssetAccess(userA.id, createdAsset.id, userA.sessionId, userA.deviceId);
+      deviceStore.recordAssetAccess(createdAsset.id, userA.id, 'DECRYPT', 'SUCCESS', 'Concurrent stream authorization');
+      return auth;
+    });
+
+    const results = await Promise.all(concurrentRequests);
+    expect(results).toHaveLength(5);
+    results.forEach(res => {
+      expect(res.authorized).toBe(true);
+      expect(res.tempToken).toBeTruthy();
+    });
+
+    // Verify audit events were recorded without race-condition corruption
+    const currentAsset = deviceStore.assets.get(createdAsset.id);
+    expect(currentAsset).toBeDefined();
+    expect(currentAsset!.access_history.length).toBeGreaterThanOrEqual(6); // 1 initial creation + 5 concurrent
   });
 });
