@@ -85,7 +85,9 @@ interface VaultAsset {
   fileType: string;
   mimeType: string;
   fileSizeBytes: number;
+  ownerId?: string;
   ownerName: string;
+  isOwner?: boolean;
   blockchainTokenId?: string;
   blockchainContract?: string;
   did?: string;
@@ -907,6 +909,14 @@ export function MyAccessView() {
                   {assets.map(asset => {
                     const isPending = pendingAssetIds.includes(asset.id) || 
                       (realtimeData?.pendingRequests && realtimeData.pendingRequests.some((r: any) => r.assetCode === asset.code));
+                    const isOwner = Boolean(
+                      asset.isOwner || 
+                      (currentUser && (
+                        (asset.ownerId && asset.ownerId === currentUser.id) || 
+                        (currentUser.name && asset.ownerName && asset.ownerName.toLowerCase() === currentUser.name.toLowerCase())
+                      ))
+                    );
+                    const canAccess = Boolean(asset.canDecrypt || isAdmin || isOwner);
                     
                     return (
                       <div 
@@ -931,10 +941,10 @@ export function MyAccessView() {
                         </div>
 
                         <div className="flex items-center gap-3">
-                          {asset.canDecrypt || isAdmin ? (
+                          {canAccess ? (
                             <>
                               <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[10px]">
-                                {isAdmin ? 'admin' : 'cleared'}
+                                {isAdmin ? 'admin' : isOwner ? 'owner' : 'cleared'}
                               </Badge>
                               <Button
                                 size="sm"

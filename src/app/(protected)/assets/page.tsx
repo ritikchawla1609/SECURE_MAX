@@ -201,14 +201,25 @@ export default function AssetsPage() {
     }
   };
 
+  // Sovereign clearance check: Admin or File Owner has permanent unfettered decrypt clearance
+  const canUserAccess = React.useCallback((asset: AssetRecord) => {
+    return Boolean(
+      asset.canDecrypt ||
+      userRole === 'ADMIN' ||
+      asset.isOwner ||
+      (currentUserId && asset.ownerId === currentUserId) ||
+      (userName && asset.ownerName && asset.ownerName.toLowerCase() === userName.toLowerCase())
+    );
+  }, [userRole, currentUserId, userName]);
+
   // Decrypt Action
   const handleDecryptAsset = async (asset: AssetRecord) => {
-    if (userRole !== 'ADMIN' && !asset.canDecrypt) {
+    if (!canUserAccess(asset)) {
       setRequestNotice(`Access Denied: You must request access from an administrator and receive approval before opening or downloading ${asset.name}.`);
       return;
     }
 
-    const isDownloadAllowed = userRole === 'ADMIN' ? true : Boolean(asset.canDownload && asset.canDecrypt);
+    const isDownloadAllowed = canUserAccess(asset);
 
     setPreviewState({
       isOpen: true,
@@ -291,6 +302,16 @@ export default function AssetsPage() {
           }
           return next;
         });
+
+        // Broadcast immediately to Admin Command Center across tabs & windows
+        if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+          try {
+            const bc = new BroadcastChannel('securemax_realtime');
+            bc.postMessage({ type: 'REQUEST_SUBMITTED', payload: { assetId, request: res.request }, timestamp: Date.now() });
+            bc.close();
+          } catch {}
+        }
+
         setRequestNotice('Request submitted! Awaiting Administrator NFT permit approval.');
         setTimeout(() => setRequestNotice(null), 4000);
         fetchAssets();
@@ -762,7 +783,7 @@ export default function AssetsPage() {
 
                     {/* Actions */}
                     <td className="px-5 py-4 text-right space-x-2 whitespace-nowrap">
-                      {asset.canDecrypt || userRole === 'ADMIN' ? (
+                      {canUserAccess(asset) ? (
                         <Button
                           size="sm"
                           onClick={() => handleDecryptAsset(asset)}
@@ -935,7 +956,7 @@ export default function AssetsPage() {
                   </div>
 
                   <div>
-                    {asset.canDecrypt || userRole === 'ADMIN' ? (
+                    {canUserAccess(asset) ? (
                       <Button
                         size="sm"
                         onClick={() => handleDecryptAsset(asset)}
