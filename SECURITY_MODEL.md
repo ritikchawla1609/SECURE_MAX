@@ -1,7 +1,7 @@
 # SecureMax Security Model
 
 ## 1. Security Philosophy
-SecureMax (SIH26125) is built upon a foundation of **Zero-Trust architecture**, **defense-in-depth**, and **fail-closed** design. 
+SecureMax is built upon a foundation of **Zero-Trust architecture**, **defense-in-depth**, and **fail-closed** design. 
 
 The core operating principle of SecureMax is: **AUTHORIZATION ≠ DECRYPTION**. 
 In traditional systems, if a user is authorized, they are implicitly granted the ability to read the file. In SecureMax, these are two separate steps across two separate boundaries. 
@@ -148,7 +148,7 @@ SecureMax utilizes two separated blockchain domains to enforce the authorization
 ## 12. Prototype Security Limitations (Honest Compromises)
 
 > [!WARNING]
-> The SIH26125 prototype includes specific limitations for feasibility.
+> The current architecture phase includes specific limitations for feasibility.
 - **Software KMS:** Uses a server-side TypeScript KMS. Production requires an HSM-backed KMS (e.g., AWS KMS, HashiCorp Vault).
 - **Shared Testnet:** Both Chain-1 and Chain-2 operate on the Sepolia testnet in separate namespaces. Production demands physically distinct networks or dedicated app-chains.
 - **No Hardware Attestation:** Lacks FIDO2/WebAuthn hardware-bound identity verification.

@@ -3,7 +3,7 @@
 ## Overview
 SecureMax employs a **dual-domain architecture** separating Identity/Access from Key Management. 
 **Why two logical chains?** This separation minimizes systemic risk. The Identity/Access domain manages who you are and what you can request. The Key Management domain manages cryptographic authorizations. An exploit in one domain does not immediately compromise the other, as the KMS requires valid proofs from both to release a decryption key.
-**Prototype Compromise:** For the SIH prototype realism and ease of Vercel deployment, both contract sets are deployed to the *same* EVM testnet (e.g., Sepolia). However, they use completely separate contract namespaces, deployer accounts, and ABI surfaces to emulate the architectural separation. In a production environment, these would be on physically separate networks or isolated L2s.
+**Prototype Compromise:** For staging realism and ease of initial deployment, both contract sets are deployed to the *same* EVM testnet (e.g., Sepolia). However, they use completely separate contract namespaces, deployer accounts, and ABI surfaces to emulate the architectural separation. In a production environment, these would be on physically separate networks or isolated L2s.
 
 ## Architecture Diagram
 ```mermaid

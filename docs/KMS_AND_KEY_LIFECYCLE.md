@@ -42,7 +42,7 @@ When a user requests to preview or download a classified document:
    - `jti`: Cryptographically random UUIDv4 token identifier
    - `exp`: Short-lived TTL (10 minutes)
 3. **Atomic One-Time Redemption**:
-   - The token must be redeemed via [`redeemDecryptionToken()`](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/src/lib/kms/redemption.ts).
+   - The token must be redeemed via [`redeemDecryptionToken()`](../src/lib/kms/redemption.ts).
    - The server maintains atomic consumption state. If the same `jti` is submitted again, redemption is denied immediately with `TOKEN_ALREADY_REDEEMED`.
    - Parallel concurrent redemption requests are serialized using an atomic lock; only the first request succeeds.
 

@@ -1,6 +1,6 @@
 # SecureMAX Known Limitations & Engineering Disclosures
 
-> **Standard**: Honest, transparent reporting for hackathon evaluation and production hardening.
+> **Standard**: Honest, transparent reporting for security evaluation and production hardening.
 
 ---
 

@@ -259,8 +259,8 @@ The architecture heavily relies on the Next.js API layer acting as the secure or
 ## 8. Deployment Architecture
 For detailed deployment configurations, infrastructure setup, and environment variables, refer to the [DEPLOYMENT_ARCHITECTURE.md](./DEPLOYMENT_ARCHITECTURE.md) document.
 
-## 9. Honest Prototype Compromises
-As an SIH prototype, the following deliberate architectural compromises were made and must be addressed for a production release:
+## 9. Deliberate Prototype Compromises
+In this current phase, the following deliberate architectural compromises were made and must be addressed for a production release:
 
 1. **Both chains on same testnet**: Chain-1 and Chain-2 are deployed to the same EVM testnet (Sepolia) using namespaces. Production would physically separate them onto distinct networks or L2s.
 2. **Software KMS**: We use a TypeScript software KMS abstraction. Production requires an HSM-backed service (e.g., AWS KMS, Azure Key Vault).

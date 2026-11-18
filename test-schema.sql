@@ -1,5 +1,5 @@
 -- ============================================================
--- SecureMax SIH26125 — Final Database Schema Migration
+-- SecureMax — Final Database Schema Migration
 -- Supabase PostgreSQL (21 Required Tables)
 -- ============================================================
 

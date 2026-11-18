@@ -1,7 +1,7 @@
 # SecureMax - Project Specification
 
 ## Executive Summary
-SecureMax is a "Self-Defending Decentralized Identity & Secure Digital Asset Access Platform" developed for the SIH26125 challenge by Bharat Electronics Limited (BEL). It addresses the critical vulnerabilities of centralized identity and access management (IAM) systems in defense contexts by decentralizing access control and explicitly separating authorization from decryption.
+SecureMax is a "Self-Defending Decentralized Identity & Secure Digital Asset Access Platform" developed for mission-critical and defense-grade environments. It addresses the critical vulnerabilities of centralized identity and access management (IAM) systems in defense contexts by decentralizing access control and explicitly separating authorization from decryption.
 
 ## Problem Statement
 In traditional defense networks, centralized IAM systems represent a single point of failure and a high-value target for adversaries. If the central directory or key server is compromised, the entire system's security collapses, allowing unauthorized access to highly sensitive digital assets. Furthermore, legacy systems often conflate the right to access a system with the ability to decrypt data, leading to broad data exposure upon compromise.
@@ -97,7 +97,7 @@ The SecureMax architecture comprises several distinct components working in conc
 
 ## Prototype Scope & Limitations
 > [!IMPORTANT]
-> Honest Compromises for SIH Prototype:
+> Deliberate Compromises for Current Architecture Phase:
 > 1. **Testnet Deployment:** Both chains operate on the same testnet (Sepolia) in different namespaces. Production requires physically separate networks.
 > 2. **Software KMS:** Uses a server-side TypeScript KMS abstraction. Production requires HSM-backed services.
 > 3. **Gas Fees:** Paid by deployer wallets. Production needs meta-transactions/gas stations.

@@ -1,6 +1,6 @@
 # SecureMax Testing Strategy
 
-This document outlines the testing methodology, infrastructure, and explicit security verification cases for the SecureMax (SIH26125) platform.
+This document outlines the testing methodology, infrastructure, and explicit security verification cases for the SecureMax platform.
 
 ## 1. Testing Philosophy
 - **Security-First Verification**: Testing validates not just that the system works when used correctly, but that it robustly *fails closed* when used incorrectly, maliciously, or when dependencies fail.

@@ -2,7 +2,7 @@
 
 > **Classification**: ARCHITECTURAL BASELINE (AS-IS)  
 > **Date**: October 2026  
-> **Repository**: `SECURE_MAX` (SIH26125)  
+> **Repository**: `SECURE_MAX`  
 > **Source Verification**: Verified from source code inspection  
 
 ---

@@ -1,5 +1,5 @@
 -- ============================================================
--- SecureMax SIH26125 — Additive Database Evolution
+-- SecureMax — Additive Database Evolution
 -- Safely extending the existing 21-table schema without drops
 -- ============================================================
 

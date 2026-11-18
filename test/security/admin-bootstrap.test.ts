@@ -99,7 +99,7 @@ describe('SecureMAX Admin Root Identity & One-Time Bootstrap Ceremony Suite', ()
 
     it('SHOULD EXECUTE BOOTSTRAP: Successfully creates Root Admin, singleton device, recovery package, and locks system', () => {
       const oldSecret = process.env.ADMIN_BOOTSTRAP_SECRET;
-      process.env.ADMIN_BOOTSTRAP_SECRET = 'SECUREMAX_SIH_2026_ROOT_BOOTSTRAP_KEY';
+      process.env.ADMIN_BOOTSTRAP_SECRET = 'SECUREMAX_PROD_ROOT_BOOTSTRAP_KEY';
 
       try {
         const result = deviceStore.bootstrapRootAdmin({
@@ -115,7 +115,7 @@ describe('SecureMAX Admin Root Identity & One-Time Bootstrap Ceremony Suite', ()
           os: 'macOS',
           browser: 'Chrome',
           publicKey: 'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEadmin_p256_key',
-          bootstrapSecret: 'SECUREMAX_SIH_2026_ROOT_BOOTSTRAP_KEY',
+          bootstrapSecret: 'SECUREMAX_PROD_ROOT_BOOTSTRAP_KEY',
         });
 
         // 1. Root admin identity verified

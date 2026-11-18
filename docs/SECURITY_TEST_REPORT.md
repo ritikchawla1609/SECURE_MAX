@@ -1,7 +1,7 @@
 # SecureMAX Security Test & Validation Report
 
-> **Classification**: Formal Verification & Hackathon Assessment Dossier  
-> **Target Release**: SecureMAX v1.0.0-hackathon (`READY_FOR_DEMO`)  
+> **Classification**: Formal Verification & Security Assessment Dossier  
+> **Target Release**: SecureMAX v1.0.0 (`READY_FOR_DEMO`)  
 > **Date**: October 2026  
 > **Repository Remote**: `git@github.com:ritikchawla1609/SECURE_MAX.git`
 
@@ -68,7 +68,7 @@ Sentinel executes controlled, deterministic security attacks against real enforc
 
 ## 3. Cryptographic Replay & Atomic Redemption Suite
 
-Implemented in [`src/lib/kms/redemption.ts`](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/src/lib/kms/redemption.ts) and verified via [`test/security/decryption-auth-replay.test.ts`](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/test/security/decryption-auth-replay.test.ts):
+Implemented in [`src/lib/kms/redemption.ts`](../src/lib/kms/redemption.ts) and verified via [`test/security/decryption-auth-replay.test.ts`](../test/security/decryption-auth-replay.test.ts):
 - **15 targeted unit tests** proving:
   - 10-minute maximum token TTL (resolves the documented vs actual token lifetime discrepancy).
   - Cryptographic token claims validated: `sub`, `assetId`, `tenantId`, `sessionId`, `jti`, `keyVersionId`, `operation: "decrypt"`.
@@ -93,7 +93,7 @@ Executed via `npx hardhat test` across:
 
 ## 5. Standalone Audit Verifier
 
-Implemented in [`scripts/verify-audit.ts`](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/scripts/verify-audit.ts) and verified in [`test/security/audit-chain-verification.test.ts`](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/test/security/audit-chain-verification.test.ts):
+Implemented in [`scripts/verify-audit.ts`](../scripts/verify-audit.ts) and verified in [`test/security/audit-chain-verification.test.ts`](../test/security/audit-chain-verification.test.ts):
 - Standalone verification module that parses exported JSON evidence bundles independently without trusting the dashboard.
 - Recalculates every SHA-256 event hash, checks previous-hash linkage across 100+ events, builds Merkle trees, and verifies inclusion proofs.
 - Correctly detects and flags:

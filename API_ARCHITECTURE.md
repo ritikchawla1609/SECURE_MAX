@@ -1,6 +1,6 @@
 # SecureMax API Architecture
 
-This document defines the backend API architecture for SecureMax (SIH26125), outlining principles, middleware, standard formats, and a detailed endpoint reference.
+This document defines the backend API architecture for SecureMax, outlining principles, middleware, standard formats, and a detailed endpoint reference.
 
 ## 1. API Design Principles
 

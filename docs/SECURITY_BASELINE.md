@@ -2,7 +2,7 @@
 
 > **Classification**: CONFIDENTIAL / DEFENSE PLATFORM AUDIT  
 > **Date**: October 2026  
-> **Repository**: `SECURE_MAX` (SIH26125)  
+> **Repository**: `SECURE_MAX`  
 > **Audit Status**: Baseline Verified Pre-Hardening  
 
 ---

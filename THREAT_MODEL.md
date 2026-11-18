@@ -138,7 +138,7 @@ Sentinel directly tests mitigations for critical threats:
 
 ## 11. Residual Risk Acceptance (Prototype Level)
 > [!NOTE]
-> The following risks are accepted for the SIH26125 prototype:
+> The following risks are accepted for the current prototype:
 - **Software KMS Extracation (TM-11):** We accept the risk that a memory dump of the Vercel instance could expose the Master Key, as we cannot procure an HSM for the prototype.
 - **Wallet Theft (TM-03):** We rely on user operational security for their private keys.
 

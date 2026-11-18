@@ -2,7 +2,7 @@
 
 > **Classification**: ARCHITECTURAL DATA FLOW (AS-IS)  
 > **Date**: October 2026  
-> **Repository**: `SECURE_MAX` (SIH26125)  
+> **Repository**: `SECURE_MAX`  
 
 ---
 

@@ -138,16 +138,16 @@ npx tsx scripts/verify-audit.ts
 
 ## 7. Documentation Matrix
 
-- [**`docs/SECURITY_BASELINE.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/SECURITY_BASELINE.md): Comprehensive baseline security audit and initial state assessment.
-- [**`docs/THREAT_MODEL.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/THREAT_MODEL.md): Assets, trust boundaries, threat actors, attack surfaces, and mitigations.
-- [**`docs/SECURITY_INVARIANTS.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/SECURITY_INVARIANTS.md): Non-negotiable cryptographic and authorization rules.
-- [**`docs/SECURITY_TEST_REPORT.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/SECURITY_TEST_REPORT.md): Full test results across 215 automated assertions.
-- [**`docs/SMART_CONTRACT_SECURITY.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/SMART_CONTRACT_SECURITY.md): EVM access control and lifecycle specification.
-- [**`docs/KMS_AND_KEY_LIFECYCLE.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/KMS_AND_KEY_LIFECYCLE.md): Envelope encryption, KEK/DEK derivation, and anti-replay tokens.
-- [**`docs/AUDIT_VERIFICATION.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/AUDIT_VERIFICATION.md): Hash-chain and Merkle tree verification runbook.
-- [**`docs/DEMO_RUNBOOK.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/DEMO_RUNBOOK.md): Step-by-step 8-stage presentation guide for hackathon judges.
-- [**`docs/KNOWN_LIMITATIONS.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/KNOWN_LIMITATIONS.md): Transparent disclosures regarding test fixtures and latency.
-- [**`docs/qa/INTERACTION_INVENTORY.md`**](file:///Users/ritikchawla/Downloads/securemax-sih-2026-main-4/docs/qa/INTERACTION_INVENTORY.md): Central QA matrix mapping 78 interactive controls across 17 routes.
+- [**`docs/SECURITY_BASELINE.md`**](docs/SECURITY_BASELINE.md): Comprehensive baseline security audit and initial state assessment.
+- [**`docs/THREAT_MODEL.md`**](docs/THREAT_MODEL.md): Assets, trust boundaries, threat actors, attack surfaces, and mitigations.
+- [**`docs/SECURITY_INVARIANTS.md`**](docs/SECURITY_INVARIANTS.md): Non-negotiable cryptographic and authorization rules.
+- [**`docs/SECURITY_TEST_REPORT.md`**](docs/SECURITY_TEST_REPORT.md): Full test results across 215 automated assertions.
+- [**`docs/SMART_CONTRACT_SECURITY.md`**](docs/SMART_CONTRACT_SECURITY.md): EVM access control and lifecycle specification.
+- [**`docs/KMS_AND_KEY_LIFECYCLE.md`**](docs/KMS_AND_KEY_LIFECYCLE.md): Envelope encryption, KEK/DEK derivation, and anti-replay tokens.
+- [**`docs/AUDIT_VERIFICATION.md`**](docs/AUDIT_VERIFICATION.md): Hash-chain and Merkle tree verification runbook.
+- [**`docs/DEMO_RUNBOOK.md`**](docs/DEMO_RUNBOOK.md): Step-by-step 8-stage presentation guide for technical evaluation and product walkthrough.
+- [**`docs/KNOWN_LIMITATIONS.md`**](docs/KNOWN_LIMITATIONS.md): Transparent disclosures regarding test fixtures and latency.
+- [**`docs/qa/INTERACTION_INVENTORY.md`**](docs/qa/INTERACTION_INVENTORY.md): Central QA matrix mapping 78 interactive controls across 17 routes.
 
 ---
 

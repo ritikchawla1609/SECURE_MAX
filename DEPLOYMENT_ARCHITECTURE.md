@@ -2,7 +2,7 @@
 
 ## 1. Deployment Overview
 
-SecureMax uses a modern, serverless deployment stack tailored for the SIH prototype.
+SecureMax uses a modern, serverless deployment stack tailored for high security and rapid deployment.
 
 ```mermaid
 graph TD
@@ -53,7 +53,7 @@ graph TD
 - **Framework**: Hardhat.
 - **Deployer Wallet Management**: Two separate deployment accounts are maintained to simulate the physical separation of Chain-1 and Chain-2.
 - **Scripts**: Automated deploy scripts (`scripts/deploy-chain1.ts` and `scripts/deploy-chain2.ts`).
-- **Verification**: Contracts are verified on Etherscan for transparency during the SIH evaluation.
+- **Verification**: Contracts are verified on Etherscan for transparency during external security evaluation.
 
 ## 5. Environment Variable Reference
 
@@ -139,7 +139,7 @@ NODE_ENV=development
 - **Secrets**: If `SECUREMAX_KMS_MASTER_KEY` is compromised, all data must be re-encrypted. Strict rotation policies for environment variables are required.
 
 ## 11. Production Readiness Checklist
-Before migrating from the SIH prototype to a real production environment, the following must be implemented:
+Before migrating to an enterprise on-premise production environment, the following must be implemented:
 - [ ] **HSM KMS**: Replace the software KMS with AWS KMS, Azure Key Vault, or an on-premise HSM.
 - [ ] **Private Blockchain / AppChain**: Move off public testnets to a private Hyperledger Besu consortium network, or a sovereign L2 rollup for privacy and predictable throughput.
 - [ ] **Multi-Region**: Deploy the application across multiple regions for high availability.

@@ -1,5 +1,5 @@
 -- ============================================================
--- SecureMax SIH26125 — Final Reconciled Schema Migration
+-- SecureMax — Final Reconciled Schema Migration
 -- Supabase PostgreSQL (21 Required Tables)
 -- ============================================================
 

@@ -1,6 +1,6 @@
-# SecureMAX Hackathon Demonstration Runbook
+# SecureMAX Demonstration Runbook
 
-> **Audience**: Hackathon Judges, Security Auditors, Technical Evaluators  
+> **Audience**: Security Auditors, Technical Evaluators, Enterprise Stakeholders  
 > **Estimated Walkthrough Time**: 5–8 minutes  
 > **Core Narrative**: *"SecureMAX combines zero-trust cryptographic access control with blockchain-backed evidence. Sentinel tests whether the authorization and cryptographic enforcement boundaries actually withstand adversarial requests."*
 

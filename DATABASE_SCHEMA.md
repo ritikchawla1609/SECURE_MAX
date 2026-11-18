@@ -1,7 +1,7 @@
 # SecureMax Database Schema
 
 ## Database Overview
-SecureMax utilizes **Supabase PostgreSQL** as its primary relational database. This schema has been expanded to strictly follow the 21 required entities for the SIH26125 prototype.
+SecureMax utilizes **Supabase PostgreSQL** as its primary relational database. This schema has been expanded to strictly follow the 21 required entities for the SecureMax platform.
 
 ## PostgreSQL ENUM Types
 - `user_status`: ACTIVE, SUSPENDED, REVOKED
